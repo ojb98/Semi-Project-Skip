@@ -1,0 +1,343 @@
+.resort_container {
+	width: 1230px;
+	margin: 50px auto;
+	min-height: 852px;
+}
+
+.resort_menu {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.search_box {
+	position: relative;
+}
+
+.search_box .search {
+	display: inline-block;
+	width: 150px;
+	padding: 10px 10px 10px 35px;
+	box-sizing: border-box;
+	border: 1px solid #000;
+	border-radius: 10px;
+}
+
+.search_box .fa-search {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 10px;
+	cursor: pointer;
+}
+
+.search_box::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	width: 10px;
+	height: 12px;
+	color: #000;
+}
+
+/* 캘린더 박스 */
+.calendar_box {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.calendar_box input[type='date'] {
+	height: 36px;
+	border: 1px solid #000;
+	border-radius: 5px;
+}
+
+/* 인원 박스 */
+.select_box {
+	display: flex;
+}
+
+.select_box select {
+	width: 50px;
+	height: 36px;
+	text-align: center;
+	margin-left: 10px;
+}
+
+/* resort_info */
+.resort_info {
+	margin-top: 20px;
+}
+
+/* 리조트 이미지 박스 */
+.resort_img {
+	display: grid;
+	grid-template-columns: 50% 50%; /* 왼쪽 50%, 오른쪽 50% */
+	gap: 10px;
+	align-items: center;
+}
+
+.main_img,
+.sub_img_container {
+	height: 400px;
+}
+
+.main_img {
+	width: 100%;
+	background: url(../img/resort_img1.jpg) no-repeat center / cover;
+	border-radius: 10px;
+}
+
+.sub_img_container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr); /* 2열 */
+	grid-template-rows: repeat(2, 1fr); /* 2행 */
+	gap: 10px;
+}
+
+.sub_img_container .sub_img1,
+.sub_img_container .sub_img2,
+.sub_img_container .sub_img3,
+.sub_img_container .sub_img4 {
+	border-radius: 10px;
+}
+
+.sub_img_container .sub_img1 {
+	background: url(../img/resort_img2.jpg) no-repeat center / cover;
+}
+.sub_img_container .sub_img2 {
+	background: url(../img/resort_img3.jpg) no-repeat center / cover;
+}
+.sub_img_container .sub_img3 {
+	background: url(../img/resort_img4.jpg) no-repeat center / cover;
+}
+.sub_img_container .sub_img4 {
+	background: url(../img/resort_img1.jpg) no-repeat center / cover;
+}
+
+/* resort_title */
+.resort_title {
+	margin-top: 20px;
+}
+
+.resort_title h3 {
+	font-size: 12px;
+	color: #8d8d8d;
+}
+
+.resort_title h2,
+.price {
+	font-size: 20px;
+	font-weight: 700;
+	margin-top: 10px;
+}
+
+.title_top,
+.title_bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* 리뷰, 부대시설, 지도  */
+/* 공통 */
+.resort_features {
+	margin-top: 20px;
+	display: flex;
+	gap: 15px;
+}
+
+.features_item {
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #a0a0a08a;
+	border-radius: 5px;
+}
+
+.features_item .title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.features_item .content {
+	margin-top: 15px;
+}
+
+/* 리뷰 */
+.features_review .content p {
+	display: -webkit-box;
+	-webkit-line-clamp: 2; /* 최대 줄 수 (2줄) */
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: 22px;
+}
+
+/* 부대시설 */
+.features_facilty .content {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 5%;
+}
+
+.features_facilty .content .facilty {
+	width: 30%;
+}
+
+.features_facilty .content .facilty .fa {
+	margin-right: 4px;
+}
+
+.features_facilty .content .facilty:nth-child(1) {
+	background: url(../img/dumbbell.png) no-repeat center / cover;
+}
+
+.features_facilty .content .facilty:nth-child(5) {
+	background: url(../img/noSmoking.png) no-repeat center / cover;
+}
+
+.features_facilty .content .facilty:nth-child(1),
+.features_facilty .content .facilty:nth-child(5) {
+	margin-bottom: 12px;
+	padding-left: 20px;
+	box-sizing: border-box;
+	background-size: 16px;
+	background-position: left;
+}
+
+/* 위치 */
+.features_location p:first-child {
+	margin-bottom: 12px;
+}
+
+.features_location p span {
+	color: dodgerblue;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.features_location .fa {
+	margin-right: 5px;
+}
+
+/* 객실 정보 */
+.room_section {
+	margin-top: 70px;
+}
+
+.room_section h2 {
+	font-size: 24px;
+	font-weight: 700;
+}
+
+.room_section .room_type {
+	display: flex;
+	margin-top: 30px;
+}
+
+/* 객실 방 이미지 */
+.room_section .room_type .main_img {
+	width: 30%;
+	height: 250px;
+	background: url(../img/resort_img1.jpg) no-repeat center / cover;
+	position: relative;
+}
+
+.room_type .main_img .img_plus {
+	font-size: 12px;
+	color: #fff;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	background-color: #75736cbb;
+	padding: 5px;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+/* 객실 방 컨텐츠 */
+.room_section .room_type .room_details {
+	width: 70%;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.room_details h3 {
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.room_details .room_details_top {
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.room_details_top .check_in_out {
+	font-size: 14px;
+	color: #999;
+	margin-top: 20px;
+}
+
+.room_details_top .check_in_out p .fa-clock-o {
+	margin-right: 7px;
+}
+
+.room_details_top .check_in_out p:last-child {
+	margin: 7px 0 0 20px;
+}
+
+.room_details .room_price {
+	text-align: right;
+}
+
+.room_price .price {
+	font-weight: 700;
+}
+
+.room_price .room_msg {
+	margin-top: 10px;
+	font-size: 14px;
+	color: red;
+}
+
+.room_price .room_btn {
+	color: #fff;
+	margin-top: 10px;
+	width: 80px;
+	height: 30px;
+	background-color: #5399f5;
+	border: none;
+	border-radius: 7px;
+}
+
+.room_price .room_btn:hover {
+	background-color: #2c7fec;
+}
+
+.room_description {
+	margin-top: 44px;
+	font-size: 14px;
+}
+
+.room_description span {
+	display: inline-block;
+	margin: 10px 20px 0 0;
+}
+
+/* 탭 메뉴 */
+
+/* 리뷰 */
+.review h2 {
+	font-size: 24px;
+	font-weight: 700;
+}
+
+
+
+

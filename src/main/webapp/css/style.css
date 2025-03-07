@@ -1,7 +1,13 @@
-@charset "UTF-8";
-
 /* common */
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
+/* 영역별 css*/
+@import url('./css/search.css');
+@import url('./css/detail.css');
+@import url('./css/save.css');
+@import url('./css/cart.css');
+@import url('./css/pay.css');
+@import url('./css/login.css');
 
 html {
 	min-width: 1250px;
@@ -16,9 +22,6 @@ header {
 	font-family: 'GumiRomanceTTF';
 	font-style: italic;
 	color: #5399f5;
-}
-
-.header_logo {
 	font-size: 24px;
 	font-weight: 700;
 	line-height: 58px;
@@ -58,7 +61,7 @@ header {
 
 /* main */
 main {
-	min-height: 852px;
+	min-height: 543px;
 	margin-bottom: 100px;
 }
 
@@ -77,6 +80,7 @@ main {
 	margin-top: -55px;
 	box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.07), 0 0 3px 0 rgba(0, 0, 0, 0.07);
 	position: relative;
+	display: flex;
 }
 
 .menu_btn,
@@ -89,7 +93,7 @@ main {
 
 /* 스키장 어디로 가시나요 버튼 */
 .menu_btn {
-	width: calc(100% - 150px);
+	flex: 1;
 	height: 64px;
 	font-size: 16px;
 	margin-right: 5px;
@@ -271,13 +275,13 @@ footer {
 }
 
 .blog {
-	background-image: url('/img/blog_icon.png');
+	background-image: url('../img/blog_icon.png');
 }
 .kakao {
-	background-image: url('/img/kakao_icon.png');
+	background-image: url('../img/kakao_icon.png');
 }
 .instagram {
-	background-image: url('/img/instagram_icon.png');
+	background-image: url('../img/instagram_icon.png');
 }
 
 /* 하단 텍스트 영역 */

@@ -1,0 +1,84 @@
+.save_container {
+	width: 1230px;
+	margin: 50px auto;
+}
+
+.save_container .save_title {
+	display: flex;
+	justify-content: space-between;
+}
+
+.save_container .save_title h2 {
+	display: inline-block;
+	padding: 10px 40px;
+	border-radius: 10px;
+	background-color: #5399f5;
+	color: #fff;
+}
+
+/* save_box */
+.save_box {
+	margin-top: 20px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: 20px;
+	grid-row-gap: 30px;
+}
+
+.save_item {
+	position: relative;
+}
+
+.save_item .heart_btn {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	font-size: 24px;
+}
+
+.save_item .item_img {
+	height: 260px;
+	border-radius: 10px;
+}
+
+.save_item .item_img:hover {
+	background-size: 120%;
+}
+
+.save_item .img1 {
+	background: url(../img/resort_img1.jpg) no-repeat center / cover;
+}
+.save_item .img2 {
+	background: url(../img/resort_img2.jpg) no-repeat center / cover;
+}
+.save_item .img3 {
+	background: url(../img/resort_img3.jpg) no-repeat center / cover;
+}
+.save_item .img4 {
+	background: url(../img/resort_img4.jpg) no-repeat center / cover;
+}
+.save_item .img5 {
+	background: url(../img/resort_img1.jpg) no-repeat center / cover;
+}
+.save_item .img6 {
+	background: url(../img/resort_img2.jpg) no-repeat center / cover;
+}
+
+.save_item .item_text h4 {
+	font-size: 12px;
+	color: #6f7077;
+	margin: 20px 0 10px 0;
+}
+
+.item_text .item_bottom {
+	display: flex;
+	justify-content: space-between;
+}
+
+.item_bottom .left {
+	display: flex;
+}
+
+.item_bottom .left h3 {
+	margin-right: 5px;
+}

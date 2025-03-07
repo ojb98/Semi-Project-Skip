@@ -4,25 +4,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">
 <title>Insert title here</title>
-
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/reset.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/font.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/search.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/detail.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/save.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/cart.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/pay.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css">
 </head>
-</style>
 <body>
- <!-- header -->
+	  <!-- header -->
   <header>
     <nav class="header_nav">
       <div class="header_menu">
         <div class="header_logo">
           <h1>
-            <a href="index.jsp">SKI:P</a>
+            <a href="<%=request.getContextPath() %>index.jsp">SKI:P</a>
           </h1>
         </div>
         <div class="login">
           <ul>
             <li>
-              <a href="#none">로그인</a>
+              <a href="login.jsp">로그인</a>
             </li>
             <li>
               <a href="#none">로그아웃</a>
@@ -31,10 +37,10 @@
               <a href="#none">마이페이지</a>
             </li>
             <li>
-              <a href="#none">찜</a>
+              <a href="save.jsp">찜</a>
             </li>
             <li>
-              <a href="#none">장바구니</a>
+              <a href="cart.jsp">장바구니</a>
             </li>
           </ul>
         </div>
@@ -169,8 +175,11 @@
       locationBox.style.display = 'none';
     }
   });
+
+  //임의로 리조트버튼 검색 클릭시 search.jsp로 이동하기
+  document.querySelector('.search_btn').addEventListener('click', function () {
+    window.location.href = 'search.jsp'; // 원하는 경로로 이동
+  });
   </script>
-</body>
-</html>
 </body>
 </html>
