@@ -8,11 +8,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/users/manager/signup")
-public class ManagerSignupController extends HttpServlet {
+@WebServlet("/users/find/pw")
+public class PwFindController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.sendRedirect(req.getContextPath() + "/users/managerSignup.jsp");
+		resp.sendRedirect(req.getContextPath() + "/users/find/pw.jsp");
 	}
 	
 	@Override

@@ -23,12 +23,27 @@ public class UsersDao {
 		return instance;
 	}
 	
+	public boolean exists(String user_id) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			if (sqlSession.selectOne(NAMESPACE + ".exists", user_id) == null) {
+				return false;
+			}
+			return true;
+		}
+	}
+	
 	public UsersDto selectUser(String user_id, String password) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			HashMap<String, String> map = new HashMap<>();
 			map.put("user_id", user_id);
 			map.put("password", password);
 			return sqlSession.selectOne(NAMESPACE + ".selectUser", map);
+		}
+	}
+	
+	public List<UsersDto> selectUserByEmail(String email) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			return sqlSession.selectList(NAMESPACE + ".selectUserByEmail", email);
 		}
 	}
 	
