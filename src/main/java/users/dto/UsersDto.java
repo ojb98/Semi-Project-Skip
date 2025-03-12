@@ -12,14 +12,14 @@ public class UsersDto {
 	private String social;
 	private String role;
 	private String status;
-	private Date date;
+	private Date regdate;
 	
 	public UsersDto() {
 		
 	}
 
 	public UsersDto(int uuid, String user_id, String password, String name, String email, String phone,
-			String social, String role, String status, Date date) {
+			String social, String role, String status, Date regdate) {
 		super();
 		this.uuid = uuid;
 		this.user_id = user_id;
@@ -30,7 +30,7 @@ public class UsersDto {
 		this.social = social;
 		this.role = role;
 		this.status = status;
-		this.date = date;
+		this.regdate = regdate;
 	}
 
 	public int getUuid() {
@@ -105,11 +105,11 @@ public class UsersDto {
 		this.status = status;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getRegdate() {
+		return regdate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(Date regdate) {
+		this.regdate = regdate;
 	}
 }

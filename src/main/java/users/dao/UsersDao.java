@@ -23,6 +23,15 @@ public class UsersDao {
 		return instance;
 	}
 	
+	public boolean exists(String user_id) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			if (sqlSession.selectOne(NAMESPACE + ".exists", user_id) == null) {
+				return false;
+			}
+			return true;
+		}
+	}
+	
 	public UsersDto selectUser(String user_id, String password) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			HashMap<String, String> map = new HashMap<>();
@@ -32,9 +41,32 @@ public class UsersDao {
 		}
 	}
 	
+	public List<UsersDto> selectUserByEmail(String email) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			return sqlSession.selectList(NAMESPACE + ".selectUserByEmail", email);
+		}
+	}
+	
+	public UsersDto selectUserByEmailAndUser_id(String email, String user_id) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			HashMap<String, String> map = new HashMap<>();
+			map.put("email", email);
+			map.put("user_id", user_id);
+			return sqlSession.selectOne(NAMESPACE + ".selectUserByEmailAndUser_id", map);
+		}
+	}
+	
 	public int insert(UsersDto user) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			int n = sqlSession.insert(NAMESPACE + ".insert", user);
+			sqlSession.commit();
+			return n;
+		}
+	}
+	
+	public int updatePassword(UsersDto user) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			int n = sqlSession.update(NAMESPACE + ".update", user);
 			sqlSession.commit();
 			return n;
 		}
