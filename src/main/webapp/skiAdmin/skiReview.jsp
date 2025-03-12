@@ -30,10 +30,10 @@
 	        }
 	    }
 	};
-	xhr.open("GET", "reservationList.jsp?skiID="+encodeURIComponent(skiID), true);
+	xhr.open("GET", "reviewList.jsp?skiID="+encodeURIComponent(skiID), true);
 	xhr.send();
   }
-  function requestDelete(reserv_id) { //**** 관리자가 예약 취소 : 환불까지 이어져야 함?? ****
+  function requestDelete(review_id) { //**** 관리자가 예약 취소 : 환불까지 이어져야 함?? ****
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function(){
           if(xhr.readyState === 4){
@@ -46,7 +46,7 @@
       };
       xhr.open("POST", "deleteRequest.jsp", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.send("reserv_id=" + encodeURIComponent(reserv_id));
+      xhr.send("review_id=" + encodeURIComponent(review_id));
   }
   function searchList() {
       var keyword = document.getElementById("searchInput").value;
@@ -62,11 +62,9 @@
               }
           }
       };
-      // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
-      xhr.open("GET", "reservationList.jsp?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&skiID="+encodeURIComponent(skiID), true);
+      xhr.open("GET", "reviewList.jsp?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&skiID="+encodeURIComponent(skiID), true);
       xhr.send();
   }
-  // 페이지 로드 시 승인 대기 리스트 자동 갱신
   window.onload = function() {
 	  requestReservationList();
   };

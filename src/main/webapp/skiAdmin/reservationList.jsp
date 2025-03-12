@@ -60,12 +60,12 @@
 	}else{
 		reservStatus = "이용완료";
 	}
-
+	
 %>
       <td><%= reservStatus %></td>
       <td>
-         <button type="button" onclick="requestReservCancel('<%= reservation.getSkiReservId() %>')" style="background-color: #1074df; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">취소</button>
-         <button type="button" onclick="requestReservDelete('<%= reservation.getSkiReservId() %>')" style="background-color: #df4e10; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">삭제</button>
+         <button type="button" onclick="requestDelete('<%= reservation.getSkiReservId() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">삭제</button>
+         <button type="button" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">상세보기 ▼</button>
       </td>
     </tr>
 <%    } 

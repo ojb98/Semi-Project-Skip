@@ -46,6 +46,10 @@
             AND U.EMAIL LIKE '%'||#{email}||'%'
         </if>
     </select>
+    
+    <delete id="deleteReservation" parameterType="int">
+    	DELETE FROM SKI_RESERVATION WHERE SKI_RESERV_ID=#{reserv_id} 
+    </delete>
     <!-- 스키장 예약 고유번호를 받아 예약상태 업데이트 -->
     <update id="reservationCancel">
     	UPDATE SKI_RESERVATION SET STATUS='CANCELLED' WHERE SKI_RESERV_ID=#{ski_reserv_id}
