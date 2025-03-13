@@ -37,8 +37,8 @@ public class ResortReviewsListController extends HttpServlet {
 		for(ResortReviewsDTO review : rrList) {
 			totalRating += review.getRating();
 		}
-		
 		double avgRating = (rrList.size() > 0) ? totalRating / rrList.size() : 0;
+		
 		
 		req.setAttribute("reviewList", rrList);
 		req.setAttribute("reviewCount", reviewCount);

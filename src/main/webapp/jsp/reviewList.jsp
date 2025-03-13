@@ -268,76 +268,11 @@
             </div>
           </div>
           <div class="review_contents">
-            <ul class="review_list" id="reviewList">
-	           <c:forEach var="rrDto" items="${rrList }" >
-	              <li class="review_item">
-	                <div class="user_review">
-	                  <div class="item_content">
-	                    <div class="rating_box">
-	                    <div class="star_box">
-	                    <c:choose>
-	                    	<c:when test="${rrDto.rating == 5 }">
-	                    		<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>	
-	                    	</c:when>
-	                    	<c:when test="${rrDto.rating == 4 }">
-	                    		<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>	
-	                    	</c:when>
-	                    	<c:when test="${rrDto.rating == 3 }">
-	                    		<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>	
-	                    	</c:when>
-	                    	<c:when test="${rrDto.rating == 2 }">
-	                    		<i class="fa fa-star"></i><i class="fa fa-star"></i>	
-	                    	</c:when>
-	                    	<c:when test="${rrDto.rating == 1 }">
-	                    		<i class="fa fa-star"></i>	
-	                    	</c:when>
-	                    </c:choose>
-	                    </div>
-	                    <span class="rating_number">${rrDto.rating.intValue()} 점</span>
-	                    </div>
-	                    <div class="user_box">
-	                      <p class="user_id">${rrDto.uuid }</p>
-	                      <p class="created_at">${rrDto.createdAt }</p>
-	                      <div class="content">
-	                        <p>${rrDto.resortComment }</p>
-	                      </div>
-	                    </div>
-	                  </div>
-	                  <div class="item_img">
-	                  <c:choose>
-		                  	<c:when test="${not empty rrDto.reviewImg }">
-		        				<img src="<%=request.getContextPath() %>/reviewImgs/${rrDto.reviewImg} ">
-		                  	</c:when>
-		                  	<c:otherwise>
-		              			<!-- 이미지가 없으면 빈값 -->
-		                  	</c:otherwise>
-	                  </c:choose>
-	                  </div>
-	                </div>
-                  	<div class="item_ctrl">
-		                <a href="<%=request.getContextPath() %>/jsp/update?reviewId=${rrDto.reviewId}">수정</a>
-		                <a href="<%=request.getContextPath() %>/jsp/delete?reviewId=${rrDto.reviewId}" onclick = "return confirm ('정말 삭제하시겠습니까?');">삭제</a>	                  	
-                  	</div>
-	                <div class="admin_answer">
-	                </div>
-	              </li>              
-           		</c:forEach>
+            <ul class="review_list"">
             </ul>
           </div>
           <!-- 페이징 -->
           <div class="page_btn">
-            <a href="#none"><i class="fa fa-angle-left"></i>이전</a>
-            <a class="active" href="#none">1</a>
-            <a href="#none">2</a>
-            <a href="#none">3</a>
-            <a href="#none">4</a>
-            <a href="#none">5</a>
-            <a href="#none">6</a>
-            <a href="#none">7</a>
-            <a href="#none">8</a>
-            <a href="#none">9</a>
-            <a href="#none">10</a>
-            <a href="#none">다음<i class="fa fa-angle-right"></i></a>
           </div>
         </div>
       </section>
@@ -357,13 +292,11 @@
 	    });
 	});
 	
-	function getList() {
-		const xhr = new XMLHttpRequest();
-		xhr.onload=function() {
-			const 
-		}
-	}
-
+	
+  </script>
+  <script src="<%=request.getContextPath() %>/script/review.js"></script>
+  <script type="text/javascript">
+  getList(1);
   </script>
 </body>
 </html>

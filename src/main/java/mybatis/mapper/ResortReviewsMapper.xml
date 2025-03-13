@@ -44,9 +44,9 @@
   
   <select id="pageList" resultMap="reviewResultMap" parameterType="hashmap">
   	select * from (
-  	select resort_reviews.*, rownum rn from(
+  	select reviews.*, rownum rn from(
   	select * from resort_reviews order by review_id desc  	
-  	)resort_reviews
+  	)reviews
   <![CDATA[	)where rn >= #{startRow} and rn <= #{endRow} ]]>
   </select>
   
