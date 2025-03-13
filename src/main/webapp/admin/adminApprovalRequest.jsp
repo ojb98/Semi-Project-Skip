@@ -1,3 +1,5 @@
+<%@page import="adminUtil.FilterMapping"%>
+<%@page import="java.util.Map"%>
 <%@ page import="adminDto.UsersDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -11,111 +13,130 @@
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 	<script type="text/javascript">
-	  // 승인 대기 리스트 갱신 (AJAX GET)
-	  function requestPendingList(){
-	      var xhr = new XMLHttpRequest();
-	      xhr.onreadystatechange = function(){
-	          if(xhr.readyState === 4){
-	              if(xhr.status === 200){
-	                  document.getElementById("pendingListBody").innerHTML = xhr.responseText;
-	              } else {
-	                  alert("리스트 갱신 중 오류");
-	              }
-	          }
-	      };
-	      xhr.open("GET", "pendingList.jsp", true);
-	      xhr.send();
-	  }
+		var contextPath = "${pageContext.request.contextPath}";
+		
+	  	function requestPendingList(){ //✅
+	    	var xhr = new XMLHttpRequest();
+	      	xhr.onreadystatechange = function(){
+	          	if(xhr.readyState === 4){
+	            	  if(xhr.status === 200){
+	                	  document.getElementById("pendingListBody").innerHTML = xhr.responseText;
+	              	} else {
+	                	  alert("리스트 갱신 중 오류");
+	              	}
+	          	}
+	      	};
+	      	xhr.open("GET", contextPath + "/admin/pendingList", true);
+	      	xhr.send();
+	  	}
 	  
-	  function requestDeniedList(){
-	      var xhr = new XMLHttpRequest();
-	      xhr.onreadystatechange = function(){
-	          if(xhr.readyState === 4){
-	              if(xhr.status === 200){
-	                  document.getElementById("deniedListBody").innerHTML = xhr.responseText;
-	              } else {
-	                  alert("거부리스트 갱신 중 오류");
+		  function requestDeniedList(){ //✅
+		      var xhr = new XMLHttpRequest();
+		      xhr.onreadystatechange = function(){
+		          if(xhr.readyState === 4){
+		              if(xhr.status === 200){
+		                  document.getElementById("deniedListBody").innerHTML = xhr.responseText;
+		              } else {
+		                  alert("거부리스트 갱신 중 오류");
+		              }
+		          }
+		      };
+		      xhr.open("GET", contextPath + "/admin/deniedList", true);
+		      xhr.send();
+		  }
+		
+		 
+		  function requestApproval(uuid) {  //✅
+			  if (!confirm("정말로 이 사용자를 승인하시겠습니까?")) return;
+			  
+		      var xhr = new XMLHttpRequest();
+		      xhr.onreadystatechange = function(){
+		          if(xhr.readyState === 4){
+		    		 if(xhr.status === 200){
+		           		if (xhr.responseText === "success") {
+		           			alert("승인이 완료되었습니다.");
+			                requestPendingList();
+			                requestDeniedList();
+		           		} else if (xhr.responseText === "invalid_uuid") {
+		                    alert("잘못된 UUID 값입니다.");
+		                } else {
+		                    alert("승인 요청 실패.");
+		                }
+		              } else {
+		                  alert("승인 중 오류");
+		              }
+		          }
+		      };
+		      xhr.open("POST", contextPath + "/admin/approvalRequest", true);
+		      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		      xhr.send("uuid=" + encodeURIComponent(uuid));
+		  }
+		  
+		  function requestDeny(uuid) {  //✅
+		      var xhr = new XMLHttpRequest();
+		      xhr.onreadystatechange = function(){
+		          if(xhr.readyState === 4){
+		              if(xhr.status === 200){
+		                  requestPendingList();
+		                  requestDeniedList();
+		              } else {
+		                  alert("거부 중 오류");
+		              }
+		          }
+		      };
+		      xhr.open("POST", contextPath + "/admin/denyRequest", true);
+		      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		      xhr.send("uuid=" + encodeURIComponent(uuid));
+		  }
+		  
+		  function requestDelete(uuid) { //✅
+			  if (!confirm("정말로 이 사용자를 삭제하시겠습니까?")) return;
+			  
+		      var xhr = new XMLHttpRequest();
+		      xhr.onreadystatechange = function(){
+		          if(xhr.readyState === 4){
+		        	  if (xhr.status === 200) {
+			        	 if (xhr.responseText === "success") {
+			           			alert("삭제 완료.");
+				                requestDeniedList();
+		           		 } else if (xhr.responseText === "invalid_uuid") {
+		                    alert("잘못된 UUID 값입니다.");
+		                 } else {
+		                    alert("삭제 요청 실패.");
+		                 }
+		        	  } else {
+		                  alert("삭제 중 오류");
+	           		  } 
 	              }
-	          }
-	      };
-	      xhr.open("GET", "deniedList.jsp", true);
-	      xhr.send();
-	  }
-	
-	  // 특정 사용자 승인 처리(AJAX POST)
-	  function requestApproval(uuid) {
-		  if (currentRequest) {
-		        currentRequest.abort(); // 이전 요청 중지
-		    }
-	      var xhr = new XMLHttpRequest();
-	      xhr.onreadystatechange = function(){
-	          if(xhr.readyState === 4){
-	              if(xhr.status === 200){
-	                  requestPendingList();
-	                  requestDeniedList();
-	              } else {
-	                  alert("승인 중 오류");
-	              }
-	          }
-	      };
-	      xhr.open("POST", "approvalRequest.jsp", true);
-	      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	      xhr.send("uuid=" + encodeURIComponent(uuid));
-	  }
-	  function requestDeny(uuid) {
-	      var xhr = new XMLHttpRequest();
-	      xhr.onreadystatechange = function(){
-	          if(xhr.readyState === 4){
-	              if(xhr.status === 200){
-	                  requestPendingList();
-	                  requestDeniedList();
-	              } else {
-	                  alert("거부 중 오류");
-	              }
-	          }
-	      };
-	      xhr.open("POST", "denyRequest.jsp", true);
-	      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	      xhr.send("uuid=" + encodeURIComponent(uuid));
-	  }
-	  function requestDelete(uuid) {
-	      var xhr = new XMLHttpRequest();
-	      xhr.onreadystatechange = function(){
-	          if(xhr.readyState === 4){
-	              if(xhr.status === 200){
-	                  requestDeniedList();
-	              } else {
-	                  alert("삭제 중 오류");
-	              }
-	          }
-	      };
-	      xhr.open("POST", "deleteRequest.jsp", true);
-	      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	      xhr.send("uuid=" + encodeURIComponent(uuid));
-	  }
-	  function searchList() {
-	      var keyword = document.getElementById("searchInput").value;
-	      var filter = document.getElementById("filterSelect").value;
-	      
-	      var xhr = new XMLHttpRequest();
-	      xhr.onreadystatechange = function(){
-	          if(xhr.readyState === 4){
-	              if(xhr.status === 200){
-	                  document.getElementById("pendingListBody").innerHTML = xhr.responseText;
-	              } else {
-	                  alert("검색 중 오류");
-	              }
-	          }
-	      };
-	      // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
-	      xhr.open("GET", "pendingList.jsp?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter), true);
-	      xhr.send();
-	  }
-	  // 페이지 로드 시 승인 대기 리스트 자동 갱신
-	  window.onload = function() {
-	      requestPendingList();
-	      requestDeniedList();
-	  };
+		      };
+		      xhr.open("POST", contextPath + "/admin/deleteUser", true);
+		      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		      xhr.send("uuid=" + encodeURIComponent(uuid));
+		  }
+		  
+		  function searchList() { //✅
+		      var keyword = document.getElementById("searchInput").value;
+		      var filter = document.getElementById("filterSelect").value;
+		      
+		      var xhr = new XMLHttpRequest();
+		      xhr.onreadystatechange = function(){
+		          if(xhr.readyState === 4){
+		              if(xhr.status === 200){
+		                  document.getElementById("pendingListBody").innerHTML = xhr.responseText;
+		              } else {
+		                  alert("검색 중 오류");
+		              }
+		          }
+		      };
+		      // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
+		      xhr.open("GET", contextPath + "/admin/pendingList?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter), true);
+		      xhr.send();
+		  }
+		  // 페이지 로드 시 승인 대기 리스트 자동 갱신
+		  window.onload = function() {
+		      requestPendingList();
+		      requestDeniedList();
+		  };
 	</script>
 </head>
 <body>
@@ -140,16 +161,18 @@
         <li><a href="${pageContext.request.contextPath}/admin/paymentsInfo">매출 관리</a></li>
     </ul>
 </aside>
-<!-- 문제점: 해당 업체의 진짜 관리자인지, 사칭하는 일반 유저인지에 대한 구별 필요 -->
 <main class="main-content">
 	<div class="table-container" >
 	<div class="list-header">
        <h3>승인 대기 리스트(관리자)</h3>
             <div class="search-filter-container">
                 <select id="filterSelect">
-                    <option value="userName">이름</option>
-                    <option value="userId">아이디</option>
-                    <option value="userEmail">이메일</option>                    
+                    <%
+				        Map<String, String> filterMap = FilterMapping.getFilterMap();
+				        for (Map.Entry<String, String> entry : filterMap.entrySet()) {
+				    %>
+				        <option value="<%= entry.getValue() %>"><%= entry.getKey() %></option>
+				    <% } %>                
                 </select>
                 <div class="search-box">
                   <input type="text" id="searchInput" placeholder="검색어 입력" />
