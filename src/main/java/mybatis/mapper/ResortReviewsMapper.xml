@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.ResortReviewsMapper">
+
+	<resultMap id="reviewResultMap" type="reviews.dto.ResortReviewsDTO">
+		<result property="reviewId" column="review_id"></result>
+		<result property="paymentId" column="payment_id"></result>
+	    <result property="uuid" column="uuid"/>
+	    <result property="resortId" column="resort_id"></result>
+	    <result property="rating" column="rating"/>
+	    <result property="resortComment" column="resort_comment"/>
+	    <result property="reviewImg" column="review_img"/>
+	    <result property="createdAt" column="created_at"/>
+	</resultMap>
+  
+  <!-- 리조트 리뷰 insert -->
+  <insert id="insert" parameterType="reviews.dto.ResortReviewsDTO">
+    insert into resort_reviews values(reviewid.nextval,#{paymentId},#{uuid},#{resortId},#{rating},#{resortComment},#{reviewImg},sysdate)
+  </insert>
+  
+  <!-- 리조트 리뷰 전체 조회 -->
+  <select id="reviewList" resultMap="reviewResultMap">
+  	select * from resort_reviews order by review_id desc
+  </select>
+  
+  <!-- 리조트 리뷰 평점 높은 순 -->
+  <select id="reviewDesc" resultMap="reviewResultMap">
+  	select * from resort_reviews order by rating desc
+  </select>
+  
+  <!-- 리조트 리뷰 평점 낮은 순 -->
+  <select id="reviewAsc" resultMap="reviewResultMap">
+  	select * from resort_reviews order by rating asc
+  </select>
+  
+  <!-- 리조트 리뷰 글 전체 갯수 -->
+  <select id="getCount" resultType="int">
+  	select nvl(count(*),0) cnt from resort_reviews
+  </select>
+  
+  <!-- 리조트 리뷰 글 시작과 끝 -->
+  
+  <select id="pageList" resultMap="reviewResultMap" parameterType="hashmap">
+  	select * from (
+  	select resort_reviews.*, rownum rn from(
+  	select * from resort_reviews order by review_id desc  	
+  	)resort_reviews
+  <![CDATA[	)where rn >= #{startRow} and rn <= #{endRow} ]]>
+  </select>
+  
+  
+  <!-- 
+  <select id="pageList" resultMap="reviewResultMap" parameterType="hashmap">
+  	    SELECT * 
+    FROM (
+        SELECT re.*, ROWNUM rn 
+        FROM (
+            SELECT * FROM resort_reviews ORDER BY review_id DESC
+        ) re 
+    <![CDATA[ WHERE ROWNUM <= #{endRow} ]]>
+    ) 
+    <![CDATA[ WHERE rn >= #{startRow} ]]>
+  </select>  
+   -->
+   
+  <!-- 리조트 리뷰 수정시 조회 -->
+  <select id="updateSelect" parameterType="int" resultMap="reviewResultMap">
+  	select * from resort_reviews where review_id=#{reviewId}
+  </select>
+  
+  <!-- 리조트 리뷰 수정 -->
+  <update id="update" parameterType="reviews.dto.ResortReviewsDTO">
+  	update resort_reviews set rating=#{rating }, resort_comment=#{resortComment}, review_img=#{reviewImg} where review_id = #{reviewId}
+  </update>
+  
+  <!-- 리조트 리뷰 삭제 -->
+  <delete id="delete" parameterType="int">
+  	delete from resort_reviews where review_id=#{reviewId}
+  </delete>
+</mapper>

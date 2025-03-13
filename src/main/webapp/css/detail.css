@@ -333,11 +333,190 @@
 /* 탭 메뉴 */
 
 /* 리뷰 */
-.review h2 {
-	font-size: 24px;
+
+.tabs {
+	margin: 70px 0;
+	box-sizing: border-box;
+}
+.tabs .tabs_btns {
+	display: flex;
+	border-bottom: 1px solid #000;
+}
+.tabs .tabs_btns a {
+	width: 200px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom: 0;
+}
+
+.tabs .tabs_btns a:hover,
+.tabs .tabs_btns .active {
+	background-color: #3D3D4F;
+	color: #fff;
+}
+
+.review_tab {
+	padding: 30px 10px;
+	box-sizing: border-box;
+}
+
+/* 리뷰 헤더 영역 */
+.review_title {
+	display: flex;
+	justify-content: space-between;
+}
+
+.review_title .title_left,
+.review_title .title_right,
+.title_left .review_rating,
+.title_left .review_number {
+	display: flex;
+}
+
+.title_left .review_rating h3,
+.review_number h3 {
+	font-size: 20px;
 	font-weight: 700;
 }
 
+.title_right .review_filter {
+		color: #999;
+}
+
+.title_right .review_filter a {
+	margin-left: 10px;
+}
+
+.title_right .review_filter a:hover,
+.title_right .review_filter a.active {
+	color: #000;
+}
+
+.review_rating .rating {
+	margin-left: 10px;
+}
+.review_rating .rating_number {
+	margin-left: 10px;
+	line-height: 20px;
+}
+.review_rating .rating_number span {
+	margin-left: 5px;
+}
+
+.title_left .review_number {
+	margin-left: 50px;
+	gap: 10px;
+}
+
+.title_left .review_number p {
+	line-height: 20px;
+}
 
 
+.review_list {
+	margin-top: 30px;
+}
+
+.review_list .review_item:first-child{
+	border-top: 1px solid #bfbfbf;
+}
+
+.review_list .review_item {
+	padding: 20px 0;
+	border-bottom: 1px solid #bfbfbf;
+}
+
+/* 유저 리뷰 영역 */
+.review_item .user_review {
+	display: flex;
+	justify-content: space-between;
+}
+
+.user_review .item_content {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.rating_box {
+	display: flex;
+}
+
+.rating_box .star_box {
+	width: 80px;
+}
+
+.rating_box .fa-star {
+	color: #ffc83b;
+}
+
+.rating_box .rating_number {
+	margin-left: 10px;
+}
+
+.user_review .item_content .user_box p,
+.user_review .item_content .user_box .content {
+	margin-top: 5px;
+}
+
+/* 리뷰이미지 영역 */
+.user_review .item_img img {
+	width: 150px;
+}
+
+/* 리뷰 수정 삭제 버튼 */
+.review_item .item_ctrl {
+	margin-top: 10px;
+}
+
+.review_item .item_ctrl a {
+	border: 1px solid #000;
+}
+
+/* 관리자 리뷰답변 영역 */
+.admin_answer {
+	margin-top: 20px;
+}
+
+.admin_answer .admin_box {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+/* 게시판 페이지 버튼 */
+.page_btn {
+	margin-top: 30px;
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+}
+
+.page_btn a:first-child, 
+.page_btn a:last-child {
+	width: 45px;
+}
+
+.page_btn a .fa-angle-left {
+	margin-right: 5px;
+}
+
+.page_btn a .fa-angle-right {
+	margin-left: 5px;
+}
+
+.page_btn a {
+	width: 34px;
+	height: 34px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.page_btn a.active {
+	background-color: #3D3D4F;
+	color: #fff;
+}
 

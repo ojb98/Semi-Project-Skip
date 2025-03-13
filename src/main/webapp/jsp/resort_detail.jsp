@@ -269,42 +269,265 @@
       </section>
       <section class="tabs">
         <div class="tabs_btns">
-          <button class="review_btn btn">리뷰</button>
-          <button class="inquiry_btn btn">문의</button>
+          <a href="#none" class="review_btn btn active">리뷰</a>
+          <a href="#none" class="inquiry_btn btn">문의</a>
         </div>
         <div class="review_tab">
-          <h2>리조트 리뷰</h2>
           <div class="review_title">
-            <div class="review_rating">
-              <h3>이용자 총 평점</h3>
-              <span class="rating"><i class="fa fa-star"></i></span>
-              <span>4.71</span><span>/</span><span>5</span>
+            <div class="title_left">
+              <div class="review_rating">
+                <h3>리뷰 평점</h3>
+                <span class="rating"><i class="fa fa-star"></i></span>
+                <div class="rating_number">
+                  <span>4.71</span><span>/</span><span>5</span>
+                </div>
+              </div>
+              <div class="review_number">
+                <h3>전체 리뷰 수</h3>
+                <i class="fa fa-commenting"></i>
+                <p>77</p>
+              </div>
             </div>
-            <div class="review_number">
-              <h3>전체 리뷰 수</h3>
-              <i class="fa fa-commenting"></i>
-              <p>77</p>
-            </div>
-          </div>
-          <div class="review_content">
-            <div class="content_title">
-              <h3>리뷰<span>77</span>건</h3>
+            <div class="title_right">
               <div class="review_filter">
-                <a href="#none"><i class="fa fa-check"></i>최신순</a>
+                <a class="active" href="#none"><i class="fa fa-check"></i>최신순</a>
                 <a href="#none"><i class="fa fa-check"></i>평점 높은순</a>
                 <a href="#none"><i class="fa fa-check"></i>평점 낮은순</a>
               </div>
             </div>
-            <div class="review_list">
-              <div class="review_item">
-                <div class="item_content">
-                  <div class="rating_box"><i class="fa fa-star"><span class="rating_number"></span></i></div>
-                  <p class="user_id"></p>
-                  <p class="created_at"></p>
+          </div>
+          <div class="review_contents">
+            <ul class="review_list">
+              <li class="review_item">
+                <div class="user_review">
+                  <div class="item_content">
+                    <div class="rating_box"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span class="rating_number">5</span></div>
+                    <div class="user_box">
+                      <p class="user_id">user id</p>
+                      <p class="created_at">2025-03-10</p>
+                      <div class="content">
+                        <p>첫번째 리뷰 입니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item_img"></div>
                 </div>
-                <div class="item_img"></div>
-              </div>
-            </div>
+                <div class="admin_answer">
+                </div>
+              </li>
+              <li class="review_item">
+                <div class="user_review">
+                  <div class="item_content">
+                    <div class="rating_box"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span class="rating_number">5</span></div>
+                    <div class="user_box">
+                      <p class="user_id">user id</p>
+                      <p class="created_at">2025-03-10</p>
+                      <div class="content">
+                        <p>두번째 리뷰 입니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item_img"></div>
+                </div>
+              </li>
+              <li class="review_item">
+                <div class="user_review">
+                  <div class="item_content">
+                    <div class="rating_box"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span class="rating_number">5</span></div>
+                    <div class="user_box">
+                      <p class="user_id">user id</p>
+                      <p class="created_at">2025-03-10</p>
+                      <div class="content">
+                        <p>세번째 리뷰 입니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item_img"></div>
+                </div>
+              </li>
+              <li class="review_item">
+                <div class="user_review">
+                  <div class="item_content">
+                    <div class="rating_box"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span class="rating_number">5</span></div>
+                    <div class="user_box">
+                      <p class="user_id">user id</p>
+                      <p class="created_at">2025-03-10</p>
+                      <div class="content">
+                        <p>네번째 리뷰 입니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item_img"></div>
+                </div>
+                <div class="admin_answer">
+                  <div class="admin_box">
+                    <p class="admin_id">admin id</p>
+                    <p class="created_at">2025-03-10</p>
+                    <div class="content">
+                        <p>리뷰 답변 입니다.</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="review_item">
+                <div class="user_review">
+                  <div class="item_content">
+                    <div class="rating_box"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span class="rating_number">5</span></div>
+                    <div class="user_box">
+                      <p class="user_id">user id</p>
+                      <p class="created_at">2025-03-10</p>
+                      <div class="content">
+                        <p>다번째 리뷰 입니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item_img"></div>
+                </div>
+                <div class="admin_answer">
+                  <div class="admin_box">
+                    <p class="admin_id">admin id</p>
+                    <p class="created_at">2025-03-10</p>
+                    <div class="content">
+                        <p>리뷰 답변 입니다.</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="review_item">
+                <div class="user_review">
+                  <div class="item_content">
+                    <div class="rating_box"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span class="rating_number">5</span></div>
+                    <div class="user_box">
+                      <p class="user_id">user id</p>
+                      <p class="created_at">2025-03-10</p>
+                      <div class="content">
+                        <p>여섯번째 리뷰 입니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item_img"></div>
+                </div>
+                <div class="admin_answer">
+                  <div class="admin_box">
+                    <p class="admin_id">admin id</p>
+                    <p class="created_at">2025-03-10</p>
+                    <div class="content">
+                        <p>리뷰 답변 입니다.</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="review_item">
+                <div class="user_review">
+                  <div class="item_content">
+                    <div class="rating_box"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span class="rating_number">5</span></div>
+                    <div class="user_box">
+                      <p class="user_id">user id</p>
+                      <p class="created_at">2025-03-10</p>
+                      <div class="content">
+                        <p>일곱번째 리뷰 입니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item_img"></div>
+                </div>
+                <div class="admin_answer">
+                  <div class="admin_box">
+                    <p class="admin_id">admin id</p>
+                    <p class="created_at">2025-03-10</p>
+                    <div class="content">
+                        <p>리뷰 답변 입니다.</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="review_item">
+                <div class="user_review">
+                  <div class="item_content">
+                    <div class="rating_box"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span class="rating_number">5</span></div>
+                    <div class="user_box">
+                      <p class="user_id">user id</p>
+                      <p class="created_at">2025-03-10</p>
+                      <div class="content">
+                        <p>여덟번째 리뷰 입니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item_img"></div>
+                </div>
+                <div class="admin_answer">
+                  <div class="admin_box">
+                    <p class="admin_id">admin id</p>
+                    <p class="created_at">2025-03-10</p>
+                    <div class="content">
+                        <p>리뷰 답변 입니다.</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="review_item">
+                <div class="user_review">
+                  <div class="item_content">
+                    <div class="rating_box"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span class="rating_number">5</span></div>
+                    <div class="user_box">
+                      <p class="user_id">user id</p>
+                      <p class="created_at">2025-03-10</p>
+                      <div class="content">
+                        <p>아홉번째 리뷰 입니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item_img"></div>
+                </div>
+                <div class="admin_answer">
+                  <div class="admin_box">
+                    <p class="admin_id">admin id</p>
+                    <p class="created_at">2025-03-10</p>
+                    <div class="content">
+                        <p>리뷰 답변 입니다.</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="review_item">
+                <div class="user_review">
+                  <div class="item_content">
+                    <div class="rating_box"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span class="rating_number">5</span></div>
+                    <div class="user_box">
+                      <p class="user_id">user id</p>
+                      <p class="created_at">2025-03-10</p>
+                      <div class="content">
+                        <p>열번째 리뷰 입니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item_img"></div>
+                </div>
+                <div class="admin_answer">
+                  <div class="admin_box">
+                    <p class="admin_id">admin id</p>
+                    <p class="created_at">2025-03-10</p>
+                    <div class="content">
+                        <p>리뷰 답변 입니다.</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="page_btn">
+            <a href="#none"><i class="fa fa-angle-left"></i>이전</a>
+            <a class="active" href="#none">1</a>
+            <a href="#none">2</a>
+            <a href="#none">3</a>
+            <a href="#none">4</a>
+            <a href="#none">5</a>
+            <a href="#none">6</a>
+            <a href="#none">7</a>
+            <a href="#none">8</a>
+            <a href="#none">9</a>
+            <a href="#none">10</a>
+            <a href="#none">다음<i class="fa fa-angle-right"></i></a>
           </div>
         </div>
       </section>
