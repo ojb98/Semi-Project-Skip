@@ -3,7 +3,8 @@ package skiAdminPageController;
 import com.google.gson.Gson;
 import mybatis.service.SqlSessionFactoryService;
 import org.apache.ibatis.session.SqlSession;
-import skiAdminPageMapper.SkiReservationMapper;
+
+import skiAdminPageMapper.SkiAdminMapper;
 import adminDto.SkiReservationDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -46,7 +47,7 @@ public class SkiReservationController extends HttpServlet {
         }
 
         SqlSession sqlSession = SqlSessionFactoryService.getSqlSessionFactory().openSession();
-        SkiReservationMapper mapper = sqlSession.getMapper(SkiReservationMapper.class);
+        SkiAdminMapper mapper = sqlSession.getMapper(SkiAdminMapper.class);
         List<SkiReservationDTO> reservations = mapper.getSearchSkiReservationUsers(params);
         sqlSession.close();
 

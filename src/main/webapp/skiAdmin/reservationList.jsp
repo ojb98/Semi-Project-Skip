@@ -1,5 +1,5 @@
+<%@page import="skiAdminPageMapper.SkiAdminMapper"%>
 <%@page import="adminDto.SkiReservationDTO"%>
-<%@page import="skiAdminPageMapper.SkiReservationMapper"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>
@@ -18,7 +18,7 @@
 	String reservStatus = "";
 	
 	SqlSession sqlSession= SqlSessionFactoryService.getSqlSessionFactory().openSession();
-	SkiReservationMapper mapper = sqlSession.getMapper(SkiReservationMapper.class);
+	SkiAdminMapper mapper = sqlSession.getMapper(SkiAdminMapper.class);
 	List<SkiReservationDTO> reservationList = mapper.getSkiReservationUsers(params);
 	List<SkiReservationDTO> searchReservationList = mapper.getSearchSkiReservationUsers(params);	
 	if (keyword != null && !keyword.trim().isEmpty()) {

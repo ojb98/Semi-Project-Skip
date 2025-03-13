@@ -1,6 +1,6 @@
+<%@page import="adminPageMapper.RootAdminMapper"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page import="adminPageMapper.AdminApprovalRequestMapper"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>
 <%@page import="org.apache.ibatis.session.SqlSessionFactory"%>
 <%@page import="mybatis.service.SqlSessionFactoryService"%>
@@ -14,7 +14,7 @@
 	Map<String,Object> params =new HashMap<>();
 	
 	SqlSession sqlSession= SqlSessionFactoryService.getSqlSessionFactory().openSession();
-	AdminApprovalRequestMapper mapper = sqlSession.getMapper(AdminApprovalRequestMapper.class);
+	RootAdminMapper mapper = sqlSession.getMapper(RootAdminMapper.class);
 	List<UsersDTO> pendingUsersList = mapper.getPendingUsers();
 	List<UsersDTO> searchPendingUsersList = mapper.getSearchPendingUsers(params);	
 	

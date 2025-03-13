@@ -3,7 +3,7 @@ package adminPageController;
 import java.io.IOException;
 import org.apache.ibatis.session.SqlSession;
 
-import adminPageMapper.AdminDashboardMapper;
+import adminPageMapper.RootAdminMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,14 +17,13 @@ public class AdminDashboardController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // MyBatis SqlSession을 사용
         try (SqlSession session = SqlSessionFactoryService.getSqlSessionFactory().openSession()) {
-            AdminDashboardMapper mapper = session.getMapper(AdminDashboardMapper.class);
+        	RootAdminMapper mapper = session.getMapper(RootAdminMapper.class);
             
             req.setAttribute("totalUsers", mapper.getTotalUsers());
             req.setAttribute("userCount", mapper.getUserCount());
             req.setAttribute("skiOwners", mapper.getSkiOwners());
             req.setAttribute("rentalOwners", mapper.getRentalOwners());
             req.setAttribute("resortOwners", mapper.getResortOwners());
-            req.setAttribute("adminCount", mapper.getAdminCount());
             req.setAttribute("pendingCounts", mapper.getPendingCounts());
             req.setAttribute("newUserList", mapper.getNewUsers());
             

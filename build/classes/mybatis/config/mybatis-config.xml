@@ -18,9 +18,7 @@
     </environment>
   </environments>
   <mappers>  	
-    <mapper resource="mybatis/mapper/AdminDashboardMapper.xml"/>
-    <mapper resource="mybatis/mapper/AdminApprovalRequestMapper.xml"/>
-    <mapper resource="mybatis/mapper/AdminCustomersMapper.xml"/>
-    <mapper resource="mybatis/mapper/SkiReservationMapper.xml" />
+    <mapper resource="mybatis/mapper/RootAdminMapper.xml"/>
+    <mapper resource="mybatis/mapper/SkiAdminMapper.xml" />
   </mappers>
 </configuration>

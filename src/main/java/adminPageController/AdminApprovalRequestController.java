@@ -2,7 +2,7 @@ package adminPageController;
 
 import java.io.IOException;
 import org.apache.ibatis.session.SqlSession;
-import adminPageMapper.AdminApprovalRequestMapper;
+import adminPageMapper.RootAdminMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,7 +15,7 @@ public class AdminApprovalRequestController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try(SqlSession session = SqlSessionFactoryService.getSqlSessionFactory().openSession()){
-			AdminApprovalRequestMapper mapper = session.getMapper(AdminApprovalRequestMapper.class);
+			RootAdminMapper mapper = session.getMapper(RootAdminMapper.class);
 			
 			req.setAttribute("pendingUserList", mapper.getPendingUsers());
 			req.getRequestDispatcher("/admin/adminApprovalRequest.jsp").forward(req, resp);

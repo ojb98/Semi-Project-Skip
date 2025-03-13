@@ -1,7 +1,6 @@
+<%@page import="adminPageMapper.RootAdminMapper"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page import="adminPageMapper.AdminCustomersMapper"%>
-<%@page import="adminPageMapper.AdminApprovalRequestMapper"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>
 <%@page import="org.apache.ibatis.session.SqlSessionFactory"%>
 <%@page import="mybatis.service.SqlSessionFactoryService"%>
@@ -15,7 +14,7 @@
 	Map<String,Object> params =new HashMap<>();
 
 	SqlSession sqlSession= SqlSessionFactoryService.getSqlSessionFactory().openSession();
-	AdminCustomersMapper mapper = sqlSession.getMapper(AdminCustomersMapper.class);
+	RootAdminMapper mapper = sqlSession.getMapper(RootAdminMapper.class);
 	List<UsersDTO> usersList = mapper.getUsersList();  
 	List<UsersDTO> searchUsersList = mapper.getSearchUsersList(params);
 	

@@ -2,7 +2,7 @@ package adminDto;
 
 import java.sql.Date;
 
-public class SkiReviewDTO {
+public class SkiReviewsDTO {
 	private int reviewId;
 	private int paymentId;
 	private int uuid;
@@ -12,9 +12,9 @@ public class SkiReviewDTO {
 	private String reviewImg;
 	private Date createdAt;
 	
-	public SkiReviewDTO() {}
+	public SkiReviewsDTO() {}
 	
-	public SkiReviewDTO(int reviewId, int paymentId, int uuid, int skiId, int rating, String reviewComment,
+	public SkiReviewsDTO(int reviewId, int paymentId, int uuid, int skiId, int rating, String reviewComment,
 			String reviewImg, Date createdAt) {
 		super();
 		this.reviewId = reviewId;
