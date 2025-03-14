@@ -1,6 +1,7 @@
 package dao;
 
 import dto.RoomDTO;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import mybatis.system.SqlSessionFactorySystem;
@@ -30,5 +31,12 @@ public class RoomDao {
     }
 
 
+    public int deleteRoom(int room_id) {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()){
+            int n = sqlSession.delete(NAMESPACE + ".deleteRoom", room_id);
+            sqlSession.commit();
+            return n;
+        }
+    }
 
 }

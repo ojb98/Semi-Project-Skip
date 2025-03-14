@@ -11,4 +11,5 @@
         select * from rent_item where category_id = #{category_id} and rentalshop_id = #{rental}
     </select>
 
+
 </mapper>

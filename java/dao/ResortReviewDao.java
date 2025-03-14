@@ -1,7 +1,6 @@
 package dao;
 
 import dto.ResortReviewDTO;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import mybatis.system.SqlSessionFactorySystem;
@@ -9,25 +8,26 @@ import mybatis.system.SqlSessionFactorySystem;
 import java.util.List;
 
 public class ResortReviewDao {
-	private SqlSessionFactory sqlSessionFactory = SqlSessionFactorySystem.getSqlSessionFactory();
-	private final String NAMESPACE = "mybatis.mapper.ResortReviewMapper";
+    private SqlSessionFactory sqlSessionFactory = SqlSessionFactorySystem.getSqlSessionFactory();
+    private final String NAMESPACE = "mybatis.mapper.ResortReviewMapper";
 
-	public int getCount(int resortId) {
-		try (SqlSession session = sqlSessionFactory.openSession()) {
-			return session.selectOne(NAMESPACE + ".countReviewsByResortId", resortId);
-		}
-	}
+    public int getCount(int resortId) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectOne(NAMESPACE + ".countReviewsByResortId", resortId);
+        }
+    }
 
-	public float getAverage(int resortId) {
-		try (SqlSession session = sqlSessionFactory.openSession()) {
-			return session.selectOne(NAMESPACE + ".selectAvgRatingByResortId", resortId);
-		}
-	}
+    public float getAverage(int resortId) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectOne(NAMESPACE + ".selectAvgRatingByResortId", resortId);
+        }
+    }
 
-	public List<ResortReviewDTO> getList(int resortId) {
-		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-			return sqlSession.selectList(NAMESPACE + ".selectReviewByResortId", resortId);
-		}
-	}
+    public List<ResortReviewDTO> getList(int resortId) {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            return sqlSession.selectList(NAMESPACE + ".selectReviewByResortId", resortId);
+        }
+    }
+
 
 }

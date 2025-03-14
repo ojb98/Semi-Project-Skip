@@ -549,7 +549,7 @@
         }
 
         .review-item {
-            padding: 1rem;
+            padding: 1.5rem;
             border: 1px solid #ddd;
             border-radius: 8px;
             margin-bottom: 1rem;
@@ -684,7 +684,7 @@
                 <span>(<fmt:formatNumber value="${requestScope.reviewCount}" pattern="#,###"/>개 평가)</span>
             </div>
             <div class="resort-price">
-                     <fmt:formatNumber value="${requestScope.minPrice}" pattern="#,###"/><span>원~</span>
+                    <%-- ${requestScope.resortDTO.price_per_night}<span>원~</span>--%>asd
             </div>
             <div class="service-icons">
                 <div class="service-item">

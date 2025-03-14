@@ -17,18 +17,20 @@ import java.util.Map;
 public class RentalItemController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String SKI = "ski";
-        final String RENTAL = "rental";
+        final String ski = "SKI";
+        final String rental = "RENTAL";
         try {
             String item_type = req.getParameter("item_type");
             String img_num_str = req.getParameter("img_num");
             String id_str = null;
 
-            if (req.getParameter("isRentalOrSki").equals("rental")) {
-                id_str = req.getParameter("rentalshop_id");
-            } else if (req.getParameter("isRentalOrSki").equals("ski")) {
-                id_str = req.getParameter("ski_id");
-            }
+//            if (req.getParameter("isRentalOrSki").equalsIgnoreCase(rental)) {
+//                id_str = req.getParameter("rentalshop_id");
+//            } else if (req.getParameter("isRentalOrSki").equalsIgnoreCase(ski)) {
+//                id_str = req.getParameter("ski_id");
+//            }
+
+            id_str = req.getParameter("isRentalOrSki").equalsIgnoreCase(rental) ? req.getParameter("rentalshop_id") : req.getParameter("ski_id");
 
             if (item_type == null || img_num_str == null || id_str == null) {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "필수 파라미터가 누락되었습니다.");
@@ -44,9 +46,13 @@ public class RentalItemController extends HttpServlet {
             System.out.println("카테고리 조회 결과: " + (itemCategoryDTO != null ? "success" : "failed"));
 
             Map<String, Object> params = new HashMap<>();
+            if (itemCategoryDTO == null) {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "해당 대여점을 찾을 수 없습니다.");
+                return;
+            }
             params.put("category_id", itemCategoryDTO.getCategory_id());
 
-            if (req.getParameter("isRentalOrSki").equals("rental")) {
+            if (req.getParameter("isRentalOrSki").equalsIgnoreCase(rental)) {
                 RentalShopDao rentalShopDao = new RentalShopDao();
                 RentalShopDTO rentalShopDTO = rentalShopDao.getRentalShop(shop_id);
                 if (rentalShopDTO == null) {
@@ -62,7 +68,7 @@ public class RentalItemController extends HttpServlet {
                 for (RentItemDTO rentItemDTO : rentItemList) {
                     System.out.println("rent_id:" + rentItemDTO.getItem_id());
                 }
-            } else if (req.getParameter("isRentalOrSki").equals("ski")) {
+            } else if (req.getParameter("isRentalOrSki").equalsIgnoreCase(ski)) {
                 SkiDao skiDao = new SkiDao();
                 SkiDTO skiDTO = skiDao.getSki(shop_id);
                 if (skiDTO == null) {
@@ -79,7 +85,8 @@ public class RentalItemController extends HttpServlet {
                 }
             }
 
-            req.setAttribute("isRentalOrSki", req.getParameter("isRentalOrSki"));
+
+            req.setAttribute("isRentalOrSki", req.getParameter("isRentalOrSki").toUpperCase());
             req.setAttribute("img_num", img_num);
             req.setAttribute("price_per_hour", itemCategoryDTO.getPrice_per_hour());
             req.getRequestDispatcher("/rental/itemDetail.jsp").forward(req, resp);

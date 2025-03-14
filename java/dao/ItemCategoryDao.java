@@ -1,7 +1,6 @@
 package dao;
 
 import dto.ItemCategoryDTO;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import mybatis.system.SqlSessionFactorySystem;
@@ -17,5 +16,4 @@ public class ItemCategoryDao {
 
     }
 
-  
 }

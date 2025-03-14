@@ -1,6 +1,7 @@
 package dao;
 
 import dto.RentalShopDTO;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import mybatis.system.SqlSessionFactorySystem;
@@ -14,5 +15,6 @@ public class RentalShopDao {
             return sqlSession.selectOne(NAMESPACE + ".getInfo", id);
         }
     }
+
 
 }

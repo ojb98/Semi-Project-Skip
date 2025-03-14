@@ -11,5 +11,4 @@
         select * from ski
     </select>
 
- 
 </mapper>

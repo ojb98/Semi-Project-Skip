@@ -239,9 +239,9 @@
 
     <%
         String isRentalOrSki = (String) request.getAttribute("isRentalOrSki");
-        if (isRentalOrSki.equals("rental")) {
+        if (isRentalOrSki.equalsIgnoreCase("RENTAL")) {
             RentalShopDTO dto = (RentalShopDTO) request.getAttribute("dto");
-        } else if (isRentalOrSki.equals("ski")) {
+        } else if (isRentalOrSki.equalsIgnoreCase("SKI")) {
             SkiDTO dto = (SkiDTO) request.getAttribute("dto");
         }
     %>
@@ -258,14 +258,14 @@
                     <div class="item-box">
                         <c:set var="linkUrl" value=""/>
 
-                        <c:if test="${isRentalOrSki eq 'rental'}">
+                        <c:if test="${isRentalOrSki eq 'RENTAL'}">
                             <c:set var="linkUrl"
-                                   value="${pageContext.request.contextPath}/rental/rentalItem?item_type=${item}&rentalshop_id=${dto.rentalshop_id}&img_num=${status.index + 1}&isRentalOrSki=rental"/>
+                                   value="${pageContext.request.contextPath}/rental/rentalItem?item_type=${item}&rentalshop_id=${dto.rentalshop_id}&img_num=${status.index + 1}&isRentalOrSki=RENTAL"/>
                         </c:if>
 
-                        <c:if test="${isRentalOrSki eq 'ski'}">
+                        <c:if test="${isRentalOrSki eq 'SKI'}">
                             <c:set var="linkUrl"
-                                   value="${pageContext.request.contextPath}/rental/rentalItem?item_type=${item}&ski_id=${dto.ski_id}&img_num=${status.index + 1}&isRentalOrSki=ski"/>
+                                   value="${pageContext.request.contextPath}/rental/rentalItem?item_type=${item}&ski_id=${dto.ski_id}&img_num=${status.index + 1}&isRentalOrSki=SKI"/>
                         </c:if>
 
                         <a href="${linkUrl}">

@@ -15,5 +15,4 @@
         select * from room where resort_id = #{resort_id}
     </select>
 
-
 </mapper>

@@ -19,9 +19,9 @@ public class RentalSelectController extends HttpServlet {
         SkiDao skiDao = new SkiDao();
         System.out.println(req.getParameter("isRentalOrSki"));
         String isRentalOrSki = req.getParameter("isRentalOrSki");
-        if (isRentalOrSki != null && isRentalOrSki.equals("rental")) {
+        if (isRentalOrSki != null && isRentalOrSki.equalsIgnoreCase("RENTAL")) {
             req.setAttribute("dto", rentalShopDao.getRentalShop(Integer.parseInt(req.getParameter("rentalshop_id"))));
-        } else if (isRentalOrSki != null && isRentalOrSki.equals("ski")) {
+        } else if (isRentalOrSki != null && isRentalOrSki.equalsIgnoreCase("SKI")) {
             req.setAttribute("dto", skiDao.getSki(Integer.parseInt(req.getParameter("ski_id"))));
         }
         req.setAttribute("isRentalOrSki", isRentalOrSki);

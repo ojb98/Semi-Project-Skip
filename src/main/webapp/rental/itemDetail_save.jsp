@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="dto.RentItemDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="dao.UsersDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -393,6 +394,26 @@
             color: #666;
             line-height: 1.4;
         }
+
+        .heart-container {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1;
+        }
+
+        .heart-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            color: #999; /* 기본 색상 */
+            transition: color 0.3s ease;
+        }
+
+        .heart-button.active .heart-icon {
+            color: red; /* 활성화된 상태의 색상 */
+        }
     </style>
 </head>
 <body>
@@ -416,7 +437,25 @@
         request.setAttribute("arr", arr);
         request.setAttribute("index", index);
         final String isRentalOrSki = (String) request.getAttribute("isRentalOrSki");
-        System.out.println(img_num);
+        System.out.println(isRentalOrSki + "88888888888888");
+
+        Cookie[] cookies = request.getCookies();
+        String userId = null;
+        int uuid = -1;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("user_id")) {
+                    userId = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        if (userId != null) {
+            UsersDao usersDao = new UsersDao();
+            uuid = usersDao.getUUID(userId);
+        }
     %>
 
     <div class="body-container">
@@ -528,6 +567,11 @@
                     <c:forEach var="item" items="${list}" varStatus="status">
                         <div class="item-card" data-number="${status.index + 1}">
                             <img src="${item.item_img}" alt="장비 이미지"/>
+                            <div class="heart-container">
+                                <button class="heart-button" data-item-id="${item.item_id}">
+                                    <i class="far fa-heart heart-icon"></i>
+                                </button>
+                            </div>
                         </div>
                     </c:forEach>
                 </c:when>
@@ -540,13 +584,15 @@
         </div>
     </div>
 
-
 </div>
 
 <script>
     let totalPrice = 0;
     const hourlyRate = 1;
     let selectedItems = new Map();
+    const uuid = <%= uuid %>;
+    const isRentalOrSki = '<%=isRentalOrSki%>';
+    console.log(isRentalOrSki);
     const pricePerHour = parseInt(document.querySelector('.pr').dataset.price);
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -580,6 +626,10 @@
 
         document.querySelector('.purchase-left button').addEventListener('click', function (e) {
             e.preventDefault();
+            if (uuid === -1) {
+                alert('로그인이 필요합니다.');
+                return;
+            }
             validateAndSubmit('cart');
         });
 
@@ -608,7 +658,63 @@
             e.preventDefault();
             addItem();
         });
+
+        const heartButtons = document.querySelectorAll('.heart-button');
+
+        heartButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const itemId = this.getAttribute('data-item-id')
+                if (uuid === -1) {
+                    alert('로그인이 필요합니다.');
+                    return;
+                }
+                this.classList.toggle('active'); // active 클래스 토글
+                const heartIcon = this.querySelector('.heart-icon');
+                const url = '<%=request.getContextPath()%>/wish';
+
+                let isWish = true;
+                if (this.classList.contains('active')) {
+                    heartIcon.classList.remove('far'); // 빈 하트 제거
+                    heartIcon.classList.add('fas'); // 채워진 하트 추가
+                    isWish = false;
+                } else {
+                    heartIcon.classList.remove('fas'); // 채워진 하트 제거
+                    heartIcon.classList.add('far'); // 빈 하트 추가
+                }
+
+                const fields = [
+                    {name: 'wish', value: isWish},
+                    {name: 'isRentalOrSki', value: isRentalOrSki},
+                    {name: 'uuid', value: uuid},
+                    {name: 'ref_id', value: itemId},
+                ]
+                createAndSubmitForm(url, fields);
+            });
+        });
     });
+
+    function createAndSubmitForm(url, fields) {
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = url;
+
+        fields.forEach(f => {
+            form.appendChild(createElement(f.name, f.value));
+        });
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function createElement(name, value) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = value;
+        console.log(input);
+        return input;
+    }
+
 
     function addItem() {
         const itemSelect = document.getElementById('item-select');
@@ -640,7 +746,7 @@
             '<button type="button" class="quantity-btn plus-btn">+</button>' +
             '</div>' +
             '<span class="item-price">' + itemPrice.toLocaleString() + '원</span>' +
-            '<button type="button" class="delete-btn"><i class="fas fa-times"></i></button>';
+            '<button type="button" class="delete-btn"><i class="fas fa-times"></i></button>'
 
         itemElement.innerHTML = html;
 
@@ -717,7 +823,6 @@
         const priceElement = document.getElementById('total-price');
         if (priceElement) {
             priceElement.textContent = '총 금액: ' + totalPrice.toLocaleString() + '원';
-            <%--priceElement.innerHTML = `<strong>총 금액: </strong>${totalPrice.toLocaleString()}원`;--%>
             priceElement.style.fontSize = '20px';
             priceElement.style.fontWeight = 'bold';
             priceElement.style.color = '#5399F5';
@@ -745,7 +850,7 @@
         let items = [];
         selectedItems.forEach((data, id) => {
             items.push({
-                itemId: id,
+                itemId: parseInt(id),
                 quantity: data.quantity,
                 startTime: data.startTime,
                 endTime: data.endTime,
@@ -763,36 +868,15 @@
             alert('결제 페이지로 이동합니다.');
         }
 
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = url;
+        const fields = [
+            {name: 'items', value: JSON.stringify(items)},
+            {name: 'totalPrice', value: totalPrice},
+            {name: 'rentDate', value: dateInput.value},
+            {name: 'isRentalOrSki', value: isRentalOrSki},
+            {name: 'uuid', value: uuid}
+        ];
+        createAndSubmitForm(url, fields);
 
-        const itemsInput = document.createElement('input');
-        itemsInput.type = 'hidden';
-        itemsInput.name = 'items';
-        itemsInput.value = JSON.stringify(items);
-        form.appendChild(itemsInput);
-
-        const totalPriceInput = document.createElement('input');
-        totalPriceInput.type = 'hidden';
-        totalPriceInput.name = 'totalPrice';
-        totalPriceInput.value = totalPrice;
-        form.appendChild(totalPriceInput);
-
-        const rentDateInput = document.createElement('input');
-        rentDateInput.type = 'hidden';
-        rentDateInput.name = 'rentDate';
-        rentDateInput.value = dateInput.value;
-        form.appendChild(rentDateInput);
-
-        const isRentalOrSkiInput = document.createElement('input');
-        isRentalOrSkiInput.type = 'hidden';
-        isRentalOrSkiInput.name = 'isRentalOrSki';
-        isRentalOrSkiInput.value = '<%=isRentalOrSki%>';
-        form.appendChild(isRentalOrSkiInput);
-
-        document.body.appendChild(form);
-        form.submit();
     }
 </script>
 
