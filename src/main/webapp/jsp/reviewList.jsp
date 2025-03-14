@@ -261,9 +261,14 @@
             </div>
             <div class="title_right">
               <div class="review_filter">
+              <!-- 
                 <a class="filter_btn active" href="<%=request.getContextPath() %>/jsp/reviewList"><i class="fa fa-check"></i>최신순</a>
                 <a class="filter_btn" href="<%=request.getContextPath() %>/jsp/reviewDesc"><i class="fa fa-check"></i>평점 높은순</a>
-                <a class="filter_btn" href="<%=request.getContextPath() %>/jsp/reviewAsc"><i class="fa fa-check"></i>평점 낮은순</a>
+                <a class="filter_btn" href="<%=request.getContextPath() %>/jsp/reviewAsc"><i class="fa fa-check"></i>평점 낮은순</a>              
+               -->
+               <a class="filter_btn active"  href="#none" data-sort="recent"><i class="fa fa-check"></i>최신순</a>
+                <a class="filter_btn" href="#none" data-sort="ratingDesc"><i class="fa fa-check"></i>평점 높은순</a>
+                <a class="filter_btn" href="#none" data-sort="ratingAsc"><i class="fa fa-check"></i>평점 낮은순</a> 
               </div>
             </div>
           </div>
@@ -279,24 +284,6 @@
     </div>
   </main>
 
-  <script>
-	const filterBtns = document.querySelectorAll(".filter_btn");
-	
-	filterBtns.forEach(function (btn) {
-	    btn.addEventListener("click", function () {
-	        // 모든 버튼에서 active 제거
-	        filterBtns.forEach(btn => btn.classList.remove("active"));
-	
-	        // 현재 클릭한 버튼에 active 추가
-	        this.classList.add("active");
-	    });
-	});
-	
-	
-  </script>
   <script src="<%=request.getContextPath() %>/script/review.js"></script>
-  <script type="text/javascript">
-  getList(1);
-  </script>
 </body>
 </html>

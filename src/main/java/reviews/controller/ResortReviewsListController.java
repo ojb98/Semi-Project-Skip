@@ -46,7 +46,5 @@ public class ResortReviewsListController extends HttpServlet {
 		//리조트 리뷰 전체 조회
 		req.setAttribute("rrList", rrList);
 		req.getRequestDispatcher("/jsp/reviewList.jsp").forward(req, resp);
-		
 	    }
-
-}
+	}
