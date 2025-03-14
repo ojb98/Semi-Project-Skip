@@ -79,18 +79,26 @@
 	const tab_items = document.getElementsByClassName("tab_item");
 	document.getElementsByClassName("tab_user")[0].click();
 
+	function changeTab(to) {
+		for (let i = 0; i < tab_items.length; i++) {
+			if (i === to) {
+				tab_items[i].style = "color: rgb(50, 50, 50); border-top: 2px solid #5399f5; border-left: 2px solid #5399f5; border-right: 2px solid #5399f5;";
+			} else {
+				tab_items[i].style = "color: rgb(150, 150, 150); border-bottom: 2px solid #5399f5;";
+			}
+		}
+	}
+	
 	// 회원 로그인 css
 	function clickUser() {
 		location.href = "#user_login";
-		tab_items[1].style = "color: rgb(150, 150, 150); border-bottom: 2px solid #5399f5;";
-		tab_items[0].style = "color: rgb(50, 50, 50); border-top: 2px solid #5399f5; border-left: 2px solid #5399f5; border-right: 2px solid #5399f5;";
+		changeTab(0);
 	}
 
 	// 관리자 로그인 css
 	function clickManager() {
 		location.href = "#manager_login";
-		tab_items[0].style = "color: rgb(150, 150, 150); border-bottom: 2px solid #5399f5;";
-		tab_items[1].style = "color: rgb(50, 50, 50); border-top: 2px solid #5399f5; border-left: 2px solid #5399f5; border-right: 2px solid #5399f5;";
+		changeTab(1);
 	}
 
 	const user_id = document.getElementsByName("user_id");

@@ -1,4 +1,4 @@
-package mybatis.service;
+package util;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -6,14 +6,14 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import mybatis.service.SqlSessionFactoryService;
 import users.dto.UsersDto;
+import util.SqlSessionFactoryService;
 
 public class UsersDao {
 	// 싱글턴 객체
 	private static UsersDao instance = new UsersDao();
 	private SqlSessionFactory sqlSessionFactory = SqlSessionFactoryService.getSqlSessionFactory();
-	private final String NAMESPACE = "mybatis.mapper.UsersMapper";
+	private final String NAMESPACE = "users.mapper.UsersMapper";
 	
 	private UsersDao() {
 		

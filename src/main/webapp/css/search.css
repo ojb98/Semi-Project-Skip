@@ -1,0 +1,131 @@
+.search_detail {
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.search_menu {
+	width: 1230px;
+	height: 58px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+}
+
+.search_menu form {
+	margin-right: 30px;
+}
+
+.search_menu form label {
+	margin-right: 10px;
+}
+
+.search_menu select {
+	width: 130px;
+	height: 32px;
+	text-align: center;
+}
+
+.search_main {
+	width: 1230px;
+	display: flex;
+	margin: 50px auto;
+	height: 852px;
+}
+
+/* 리스트 */
+.search_list {
+	width: 40%;
+	box-sizing: border-box;
+	overflow: auto;
+}
+
+.list_title {
+	font-size: 16px;
+	font-weight: 700;
+	margin: 10px 0;
+}
+
+/* card 영역 */
+.search_card {
+	display: flex;
+	border-radius: 10px;
+}
+
+.card_line {
+	margin: 10px 0;
+	border: 1px solid #e9e9e9;
+}
+
+.card_img {
+	border-radius: 10px;
+	width: 30%;
+	background: url(/img/resort_img1.jpg) no-repeat center / cover;
+}
+
+.card_info {
+	padding: 15px;
+	width: 70%;
+	position: relative;
+}
+.card_badge {
+	color: #ccc;
+	font-size: 12px;
+}
+.card_title {
+	font-weight: 700;
+	margin: 5px 0;
+}
+.card_location,
+.card_rating {
+	font-size: 12px;
+	margin-top: 5px;
+}
+.card_location {
+	color: #ccc;
+}
+
+.rating,
+.personnel {
+	font-size: 12px;
+}
+
+.rating {
+	display: inline-block;
+	border-radius: 7px;
+	width: 40px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	background-color: #ffc83b;
+}
+
+.card_price {
+	text-align: right;
+	margin-top: 10px;
+}
+.price_original {
+	text-decoration: line-through;
+	color: #999;
+	font-size: 12px;
+	margin-bottom: 5px;
+}
+.price_discount {
+	font-size: 18px;
+	font-weight: 700;
+}
+.card_info .heart_btn {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+}
+.card_info .fa-heart {
+	color: #999;
+}
+
+.fa-heart-active {
+	color: red !important;
+}
+
+/* 지도 api영역 */
+.search_map {
+	width: 60%;
+}
