@@ -1,3 +1,4 @@
+<%@page import="adminDto.SkiReservationDetailDTO"%>
 <%@page import="skiAdminPageMapper.SkiAdminMapper"%>
 <%@page import="adminDto.SkiReservationDTO"%>
 <%@page import="java.util.HashMap"%>
@@ -11,11 +12,11 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	List<SkiReservationDTO> reservationList = (List<SkiReservationDTO>)request.getAttribute("reservationList");
+	List<SkiReservationDetailDTO> reservationDetailList = (List<SkiReservationDetailDTO>)request.getAttribute("reservationDetailList");
 %>
 <% 
-	if(reservationList != null && !reservationList.isEmpty()){
-       for (SkiReservationDTO reservation : reservationList) {
+	if(reservationDetailList != null && !reservationDetailList.isEmpty()){
+       for (SkiReservationDetailDTO reservation : reservationDetailList) {
     		String rowStyle = "";
     		String reservStatus = "";
            if("CANCELLED".equals(reservation.getStatus()) || "COMPLETED".equals(reservation.getStatus())){
