@@ -24,7 +24,7 @@
 	xhr.onreadystatechange = function() {
 	    if(xhr.readyState === 4) {
 	        if(xhr.status === 200) {
-	        	document.getElementById("reservationTableBody").innerHTML = xhr.responseText;
+	        	document.getElementById("reviewTableBody").innerHTML = xhr.responseText;
 	        } else {
 	            alert("리스트 갱신 중 오류");
 	        }
@@ -33,7 +33,7 @@
 	xhr.open("GET", "reviewList.jsp?skiID="+encodeURIComponent(skiID), true);
 	xhr.send();
   }
-  function requestDelete(review_id) { //**** 관리자가 예약 취소 : 환불까지 이어져야 함?? ****
+  function requestDelete(review_id) {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function(){
           if(xhr.readyState === 4){

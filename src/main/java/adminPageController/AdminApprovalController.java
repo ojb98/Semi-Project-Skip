@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import org.apache.ibatis.session.SqlSession;
+
 import adminPageMapper.RootAdminMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,7 +13,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import mybatis.service.SqlSessionFactoryService;
 
-public class ApprovalServlet extends HttpServlet{
+@WebServlet("/admin/approvalRequest")
+public class AdminApprovalController extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher("/admin/adminApprovalRequest.jsp").forward(req, resp);
+	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/plain; charset=UTF-8");
