@@ -16,3 +16,7 @@ CREATE TABLE USERS
 );
 
 CREATE SEQUENCE USERS_SEQ;
+
+INSERT INTO USERS VALUES(21, 'wjdqls', '1234', '오정빈', 'wjdqls980@naver.com', 'ㅇㅇ', 'NORMAL', 'USER', 'Y', SYSDATE);
+
+COMMIT;

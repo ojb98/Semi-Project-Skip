@@ -46,8 +46,54 @@ main {
   display: none;
 }
 
+.tab_id {
+  padding: 16px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.tab_pw {
+  padding: 16px;
+  padding-left: 52px;
+  padding-right: 52px;
+}
+
 :target {
   display: block;
+}
+
+.find_result {
+  display: none;
+}
+
+.find_result hr {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.email_box {
+  display: flex;
+  height: 200px;
+  background-color: #ededed;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.email_retry {
+  margin-top: 20px;
+}
+
+.email_retry a {
+  margin-left: 5px;
+  color: #5399f5;
+}
+
+.email_retry a:hover {
+  text-decoration: underline;
+  text-underline-position: under;
 }
 
 .login_container .logo {
@@ -124,7 +170,7 @@ main {
   margin-top: 20px;
     border: 15px;
     width: 100%;
-    padding: 15px;
+    height: 44px;
     border-radius: 10px;
     font-weight: 700;
     background-color: #5399f5;
@@ -173,6 +219,7 @@ main {
 
 .account_area ul li a:hover {
 	text-decoration: underline;
+  text-underline-position: under;
 }
 
 .account_area ul li::before {

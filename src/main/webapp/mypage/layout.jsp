@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>users/mypage.jsp</title>
+<title>mypage/layout.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <style type="text/css">
-	.${nav} {
+	.${navTab} {
 		text-decoration: underline;
 	}
 	
@@ -94,7 +94,7 @@
 		
 		<!-- content -->
 		<div class="content_container">
-			<jsp:include page="/mypage/${content}" />
+			<jsp:include page="/mypage/${content}.jsp" />
 		</div>
 	</div>	
 </main>

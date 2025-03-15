@@ -66,7 +66,7 @@ public class UsersDao {
 	
 	public int updatePassword(UsersDto user) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-			int n = sqlSession.update(NAMESPACE + ".update", user);
+			int n = sqlSession.update(NAMESPACE + ".updatePassword", user);
 			sqlSession.commit();
 			return n;
 		}

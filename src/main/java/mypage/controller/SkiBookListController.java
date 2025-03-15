@@ -23,8 +23,8 @@ public class SkiBookListController extends HttpServlet {
 		UsersDto user = (UsersDto)req.getSession().getAttribute("user");
 		List<SkiReservationListDto> list = SkiReservationDao.getInstance().selectByUuid(user.getUuid());
 		req.setAttribute("list", SkiReservationDao.getInstance().selectByUuid(user.getUuid()));
-		req.setAttribute("nav", "bookings");
-		req.setAttribute("content", "skiBookings.jsp");
+		req.setAttribute("navTab", MypageContent.SKI_BOOKINGS.getTabName());
+		req.setAttribute("content", MypageContent.SKI_BOOKINGS.getFileName());
 		req.getRequestDispatcher("/mypage/layout.jsp").forward(req, resp);
 	}
 }

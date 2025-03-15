@@ -14,10 +14,10 @@
 		<div class="tab_menu">
 			<ul>
 				<li class="tab_item">
-					<a class="tab_user" href="javascript:void(0)" onclick="clickUser()">일반회원</a>
+					<a class="tab_user" href="javascript:clickUser()">일반회원</a>
 				</li>
 				<li class="tab_item">
-					<a class="tab_manager" href="javascript:void(0)" onclick="clickManager()">관리자</a>
+					<a class="tab_manager" href="javascript:clickManager()">관리자</a>
 				</li>
 			</ul>
 		</div>

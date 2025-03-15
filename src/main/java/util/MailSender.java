@@ -21,6 +21,7 @@ import javax.mail.internet.MimeMultipart;
 public class MailSender {
 	private static Properties properties;
 	private static final String smtpEmail = "kernel1913@gmail.com";
+	static int count = 0;
 	
 	static {
 		properties = new Properties();

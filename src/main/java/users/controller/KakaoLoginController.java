@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -19,6 +20,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import users.dao.UsersDao;
 import users.dto.UsersDto;
 
@@ -49,10 +51,11 @@ public class KakaoLoginController extends HttpServlet {
 			sb.append(input);
 		}
 		JSONObject json = new JSONObject(sb.toString());
+		String access_token = json.get("access_token").toString();
 		
 		URL url2 = new URL("https://kapi.kakao.com/v2/user/me");
 		HttpsURLConnection con2 = (HttpsURLConnection)url2.openConnection();
-		con2.setRequestProperty("Authorization", "Bearer " + json.get("access_token"));
+		con2.setRequestProperty("Authorization", "Bearer " + access_token);
 		con2.setDoOutput(true);
 		
 		BufferedReader br2 = new BufferedReader(new InputStreamReader(con2.getInputStream(), "UTF-8"));
@@ -80,7 +83,9 @@ public class KakaoLoginController extends HttpServlet {
 				req.getRequestDispatcher("/users/result.jsp").forward(req, resp);
 			}
 		}
-		req.getSession().setAttribute("user", user);
+		HttpSession session = req.getSession();
+		session.setAttribute("user", user);
+		session.setAttribute("access_token", access_token);
 		resp.sendRedirect(req.getContextPath() + "/index.jsp");
 	}
 }

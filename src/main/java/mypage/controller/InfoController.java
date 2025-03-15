@@ -12,9 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 public class InfoController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("nav", "info");
-		req.setAttribute("content", "info.jsp");
-		req.setAttribute("user", "회원");
+		req.setAttribute("navTab", MypageContent.INFO.getTabName());
+		req.setAttribute("content", MypageContent.INFO.getFileName());
 		req.getRequestDispatcher("/mypage/layout.jsp").forward(req, resp);
 	}
 }

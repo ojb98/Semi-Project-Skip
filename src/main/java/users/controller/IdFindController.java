@@ -28,20 +28,22 @@ import users.dto.UsersDto;
 import util.MailSender;
 
 @WebServlet("/users/find/id")
-public class IdFindController extends HttpServlet {
+public class IdFindController extends HttpServlet {	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.sendRedirect(req.getContextPath() + "/users/find/id.jsp");
+		resp.sendRedirect(req.getContextPath() + "/users/findIdOrPw.jsp#id_find");
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email = req.getParameter("email");
 		List<UsersDto> users = UsersDao.getInstance().selectUserByEmail(email);
+
+		resp.setContentType("text/plain;charset=utf-8");
+		PrintWriter pw = resp.getWriter();
+		JSONObject json = new JSONObject();
 		if (users == null) {
-			req.setAttribute("email", email);
-			req.setAttribute("result", "가입된 아이디가 없습니다.");
-			req.getRequestDispatcher("/users/find/id.jsp").forward(req, resp);
+			json.put("exists", false);
 		} else {
 			String subject = "[SKI:P] 가입된 아이디 목록입니다."; // 메일 제목
 			String fromEmail = "kernel1913@gmail.com"; // 보내는 사람 이메일
@@ -54,14 +56,15 @@ public class IdFindController extends HttpServlet {
 			}
 			try {
 				MailSender.send(subject, fromEmail, fromUsername, email, sb.toString(), req.getServletContext().getRealPath("/WEB-INF/google_app.txt"));
-				req.setAttribute("email", email);
-				req.getRequestDispatcher("/users/find/idSent.jsp").forward(req, resp);
+				json.put("exists", true);
 			} catch (MessagingException me) {
 				me.printStackTrace();
-				req.setAttribute("email", email);
-				req.setAttribute("result", "가입된 아이디가 없습니다.");
-				req.getRequestDispatcher("/users/find/id.jsp").forward(req, resp);
+				json.put("exists", false);
+				pw.print(json.toString());
+				pw.close();
 			}
 		}
+		pw.print(json);
+		pw.close();
 	}
 }
