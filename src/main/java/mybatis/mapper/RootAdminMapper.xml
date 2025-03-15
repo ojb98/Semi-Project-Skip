@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminPageMapper.RootAdminMapper">
+
+	<!-- 모든유저정보 -->
+    <select id="getUsersList" resultType="adminDto.UsersDTO">
+        SELECT uuid, name, user_id, email, phone, social, role, regdate FROM Users where role != 'ADMIN' 
+   	</select>
+
+   	<!-- 검색한 유저리스트 -->
+   	<select id="getSearchUsersList" resultType="adminDto.UsersDTO" parameterType="map">
+   	    	SELECT uuid, name, user_id, email, phone, social, role, regdate FROM Users where role != 'ADMIN'
+        <if test="name != null and name != ''">
+			AND name LIKE '%' || #{name} || '%'
+		</if>
+		<if test="user_id != null and user_id != ''">
+			AND user_id LIKE '%' || #{user_id} || '%'		
+		</if>
+		<if test="email != null and email != ''">
+		    AND email LIKE '%' || #{email} || '%'
+		</if>
+   	</select>
+
+	<!-- 관리자UUID로 스키장ID조회 -->
+    <select id="getSkiIdByUUID" resultType="int">
+        SELECT SKI_ID FROM SKI WHERE UUID = #{adminUUID}
+    </select>
+    
+    <!-- 보류상태인 유저목록 -->
+    <select id="getPendingUsers" resultType="adminDto.UsersDTO">
+        SELECT uuid, user_id as userId, name, email, phone, role, status, regdate FROM Users where status='P' AND role != 'ADMIN' AND role != 'USER'
+    </select>
+    
+    <!-- 보류상태인 유저목록(검색) -->
+    <select id="getSearchPendingUsers" resultType="adminDto.UsersDTO" parameterType="map">
+        SELECT uuid, user_id as userId, name, email, phone, role, status, regdate FROM Users where status='P' AND role != 'ADMIN' AND role != 'USER'
+        <if test="name != null and name != ''">
+		    AND name LIKE '%' || #{name} || '%'
+		</if>
+		<if test="user_id != null and user_id != ''">
+			AND user_id LIKE '%' || #{user_id} || '%'		
+		</if>
+		<if test="email != null and email != ''">
+		    AND email LIKE '%' || #{email} || '%'
+		</if>
+		
+    </select>
+
+    <!-- 거부상태인 유저목록 -->
+    <select id="getDeniedUsers" resultType="adminDto.UsersDTO">
+        SELECT uuid, user_id as userId, name, email, phone, role, status, regdate FROM Users where status='N' AND role != 'ADMIN' AND role != 'USER'
+    </select>
+
+    <!-- 거부상태인 유저목록(검색) -->
+    <select id="getSearchDeniedUsers" resultType="adminDto.UsersDTO" parameterType="map">
+        SELECT uuid, user_id as userId, name, email, phone, role, status, regdate FROM Users where status='N' AND role != 'ADMIN' AND role != 'USER'
+        <if test="name != null and name != ''">
+		    AND name LIKE '%' || #{name} || '%'
+		</if>
+		<if test="user_id != null and user_id != ''">
+			AND user_id LIKE '%' || #{user_id} || '%'		
+		</if>
+		<if test="email != null and email != ''">
+		    AND email LIKE '%' || #{email} || '%'
+		</if>
+    </select>
+   
+    <!-- 승인버튼 클릭시 중간관리자 상태 보류->승인 -->
+    <update id="approvalPendingUsers" parameterType="int">
+    	UPDATE USERS SET status='Y' WHERE UUID=#{UUID}
+    </update>
+
+    <!-- 승인버튼 클릭시 중간관리자 상태 보류->거부 -->
+    <update id="denyPendingUsers" parameterType="int">
+    	UPDATE USERS SET status='N' WHERE UUID=#{UUID}
+    </update>
+
+    <!-- 삭제버튼 클릭시 유저 삭제 -->
+    <delete id="deleteUsers" parameterType="int">
+    	DELETE FROM Users WHERE UUID=#{UUID}
+    </delete>
+   
+    <!-- 총 회원 수 -->
+    <select id="getTotalUsers" resultType="int">
+        SELECT COUNT(*) FROM Users
+    </select>
+   
+    <!-- 총 일반회원 수 -->
+    <select id="getUserCount" resultType="int">
+        SELECT COUNT(*) FROM Users WHERE role = 'USER'
+    </select>
+   
+    <!-- 총 스키장 관리자 수 -->
+    <select id="getSkiOwners" resultType="int">
+        SELECT COUNT(*) FROM Users WHERE role = 'SKI'
+    </select>
+    
+    <!-- 총 렌탈샵 관리자 수 -->
+    <select id="getRentalOwners" resultType="int">
+        SELECT COUNT(*) FROM Users WHERE role = 'RENTAL'
+    </select>
+   
+    <!-- 총 리조트 관리자 수 -->
+    <select id="getResortOwners" resultType="int">
+        SELECT COUNT(*) FROM Users WHERE role = 'RESORT'
+    </select>
+   
+    <!-- 승인대기중인 관리자 수 -->
+    <select id="getPendingCounts" resultType="int">
+        SELECT COUNT(*) FROM Users WHERE status = 'P'
+    </select>
+    
+    <!-- 최근 가입한 10명 회원 간이 리스트 -->
+    <select id="getNewUsers" resultType="adminDto.UsersDTO">
+        SELECT user_id, name, role, regdate 
+        FROM Users 
+        ORDER BY UUID DESC 
+        FETCH FIRST 10 ROWS ONLY
+    </select>
+</mapper>
