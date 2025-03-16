@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import ski.dto.SkiReservationDto;
 import ski.dto.SkiReservationListDto;
 import util.SqlSessionFactoryService;
 

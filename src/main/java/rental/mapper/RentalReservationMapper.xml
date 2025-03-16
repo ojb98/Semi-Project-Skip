@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rental.mapper.RentalReservationMapper">
+	<resultMap type="rental.dto.RentalReservationListDto" id="RentalReservationListMapper">	
+		<id column="rent_reserv_id" property="rent_reserv_id"/>
+		<result column="rentalshop_id" property="rentalshop_id"/>
+		<result column="uuid" property="uuid"/>
+		<result column="rental_start" property="rental_start"/>
+		<result column="rental_end" property="rental_end"/>
+		<result column="total_price" property="total_price"/>
+		<result column="status" property="status"/>
+		<result column="created_at" property="created_at"/>
+						
+		<result column="name" property="name"/>
+		<result column="payment_id" property="payment_id"/>
+		
+		<collection property="rentalReservationItemDtoList" ofType="rental.dto.RentalReservationItemDto">
+			<id column="rent_item_id" property="rent_item_id"/>
+			<result column="rent_reserv_id" property="rent_reserv_id"/>
+			<result column="item_id" property="item_id"/>
+			<result column="item_name" property="item_name"/>
+			<result column="quantity" property="quantity"/>
+			<result column="subtotal_price" property="subtotal_price"/>
+		</collection>
+	</resultMap>
+
+
+	<select id="selectByUuid" resultMap="RentalReservationListMapper" parameterType="int">
+		select rr.rent_reserv_id, rr.rentalshop_id, rr.uuid, rr.rental_start, rr.rental_end, rr.total_price, rr.status, rr.created_at,
+			(select name from rentalshop where rentalshop_id = rr.rentalshop_id) name, (select payment_id from rent_payments where rent_reserv_id = rr.rent_reserv_id) payment_id,
+			rri.rent_item_id, rri.item_id, (select item_name from rent_item where item_id = rri.item_id) item_name, rri.quantity, rri.subtotal_price
+		from rental_reservation rr left join rent_reservation_item rri on rr.rent_reserv_id = rri.rent_reserv_id
+		where uuid = #{uuid}
+	</select>
+</mapper>

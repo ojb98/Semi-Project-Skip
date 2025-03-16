@@ -3,12 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/mypage/reserv_tab.jsp"/>
 
-<ul id="ski_list">
+<ul id="rental_list">
 	<c:forEach var="dto" items="${list}">
 		<li>
 			<div class="reserv_container">
 				<div class="reserv_title">
-					<a href="">${dto.ski_reserv_id}</a>
+					<a href="">${dto.rent_reserv_id}</a>
 					<span>${dto.created_at}</span>
 				</div>
 				
@@ -38,7 +38,7 @@
 								</td>
 								<td>
 									<div class="reserv_items">
-										<c:forEach var="itemDto" items="${dto.skiReservationItemDtoList}">
+										<c:forEach var="itemDto" items="${dto.rentalReservationItemDtoList}">
 											<div>
 												<span>${itemDto.item_name} </span>
 												<span>${itemDto.quantity}개 </span>
@@ -51,7 +51,7 @@
 									<div>${dto.total_price}</div>
 								</td>
 								<td>
-									<div>${dto.reserv_date}</div>
+									<div>${dto.rental_start}</div>
 								</td>
 								<td>
 									<div>버튼</div>

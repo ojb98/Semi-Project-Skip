@@ -4,15 +4,15 @@
 	<ul>
 		<!-- 스키장 탭 -->
 		<li>
-			<a href="${pageContext.request.contextPath}/mypage/bookings/ski">스키장</a>
+			<a class="skiBookings" href="${pageContext.request.contextPath}/mypage/bookings/ski">스키장</a>
 		</li>
 		<!-- 리조트 탭 -->
 		<li>
-			<a href="javascript:resortBookList(2025, 1)">리조트</a>
+			<a class="resortBookings" href="${pageContext.request.contextPath}/mypage/bookings/resort">리조트</a>
 		</li>
 		<!-- 렌탈샵 탭 -->
 		<li>
-			<a href="javascript:rentalBookList(2025, 1)">렌탈샵</a>
+			<a class="rentalBookings" href="${pageContext.request.contextPath}/mypage/bookings/rental">렌탈샵</a>
 		</li>
 	</ul>
 </div>

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>index.jsp</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainpage.css">
 </head>
 <body>
 <!-- header -->

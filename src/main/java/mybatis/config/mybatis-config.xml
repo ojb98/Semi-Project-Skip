@@ -17,6 +17,7 @@
 	<mappers>
 		<mapper resource="users/mapper/UsersMapper.xml" />
 		<mapper resource="ski/mapper/SkiReservationMapper.xml" />
+		<mapper resource="rental/mapper/RentalReservationMapper.xml"/>
 	    <mapper resource="mybatis/mapper/RootAdminMapper.xml"/>
 	    <mapper resource="mybatis/mapper/SkiAdminMapper.xml" />
 	</mappers>

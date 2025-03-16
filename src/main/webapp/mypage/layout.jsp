@@ -5,9 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>mypage/layout.jsp</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainpage.css">
 <style type="text/css">
-	.${navTab} {
+	.${content} {
 		text-decoration: underline;
 	}
 	
@@ -60,15 +60,8 @@
 	.reserv_content table {
 		height: 100%;	
 	}
-	
-	/* .reserv_content td div {
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		align-items: center;
-	} */
 
-	.reserv_content tbody td div:not(.reserv_items) {
+	.reserv_content tbody td > div:not(.reserv_items) {
 		display: flex;
 		flex-direction: row;
 		height: 100%;
@@ -77,9 +70,7 @@
 	}
 	
 	.reserv_items {
-		display: flex;
 		height: 100%;
-		justify-content: space-between;
 	}
 </style>
 </head>

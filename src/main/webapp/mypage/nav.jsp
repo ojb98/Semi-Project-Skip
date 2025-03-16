@@ -6,7 +6,7 @@
 			<a class="info" href="${pageContext.request.contextPath}/mypage/info">회원정보</a>
 		</li>
 		<li>
-			<a class="bookings" href="${pageContext.request.contextPath}/mypage/bookings/ski">예약</a>
+			<a class="skiBookings rentalBookings resortBookings" href="${pageContext.request.contextPath}/mypage/bookings/ski">예약</a>
 		</li>
 		<li>
 			<a href="reviews">리뷰</a>

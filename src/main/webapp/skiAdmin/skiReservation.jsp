@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <title>관리자 페이지</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 <script type="text/javascript">

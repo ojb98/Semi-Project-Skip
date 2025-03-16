@@ -1,42 +1,42 @@
-package ski.dto;
+package rental.dto;
 
-public class SkiReservationItemDto {
-	private int ski_item_id;
-	private int ski_reserv_id;
+public class RentalReservationItemDto {
+	private int rent_item_id;
+	private int rent_reserv_id;
 	private int item_id;
 	private String item_name;
 	private int quantity;
 	private int subtotal_price;
 	
-	public SkiReservationItemDto() {
+	public RentalReservationItemDto() {
 		
 	}
-
-	public SkiReservationItemDto(int ski_item_id, int ski_reserv_id, int item_id, String item_name, int quantity,
+	
+	public RentalReservationItemDto(int rent_item_id, int rent_reserv_id, int item_id, String item_name, int quantity,
 			int subtotal_price) {
 		super();
-		this.ski_item_id = ski_item_id;
-		this.ski_reserv_id = ski_reserv_id;
+		this.rent_item_id = rent_item_id;
+		this.rent_reserv_id = rent_reserv_id;
 		this.item_id = item_id;
 		this.item_name = item_name;
 		this.quantity = quantity;
 		this.subtotal_price = subtotal_price;
 	}
 
-	public int getSki_item_id() {
-		return ski_item_id;
+	public int getRent_item_id() {
+		return rent_item_id;
 	}
 
-	public void setSki_item_id(int ski_item_id) {
-		this.ski_item_id = ski_item_id;
+	public void setRent_item_id(int rent_item_id) {
+		this.rent_item_id = rent_item_id;
 	}
 
-	public int getSki_reserv_id() {
-		return ski_reserv_id;
+	public int getRent_reserv_id() {
+		return rent_reserv_id;
 	}
 
-	public void setSki_reserv_id(int ski_reserv_id) {
-		this.ski_reserv_id = ski_reserv_id;
+	public void setRent_reserv_id(int rent_reserv_id) {
+		this.rent_reserv_id = rent_reserv_id;
 	}
 
 	public int getItem_id() {
@@ -70,6 +70,4 @@ public class SkiReservationItemDto {
 	public void setSubtotal_price(int subtotal_price) {
 		this.subtotal_price = subtotal_price;
 	}
-
-	
 }

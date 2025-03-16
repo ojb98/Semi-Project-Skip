@@ -22,9 +22,8 @@ public class SkiBookListController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		UsersDto user = (UsersDto)req.getSession().getAttribute("user");
 		List<SkiReservationListDto> list = SkiReservationDao.getInstance().selectByUuid(user.getUuid());
-		req.setAttribute("list", SkiReservationDao.getInstance().selectByUuid(user.getUuid()));
-		req.setAttribute("navTab", MypageContent.SKI_BOOKINGS.getTabName());
-		req.setAttribute("content", MypageContent.SKI_BOOKINGS.getFileName());
+		req.setAttribute("list", list);
+		req.setAttribute("content", "skiBookings");
 		req.getRequestDispatcher("/mypage/layout.jsp").forward(req, resp);
 	}
 }

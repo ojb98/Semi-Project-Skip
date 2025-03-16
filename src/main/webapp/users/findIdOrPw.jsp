@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>find/findIdOrPw.jsp</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainpage.css">
 <style>
     .loader {
       margin: auto;
