@@ -9,13 +9,13 @@
 			<a class="skiBookings rentalBookings resortBookings" href="${pageContext.request.contextPath}/mypage/bookings/ski">예약</a>
 		</li>
 		<li>
-			<a href="reviews">리뷰</a>
+			<a class="reviews" href="${pageContext.request.contextPath}/mypage/reviews">리뷰</a>
 		</li>
 		<li>
 			<a href="inquiries">문의</a>
 		</li>
 		<li>
-			<a href="cancel">회원탈퇴</a>
+			<a class="delete" href="${pageContext.request.contextPath}/mypage/account/delete">회원탈퇴</a>
 		</li>
 	</ul>
 </div>

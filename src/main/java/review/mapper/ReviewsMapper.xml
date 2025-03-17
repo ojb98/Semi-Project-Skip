@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review.mapper.ReviewsMapper">
+	<sql id="filter">
+		<where>
+			uuid = #{uuid}
+			<if test="rating != null and rating != 'total'">
+				and rating = to_number(#{rating})
+			</if>
+			
+			<if test="category != null and category != 'total'">
+				and category = #{category}
+			</if>
+		</where>
+	</sql>
+
+	<select id="getCount" resultType="int" parameterType="hashmap">
+		select count(*)
+		from reviews_view
+		<include refid="filter"/>
+	</select>
+
+	<select id="list" resultType="review.dto.ReviewsDto" parameterType="hashmap">
+		select *
+		from (select rownum rn, r.*
+			from (select category, review_id, payment_id, uuid, ref_id, rating, review_comment, img, created_at
+					from reviews_view
+					<include refid="filter"/>
+					order by created_at desc) r)
+		where rn between #{startRow} and #{endRow}
+	</select>
+</mapper>

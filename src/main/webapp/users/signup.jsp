@@ -226,6 +226,7 @@
 		const p = email[k].value.indexOf(".");
 		if (a < 1 || p < a + 2 || p === email[k].value.length - 1) {
 			emailErrMsg[k].innerHTML = "이메일 형식을 맞춰주세요.";
+			return;
 		}
 		
 		// 이메일 인증 체크

@@ -72,6 +72,81 @@
 	.reserv_items {
 		height: 100%;
 	}
+	
+	.info_title h1 {
+		font-size: 27px;
+		font-weight: 500;
+		margin-bottom: 30px;
+		color: rgb(100, 100, 100);
+	}
+	
+	.info_title {
+		border-bottom: 1px solid black;
+	}
+	
+	.user_info .input_text {
+		width: 300px;
+		border: 1px solid #dadada;
+		padding-top: 14px;
+		padding-bottom: 14px;
+		border-radius: 5px;
+	}
+	
+	.user_info .input_email {
+		position: relative;
+	}
+	
+	.user_info .input_email input {
+		width: 274px;
+	}
+	
+	.user_info .input_btn {
+		position: absolute;
+		font-size: 0.9em;
+		top: 15px;
+		right: 10px;
+		width: 30px;
+  		color:rgb(100, 100, 100);
+	}
+	
+	.input_frame {
+		border-bottom: 1px solid #eaeaea;
+		padding-top: 20px;
+		padding-bottom: 50px;
+	}
+	
+	.input_box {
+		width: 60%;
+		margin-top: 30px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
+	.login_btn_box {
+		display: flex;
+		justify-content: center;
+	}
+	
+	.input_box .output_text {
+		font-size: 0.9em;
+	}
+	
+	.input_desc {
+		font-size: 0.9em;
+		font-weight: 600;
+	}
+	
+	.input_box span {
+		width: 306px;
+		text-align: left;
+	}
+	
+	.user_info .login_btn {
+		margin-top: 50px;
+		justify-content: center;
+		width: 200px;
+	}
 </style>
 </head>
 <body>
