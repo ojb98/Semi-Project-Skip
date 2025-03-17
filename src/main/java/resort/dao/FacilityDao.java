@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import mybatis.service.SqlSessionFactoryService;
 import resort.dto.FacilitiesDTO;
 import resort.dto.FacilityListDTO;
+import resort.dto.FacilityTypesDTO;
 import resort.dto.ResortFacilityMapDTO;
 
 public class FacilityDao {
@@ -22,6 +23,22 @@ public class FacilityDao {
 	public static synchronized FacilityDao getInstance() {
 		return instance;
 	}
+	
+	//시설유형명 가져오기
+	public List<String> getTypes() {
+        try(SqlSession sqlSession=sqlSessionFactory.openSession()) {
+            return sqlSession.selectList(NAMESPACE+".getTypes");
+           
+        }
+    }
+	
+	//시설이름 중복체크
+    public boolean isFacilityNameExists(String facilityName) {
+        try(SqlSession sqlSession=sqlSessionFactory.openSession()) {
+            int count = sqlSession.selectOne(NAMESPACE+".isFacilityNameExists", facilityName);
+            return count > 0;
+        }
+    }
 	
 	//시설추가
 	public int insert(FacilitiesDTO dto) {

@@ -13,23 +13,21 @@ import resort.dto.FacilityListDTO;
 import resort.dto.ResortDTO;
 import resort.dto.RoomDTO;
 
-@WebServlet("/resort/fdetail")
+@WebServlet("/facility/detail")
 public class FacilityDetailController extends HttpServlet {
-
+	private ResortDao rdao = ResortDao.getInstance();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int resortId = Integer.parseInt(req.getParameter("resort_id"));
         
-        ResortDao rdao = ResortDao.getInstance();
-
-
         List<FacilityListDTO> fdto=rdao.getfaciltyInfo(resortId);
-
-
+        ResortDTO rdto = rdao.getInfo(resortId);
+        
       	req.setAttribute("fdto", fdto);
+      	req.setAttribute("rdto", rdto);
 
-
-        req.getRequestDispatcher("/resort/resortDetail.jsp").forward(req, resp);
+        req.getRequestDispatcher("/resort/facilityInfo.jsp").forward(req, resp);
     
 	}
 }

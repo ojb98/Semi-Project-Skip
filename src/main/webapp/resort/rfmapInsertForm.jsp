@@ -6,9 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css_resort/rfmapInsertUpdate.css">
+
 </head>
 <body>
 <h1>리조트 시설 추가</h1>
+<div class="form-container">
   <form action="${pageContext.request.contextPath}/rfmap/insert" method="post">
     <input type="hidden" name="resort_id" value="${resort_id}">
     
@@ -29,6 +32,7 @@
         <c:set var="facId" value="${facility.facility_id}" />
         
         <!-- 전체 facility_id에 리조트에 저장된 facilityIds들이 포함되어있는지 확인  -->
+        <div class="facility-group">
         <c:choose>
           <c:when test="${facilityIds != null && facilityIds.contains(facId)}">
             <!-- 이미 등록된 경우: 체크박스 체크되고 비활성화 -->
@@ -42,13 +46,16 @@
             <label for="facilityId_${facId}">${facility.facility_name}</label><br>
           </c:otherwise>
         </c:choose>
+        </div>
       </c:forEach>
     </c:forEach>
     
     <br>
     <input type="submit" value="등록">
   </form>
-  <br>
-  <a href="${pageContext.request.contextPath}/resort/detail?resort_id=${resort_id}">돌아가기</a>
+</div>  
+  
+  <button class="back-btn" onclick="window.location.href='${pageContext.request.contextPath}/resort/detail?resort_id=${resort_id}'">돌아가기</button>
+  
 </body>
 </html>

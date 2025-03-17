@@ -9,12 +9,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import resort.dao.FacilityDao;
 import resort.dto.FacilitiesDTO;
-import resort.service.FacilityService;
+
 
 @WebServlet("/facility/insert")
 public class FacilityInsertController extends HttpServlet{
 	private static final int SUCCESS_THRESHOLD = 0;
-	private FacilityService facilityService = new FacilityService();
+	private FacilityDao facilityDao =FacilityDao.getInstance();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,11 +24,18 @@ public class FacilityInsertController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int type_id=Integer.parseInt(req.getParameter("type_id"));
-		String facility_name=req.getParameter("facility_name");
+		String facility_name=req.getParameter("facility_name").trim();
+		
+		
+		//중복체크
+        if (facilityDao.isFacilityNameExists(facility_name)) {
+            resp.sendRedirect(req.getContextPath() + "/resort/facilityInsertForm.jsp");
+            return;
+        }
 
 		FacilitiesDTO dto=new FacilitiesDTO(0,type_id,facility_name);
 	
-		int n=facilityService.insertFacility(dto);
+		int n=facilityDao.insert(dto);
 		
 		if(n>SUCCESS_THRESHOLD) {
 			System.out.println(n+"의 등록성공");

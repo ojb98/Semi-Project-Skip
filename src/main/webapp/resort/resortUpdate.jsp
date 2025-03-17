@@ -6,20 +6,35 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-	span{color:red;}
-</style>
+
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css_resort/resortInsertUpdate.css">
+
+<script src="${pageContext.request.contextPath}/js_resort/resortUpdate.js"></script>
+
+<!-- 카카오(다음) 주소 API 스크립트 추가 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	function execDaumPostcode(){
+		new daum.Postcode({
+			oncomplete: function(data){
+				document.getElementById("location").value = data.address;
+			}
+		}).open();
+	}
+</script>
+
 </head>
 
 <body>
 <h1>리조트 수정</h1>
-<form action="${pageContext.request.contextPath }/resort/update" 
-	method="post"enctype="multipart/form-data">
+<div class="form-container">
+<form id="resortForm" action="${pageContext.request.contextPath }/resort/update" 
+	method="post"enctype="multipart/form-data" onsubmit="return checkData(event)">
 	
-	<label for="resortName"><span>*</span>리조트명</label><br>
+	<label for="resortName">리조트명</label><br>
 	<input type="text" name="name" id="resortName" value="${dto.name }"><br>
 	
-	<label for="resortType"><span>*</span>리조트 유형</label><br>
+	<label for="resortType">리조트 유형</label><br>
 	<select name="resort_type" id="resortType">
 			<option value="condo" <c:if test="${dto.resort_type eq 'condo' }">selected="selected"</c:if>>콘도</option>
 			<option value="hostel" <c:if test="${dto.resort_type eq 'hostel' }">selected="selected"</c:if>>호텔</option>
@@ -28,14 +43,17 @@
 	<label for="checkTime">입실/퇴실(운영) 시간</label><br>
 	<input type="text" name="check_time" id="checkTime" value="${dto.check_time }"><br>
 	
-	<label for="phone"><span>*</span>리조트 전화번호</label><br>
-	<input type="text" name="resort_phone" id="phone" value="${dto.resort_phone }"><br>
+	<label for="phone">리조트 전화번호</label><br>
+	<input type="text" name="resort_phone" id="phone" value="${dto.resort_phone }"
+		maxlength="13" oninput="formatPhoneNumber(this)"><br>
+		
+	<label for="location">주소</label>
+    	<div class="address-row">
+			<input type="text" name="location" id="location" value="${dto.location }" readonly>
+			<button type="button" onclick="execDaumPostcode()">주소 검색</button>
+		</div><br>
 	
-	<!-- 주소api 사용해보면 좋을것같음 -->
-	<label for="location"><span>*</span>주소</label><br>
-		<input type="text" name="location" id="location" value="${dto.location }"><br>
-	
-	<label for="mainImg"><span>*</span>메인이미지</label>
+	<label for="mainImg">메인이미지</label>
 		<input type="file" name="remain_img" id="mainImg"><br>
 
 	<label for="subImg1">이미지추가1</label>
@@ -48,14 +66,15 @@
 		<input type="file" name="resub_img3" id="subImg3"><br>
 	
 	<label for="description">리조트 추가설명</label><br>
-	<textarea cols="30" rows="5" name="description" id="description">
-	${dto.description }
-	</textarea><br>
+	<textarea cols="30" rows="5" name="description" id="description">${dto.description }</textarea><br>
+	
 	<input type="hidden" name="resort_id" value="${dto.resort_id }"><br>
 	<input type="hidden" name="uuid" value="${dto.uuid }"><br>
 	<input type="submit" value="수정">
 </form>
+</div>
 
+<button class="back-btn" onclick="window.location.href='${pageContext.request.contextPath}/resort/detail?resort_id=${dto.resort_id}'">돌아가기</button>
 
 </body>
 </html>

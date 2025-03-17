@@ -6,11 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css_resort/resortInsertUpdate.css">
+
+<script src="${pageContext.request.contextPath}/js_resort/resortValidation.js"></script>
+
+<!-- 카카오(다음) 주소 API 스크립트 추가 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	function execDaumPostcode(){
+		new daum.Postcode({
+			oncomplete: function(data){
+				document.getElementById("location").value = data.address;
+			}
+		}).open();
+	}
+</script>
 </head>
-<body>
+<body>	
 <h1>리조트 등록</h1>
-<form action="${pageContext.request.contextPath }/resort/insert" 
-	method="post"enctype="multipart/form-data">
+<div class="form-container">
+<form id="resortForm" action="${pageContext.request.contextPath }/resort/insert" 
+	method="post"enctype="multipart/form-data" onsubmit="return checkData(event)">
 	
 	<label for="resortName">리조트명</label>
 	<input type="text" name="name" id="resortName"><br>
@@ -25,11 +42,14 @@
 	<input type="text" name="check_time" id="checkTime" placeholder="15:00/11:00"><br>
 	
 	<label for="phone">리조트 전화번호</label>
-	<input type="text" name="resort_phone" id="phone" placeholder="070-1111-2222"><br>
+	<input type="text" name="resort_phone" id="phone" placeholder="070-1111-2222"
+		maxlength="13" oninput="formatPhoneNumber(this)"><br>
 	
-	<!-- 주소api 사용해보면 좋을것같음 -->
 	<label for="location">주소</label>
-		<input type="text" name="location" id="location"><br>
+	<div class="address-row">
+	    <input type="text" name="location" id="location" readonly>
+	    <button type="button" onclick="execDaumPostcode()">주소 검색</button>
+	</div>
 	
 	<label for="mainImg">메인이미지</label>
 		<input type="file" name="remain_img" id="mainImg"><br>
@@ -50,24 +70,26 @@
 	<h2>이용 가능한 시설 선택</h2>
 	<c:set var="typeName" value="" />
 	
+
 	<c:forEach var="facility" items="${flist}">
-		<!-- 시설유형이름 변경시 제목 출력 -->
-		<c:if test="${facility.type_name != typeName}">
-			<h4>${facility.type_name }</h4>
-			<c:set var="typeName" value="${facility.type_name}" />
-		</c:if>	
-		
-		<!-- 시설이름 체크박스 -->
-		<input type="checkbox" id="${facility.ftypesDto[0].facility_id}" name="facility_id" value="${facility.ftypesDto[0].facility_id}">
-   	    <label for="${facility.ftypesDto[0].facility_id}">${facility.ftypesDto[0].facility_name}</label><br>
-		
-		 
+	    <!-- 시설유형이름 변경시 제목 출력 -->
+	    <c:if test="${facility.type_name != typeName}">
+	        <h4>${facility.type_name}</h4>
+	        <c:set var="typeName" value="${facility.type_name}" />
+	    </c:if>	
+	    
+	    <!-- 시설이름 체크박스 영역을 div로 감싸기 -->
+	    <div class="facility-group">
+	        <input type="checkbox" id="${facility.ftypesDto[0].facility_id}" name="facility_id" value="${facility.ftypesDto[0].facility_id}">
+	        <label for="${facility.ftypesDto[0].facility_id}">${facility.ftypesDto[0].facility_name}</label>
+	    </div>
 	</c:forEach>
-	
+
 	<br>
 	<input type="submit" value="등록">
 	
 </form>
+</div>
 
 </body>
 </html>

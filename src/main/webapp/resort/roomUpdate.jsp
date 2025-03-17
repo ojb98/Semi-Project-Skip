@@ -7,12 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css_resort/roomInsertUpdate.css">
+<script src="${pageContext.request.contextPath}/js_resort/roomUpdate.js"></script>
+
 </head>
 <body>
 <h1>객실 수정</h1>
-
-<form action="${pageContext.request.contextPath }/room/update" 
-	method="post" enctype="multipart/form-data">
+<div class="form-container">
+<form id="roomForm" action="${pageContext.request.contextPath }/room/update" 
+	method="post" enctype="multipart/form-data" onsubmit="return checkData(event)">
 	
 	<label for="roomName">객실명</label>
 	<input type="text" name="room_name" id="roomName" value="${dto.room_name }"><br>
@@ -49,15 +52,16 @@
 		<input type="file" name="rsub_img3" id="subImg3"><br>
 	
 	<label for="description">객실 추가설명</label><br>
-	<textarea cols="30" rows="5" name="description" id="description">
-	${dto.description }
-	</textarea><br>
+	<textarea cols="30" rows="5" name="description" id="description">${dto.description }</textarea><br>
 	
 	<input type="hidden" name="room_id" value="${dto.room_id }"><br>
 	<input type="hidden" name="resort_id" value="${dto.resort_id }"><br>
 	
 	<input type="submit" value="수정"> 
 </form>
+</div>
+
+<button class="back-btn" onclick="window.location.href='${pageContext.request.contextPath}/resort/detail?resort_id=${dto.resort_id}'">돌아가기</button>
 
 </body>
 </html>

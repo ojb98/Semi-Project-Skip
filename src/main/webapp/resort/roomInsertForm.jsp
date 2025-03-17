@@ -5,12 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css_resort/roomInsertUpdate.css">
+<script src="${pageContext.request.contextPath}/js_resort/roomValidation.js"></script>
+
 </head>
 <body>
 <h1>객실 등록</h1>
-
-<form action="${pageContext.request.contextPath }/room/insert" 
-	method="post" enctype="multipart/form-data">
+<div class="form-container">
+<form id="roomForm" action="${pageContext.request.contextPath }/room/insert" 
+	method="post" enctype="multipart/form-data" onsubmit="return checkData(event)">
 
 	<input type="hidden" name="resort_id" value="${param.resort_id }"><br>
 	
@@ -55,7 +58,9 @@
 	
 	<input type="submit" value="등록"> 
 </form>
+</div>
 
-<a href="${pageContext.request.contextPath }/resort/list">리조트 리스트로 가기</a>
+<button class="list-btn" onclick="window.location.href='${pageContext.request.contextPath}/resort/list'">리스트로 가기</button>
+
 </body>
 </html>

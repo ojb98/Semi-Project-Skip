@@ -4,6 +4,16 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.FacilitiesMapper">
 
+  <!-- 시설유형이름 중복제거 후 가져오기 -->
+  <select id="getTypes" resultType="String">
+  	 select DISTINCT type_name from FACILITY_TYPES order by type_name
+  </select>
+	
+  <!-- 시설 추가시 중복방지 -->
+  <select id="isFacilityNameExists" parameterType="String" resultType="int">
+    select COUNT(facility_name) from FACILITIES where facility_name=#{facilityName}
+  </select>
+   
   <!-- 시설 추가 -->
   <insert id="insert" parameterType="resort.dto.FacilitiesDTO">
     insert into FACILITIES values(facilities_seq.nextval,#{type_id},#{facility_name})
