@@ -19,6 +19,7 @@
        for (SkiReservationDetailDTO reservation : reservationDetailList) {
     		String rowStyle = "";
     		String reservStatus = "";
+    		//디테일.jsp 출력까지 확인하기. (reservation)
            if("CANCELLED".equals(reservation.getStatus()) || "COMPLETED".equals(reservation.getStatus())){
                rowStyle = " style='background-color:#e8e8e8;'";
            }
