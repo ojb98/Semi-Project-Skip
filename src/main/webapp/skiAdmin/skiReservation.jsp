@@ -134,6 +134,10 @@ function reservationDetailList(reservId) {
   function searchList() {
       var keyword = document.getElementById("searchInput").value;
       var filter = document.getElementById("filterSelect").value;
+      var reservDateStart = document.getElementById("reservDateStart").value || "";
+      var reservDateEnd = document.getElementById("reservDateEnd").value || "";
+      var createdAtStart = document.getElementById("createdAtStart").value || "";
+      var createdAtEnd = document.getElementById("createdAtEnd").value || "";
       var skiID = '<%= session.getAttribute("skiID") %>';
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function(){
@@ -146,7 +150,9 @@ function reservationDetailList(reservId) {
           }
       };
       // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
-      xhr.open("GET", contextPath + "/skiAdmin/reservationList.jsp?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&skiID="+encodeURIComponent(skiID), true);
+      xhr.open("GET", contextPath + "/skiAdmin/reservationList?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&skiID="+encodeURIComponent(skiID) +
+    		  "&reservDateStart=" + encodeURIComponent(reservDateStart) + "&reservDateEnd=" + encodeURIComponent(reservDateEnd) + 
+    		  "&createdAtStart=" + encodeURIComponent(createdAtStart)+ "&createdAtEnd=" + encodeURIComponent(createdAtEnd), true);
       xhr.send();
   }
   // 페이지 로드 시 승인 대기 리스트 자동 갱신
@@ -213,11 +219,30 @@ function reservationDetailList(reservId) {
         <div class="list-header">
         <h3>전체 예약 리스트</h3>
             <div class="search-filter-container">
+            	
+               
+
+                <!-- 날짜 필터링 추가 -->
+                <div class="date-filter">
+                    <label>이용예정일:</label>
+                    <input type="date" id="reservDateStart">
+                    <span>~</span>
+                    <input type="date" id="reservDateEnd">
+                </div>
+				
+                <div class="date-filter">
+                    <label>예약생성일:</label>
+                    <input type="date" id="createdAtStart">
+                    <span>~</span>
+                    <input type="date" id="createdAtEnd">
+                </div>
+                
                 <select id="filterSelect">
                     <option value="userName">이름</option>
                     <option value="userId">아이디</option>
                     <option value="userEmail">이메일</option>                    
                 </select>
+                
                 <div class="search-box">
                   <input type="text" id="searchInput" placeholder="검색어 입력" />
                   <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList()"/>

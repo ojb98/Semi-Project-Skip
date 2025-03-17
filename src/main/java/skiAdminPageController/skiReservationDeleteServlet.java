@@ -1,7 +1,7 @@
 package skiAdminPageController;
 
 import mybatis.service.SqlSessionFactoryService;
-import skiAdminPageMapper.SkiAdminMapper;
+import ski.mapper.SkiAdminMapper;
 
 import org.apache.ibatis.session.SqlSession;
 import jakarta.servlet.ServletException;

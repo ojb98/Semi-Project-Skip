@@ -7,33 +7,74 @@ public class SkiReservationListDto {
 	private int ski_reserv_id;
 	private int ski_id;
 	private int uuid;
-	private Date reserv_date;
+	private String name;
+	private String userName;
+	private String userId;
+    private String userEmail;
+    private String phone;
 	private int total_price;
 	private String status;
+	private Date reserv_date;
 	private Date created_at;
 	
-	private String name;
+	
 	private String payment_id;
 	private List<SkiReservationItemDto> skiReservationItemDtoList;
 	
-	public SkiReservationListDto() {
-		
-	}
-
-	public SkiReservationListDto(int ski_reserv_id, int ski_id, int uuid, Date reserv_date, int total_price,
-			String status, Date created_at, String name, String payment_id,
-			List<SkiReservationItemDto> skiReservationItemDtoList) {
+	public SkiReservationListDto() {}
+	public SkiReservationListDto(int ski_reserv_id, int ski_id, int uuid, String name, String userName, String userId,
+			String userEmail, String phone, int total_price, String status, Date reserv_date, Date created_at,
+			String payment_id, List<SkiReservationItemDto> skiReservationItemDtoList) {
 		super();
 		this.ski_reserv_id = ski_reserv_id;
 		this.ski_id = ski_id;
 		this.uuid = uuid;
-		this.reserv_date = reserv_date;
+		this.name = name;
+		this.userName = userName;
+		this.userId = userId;
+		this.userEmail = userEmail;
+		this.phone = phone;
 		this.total_price = total_price;
 		this.status = status;
+		this.reserv_date = reserv_date;
 		this.created_at = created_at;
-		this.name = name;
 		this.payment_id = payment_id;
 		this.skiReservationItemDtoList = skiReservationItemDtoList;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public int getSki_reserv_id() {
