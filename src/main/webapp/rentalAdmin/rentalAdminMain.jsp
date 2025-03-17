@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <title>관리자 페이지</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
 </head>
 <body>
 

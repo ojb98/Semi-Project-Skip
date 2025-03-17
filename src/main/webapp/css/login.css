@@ -1,0 +1,237 @@
+main {
+  min-height: 400px;
+}
+
+.login_container {
+  width: 350px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.tab_menu {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.tab_menu ul {
+  display: flex;
+  height: 50px;
+}
+
+.tab_item {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px 7px 0 0;
+}
+
+.tab_item a {
+  display: block;
+}
+
+.tab_user {
+  padding: 16px;
+  padding-left: 52px;
+  padding-right: 52px;
+}
+
+.tab_manager {
+  padding: 16px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.tab_con {
+  display: none;
+}
+
+.tab_id {
+  padding: 16px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.tab_pw {
+  padding: 16px;
+  padding-left: 52px;
+  padding-right: 52px;
+}
+
+:target {
+  display: block;
+}
+
+.find_result {
+  display: none;
+}
+
+.find_result hr {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.email_box {
+  display: flex;
+  height: 200px;
+  background-color: #ededed;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.email_retry {
+  margin-top: 20px;
+}
+
+.email_retry a {
+  margin-left: 5px;
+  color: #5399f5;
+}
+
+.email_retry a:hover {
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.login_container .logo {
+  font-family: 'GumiRomanceTTF';
+	font-style: italic;
+	color: #5399f5;
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.login_container h3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 20px;
+  color: rgb(100, 100, 100)
+}
+
+.login_info .input_radio {
+	margin-top: 20px;
+}
+
+.login_info .input_radio label {
+	color: rgb(100, 100, 100);
+	margin-right: 10px;
+}
+
+.login_info .input_text {
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #dadada;
+  padding: 20px 15px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.login_info .input_text:focus {
+  border-color: #5399f5;
+	box-shadow: 0 0 8px rgba(83, 153, 245, 0.6);
+	transition: box-shadow 0.2s ease-in-out;
+}
+
+.login_info .input_email {
+  position: relative;
+  display: flex;
+}
+
+.login_info .input_email .input_btn {
+  position: absolute;
+  top: 40px;
+  left: 308px;
+  font-size: 0.9em;
+  color:rgb(100, 100, 100);
+}
+
+.err_msg {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 0.8em;
+	text-align: left;
+	color: red;
+}
+
+.login_check {
+  margin-top: 20px;
+}
+
+.login_check label {
+  color: #757B8A;
+  font-size: 14px;
+  vertical-align: text-top;
+}
+
+.login_btn {
+  margin-top: 20px;
+    border: 15px;
+    width: 100%;
+    height: 44px;
+    border-radius: 10px;
+    font-weight: 700;
+    background-color: #5399f5;
+    cursor: pointer;
+    transition: 0.5s;
+    color: white;
+}
+
+.login_btn:hover {
+  background-color: #2c7fec;
+}
+
+.kakao_login {
+  background-color: #fee500;
+  position: relative;
+  color: black;
+}
+
+.kakao_login::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: url(../img/kakao.svg) no-repeat center / cover;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 108px;
+}
+
+.kakao_login:hover {
+  background-color: #cbb700;
+}
+
+.account_area ul {
+  font-size: 14px;
+  color: #525661;
+  margin-top: 20px;
+  display: flex;
+  justify-self: center;
+  gap: 12px;
+}
+
+.account_area ul li {
+  position: relative;
+}
+
+.account_area ul li a:hover {
+	text-decoration: underline;
+  text-underline-position: under;
+}
+
+.account_area ul li::before {
+  content: "";
+  background: #a6a8ad;
+  width: 1px;
+  height: 15px;
+  margin: 0 10px;
+  position: absolute;
+  right: -17px;
+}
+
+.account_area ul li:last-child:before {
+  display: none;
+}
