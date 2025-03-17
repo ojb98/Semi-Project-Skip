@@ -5,7 +5,7 @@ import java.util.Map;
 import adminDto.SkiReservationDTO;
 import adminDto.SkiReservationDetailDTO;
 import adminDto.SkiReviewsDTO;
-import ski.dto.SkiReservationListDto;
+import ski.dto.SkiReservationPrintDto;
 
 public interface SkiAdminMapper {
     int getSkiIdByUUID(int adminUUID);

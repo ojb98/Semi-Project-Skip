@@ -1,7 +1,7 @@
 package skiAdminPageController;
 
 import mybatis.service.SqlSessionFactoryService;
-import ski.dto.SkiReservationListDto;
+import ski.dto.SkiReservationPrintDto;
 import ski.mapper.SkiReservationMapper;
 
 import org.apache.ibatis.session.SqlSession;
@@ -68,10 +68,10 @@ public class SkiReservationController extends HttpServlet {
         
         
 
-        List<SkiReservationListDto> reservationList;
+        List<SkiReservationPrintDto> reservationList;
         try (SqlSession sqlSession = SqlSessionFactoryService.getSqlSessionFactory().openSession()) {
             SkiReservationMapper mapper = sqlSession.getMapper(SkiReservationMapper.class);
-            reservationList = mapper.selectByUuid(params);
+            reservationList = mapper.selectReservationBySkiId(params);
                 
         }
         
