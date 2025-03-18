@@ -4,7 +4,7 @@
 <div class="info_title">
 	<h1>회원 정보</h1>
 </div>
-<form class="user_info" action="${pageContext.request.contextPath}/mypage/account/update" method="post" onsubmit="return checkIfValid()">
+<form class="user_info" action="${pageContext.request.contextPath}/mypage/info" method="post" onsubmit="return checkIfValid()">
 	<div class="input_frame">
 		<div class="input_box">
 			<span class="input_desc">아이디</span>
@@ -12,19 +12,25 @@
 		<div class="input_box">
 			<span class="input_desc">비밀번호</span>
 			<input class="input_text" type="password" name="password" placeholder="새 비밀번호를 입력해주세요." onblur="checkPassword()">
-			<div class="err_msg passwordErrMsg"></div>
+		</div>
+		<div class="err_box">
+			<span class="err_msg passwordErrMsg"></span>
 		</div>
 		<div class="input_box">
 			<span class="input_desc">새 비밀번호</span>
 			<input class="input_text" type="password" name="cpassword" placeholder="새 비밀번호를 확인해주세요." onkeyup="checkCpassword()">
-			<div class="err_msg cpasswordErrMsg"></div>
+		</div>
+		<div class="err_box">
+			<span class="err_msg cpasswordErrMsg"></span>
 		</div>
 	</div>
 	<div class="input_frame">
 		<div class="input_box">
 			<span class="input_desc">이름</span>
 			<input class="input_text" type="text" name="name" value="${user.name}" onblur="checkName()">
-			<div class="err_msg nameErrMsg"></div>
+		</div>
+		<div class="err_box">
+			<span class="err_msg nameErrMsg"></span>
 		</div>
 		<div class="input_box">
 			<span class="input_desc">이메일</span>
@@ -33,7 +39,9 @@
 		<div class="input_box">
 			<span class="input_desc">전화번호</span>
 			<input class="input_text" type="text" name="phone" value="${user.phone}" onblur="checkPhone()">
-			<div class="err_msg phoneErrMsg"></div>
+		</div>
+		<div class="err_box">
+			<span class="err_msg phoneErrMsg"></span>
 		</div>
 	</div>
 	<div class="input_frame">
@@ -79,7 +87,6 @@
 	function checkIfValid() {
 		checkPassword();
 		checkCpassword();
-		checkVerCode();
 		checkPhone();
 		checkName();
 		if (passwordErrMsg.innerHTML !== "") {

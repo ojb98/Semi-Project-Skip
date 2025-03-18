@@ -39,6 +39,12 @@
 		where uuid = #{uuid}
 	</update>
 	
+	<update id="updateUser" parameterType="hashmap">
+		update users
+		set password = #{password}, name = #{name}, phone = #{phone}
+		where uuid = #{uuid}
+	</update>
+	
 	<delete id="deleteUser">
 		delete
 		from users

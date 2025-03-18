@@ -90,6 +90,23 @@
 		padding-top: 14px;
 		padding-bottom: 14px;
 		border-radius: 5px;
+		box-sizing: border-box;
+	}
+	
+	.user_info .input_text:focus {
+		border-color: #5399f5;
+		box-shadow: 0 0 8px rgba(83, 153, 245, 0.6);
+		transition: box-shadow 0.2s ease-in-out;
+	}
+	
+	.user_info .err_box {
+		width: 60%;
+		display: flex;
+		justify-content: flex-end;
+	}
+	
+	.user_info .err_msg {
+		text-align: left;
 	}
 	
 	.user_info .input_email {
