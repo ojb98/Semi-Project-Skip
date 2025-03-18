@@ -26,15 +26,15 @@
 	</div>
 	<div class="input_frame">
 		<div class="input_box">
+			<span class="input_desc">이메일</span>
+			<span class="output_text">${user.email}</span>
+		</div>
+		<div class="input_box">
 			<span class="input_desc">이름</span>
 			<input class="input_text" type="text" name="name" value="${user.name}" onblur="checkName()">
 		</div>
 		<div class="err_box">
 			<span class="err_msg nameErrMsg"></span>
-		</div>
-		<div class="input_box">
-			<span class="input_desc">이메일</span>
-			<span class="output_text">${user.email}</span>
 		</div>
 		<div class="input_box">
 			<span class="input_desc">전화번호</span>
