@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="info_title">
+<div class="nav_title">
 	<h1>회원 정보</h1>
 </div>
 <form class="user_info" action="${pageContext.request.contextPath}/mypage/info" method="post" onsubmit="return checkIfValid()">
@@ -26,15 +26,15 @@
 	</div>
 	<div class="input_frame">
 		<div class="input_box">
+			<span class="input_desc">이메일</span>
+			<span class="output_text">${user.email}</span>
+		</div>
+		<div class="input_box">
 			<span class="input_desc">이름</span>
 			<input class="input_text" type="text" name="name" value="${user.name}" onblur="checkName()">
 		</div>
 		<div class="err_box">
 			<span class="err_msg nameErrMsg"></span>
-		</div>
-		<div class="input_box">
-			<span class="input_desc">이메일</span>
-			<span class="output_text">${user.email}</span>
 		</div>
 		<div class="input_box">
 			<span class="input_desc">전화번호</span>

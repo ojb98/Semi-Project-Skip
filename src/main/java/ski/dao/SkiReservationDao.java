@@ -1,5 +1,6 @@
 package ski.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,9 +23,15 @@ public class SkiReservationDao {
 		return instance;
 	}
 	
-	public List<SkiReservationListDto> selectByUuid(int uuid) {
+	public int getCount(HashMap<String, Object> map) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-			return sqlSession.selectList(NAMESPACE + ".selectByUuid", uuid);
+			return sqlSession.selectOne(NAMESPACE + ".getCount", map);
+		}
+	}
+	
+	public List<SkiReservationListDto> selectByUuid(HashMap<String, Object> map) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			return sqlSession.selectList(NAMESPACE + ".selectByUuid", map);
 		}
 	}
 }
