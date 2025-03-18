@@ -25,9 +25,12 @@ import reviews.dto.ResortReviewsDTO;
 public class ResortReviewsListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
+		String sortType = req.getParameter("sort"); //정렬 기준 가져오기
+		
 		ResortReviewsDAO rrDao = new ResortReviewsDAO();
-		List<ResortReviewsDTO> rrList = rrDao.reviewList();
+//		List<ResortReviewsDTO> rrList = rrDao.reviewList();
+		List<ResortReviewsDTO> rrList = rrDao.arrayReviews(sortType);
 		
 		//총 리뷰 개수
 		int reviewCount = rrList.size();

@@ -52,15 +52,22 @@ public class ResortReviewsController extends HttpServlet {
 		 }
 		 
 		 try {
+			 String savefilename = null;
 			 Part part = req.getPart("reviewImg");
 			 String orgfilename = part.getSubmittedFileName();
-			 String savefilename = UUID.randomUUID()+"_"+orgfilename;
+			 System.out.println("originalfilename:" + orgfilename);
+			 if (orgfilename != null && !orgfilename.isEmpty()) { // 파일이 있을 때만 UUID를 생성하여 파일값 전달
+				    savefilename = UUID.randomUUID() + "_" + orgfilename;
 			 FileOutputStream fos = new FileOutputStream(path + File.separator + savefilename);
 			 InputStream is = part.getInputStream();
 			 
 			 is.transferTo(fos);
 			 is.close();
 			 fos.close();
+			 }else {
+				 savefilename = ""; //파일이 없으면 빈값 전달
+			 }
+			 System.out.println("savefilename:" + savefilename);
 			 
 			 ResortReviewsDAO rrDao = new ResortReviewsDAO();
 			 ResortReviewsDTO rrDto = new ResortReviewsDTO(0, paymentId, uuid, resortId, rating, resortComment, savefilename, null);

@@ -261,14 +261,9 @@
             </div>
             <div class="title_right">
               <div class="review_filter">
-              <!-- 
-                <a class="filter_btn active" href="<%=request.getContextPath() %>/jsp/reviewList"><i class="fa fa-check"></i>최신순</a>
-                <a class="filter_btn" href="<%=request.getContextPath() %>/jsp/reviewDesc"><i class="fa fa-check"></i>평점 높은순</a>
-                <a class="filter_btn" href="<%=request.getContextPath() %>/jsp/reviewAsc"><i class="fa fa-check"></i>평점 낮은순</a>              
-               -->
-               <a class="filter_btn active"  href="#none" data-sort="recent"><i class="fa fa-check"></i>최신순</a>
-                <a class="filter_btn" href="#none" data-sort="ratingDesc"><i class="fa fa-check"></i>평점 높은순</a>
-                <a class="filter_btn" href="#none" data-sort="ratingAsc"><i class="fa fa-check"></i>평점 낮은순</a> 
+                <a class="filter_btn active"  href="javascript:reviewSort(null)"><i class="fa fa-check"></i>최신순</a>
+                <a class="filter_btn" href="javascript:reviewSort('ratingDesc')"><i class="fa fa-check"></i>평점 높은순</a>
+                <a class="filter_btn" href="javascript:reviewSort('ratingAsc')"><i class="fa fa-check"></i>평점 낮은순</a> 
               </div>
             </div>
           </div>

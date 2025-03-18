@@ -35,43 +35,57 @@ public class ResortReviewsDAO {
 	}
 	
 	/* 리뷰 리스트 */
-	public List<ResortReviewsDTO> reviewList() {
+//	public List<ResortReviewsDTO> reviewList() {
+//		SqlSession sqlSession = null;
+//		
+//		try {
+//			sqlSession = sqlSessionFactory.openSession();
+//			List<ResortReviewsDTO> rrList = sqlSession.selectList(NAMESPACE + ".reviewList");
+//			return rrList;	
+//		}finally {
+//			if(sqlSession!=null) sqlSession.close();
+//		}
+//	}
+	
+	/* 리뷰 리스트 정렬 통합 */
+	public List<ResortReviewsDTO> arrayReviews(String sortType) {
 		SqlSession sqlSession = null;
 		
 		try {
 			sqlSession = sqlSessionFactory.openSession();
-			List<ResortReviewsDTO> rrList = sqlSession.selectList(NAMESPACE + ".reviewList");
-			return rrList;	
+			System.out.println("sortType:" + sortType);
+			List<ResortReviewsDTO> rrList = sqlSession.selectList(NAMESPACE + ".arrayReviews", sortType);
+			return rrList;
 		}finally {
 			if(sqlSession!=null) sqlSession.close();
 		}
 	}
 	
 	/* 리뷰 리스트 평점 높은 순 */
-	public List<ResortReviewsDTO> reviewDesc() {
-		SqlSession sqlSession = null;
-		
-		try {
-			sqlSession = sqlSessionFactory.openSession();
-			List<ResortReviewsDTO> rrList = sqlSession.selectList(NAMESPACE + ".reviewDesc");
-			return rrList;
-		}finally {
-			if(sqlSession!=null) sqlSession.close();
-		}
-	}
+//	public List<ResortReviewsDTO> reviewDesc() {
+//		SqlSession sqlSession = null;
+//		
+//		try {
+//			sqlSession = sqlSessionFactory.openSession();
+//			List<ResortReviewsDTO> rrList = sqlSession.selectList(NAMESPACE + ".reviewDesc");
+//			return rrList;
+//		}finally {
+//			if(sqlSession!=null) sqlSession.close();
+//		}
+//	}
 	
 	/* 리뷰 리스트 평점 낮은 순 */
-	public List<ResortReviewsDTO> reviewAsc() {
-		SqlSession sqlSession = null;
-		
-		try {
-			sqlSession = sqlSessionFactory.openSession();
-			List<ResortReviewsDTO> rrList = sqlSession.selectList(NAMESPACE + ".reviewAsc");
-			return rrList;
-		}finally {
-			if(sqlSession!=null) sqlSession.close();
-		}
-	}
+//	public List<ResortReviewsDTO> reviewAsc() {
+//		SqlSession sqlSession = null;
+//		
+//		try {
+//			sqlSession = sqlSessionFactory.openSession();
+//			List<ResortReviewsDTO> rrList = sqlSession.selectList(NAMESPACE + ".reviewAsc");
+//			return rrList;
+//		}finally {
+//			if(sqlSession!=null) sqlSession.close();
+//		}
+//	}
 	
 	/* 전체 리뷰의 갯수 반환 */
 	public int getCount() {

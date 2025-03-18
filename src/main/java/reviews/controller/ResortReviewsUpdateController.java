@@ -48,11 +48,21 @@ public class ResortReviewsUpdateController extends HttpServlet {
 		double rating  = Double.parseDouble(req.getParameter("rating"));
 		String resortComment = req.getParameter("resortComment");
 		String reviewImg = req.getParameter("reviewImg");
+		System.out.println("리뷰아이디:" + reviewId);
+		System.out.println("결제아이디:" + paymentId);
+		System.out.println("사용자아이디:" + uuid);
+		System.out.println("리조트아이디:" + resortId);
+		System.out.println("별점:" + rating);
+		System.out.println("리뷰내용:" + resortComment);
+		System.out.println("리뷰이미지:" + reviewImg);
 		
 		ResortReviewsDAO rrDao = new ResortReviewsDAO();
 		ResortReviewsDTO rrDto = rrDao.updateSelect(reviewId);
+		System.out.println("DAO:" + rrDao);
+		System.out.println("DTO:" + rrDto);
 		
 		String saveFilename=rrDto.getReviewImg(); //기존 이미지명
+		System.out.println(saveFilename);
 		
 		Part part = req.getPart("reviewImg"); // input 태그 name="reviewImg" 확인
 		String newFilename = part.getSubmittedFileName(); //새파일명
@@ -66,10 +76,14 @@ public class ResortReviewsUpdateController extends HttpServlet {
 			FileOutputStream fos = new FileOutputStream(path + File.separator + saveFilename);
 			InputStream is = part.getInputStream();
 			is.transferTo(fos);
+			
 			is.close();
 			fos.close();
 		} else {
 			//수정 파일이 전송 안되면 기존 파일 유지
+			if (saveFilename == null || saveFilename.isEmpty()) {
+		        saveFilename = ""; // 기존 이미지도 없을 경우 빈 문자열 설정
+		    }
 		}
 		
 		
