@@ -14,12 +14,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import reviews.dao.ResortReviewsDAO;
 import reviews.dto.ResortReviewsDTO;
-@WebServlet("/review/array")
-public class ResortReviewsArrayController extends HttpServlet{
+@WebServlet("/review/array2")
+public class ResortReviewsArrayController2 extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String sortType = req.getParameter("sort"); //정렬 기준 가져오기
-		String page = req.getParameter("pageNum");
 		
 		if (sortType == null || sortType.isEmpty()) {
             sortType = "latest";  
@@ -29,28 +28,8 @@ public class ResortReviewsArrayController extends HttpServlet{
         	sortType = "ratingAsc";
         }
 		
-		int pageNum = 1; //기본 1페이지
-		if(page != null) {
-			pageNum = Integer.parseInt(page);
-		}
-		
 		ResortReviewsDAO rrDao = new ResortReviewsDAO();
-		int totalReviews = rrDao.getCount(); //전체 리뷰 개수
-		int pageCount = (int)Math.ceil(totalReviews / 10.0); // 글 10개씩 페이지에 보이기
-		
-		if(pageNum > pageCount) pageNum = pageCount;
-		
-		int startRow = (pageNum - 1) * 10 + 1;
-		int endRow = startRow + 9;
-		
-		int startPage = ((pageNum - 1) / 10) * 10 + 1;
-		int endPage = startPage + 9;
-		if(endPage > pageCount) {
-			endPage = pageCount;
-		}
-		
-		List<ResortReviewsDTO> rrList = rrDao.reviewList(sortType, startRow, endRow);
-		
+		List<ResortReviewsDTO> rrList = rrDao.arrayReviews(sortType);
 		
 		JSONObject json = new JSONObject();
 		JSONArray arr = new JSONArray(rrList); //전체 리스트를 가져오려면 ()안에 rrList를 넣고 for문을 돌리지 않아도 된다.
@@ -65,11 +44,6 @@ public class ResortReviewsArrayController extends HttpServlet{
 //		}
 		
 		json.put("list", arr);
-		json.put("pageCount", pageCount);
-		json.put("startPage", startPage);
-		json.put("endPage", endPage);
-		json.put("pageNum", pageNum);
-		
 		
 		resp.setContentType("application/json;charset=utf-8");
 		PrintWriter pw = resp.getWriter();

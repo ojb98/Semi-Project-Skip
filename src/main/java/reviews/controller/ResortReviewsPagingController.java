@@ -19,7 +19,7 @@ import reviews.dto.ResortReviewsDTO;
 
 
 
-@WebServlet("/review/list")
+@WebServlet("/review/list3")
 public class ResortReviewsPagingController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

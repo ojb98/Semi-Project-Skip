@@ -46,15 +46,47 @@
   	select nvl(count(*),0) cnt from resort_reviews
   </select>
   
-  <!-- 리조트 리뷰 글 시작과 끝 -->
-  
-  <select id="pageList" resultMap="reviewResultMap" parameterType="hashmap">
-  	select * from (
-  	select reviews.*, rownum rn from(
-  	select * from resort_reviews order by review_id desc  	
-  	)reviews
-  <![CDATA[	)where rn >= #{startRow} and rn <= #{endRow} ]]>
+  <!-- 리조트 리뷰 리스트(정렬 및 페이징) -->
+  <select id="reviewList" parameterType="map" resultMap="reviewResultMap">
+	    SELECT * FROM (
+        	SELECT ROW_NUMBER() OVER (
+                ORDER BY 
+                <choose>
+                    <when test="sortType == 'ratingDesc'">rating DESC</when>
+                    <when test="sortType == 'ratingAsc'">rating ASC</when>
+                    <otherwise>review_id DESC</otherwise>
+                </choose>
+            ) AS rn,
+            review_id, uuid, created_at, rating, resort_comment, review_img
+        FROM resort_reviews
+    ) sub
+    WHERE rn BETWEEN #{startRow} AND #{endRow}
   </select>
+  
+  
+   <!-- 리뷰 최신, 평점순 정렬 -->
+   <!-- 
+	  <select id="arrayReviews" parameterType="string" resultMap="reviewResultMap">
+	  	select * from resort_reviews
+	  	order by 
+	  	<choose>
+	  		<when test="sortType == 'ratingDesc'">rating DESC</when>
+	  		<when test="sortType == 'ratingAsc'">rating ASC</when>
+	  		<otherwise>review_id DESC</otherwise>
+	  	</choose>
+	  </select>   
+    -->
+  
+  <!-- 리조트 리뷰 글 시작과 끝 -->
+  <!-- 
+	  <select id="pageList" resultMap="reviewResultMap" parameterType="hashmap">
+	  	select * from (
+	  	select reviews.*, rownum rn from(
+	  	select * from resort_reviews order by review_id desc  	
+	  	)reviews
+	  <![CDATA[	)where rn >= #{startRow} and rn <= #{endRow} ]]>
+	  </select>
+   -->
   
   
   <!-- 
@@ -85,15 +117,4 @@
   <delete id="delete" parameterType="int">
   	delete from resort_reviews where review_id=#{reviewId}
   </delete>
-  
-  <!-- 리뷰 최신, 평점순 정렬 -->
-  <select id="arrayReviews" parameterType="string" resultMap="reviewResultMap">
-  	select * from resort_reviews
-  	order by 
-  	<choose>
-  		<when test="sortType == 'ratingDesc'">rating DESC</when>
-  		<when test="sortType == 'ratingAsc'">rating ASC</when>
-  		<otherwise>review_id DESC</otherwise>
-  	</choose>
-  </select>
 </mapper>

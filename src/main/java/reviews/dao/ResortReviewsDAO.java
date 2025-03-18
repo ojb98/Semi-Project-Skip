@@ -34,6 +34,25 @@ public class ResortReviewsDAO {
 		}
 	}
 	
+	/* 리뷰 리스트 (페이징, 정렬) */
+	public List<ResortReviewsDTO> reviewList(String sortType, int startRow, int endRow) {
+		SqlSession sqlSession = null;
+		
+		try {
+			sqlSession = sqlSessionFactory.openSession();
+			
+			Map<String, Object> params = new HashMap<>();
+			params.put("sortType", sortType);
+			params.put("startRow", startRow);
+			params.put("endRow", endRow);
+			
+			List<ResortReviewsDTO> rrList = sqlSession.selectList(NAMESPACE + ".reviewList", params);
+			return rrList;
+		}finally {
+			if (sqlSession!=null) sqlSession.close();
+		}
+	}
+	
 	/* 리뷰 리스트 */
 //	public List<ResortReviewsDTO> reviewList() {
 //		SqlSession sqlSession = null;
@@ -53,7 +72,6 @@ public class ResortReviewsDAO {
 		
 		try {
 			sqlSession = sqlSessionFactory.openSession();
-			System.out.println("sortType:" + sortType);
 			List<ResortReviewsDTO> rrList = sqlSession.selectList(NAMESPACE + ".arrayReviews", sortType);
 			return rrList;
 		}finally {
