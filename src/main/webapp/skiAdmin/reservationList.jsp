@@ -1,6 +1,5 @@
 <%@page import="ski.dto.SkiReservationPrintDto"%>
-<%@page import="ski.mapper.SkiAdminMapper"%>
-<%@page import="adminDto.SkiReservationDTO"%>
+<%@page import="ski.mapper.SkiReservationMapper"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>
@@ -43,7 +42,7 @@ if(reservationList != null && !reservationList.isEmpty()){
 %>
       <td><%= reservStatus %></td>
       <td>
-         <button type="button" onclick="requestDelete('<%= reservation.getSki_reserv_id() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">삭제</button>
+         <!-- <button type="button" onclick="requestDelete('<%= reservation.getSki_reserv_id() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">삭제</button> -->
          <button type="button" onclick="reservationDetailList('<%= reservation.getSki_reserv_id() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">상세보기 ▼</button>
       </td>
     </tr>

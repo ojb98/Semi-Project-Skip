@@ -1,4 +1,4 @@
-package adminDto;
+package ski.dto;
 
 import java.sql.Date;
 
@@ -13,9 +13,6 @@ public class SkiReservationDetailDTO {
     
     
     public SkiReservationDetailDTO() {}
-    
-
-	
 	public SkiReservationDetailDTO(int itemId, String categoryId, String itemImg, String itemName, String quantity,
 			String subtotalPrice, String totalQuantity) {
 		super();

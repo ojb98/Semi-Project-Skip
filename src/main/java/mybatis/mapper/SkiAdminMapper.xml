@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">    
 <mapper namespace="skiAdminPageMapper.SkiAdminMapper">
     <!-- SKI_ID를 기반으로 예약 정보 조회 -->
-    <select id="getSkiReservationDetail" parameterType="map" resultType="adminDto.SkiReservationDetailDTO">
+    <select id="getSkiReservationDetail" parameterType="map" resultType="ski.dto.SkiReservationDetailDTO">
     	SELECT 	SI.ITEM_ID,
     			SI.CATEGORY_ID,
     			SI.ITEM_IMG,
@@ -17,7 +17,7 @@
         WHERE SRI.SKI_RESERV_ID = #{reservID}
     </select>
     <!-- SKI_ID를 기반으로 예약 정보 조회 -->
-    <select id="getSkiReview" parameterType="map" resultType="adminDto.SkiReviewsDTO">
+    <select id="getSkiReview" parameterType="map" resultType="ski.dto.SkiReviewsDTO">
     	SELECT SR.SKI_RESERV_ID, 
                U.NAME as userName, 
                U.USER_ID, 
@@ -29,46 +29,9 @@
         FROM SKI_RESERVATION SR 
         JOIN USERS U ON SR.UUID = U.UUID
         WHERE SR.SKI_ID = #{skiID}
-    </select>
-    <!-- SKI_ID를 기반으로 예약 정보 조회 -->
-    <select id="getSkiReservationUsers" parameterType="map" resultType="adminDto.SkiReservationDTO">
-    	SELECT SR.SKI_RESERV_ID, 
-               U.NAME as userName, 
-               U.USER_ID, 
-               U.EMAIL as userEmail, 
-               U.PHONE, 
-               SR.STATUS, 
-               SR.RESERV_DATE, 
-               SR.CREATED_AT
-        FROM SKI_RESERVATION SR 
-        JOIN USERS U ON SR.UUID = U.UUID
-        WHERE SR.SKI_ID = #{skiID}
-        
-    </select>
-    <!-- 검색 필터 적용 예약 정보 조회 -->    
-    <select id="getSearchSkiReservationUsers" parameterType="map" resultType="adminDto.SkiReservationDTO">
-        SELECT SR.SKI_RESERV_ID, 
-               U.NAME as userName, 
-               U.USER_ID, 
-               U.EMAIL as userEmail, 
-               U.PHONE, 
-               SR.STATUS, 
-               SR.RESERV_DATE, 
-               SR.CREATED_AT
-        FROM SKI_RESERVATION SR 
-        JOIN USERS U ON SR.UUID = U.UUID
-        WHERE SR.SKI_ID = #{skiID}
-        <if test="name != null">
-            AND U.NAME LIKE '%'||#{name}||'%'
-        </if>
-        <if test="user_id != null">
-            AND U.USER_ID LIKE '%'||#{user_id}||'%'
-        </if>
-        <if test="email != null">
-            AND U.EMAIL LIKE '%'||#{email}||'%'
-        </if>
     </select>
     
+   
     <delete id="deleteReservation" parameterType="int">
     	DELETE FROM SKI_RESERVATION WHERE SKI_RESERV_ID=#{reserv_id} 
     </delete>

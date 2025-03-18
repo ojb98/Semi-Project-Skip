@@ -1,6 +1,7 @@
-<%@page import="adminDto.SkiReservationDetailDTO"%>
-<%@page import="ski.mapper.SkiAdminMapper"%>
-<%@page import="adminDto.SkiReservationDTO"%>
+<%@page import="ski.dto.SkiReservationItemDto"%>
+<%@page import="ski.dto.SkiReservationPrintDto"%>
+<%@page import="ski.dto.SkiReservationDetailDTO"%>
+<%@page import="ski.mapper.SkiReservationMapper"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>
@@ -12,26 +13,23 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	List<SkiReservationDetailDTO> reservationDetailList = (List<SkiReservationDetailDTO>)request.getAttribute("reservationDetailList");
+	List<SkiReservationPrintDto> reservationDetailList = (List<SkiReservationPrintDto>)request.getAttribute("reservationDetailList");
+	List<SkiReservationItemDto> reservationItemList;
 %>
 <% 
 	if(reservationDetailList != null && !reservationDetailList.isEmpty()){
-       for (SkiReservationDetailDTO reservation : reservationDetailList) {
-    		String rowStyle = "";
-    		String reservStatus = "";
-    		//디테일.jsp 출력까지 확인하기. (reservation)
-           
+       for (SkiReservationPrintDto reservation : reservationDetailList) {
+    	reservationItemList = reservation.getSkiReservationItemDtoList(); 
+    	for(SkiReservationItemDto reservationitem : reservationItemList){
 %>
-    <tr<%= rowStyle %>>
-      <td><%= reservation.getItemId() %></td>
-      <td><%= reservation.getCategoryId() %></td>
-      <td><%= reservation.getItemName() %></td>
-      <td><%= reservation.getQuantity() %></td>
-      <td><%= reservation.getTotalQuantity() %></td>
-      <td><%= reservStatus %></td>
-      
+    <tr>
+      <td><%= reservationitem.getSki_item_id() %></td>
+      <td><%= reservationitem.getItem_name() %></td>
+      <td><%= reservationitem.getSki_reserv_id() %></td>      
+      <td><%= reservationitem.getQuantity() %></td>
+      <td><%= reservationitem.getSubtotal_price() %>원</td>      
     </tr>
-<% } } else { %>
+<% } } } else { %>
     <tr>
       <td colspan="9">예약 리스트가 존재하지 않습니다.</td>
     </tr>

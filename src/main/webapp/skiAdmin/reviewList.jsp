@@ -1,7 +1,6 @@
 <%@page import="adminPageMapper.RootAdminMapper"%>
-<%@page import="adminDto.SkiReviewsDTO"%>
-<%@page import="adminDto.SkiReservationDTO"%>
-<%@page import="ski.mapper.SkiAdminMapper"%>
+<%@page import="ski.dto.SkiReviewsDTO"%>
+<%@page import="ski.mapper.SkiReservationMapper"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>
@@ -12,7 +11,7 @@
 <%@ page import="adminDto.UsersDTO" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
-	String keyword = request.getParameter("keyword");
+String keyword = request.getParameter("keyword");
 	String filter = request.getParameter("filter");
 	int skiID = Integer.parseInt(request.getParameter("skiID"));  
 	Map<String,Object> params =new HashMap<>();
@@ -20,7 +19,7 @@
 	String reservStatus = "";
 	
 	SqlSession sqlSession= SqlSessionFactoryService.getSqlSessionFactory().openSession();
-	SkiAdminMapper mapper = sqlSession.getMapper(SkiAdminMapper.class);
+	SkiReservationMapper mapper = sqlSession.getMapper(SkiReservationMapper.class);
 	RootAdminMapper Rmapper = sqlSession.getMapper(RootAdminMapper.class);
 	List<SkiReviewsDTO> reviewsList = mapper.getSkiReviews(params);
 	List<SkiReviewsDTO> searchReviewsList = mapper.getSearchSkiReviews(params);	

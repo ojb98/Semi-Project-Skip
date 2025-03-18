@@ -16,8 +16,6 @@ public class SkiReservationPrintDto {
 	private String status;
 	private Date reserv_date;
 	private Date created_at;
-	
-	
 	private String payment_id;
 	private List<SkiReservationItemDto> skiReservationItemDtoList;
 	

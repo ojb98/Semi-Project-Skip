@@ -50,7 +50,6 @@
 	    <result column="user_name" property="userName"/>
 	    <result column="phone" property="phone"/>
         
-        
         <collection property="skiReservationItemDtoList" ofType="ski.dto.SkiReservationItemDto">
             <id column="ski_item_id" property="ski_item_id"/>
             <result column="ski_reserv_id" property="ski_reserv_id"/>
@@ -83,6 +82,7 @@
 			where rn between #{startRow} and #{endRow}
 		)
 		order by sr.created_at desc
+
 	</select>
     
     <select id="selectReservationBySkiId" resultMap="SkiReservationPrint" parameterType="map">
@@ -102,7 +102,8 @@
             sp.payment_id, 
             sri.ski_item_id, 
             sri.item_id, 
-            si.item_name, 
+            si.item_name,
+            si.category_id,
             sri.quantity, 
             sri.subtotal_price
         FROM ski_reservation sr
@@ -114,6 +115,9 @@
         <where>
 		    <if test="skiID != null">
 		        sr.ski_id = #{skiID}
+		    </if>
+		    <if test="reservId != null">
+		        sr.ski_reserv_id = #{reservId}
 		    </if>
 		    <if test="reserv_date_start != null and reserv_date_end != null">
 		        AND sr.reserv_date BETWEEN #{reserv_date_start} AND #{reserv_date_end}
@@ -132,33 +136,42 @@
 		    </if>
 		</where>
     </select>
-
+	
+	<select id="selectReservationDetailList" resultMap="SkiReservationPrint" parameterType="map">
+        SELECT 
+            sr.ski_reserv_id, 
+            sr.ski_id, 
+            sr.uuid, 
+            sr.reserv_date,
+            sr.total_price, 
+            sr.status, 
+            sr.created_at,
+            s.name AS ski_name, 
+            u.name AS user_name,
+            u.user_id, 
+		    u.email AS user_email, 
+		    u.phone,
+            sp.payment_id, 
+            sri.ski_item_id, 
+            sri.item_id, 
+            si.item_name, 
+            sri.quantity, 
+            sri.subtotal_price,
+        FROM ski_reservation sr
+        LEFT JOIN ski s ON sr.ski_id = s.ski_id
+        LEFT JOIN ski_payments sp ON sr.ski_reserv_id = sp.ski_reserv_id
+        LEFT JOIN ski_reservation_item sri ON sr.ski_reserv_id = sri.ski_reserv_id
+        LEFT JOIN ski_item si ON sri.item_id = si.item_id
+        LEFT JOIN users u ON sr.uuid = u.uuid
+    </select>
     <!-- UUID를 기반으로 SKI_ID 조회 -->
     <select id="getSkiIdByUUID" resultType="Integer">
         SELECT SKI_ID FROM SKI WHERE UUID = #{adminUUID}
     </select>
-
-    <!-- SKI_ID를 기반으로 예약 정보 조회 -->
-    <select id="getSkiReservationUsers" parameterType="map" resultType="adminDto.SkiReservationDTO">
-        SELECT SR.SKI_RESERV_ID, U.NAME as userName, U.USER_ID, U.EMAIL as userEmail, 
-               U.PHONE, SR.STATUS, SR.RESERV_DATE, SR.CREATED_AT
-        FROM SKI_RESERVATION SR
-        JOIN USERS U ON SR.UUID = U.UUID
-        WHERE SR.SKI_ID = #{skiID}
-    </select>
-
-    <!-- 검색 필터 적용 예약 정보 조회 -->
-    <select id="getSearchSkiReservationUsers" parameterType="map" resultType="adminDto.SkiReservationDTO">
-        SELECT SR.SKI_RESERV_ID, U.NAME as userName, U.USER_ID, U.EMAIL as userEmail, 
-               U.PHONE, SR.STATUS, SR.RESERV_DATE, SR.CREATED_AT
-        FROM SKI_RESERVATION SR
-        JOIN USERS U ON SR.UUID = U.UUID
-        WHERE SR.SKI_ID = #{skiID}
-        <if test="name != null"> AND U.NAME LIKE '%' || #{name} || '%' </if>
-        <if test="user_id != null"> AND U.USER_ID LIKE '%' || #{user_id} || '%' </if>
-        <if test="email != null"> AND U.EMAIL LIKE '%' || #{email} || '%' </if>
-    </select>
-
+    
+	<delete id="deleteReservation" parameterType="int">
+    	DELETE FROM SKI_RESERVATION WHERE SKI_RESERV_ID=#{reserv_id} 
+    </delete>
     <!-- 스키장 예약 고유번호를 받아 예약 상태 업데이트 -->
     <update id="reservationCancel">
         UPDATE SKI_RESERVATION SET STATUS='CANCELLED' WHERE SKI_RESERV_ID=#{ski_reserv_id}
