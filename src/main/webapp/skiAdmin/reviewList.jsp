@@ -1,7 +1,7 @@
 <%@page import="adminPageMapper.RootAdminMapper"%>
 <%@page import="adminDto.SkiReviewsDTO"%>
 <%@page import="adminDto.SkiReservationDTO"%>
-<%@page import="skiAdminPageMapper.SkiAdminMapper"%>
+<%@page import="ski.mapper.SkiAdminMapper"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>

@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import ski.dao.SkiReservationDao;
-import ski.dto.SkiReservationListDto;
+import ski.dto.SkiReservationPrintDto;
 import users.dto.UsersDto;
 
 @WebServlet("/mypage/bookings/ski")
@@ -21,7 +21,7 @@ public class SkiBookListController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		UsersDto user = (UsersDto)req.getSession().getAttribute("user");
-		List<SkiReservationListDto> list = SkiReservationDao.getInstance().selectByUuid(user.getUuid());
+		List<SkiReservationPrintDto> list = SkiReservationDao.getInstance().selectReservationBySkiId(user.getUuid());
 		req.setAttribute("list", list);
 		req.setAttribute("content", "skiBookings");
 		req.getRequestDispatcher("/mypage/layout.jsp").forward(req, resp);

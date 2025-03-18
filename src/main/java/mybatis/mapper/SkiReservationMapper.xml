@@ -2,34 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">    
-<mapper namespace="skiAdminPageMapper.SkiAdminMapper">
-    <!-- SKI_ID를 기반으로 예약 정보 조회 -->
-    <select id="getSkiReservationDetail" parameterType="map" resultType="adminDto.SkiReservationDetailDTO">
-    	SELECT 	SI.ITEM_ID,
-    			SI.CATEGORY_ID,
-    			SI.ITEM_IMG,
-    			SI.ITEM_NAME,
-    			SRI.QUANTITY,
-    			SRI.SUBTOTAL_PRICE,
-    			SI.TOTAL_QUANTITY
-        FROM SKI_ITEM SI 
-        JOIN SKI_RESERVATION_ITEM SRI ON SI.ITEM_ID = SRI.ITEM_ID
-        WHERE SRI.SKI_RESERV_ID = #{reservID}
+<mapper namespace="skiAdminPageMapper.SkiReservationMapper">
+    
+    <!-- UUID를 기반으로 SKI_ID 조회 -->
+    <select id="getSkiIdByUUID" resultType="int">
+        SELECT SKI_ID FROM SKI WHERE UUID = #{adminUUID}
     </select>
-    <!-- SKI_ID를 기반으로 예약 정보 조회 -->
-    <select id="getSkiReview" parameterType="map" resultType="adminDto.SkiReviewsDTO">
-    	SELECT SR.SKI_RESERV_ID, 
-               U.NAME as userName, 
-               U.USER_ID, 
-               U.EMAIL as userEmail, 
-               U.PHONE, 
-               SR.STATUS, 
-               SR.RESERV_DATE, 
-               SR.CREATED_AT
-        FROM SKI_RESERVATION SR 
-        JOIN USERS U ON SR.UUID = U.UUID
-        WHERE SR.SKI_ID = #{skiID}
-    </select>
+
     <!-- SKI_ID를 기반으로 예약 정보 조회 -->
     <select id="getSkiReservationUsers" parameterType="map" resultType="adminDto.SkiReservationDTO">
     	SELECT SR.SKI_RESERV_ID, 
@@ -43,7 +22,6 @@
         FROM SKI_RESERVATION SR 
         JOIN USERS U ON SR.UUID = U.UUID
         WHERE SR.SKI_ID = #{skiID}
-        
     </select>
     <!-- 검색 필터 적용 예약 정보 조회 -->    
     <select id="getSearchSkiReservationUsers" parameterType="map" resultType="adminDto.SkiReservationDTO">
@@ -68,10 +46,6 @@
             AND U.EMAIL LIKE '%'||#{email}||'%'
         </if>
     </select>
-    
-    <delete id="deleteReservation" parameterType="int">
-    	DELETE FROM SKI_RESERVATION WHERE SKI_RESERV_ID=#{reserv_id} 
-    </delete>
     <!-- 스키장 예약 고유번호를 받아 예약상태 업데이트 -->
     <update id="reservationCancel">
     	UPDATE SKI_RESERVATION SET STATUS='CANCELLED' WHERE SKI_RESERV_ID=#{ski_reserv_id}

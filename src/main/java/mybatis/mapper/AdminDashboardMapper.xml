@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminPageMapper.AdminDashboardMapper">
+    
+    <select id="getTotalUsers" resultType="int">
+        SELECT COUNT(*) FROM Users
+    </select>
+    
+    <select id="getUserCount" resultType="int">
+        SELECT COUNT(*) FROM Users WHERE role = 'USER'
+    </select>
+    
+    <select id="getSkiOwners" resultType="int">
+        SELECT COUNT(*) FROM Users WHERE role = 'SKI'
+    </select>
+    
+    <select id="getRentalOwners" resultType="int">
+        SELECT COUNT(*) FROM Users WHERE role = 'RENTAL'
+    </select>
+    
+    <select id="getResortOwners" resultType="int">
+        SELECT COUNT(*) FROM Users WHERE role = 'RESORT'
+    </select>
+    
+    <select id="getAdminCount" resultType="int">
+        SELECT COUNT(*) FROM Users WHERE role = 'ADMIN'
+    </select>
+    
+    <select id="getPendingCounts" resultType="int">
+        SELECT COUNT(*) FROM Users WHERE status = 'P'
+    </select>
+    
+    <select id="getNewUsers" resultType="adminDto.UsersDTO">
+        SELECT user_id, name, role, regdate 
+        FROM Users 
+        ORDER BY UUID DESC 
+        FETCH FIRST 10 ROWS ONLY
+    </select>
+    
+</mapper>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ski.mapper.SkiReservationMapper">
-	<resultMap type="ski.dto.SkiReservationListDto" id="SkiReservationListMapper">	
+	<resultMap type="ski.dto.SkiReservationListDto" id="SkiReservationListMapper">
 		<id column="ski_reserv_id" property="ski_reserv_id"/>
 		<result column="ski_id" property="ski_id"/>
 		<result column="uuid" property="uuid"/>
@@ -11,7 +11,6 @@
 		<result column="total_price" property="total_price"/>
 		<result column="status" property="status"/>
 		<result column="created_at" property="created_at"/>
-						
 		<result column="name" property="name"/>
 		<result column="payment_id" property="payment_id"/>
 		
@@ -24,13 +23,121 @@
 			<result column="subtotal_price" property="subtotal_price"/>
 		</collection>
 	</resultMap>
-
-
-	<select id="selectByUuid" resultMap="SkiReservationListMapper" parameterType="int">
+    <!-- 기존 SkiReservationListMapper 유지 -->
+    <resultMap type="ski.dto.SkiReservationPrintDto" id="SkiReservationPrint">
+        <id column="ski_reserv_id" property="ski_reserv_id"/>
+        <result column="ski_id" property="ski_id"/>
+        <result column="uuid" property="uuid"/>
+        <result column="reserv_date" property="reserv_date"/>
+        <result column="total_price" property="total_price"/>
+        <result column="status" property="status"/>
+        <result column="created_at" property="created_at"/>
+        <result column="name" property="name"/>
+        <result column="payment_id" property="payment_id"/>
+        <result column="user_id" property="userId"/>
+	    <result column="user_email" property="userEmail"/>
+	    <result column="user_name" property="userName"/>
+	    <result column="phone" property="phone"/>
+        
+        
+        <collection property="skiReservationItemDtoList" ofType="ski.dto.SkiReservationItemDto">
+            <id column="ski_item_id" property="ski_item_id"/>
+            <result column="ski_reserv_id" property="ski_reserv_id"/>
+            <result column="item_id" property="item_id"/>
+            <result column="item_name" property="item_name"/>
+            <result column="quantity" property="quantity"/>
+            <result column="subtotal_price" property="subtotal_price"/>
+        </collection>
+    </resultMap>
+	<select id="selectByUuid" resultMap="SkiReservationListMapper" parameterType="int"> 
 		select sr.ski_reserv_id, sr.ski_id, sr.uuid, sr.reserv_date, sr.total_price, sr.status, sr.created_at,
-			(select name from ski where ski_id = sr.ski_id) name, (select payment_id from ski_payments where ski_reserv_id = sr.ski_reserv_id) payment_id,
-			sri.ski_item_id, sri.item_id, (select item_name from ski_item where item_id = sri.item_id) item_name, sri.quantity, sri.subtotal_price
-		from ski_reservation sr left join ski_reservation_item sri on sr.ski_reserv_id = sri.ski_reserv_id
-		where uuid = #{uuid}
+		(select name from ski where ski_id = sr.ski_id) name,
+		(select payment_id from ski_payments where ski_reserv_id = sr.ski_reserv_id) payment_id, sri.ski_item_id, sri.item_id,
+		(select item_name from ski_item where item_id = sri.item_id) item_name, sri.quantity,
+		sri.subtotal_price from ski_reservation sr left join ski_reservation_item sri on sr.ski_reserv_id = sri.ski_reserv_id where uuid = #{uuid} 
 	</select>
+    
+    <select id="selectReservationBySkiId" resultMap="SkiReservationPrint" parameterType="map">
+        SELECT 
+            sr.ski_reserv_id, 
+            sr.ski_id, 
+            sr.uuid, 
+            sr.reserv_date,
+            sr.total_price, 
+            sr.status, 
+            sr.created_at,
+            s.name AS ski_name, 
+            u.name AS user_name,
+            u.user_id, 
+		    u.email AS user_email, 
+		    u.phone,
+            sp.payment_id, 
+            sri.ski_item_id, 
+            sri.item_id, 
+            si.item_name, 
+            sri.quantity, 
+            sri.subtotal_price
+        FROM ski_reservation sr
+        LEFT JOIN ski s ON sr.ski_id = s.ski_id
+        LEFT JOIN ski_payments sp ON sr.ski_reserv_id = sp.ski_reserv_id
+        LEFT JOIN ski_reservation_item sri ON sr.ski_reserv_id = sri.ski_reserv_id
+        LEFT JOIN ski_item si ON sri.item_id = si.item_id
+        LEFT JOIN users u ON sr.uuid = u.uuid
+        <where>
+		    <if test="skiID != null">
+		        sr.ski_id = #{skiID}
+		    </if>
+		    <if test="reserv_date_start != null and reserv_date_end != null">
+		        AND sr.reserv_date BETWEEN #{reserv_date_start} AND #{reserv_date_end}
+		    </if>
+		    <if test="created_at_start != null and created_at_end != null">
+		        AND sr.created_at BETWEEN #{created_at_start} AND #{created_at_end}
+		    </if>
+		    <if test="name != null">
+		        AND U.NAME LIKE '%' || #{name} || '%'
+		    </if>
+		    <if test="user_id != null">
+		        AND U.USER_ID LIKE '%' || #{user_id} || '%'
+		    </if>
+		    <if test="email != null">
+		        AND U.EMAIL LIKE '%' || #{email} || '%'
+		    </if>
+		</where>
+    </select>
+
+    <!-- UUID를 기반으로 SKI_ID 조회 -->
+    <select id="getSkiIdByUUID" resultType="Integer">
+        SELECT SKI_ID FROM SKI WHERE UUID = #{adminUUID}
+    </select>
+
+    <!-- SKI_ID를 기반으로 예약 정보 조회 -->
+    <select id="getSkiReservationUsers" parameterType="map" resultType="adminDto.SkiReservationDTO">
+        SELECT SR.SKI_RESERV_ID, U.NAME as userName, U.USER_ID, U.EMAIL as userEmail, 
+               U.PHONE, SR.STATUS, SR.RESERV_DATE, SR.CREATED_AT
+        FROM SKI_RESERVATION SR
+        JOIN USERS U ON SR.UUID = U.UUID
+        WHERE SR.SKI_ID = #{skiID}
+    </select>
+
+    <!-- 검색 필터 적용 예약 정보 조회 -->
+    <select id="getSearchSkiReservationUsers" parameterType="map" resultType="adminDto.SkiReservationDTO">
+        SELECT SR.SKI_RESERV_ID, U.NAME as userName, U.USER_ID, U.EMAIL as userEmail, 
+               U.PHONE, SR.STATUS, SR.RESERV_DATE, SR.CREATED_AT
+        FROM SKI_RESERVATION SR
+        JOIN USERS U ON SR.UUID = U.UUID
+        WHERE SR.SKI_ID = #{skiID}
+        <if test="name != null"> AND U.NAME LIKE '%' || #{name} || '%' </if>
+        <if test="user_id != null"> AND U.USER_ID LIKE '%' || #{user_id} || '%' </if>
+        <if test="email != null"> AND U.EMAIL LIKE '%' || #{email} || '%' </if>
+    </select>
+
+    <!-- 스키장 예약 고유번호를 받아 예약 상태 업데이트 -->
+    <update id="reservationCancel">
+        UPDATE SKI_RESERVATION SET STATUS='CANCELLED' WHERE SKI_RESERV_ID=#{ski_reserv_id}
+    </update>
+
+    <update id="reservationComplete">
+        UPDATE SKI_RESERVATION SET STATUS='COMPLETED' WHERE SKI_RESERV_ID=#{ski_reserv_id}
+    </update>
+
 </mapper>
