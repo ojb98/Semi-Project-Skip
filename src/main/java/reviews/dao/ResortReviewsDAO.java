@@ -126,12 +126,12 @@ public class ResortReviewsDAO {
 	}
 	
 	/* 삭제 */
-	public int delete(int reviewId) {
+	public int delete(int review_id) {
 		SqlSession sqlSession = null;
 		
 		try {
 			sqlSession = sqlSessionFactory.openSession();
-			int n = sqlSession.delete(NAMESPACE + ".delete", reviewId);
+			int n = sqlSession.delete(NAMESPACE + ".delete", review_id);
 			sqlSession.commit();
 			return n;			
 		}finally {

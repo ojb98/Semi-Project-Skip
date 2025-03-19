@@ -1,10 +1,5 @@
 console.log("스크립트 파일 정상 로드 확인");
 
-function List2() {
-	console.log("페이지함수 작동")
-}
-List2();
-
 //최신순, 평점 높은순, 평점 낮은순 선택시 색상 변화
 const filterBtns = document.querySelectorAll(".filter_btn");
 
@@ -68,7 +63,7 @@ function getList(pageNum) {
                 </div>
                 <div class="item_ctrl">
                     <a href="javascript:updatePopup(${reviewDto.review_id})">수정</a>
-                    <a href="${contextPath}/jsp/delete?reviewId=${reviewDto.review_id}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                    <a href="${contextPath}/jsp/delete?review_id=${reviewDto.review_id}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                 </div>
             `;
             reviewList.appendChild(review_item);
@@ -128,10 +123,10 @@ function popup() {
 }
 
 //리뷰 수정 팝업
-function updatePopup(reviewId) {
-	console.log("리뷰 수정 팝업 호출 확인:", reviewId);
+function updatePopup(review_id) {
+	console.log("리뷰 수정 팝업 호출 확인:", review_id);
 	
-	const url = `${contextPath}/jsp/update?reviewId=${reviewId}`;
+	const url = `${contextPath}/jsp/update?review_id=${review_id}`;
 	const name = "updatePopup";
 	const option = "width=500,height=500,top=100,left=100,location=no";
 	
@@ -189,7 +184,7 @@ function reviewSort(sortType, pageNum = 1) {
 				</div>
 				<div class="item_ctrl">
 					<a href="javascript:updatePopup(${reviewDto.review_id})">수정</a>
-					<a href="${contextPath}/jsp/delete?reviewId=${reviewDto.review_id}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+					<a href="${contextPath}/jsp/delete?review_id=${reviewDto.review_id}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
 				</div>
 			`;
 			reviewList.appendChild(review_item);
