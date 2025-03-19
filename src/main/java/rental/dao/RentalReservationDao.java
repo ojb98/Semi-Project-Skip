@@ -1,5 +1,6 @@
 package rental.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,9 +22,15 @@ public class RentalReservationDao {
 		return instance;
 	}
 	
-	public List<RentalReservationListDto> selectByUuid(int uuid) {
+	public int getCount(HashMap<String, Object> map) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-			return sqlSession.selectList(NAMESPACE + ".selectByUuid", uuid);
+			return sqlSession.selectOne(NAMESPACE + ".getCount", map);
+		}
+	}
+	
+	public List<RentalReservationListDto> selectByUuid(HashMap<String, Object> map) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			return sqlSession.selectList(NAMESPACE + ".selectByUuid", map);
 		}
 	}
 }

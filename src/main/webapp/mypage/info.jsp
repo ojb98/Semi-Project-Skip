@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="info_title">
+<div class="nav_title">
 	<h1>회원 정보</h1>
 </div>
 <form class="user_info" action="${pageContext.request.contextPath}/mypage/info" method="post" onsubmit="return checkIfValid()">

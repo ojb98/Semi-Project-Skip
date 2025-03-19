@@ -2,35 +2,31 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ski.mapper.SkiReservationMapper">
-	<resultMap type="ski.dto.SkiReservationListDto" id="SkiReservationListMapper">	
-		<id column="ski_reserv_id" property="ski_reserv_id"/>
-		<result column="ski_id" property="ski_id"/>
-		<result column="uuid" property="uuid"/>
-		<result column="reserv_date" property="reserv_date"/>
-		<result column="total_price" property="total_price"/>
-		<result column="status" property="status"/>
-		<result column="created_at" property="created_at"/>
-						
-		<result column="name" property="name"/>
-		<result column="payment_id" property="payment_id"/>
-		
-		<collection property="skiReservationItemDtoList" ofType="ski.dto.SkiReservationItemDto">
-			<id column="ski_item_id" property="ski_item_id"/>
-			<result column="ski_reserv_id" property="ski_reserv_id"/>
-			<result column="item_id" property="item_id"/>
-			<result column="item_name" property="item_name"/>
-			<result column="quantity" property="quantity"/>
-			<result column="subtotal_price" property="subtotal_price"/>
-		</collection>
-	</resultMap>
-
-
-	<select id="selectByUuid" resultMap="SkiReservationListMapper" parameterType="int">
-		select sr.ski_reserv_id, sr.ski_id, sr.uuid, sr.reserv_date, sr.total_price, sr.status, sr.created_at,
-			(select name from ski where ski_id = sr.ski_id) name, (select payment_id from ski_payments where ski_reserv_id = sr.ski_reserv_id) payment_id,
-			sri.ski_item_id, sri.item_id, (select item_name from ski_item where item_id = sri.item_id) item_name, sri.quantity, sri.subtotal_price
-		from ski_reservation sr left join ski_reservation_item sri on sr.ski_reserv_id = sri.ski_reserv_id
+<mapper namespace="resort.mapper.ResortReservationMapper">
+	<select id="getCount" resultType="int" parameterType="hashmap">
+		select count(*)
+		from resort_reservation
 		where uuid = #{uuid}
+		<if test="year != null and year != ''">
+			and to_char(created_at, 'yyyy') = #{year}
+		</if>
+	</select>
+
+	<select id="selectByUuid" resultType="resort.dto.ResortReservationListDto" parameterType="hashmap">
+		select *
+		from (
+			select rownum rn, rrl.*
+			from (
+				select rs.resort_reserv_id, rs.uuid, rs.checkin_date, rs.checkout_date, rs.quantity, rs.total_price, rs.status, rs.created_at,
+					rr.room_id, rr.room_name, rr.room_type, (select name from resort where resort_id = rr.resort_id) name
+				from resort_reservation rs join resort_rooms rr on rs.room_id = rr.room_id
+				where uuid = #{uuid}
+				<if test="year != null and year != ''">
+					and to_char(rs.created_at, 'yyyy') = #{year}
+				</if>
+				order by rs.created_at desc
+			) rrl
+		)
+		where rn between #{startRow} and #{endRow}
 	</select>
 </mapper>

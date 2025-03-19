@@ -3,11 +3,21 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ski.mapper.SkiReservationMapper">
-	<resultMap type="ski.dto.SkiReservationListDto" id="SkiReservationListMapper">
+	<select id="getCount" resultType="int" parameterType="hashmap">
+		select count(*)
+		from ski_reservation
+		where uuid = #{uuid}
+		<if test="year != null and year != ''">
+			and to_char(created_at, 'yyyy') = #{year}
+		</if>
+	</select>
+
+	<resultMap type="ski.dto.SkiReservationListDto" id="SkiReservationListMapper">	
 		<id column="ski_reserv_id" property="ski_reserv_id"/>
 		<result column="ski_id" property="ski_id"/>
 		<result column="uuid" property="uuid"/>
-		<result column="reserv_date" property="reserv_date"/>
+		<result column="reserv_start" property="reserv_start"/>
+		<result column="reserv_end" property="reserv_end"/>
 		<result column="total_price" property="total_price"/>
 		<result column="status" property="status"/>
 		<result column="created_at" property="created_at"/>
@@ -23,6 +33,7 @@
 			<result column="subtotal_price" property="subtotal_price"/>
 		</collection>
 	</resultMap>
+	
     <!-- 기존 SkiReservationListMapper 유지 -->
     <resultMap type="ski.dto.SkiReservationPrintDto" id="SkiReservationPrint">
         <id column="ski_reserv_id" property="ski_reserv_id"/>
@@ -49,12 +60,29 @@
             <result column="subtotal_price" property="subtotal_price"/>
         </collection>
     </resultMap>
-	<select id="selectByUuid" resultMap="SkiReservationListMapper" parameterType="int"> 
-		select sr.ski_reserv_id, sr.ski_id, sr.uuid, sr.reserv_date, sr.total_price, sr.status, sr.created_at,
-		(select name from ski where ski_id = sr.ski_id) name,
-		(select payment_id from ski_payments where ski_reserv_id = sr.ski_reserv_id) payment_id, sri.ski_item_id, sri.item_id,
-		(select item_name from ski_item where item_id = sri.item_id) item_name, sri.quantity,
-		sri.subtotal_price from ski_reservation sr left join ski_reservation_item sri on sr.ski_reserv_id = sri.ski_reserv_id where uuid = #{uuid} 
+	
+	<select id="selectByUuid" resultMap="SkiReservationListMapper" parameterType="hashmap">
+		select sr.ski_reserv_id, sr.ski_id, sr.uuid, sr.reserv_start, sr.reserv_end, sr.total_price, sr.status, sr.created_at,
+			(select name from ski where ski_id = sr.ski_id) name, (select payment_id from ski_payments where ski_reserv_id = sr.ski_reserv_id) payment_id,
+			sri.ski_item_id, sri.item_id, (select item_name from ski_item where item_id = sri.item_id) item_name, sri.quantity, sri.subtotal_price
+		from ski_reservation sr left join ski_reservation_item sri on sr.ski_reserv_id = sri.ski_reserv_id
+		where sr.ski_reserv_id in (
+			select ski_reserv_id
+			from (
+				select rownum rn, srl.*
+				from (
+					select ski_reserv_id
+					from ski_reservation
+					where uuid = #{uuid}
+					<if test="year != null and year != ''">
+						and to_char(created_at, 'yyyy') = #{year}
+					</if>
+					order by created_at desc
+				) srl
+			)
+			where rn between #{startRow} and #{endRow}
+		)
+		order by sr.created_at desc
 	</select>
     
     <select id="selectReservationBySkiId" resultMap="SkiReservationPrint" parameterType="map">

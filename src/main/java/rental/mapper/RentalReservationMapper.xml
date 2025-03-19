@@ -3,6 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="rental.mapper.RentalReservationMapper">
+	<select id="getCount" resultType="int" parameterType="hashmap">
+		select count(*)
+		from rental_reservation
+		where uuid = #{uuid}
+		<if test="year != null and year != ''">
+			and to_char(created_at, 'yyyy') = #{year}
+		</if>
+	</select>
+
 	<resultMap type="rental.dto.RentalReservationListDto" id="RentalReservationListMapper">	
 		<id column="rent_reserv_id" property="rent_reserv_id"/>
 		<result column="rentalshop_id" property="rentalshop_id"/>
@@ -27,11 +36,27 @@
 	</resultMap>
 
 
-	<select id="selectByUuid" resultMap="RentalReservationListMapper" parameterType="int">
+	<select id="selectByUuid" resultMap="RentalReservationListMapper" parameterType="hashmap">
 		select rr.rent_reserv_id, rr.rentalshop_id, rr.uuid, rr.rental_start, rr.rental_end, rr.total_price, rr.status, rr.created_at,
 			(select name from rentalshop where rentalshop_id = rr.rentalshop_id) name, (select payment_id from rent_payments where rent_reserv_id = rr.rent_reserv_id) payment_id,
 			rri.rent_item_id, rri.item_id, (select item_name from rent_item where item_id = rri.item_id) item_name, rri.quantity, rri.subtotal_price
 		from rental_reservation rr left join rent_reservation_item rri on rr.rent_reserv_id = rri.rent_reserv_id
-		where uuid = #{uuid}
+		where rr.rent_reserv_id in (
+			select rent_reserv_id
+			from (
+				select rownum rn, rrl.*
+				from (
+					select rent_reserv_id
+					from rental_reservation
+					where uuid = #{uuid}
+					<if test="year != null and year != ''">
+						and to_char(created_at, 'yyyy') = #{year}
+					</if>
+					order by created_at desc
+				) rrl
+			)
+			where rn between #{startRow} and #{endRow}
+		)
+		order by created_at desc
 	</select>
 </mapper>

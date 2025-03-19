@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainpage.css">
 </head>
 <body>
+<jsp:include page="/header.jsp"/>
 <main>
 	<div class="login_container">
 		<a href="${pageContext.request.contextPath}/index.jsp"><h2 class="logo">SKI:P</h2></a>
@@ -40,6 +41,7 @@
 		</div>
 	</div>
 </main>
+<jsp:include page="/footer.jsp"/>
 <script type="text/javascript">
 	Kakao.init("cfdcc51d0d7080707d7e3637e4662cd4");
 

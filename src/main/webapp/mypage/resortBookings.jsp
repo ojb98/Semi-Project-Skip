@@ -5,12 +5,12 @@
 
 <jsp:include page="/mypage/reserv_tab.jsp"/>
 
-<ul id="rental_list">
+<ul id="ski_list">
 	<c:forEach var="dto" items="${list}">
 		<li>
 			<div class="reserv_container">
 				<div class="reserv_title">
-					<a href="">${dto.rent_reserv_id}</a>
+					<span>${dto.resort_reserv_id}</span>
 					<span>${dto.created_at}</span>
 				</div>
 				
@@ -18,13 +18,9 @@
 					<div class="reserv_place"><a href="">${dto.name}</a></div>
 					<div class="reserv_stat">
 						<div class="reserv_items">
-							<div>
-								<c:forEach var="itemDto" items="${dto.rentalReservationItemDtoList}">
-									<div class="reserv_item">
-										<span class="item_name">${itemDto.item_name} </span>
-										<span class="item_stat"><fmt:formatNumber value="${itemDto.subtotal_price div itemDto.quantity}" type="number" pattern="###, ###"/>원 <span class="delimiter">·</span> ${itemDto.quantity}개</span>
-									</div>
-								</c:forEach>
+							<div class="reserv_item">
+								<span class="item_name">(${dto.room_type}) ${dto.room_name}</span>
+								<span class="item_stat"><fmt:formatNumber value="${dto.total_price div dto.quantity}" type="number" pattern="###, ###"/>원 <span class="delimiter">·</span> ${dto.quantity}개</span>
 							</div>
 						</div>
 						<div class="reserv_price">
@@ -33,12 +29,12 @@
 					</div>
 					<div class="reserv_date">
 						<div>
-							<div class="reserv_time"><fmt:formatDate value="${dto.rental_start}" type="date" pattern="yyyy-MM-dd"/></div>
-							<div class="reserv_time"><fmt:formatDate value="${dto.rental_start}" type="time"/></div>
+							<div class="reserv_time"><fmt:formatDate value="${dto.checkin_date}" type="date" pattern="yyyy-MM-dd"/></div>
+							<div class="reserv_time"><fmt:formatDate value="${dto.checkin_date}" type="time"/></div>
 						</div>
 						<div>
-							<div class="reserv_time"><fmt:formatDate value="${dto.rental_end}" type="date" pattern="yyyy-MM-dd"/></div>
-							<div class="reserv_time"><fmt:formatDate value="${dto.rental_end}" type="time"/></div>
+							<div class="reserv_time"><fmt:formatDate value="${dto.checkout_date}" type="date" pattern="yyyy-MM-dd"/></div>
+							<div class="reserv_time"><fmt:formatDate value="${dto.checkout_date}" type="time"/></div>
 						</div>
 						<div class="reserv_status">${dto.status}</div>
 					</div>
@@ -58,7 +54,6 @@
 		</li>
 	</c:forEach>
 </ul>
-
 <div class="reserv_page">
 	<c:choose>
 		<c:when test="${startPage != 1}">
@@ -74,7 +69,7 @@
 				<span>${i}</span>
 			</c:when>
 			<c:otherwise>
-				<a href="${pageContext.request.contextPath}/mypage/bookings/rental?pageNum=${i}&year=${year}">${i}</a>
+				<a href="${pageContext.request.contextPath}/mypage/bookings/resort?pageNum=${i}&year=${year}">${i}</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -90,10 +85,10 @@
 
 <script>
 	function clickPrev() {
-		location.href = "${pageContext.request.contextPath}/mypage/bookings/rental?pageNum=${startPage - 1}&year=${year}";
+		location.href = "${pageContext.request.contextPath}/mypage/bookings/resort?pageNum=${startPage - 1}&year=${year}";
 	}
 	
 	function clickNext() {
-		location.href = "${pageContext.request.contextPath}/mypage/bookings/rental?pageNum=${endPage + 1}&year=${year}";
+		location.href = "${pageContext.request.contextPath}/mypage/bookings/resort?pageNum=${endPage + 1}&year=${year}";
 	}
 </script>

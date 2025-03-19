@@ -1,13 +1,15 @@
 package ski.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class SkiReservationListDto {
 	private int ski_reserv_id;
 	private int ski_id;
 	private int uuid;
-	private Date reserv_date;
+	private Timestamp reserv_start;
+	private Timestamp reserv_end;
 	private int total_price;
 	private String status;
 	private Date created_at;
@@ -20,14 +22,15 @@ public class SkiReservationListDto {
 		
 	}
 
-	public SkiReservationListDto(int ski_reserv_id, int ski_id, int uuid, Date reserv_date, int total_price,
-			String status, Date created_at, String name, String payment_id,
+	public SkiReservationListDto(int ski_reserv_id, int ski_id, int uuid, Timestamp reserv_start, Timestamp reserv_end,
+			int total_price, String status, Date created_at, String name, String payment_id,
 			List<SkiReservationItemDto> skiReservationItemDtoList) {
 		super();
 		this.ski_reserv_id = ski_reserv_id;
 		this.ski_id = ski_id;
 		this.uuid = uuid;
-		this.reserv_date = reserv_date;
+		this.reserv_start = reserv_start;
+		this.reserv_end = reserv_end;
 		this.total_price = total_price;
 		this.status = status;
 		this.created_at = created_at;
@@ -60,12 +63,20 @@ public class SkiReservationListDto {
 		this.uuid = uuid;
 	}
 
-	public Date getReserv_date() {
-		return reserv_date;
+	public Timestamp getReserv_start() {
+		return reserv_start;
 	}
 
-	public void setReserv_date(Date reserv_date) {
-		this.reserv_date = reserv_date;
+	public void setReserv_start(Timestamp reserv_start) {
+		this.reserv_start = reserv_start;
+	}
+
+	public Timestamp getReserv_end() {
+		return reserv_end;
+	}
+
+	public void setReserv_end(Timestamp reserv_end) {
+		this.reserv_end = reserv_end;
 	}
 
 	public int getTotal_price() {
