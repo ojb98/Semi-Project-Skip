@@ -7,6 +7,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="dto.ResortReviewDTO" %>
+<%@ page import="dao.UsersDao" %>
 <html>
 <head>
     <title>resort</title>
@@ -420,20 +421,6 @@
             color: #333;
         }
 
-        .book-button {
-            background: #2B96ED;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .book-button:hover {
-            background: #2280D0;
-        }
 
         /* 모달 창 스타일 */
         .modal {
@@ -544,6 +531,110 @@
             border-bottom: 1px solid #eee;
         }
 
+        .review-list {
+            margin-top: 20px;
+        }
+
+        .review-item {
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background-color: #f9f9f9;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .review-item:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-user {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .review-rating {
+            color: #FFA500;
+        }
+
+        .review-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .review-content {
+            margin: 0.5rem 0;
+            color: #555;
+        }
+
+        .review-image {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 4px; /* 버튼 간의 간격을 줄입니다 */
+        }
+
+        .quantity-btn {
+            width: 30px; /* 버튼의 너비를 줄입니다 */
+            height: 30px; /* 버튼의 높이를 줄입니다 */
+            font-size: 16px; /* 버튼의 글자 크기를 조정합니다 */
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5399F5;
+            transition: all 0.2s ease;
+        }
+
+        .quantity-btn:hover {
+            background-color: #5399F5;
+            color: white;
+            border-color: #5399F5;
+        }
+
+        .room-price-section {
+            display: flex;
+            justify-content: flex-end; /* 오른쪽 정렬 */
+            align-items: center; /* 수직 정렬 */
+            gap: 8px; /* 버튼 간의 간격 */
+            margin-top: 10px; /* 위쪽 여백 추가 */
+        }
+
+        .purchase {
+            display: flex;
+            gap: 10px; /* 버튼 간의 간격 */
+        }
+
+        .purchase-button {
+            width: 100px; /* 버튼 너비 */
+            height: 40px; /* 버튼 높이 */
+            background-color: #5399F5; /* 버튼 배경색 */
+            color: white; /* 버튼 글자색 */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            cursor: pointer; /* 커서 포인터로 변경 */
+            transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
+        }
+
+        .purchase-button:hover {
+            background-color: #4285F4; /* 호버 시 배경색 변화 */
+        }
+
     </style>
 
 </head>
@@ -555,18 +646,36 @@
     final int reviewCount = (int) request.getAttribute("reviewCount");
     final float averageRating = (float) request.getAttribute("averageRating");
     final List<ResortReviewDTO> reviewList = (List<ResortReviewDTO>) request.getAttribute("reviewList");
+    final int minPrice = (int) request.getAttribute("minPrice");
 
-    // 현재 날짜와 다음날 날짜 계산
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     Calendar calendar = Calendar.getInstance();
     String today = sdf.format(calendar.getTime());
     calendar.add(Calendar.DATE, 1);
     String tomorrow = sdf.format(calendar.getTime());
+
+    Cookie[] cookies = request.getCookies();
+    String userId = null;
+    int uuid = -1;
+
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("user_id")) {
+                userId = cookie.getValue();
+                break;
+            }
+        }
+    }
+
+    if (userId != null) {
+        UsersDao usersDao = new UsersDao();
+        uuid = usersDao.getUUID(userId);
+    }
 %>
 
 <div id="photoModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="close">&times;</span>
         <div class="modal-images">
             <img id="modalImage1" src="" alt="modalImage" class="modal-image">
             <img id="modalImage2" src="" alt="modalImage" class="modal-image">
@@ -594,7 +703,7 @@
             <div class="search">
                 <i class="fas fa-search"></i>
                 <input type="text" name="search"
-                       placeholder="${resortDTO.name != null ? resortDTO.name : '검색어를 입력하세요.'}"/>
+                       placeholder="${requestScope.resortDTO.name != null ? requestScope.resortDTO.name : '검색어를 입력하세요.'}"/>
             </div>
             <div class="search-date">
                 <input type="text" id="datePickerInput" value="<%= today %> - <%= tomorrow %>" readonly
@@ -635,29 +744,22 @@
                 <span>(<fmt:formatNumber value="${requestScope.reviewCount}" pattern="#,###"/>개 평가)</span>
             </div>
             <div class="resort-price">
-                    <%-- ${requestScope.resortDTO.price_per_night}<span>원~</span>--%>asd
+                <fmt:formatNumber value="${requestScope.minPrice}" pattern="#,###"/><span> 원~</span>
             </div>
             <div class="service-icons">
-                <div class="service-item">
-                    <i class="fas fa-wifi"></i>
-                    <span>무료 와이파이</span>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-parking"></i>
-                    <span>주차 무료</span>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-tv"></i>
-                    <span>TV</span>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-snowflake"></i>
-                    <span>에어컨</span>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>서울임</span>
-                </div>
+                <c:choose>
+                    <c:when test="${not empty requestScope.resortList}">
+                        <c:forEach var="facility" items="${requestScope.resortList}">
+                            <div class="service-item">
+                                <i class="${facility.icon}"></i>
+                                <span>${facility.name}</span>
+                            </div>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="service-item">시설이 없습니다.</div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
 
@@ -691,13 +793,27 @@
                                     </div>
                                     <div class="room-price-section">
                                         <div class="room-price">
-                                            <div class="price-amount"><fmt:formatNumber
-                                                    value="${item.price_per_night}" pattern="#,###"
-                                                    var="formattedPrice"/>
+                                            <div class="price-amount">
+                                                <fmt:formatNumber value="${item.price_per_night}" pattern="#,###"
+                                                                  var="formattedPrice"/>
                                                     ${formattedPrice}원
                                             </div>
                                         </div>
-                                        <button class="book-button" onclick="validateAndSubmit()">객실 예약</button>
+                                        <div class="quantity-control">
+                                            <button type="button" class="quantity-btn minus-btn">-</button>
+                                            <span class="quantity" data-quantity="1">1</span>
+                                            <button type="button" class="quantity-btn plus-btn">+</button>
+                                        </div>
+                                        <div class="purchase">
+                                            <button class="purchase-button"
+                                                    onclick="addToCart('${item.room_name}', ${item.price_per_night})">
+                                                장바구니
+                                            </button>
+                                            <button class="purchase-button"
+                                                    onclick="validateAndSubmit('${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
+                                                바로 예약
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -711,7 +827,6 @@
                 </c:choose>
             </div>
         </div>
-        <!-- 리뷰와 문의 섹션 추가 -->
         <div class="review-qna-container">
             <div class="tab-container">
                 <button class="tab-button active" onclick="showTab('review')">리뷰</button>
@@ -725,16 +840,23 @@
                     </div>
                     <c:forEach var="review" items="${requestScope.reviewList}">
                         <div class="review-item">
-                                ${review.name}
-                            <fmt:formatNumber value="${review.rating}" type="number" maxFractionDigits="2"/>
-                                ${review.resort_comment}
-                            <img src="${review.review_img}" alt="Review Image"/>
-                                ${review.created_at}
+                            <div class="review-header">
+                                <span class="review-user">${review.name}</span>
+                                <span class="review-rating">
+                                    <i class="fas fa-star" style="color: #FFA500;"></i>
+                                    <fmt:formatNumber value="${review.rating}" type="number" maxFractionDigits="1"/>
+                                </span>
+                                <span class="review-date">${review.created_at}</span>
+                            </div>
+                            <div class="review-content">
+                                <p>${review.resort_comment}</p>
+                            </div>
+                            <c:if test="${not empty review.review_img}">
+                                <img src="${review.review_img}" alt="Review Image" class="review-image"/>
+                            </c:if>
                         </div>
                     </c:forEach>
-
                 </div>
-
             </div>
         </div>
 
@@ -761,6 +883,92 @@
 <script>
     let startDate = null;
     let endDate = null;
+    const uuid = <%= uuid %>;
+
+    document.querySelectorAll('.room-item').forEach(item => {
+        let quantity = 1; // 기본 수량
+
+        // 수량 증가 버튼 클릭 이벤트
+        const plusBtn = item.querySelector('.plus-btn');
+        if (plusBtn) {
+            plusBtn.addEventListener('click', () => {
+                quantity++;
+                item.querySelector('.quantity').textContent = quantity;
+                item.querySelector('.quantity').setAttribute('data-quantity', quantity);
+            });
+        }
+
+        // 수량 감소 버튼 클릭 이벤트
+        const minusBtn = item.querySelector('.minus-btn');
+        if (minusBtn) {
+            minusBtn.addEventListener('click', () => {
+                if (quantity > 1) {
+                    quantity--;
+                    item.querySelector('.quantity').textContent = quantity;
+                    item.querySelector('.quantity').setAttribute('data-quantity', quantity);
+                }
+            });
+        }
+
+        // 장바구니 버튼 클릭 이벤트
+        const addToCartButton = item.querySelector('.purchase-button');
+
+    });
+
+    // 장바구니에 추가하는 함수
+    function addToCart(roomName, totalPrice) {
+        alert(`${roomName}이(가) ${quantity}개만큼 장바구니에 추가되었습니다. 총 가격: ${totalPrice}원`);
+    }
+
+    // 예약을 처리하는 함수
+    function validateAndSubmit(roomId, price, startTime) {
+        const dateInput = document.getElementById("datePickerInput");
+        if (!dateInput || !dateInput.value.includes(" - ")) {
+            alert("날짜를 선택해 주세요.");
+            return;
+        }
+
+        const quantityElement = document.querySelector('.quantity');
+        const quantity = parseInt(quantityElement.getAttribute('data-quantity'));
+
+        const [startDate, endDate] = dateInput.value.split(" - ");
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const timeDifference = end - start; //밀리초 단위로 차이
+        const daysDifference = timeDifference / (1000 * 3600 * 24); //일별로 차이
+        const totalPrice = daysDifference * price * quantity; //총 금액
+
+        const roomTimeElement = document.querySelector('.room-time');
+        const checkTime = roomTimeElement ? roomTimeElement.textContent : 10; // 기본 체크인 시간
+
+        // 폼 생성
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/resort/payment'; // 서버의 결제 처리 URL
+
+        // 폼 필드 추가
+        const fields = [
+            {name: 'roomId', value: roomId},
+            {name: 'price', value: totalPrice},
+            {name: 'quantity', value: quantity},
+            {name: 'startDate', value: startDate},
+            {name: 'endDate', value: endDate},
+            {name: 'startTime', value: startTime},
+            {name: 'uuid', value: uuid} // uuid 추가
+        ];
+
+        fields.forEach(field => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = field.name;
+            input.value = field.value;
+            form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit(); // 폼 제출
+    }
+
 
     <%--function handleSearch() {--%>
     <%--    const searchInput = document.getElementById('searchResort');--%>
@@ -784,28 +992,30 @@
     <%--    });--%>
     <%--});--%>
 
-    function validateAndSubmit() {
-        if (startDate != null || endDate != null) {
 
-        }
-        const selectDate = document.getElementById("datePickerInput").value = startDate + " - " + endDate;
-
-
-    }
-
-    // Flatpickr 초기화
     flatpickr("#datePickerInput", {
         mode: "range",
         dateFormat: "Y-m-d",
-        locale: "ko",  // 한국어 적용
+        locale: "ko",
         onClose: function (selectedDates) {
             if (selectedDates.length === 2) {
-                startDate = selectedDates[0].toISOString().split('T')[0];
-                endDate = selectedDates[1].toISOString().split('T')[0];
+                let startDate = selectedDates[0].toLocaleDateString('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                }).replace(/\. /g, '-').replace('.', ''); // YYYY-MM-DD 포맷 변환
+
+                let endDate = selectedDates[1].toLocaleDateString('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                }).replace(/\. /g, '-').replace('.', '');
+
                 document.getElementById("datePickerInput").value = startDate + " - " + endDate;
             }
         }
     });
+
 
     function openModal(images) {
         const modalImages = images.split(','); // 이미지 URL을 ','를 기준으로 배열로 변환

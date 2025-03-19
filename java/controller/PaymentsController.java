@@ -18,11 +18,6 @@ public class PaymentsController extends HttpServlet {
         String rentDate = req.getParameter("rentDate");
         String isRentalOrSki = req.getParameter("isRentalOrSki");
 
-        System.out.println("items: " + items);
-        System.out.println("totalPrice: " + totalPrice);
-        System.out.println("rentDate: " + rentDate);
-        System.out.println("isRentalOrSki: " + isRentalOrSki);
-
         req.setAttribute("items", items);
         req.setAttribute("totalPrice", totalPrice);
         req.setAttribute("rentDate", rentDate);

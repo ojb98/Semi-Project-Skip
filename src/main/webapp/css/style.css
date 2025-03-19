@@ -1,0 +1,303 @@
+/* common */
+@import url('/css/reset.css');
+@import url('/css/font.css');
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+/* 영역별 css*/
+@import url('/css/search.css');
+@import url('/css/detail.css');
+@import url('/css/save.css');
+@import url('/css/cart.css');
+@import url('/css/pay.css');
+@import url('/css/login.css');
+
+html {
+	min-width: 1250px;
+}
+
+/* header */
+header {
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.header_logo {
+	font-family: 'GumiRomanceTTF';
+	font-style: italic;
+	color: #5399f5;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 58px;
+}
+
+.header_menu,
+.header_nav {
+	height: 58px;
+}
+
+/* header_nav */
+.header_menu {
+	width: 1230px;
+	/* padding: 0 75px; */
+	margin: 0 auto;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.menu ul {
+	display: flex;
+	font-weight: 700;
+	gap: 34px;
+}
+
+.login ul {
+	display: flex;
+	font-weight: 700;
+	gap: 34px;
+}
+
+.header_menu a:hover {
+	color: #5399f5;
+}
+
+/* main */
+main {
+	min-height: 543px;
+	margin-bottom: 100px;
+}
+
+.slide {
+	height: 320px;
+	background-color: #5399f5;
+}
+
+.main_menu {
+	width: 1100px;
+	margin: 0 auto;
+	padding: 20px;
+	box-sizing: border-box;
+	border-radius: 12px;
+	background-color: #fff;
+	margin-top: -55px;
+	box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.07), 0 0 3px 0 rgba(0, 0, 0, 0.07);
+	position: relative;
+}
+
+.menu_btn,
+.calendar,
+.personnel_btn,
+.room_btn,
+.search_btn {
+	cursor: pointer;
+}
+
+/* 스키장 어디로 가시나요 버튼 */
+.menu_btn {
+	width: calc(100% - 150px);
+	height: 64px;
+	font-size: 16px;
+	margin-right: 5px;
+	padding: 0 15px 0 25px;
+	text-align: left;
+	background-color: #f3f6f6;
+	border: none;
+	border-radius: 12px;
+}
+
+/* location icon */
+.menu_btn .fa-map-marker {
+	color: #7cc966;
+	margin-right: 10px;
+}
+
+/* 위치 선택 박스 기본 스타일 */
+.location_box {
+	display: none;
+	position: absolute;
+	top: 86px;
+	left: 219px;
+	transform: translateX(-50%);
+	width: 400px;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	z-index: 1000;
+}
+
+/* 위치 선택 박스 검색 바 */
+.search_bar {
+	display: flex;
+	align-items: center;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.search_bar input {
+	flex: 1;
+	border: none;
+	outline: none;
+}
+
+.search_bar .close_btn {
+	background: none;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+/* 위치 선택 박스 주요 도시 리스트 */
+.location_list h3 {
+	margin: 20px 0;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.location_list h4 {
+	margin-top: 10px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #666;
+}
+
+.button_group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.button_group button {
+	flex: 1 1 calc(50% - 5px); /* 한 줄에 2개씩 정렬 */
+	max-width: calc(50% - 5px); /* 50%에서 gap 반영 */
+}
+
+.button_group button {
+	padding: 10px 15px;
+	border: 1px solid #ddd;
+	background: #fff;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.button_group button:hover {
+	background: #f3f3f3;
+}
+
+.search_btn {
+	width: 140px;
+	height: 64px;
+	color: #fff;
+	background-color: #5399f5;
+	border: none;
+	box-sizing: border-box;
+	border-radius: 12px;
+	transition: 0.3s;
+}
+
+.search_btn:hover {
+	background-color: #2c7fec;
+}
+
+.main_container {
+	width: 1100px;
+	margin: 100px auto;
+}
+
+.main_title_box {
+	display: flex;
+}
+
+.main_title {
+	font-weight: 700;
+}
+
+.main_content {
+	width: 100%;
+	height: 300px;
+	border: 1px solid #000;
+}
+
+/* footer */
+
+footer {
+	height: 201px;
+	font-size: 14px;
+	color: #333;
+	border-top: 1px solid #757b8a33;
+	background-color: #f8f9fa;
+	padding: 20px 0;
+}
+
+.footer_inner {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+/* 상단 (좌측 회사 정보, 우측 SNS 링크) */
+.footer_top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+/* 좌측 링크 */
+.footer_left a {
+	color: #333;
+	text-decoration: none;
+	margin-right: 10px;
+	position: relative;
+}
+
+/* 구분선 추가 */
+.footer_left a:not(:last-child)::after {
+	content: ' | ';
+	color: #aaa;
+	margin-left: 10px;
+}
+
+/* 우측 SNS 아이콘 */
+.footer_right {
+	display: flex;
+}
+
+.sns {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin-left: 10px;
+}
+
+.blog {
+	background-image: url('/img/blog_icon.png');
+}
+.kakao {
+	background-image: url('/img/kakao_icon.png');
+}
+.instagram {
+	background-image: url('/img/instagram_icon.png');
+}
+
+/* 하단 텍스트 영역 */
+.footer_title {
+	font-size: 16px;
+	font-family: 'GumiRomanceTTF';
+	font-style: italic;
+	color: #5399f5;
+}
+
+.footer_bottom {
+	text-align: center;
+	padding-top: 15px;
+}
+
+.footer_bottom p {
+	margin-top: 5px;
+}

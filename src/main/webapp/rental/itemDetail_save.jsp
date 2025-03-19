@@ -411,6 +411,10 @@
             transition: color 0.3s ease;
         }
 
+        .heart-icon.fas {
+            color: red;  /* 붉은색으로 지정 */
+        }
+
         .heart-button.active .heart-icon {
             color: red; /* 활성화된 상태의 색상 */
         }
@@ -588,7 +592,6 @@
 
 <script>
     let totalPrice = 0;
-    const hourlyRate = 1;
     let selectedItems = new Map();
     const uuid = <%= uuid %>;
     const isRentalOrSki = '<%=isRentalOrSki%>';
@@ -663,58 +666,69 @@
 
         heartButtons.forEach(button => {
             button.addEventListener('click', function () {
-                const itemId = this.getAttribute('data-item-id')
+                const itemId = this.getAttribute('data-item-id');
                 if (uuid === -1) {
                     alert('로그인이 필요합니다.');
                     return;
                 }
-                this.classList.toggle('active'); // active 클래스 토글
                 const heartIcon = this.querySelector('.heart-icon');
-                const url = '<%=request.getContextPath()%>/wish';
+                const url = '/wish';
 
-                let isWish = true;
-                if (this.classList.contains('active')) {
-                    heartIcon.classList.remove('far'); // 빈 하트 제거
-                    heartIcon.classList.add('fas'); // 채워진 하트 추가
-                    isWish = false;
-                } else {
-                    heartIcon.classList.remove('fas'); // 채워진 하트 제거
-                    heartIcon.classList.add('far'); // 빈 하트 추가
-                }
+                let isWish = heartIcon.classList.contains('far');
+                heartIcon.classList.toggle('fas', isWish);
+                heartIcon.classList.toggle('far', !isWish);
 
-                const fields = [
-                    {name: 'wish', value: isWish},
-                    {name: 'isRentalOrSki', value: isRentalOrSki},
-                    {name: 'uuid', value: uuid},
-                    {name: 'ref_id', value: itemId},
-                ]
-                createAndSubmitForm(url, fields);
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        isWish: isWish,  // 찜 상태 (true -> 찜 추가, false -> 찜 삭제)
+                        uuid: uuid,      // 사용자 uuid
+                        ref_id: itemId,  // 아이템 ID
+                        isRentalOrSki: isRentalOrSki  // 카테고리 (렌탈, 스키 등)
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            alert('처리 중 오류가 발생했습니다.');
+                            // 실패하면 원래 상태로 되돌리기
+                            heartIcon.classList.toggle('fas');
+                            heartIcon.classList.toggle('far');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('서버와의 통신에 실패했습니다.');
+                    });
             });
         });
-    });
 
-    function createAndSubmitForm(url, fields) {
-        const form = document.createElement('form');
-        form.method = 'post';
-        form.action = url;
-
-        fields.forEach(f => {
-            form.appendChild(createElement(f.name, f.value));
+        // 페이지 로드 시 서버에서 찜 목록 불러오기
+        window.addEventListener('load', () => {
+            fetch('/wish?uuid=' + uuid)
+                .then(response => response.json())
+                .then(data => {
+                    const wishList = data.wishList || [];
+                    heartButtons.forEach(button => {
+                        const itemId = button.getAttribute('data-item-id');
+                        const heartIcon = button.querySelector('.heart-icon');
+                        if (wishList.includes(parseInt(itemId))) {
+                            heartIcon.classList.add('fas');  // 찜한 상태
+                            heartIcon.classList.remove('far');  // 빈 하트 제거
+                        } else {
+                            heartIcon.classList.add('far');  // 찜하지 않은 상태
+                            heartIcon.classList.remove('fas');  // 채워진 하트 제거
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
-
-        document.body.appendChild(form);
-        form.submit();
-    }
-
-    function createElement(name, value) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = name;
-        input.value = value;
-        console.log(input);
-        return input;
-    }
-
+    });
 
     function addItem() {
         const itemSelect = document.getElementById('item-select');
@@ -875,8 +889,25 @@
             {name: 'isRentalOrSki', value: isRentalOrSki},
             {name: 'uuid', value: uuid}
         ];
-        createAndSubmitForm(url, fields);
 
+        createAndSubmitForm(url, fields);
+    }
+
+    function createAndSubmitForm(url, fields) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = url;
+
+        fields.forEach(field => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = field.name;
+            input.value = field.value;
+            form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
     }
 </script>
 

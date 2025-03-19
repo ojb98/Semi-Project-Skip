@@ -7,6 +7,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="dto.ResortReviewDTO" %>
+<%@ page import="dao.UsersDao" %>
 <html>
 <head>
     <title>resort</title>
@@ -16,6 +17,16 @@
     <%-- 달력 --%>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/reset.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/font.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/search.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/detail.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/save.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/cart.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/pay.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css">
     <%-- flatpickr 한국어 --%>
     <style>
         body {
@@ -38,51 +49,97 @@
             padding: 0;
         }
 
-        .nav {
-            background: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        header {
+            border-bottom: 1px solid #e9e9e9;
         }
 
-        .nav-container {
+        .header_logo {
+            font-family: 'GumiRomanceTTF';
+            font-style: italic;
+            color: #5399f5;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 58px;
+        }
+
+        .header_menu,
+        .header_nav {
+            height: 58px;
+        }
+
+        /* header_nav */
+        .header_menu {
+            width: 1230px;
+            /* padding: 0 75px; */
+            margin: 0 auto;
+            box-sizing: border-box;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
         }
 
-        .nav-logo {
-            color: #5399F5;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 2rem;
-            font-style: italic;
-        }
-
-        .nav-menu {
+        .menu ul {
             display: flex;
-            gap: 2rem;
-            list-style: none;
+            font-weight: 700;
+            gap: 34px;
         }
 
-        .nav-menu a {
-            color: black;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.4rem 1rem;
-            border-radius: 12px;
-            transition: all 0.2s ease-in-out;
+        .login ul {
+            display: flex;
+            font-weight: 700;
+            gap: 34px;
         }
 
-        .nav-menu a:hover {
-            background: rgba(66, 133, 244, 0.08);
-            color: #4285F4;
+        .header_menu a:hover {
+            color: #5399f5;
         }
+
+
+        /*.nav {*/
+        /*    background: white;*/
+        /*    padding: 1rem 0;*/
+        /*    position: sticky;*/
+        /*    top: 0;*/
+        /*    z-index: 1000;*/
+        /*    border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
+        /*}*/
+
+        /*.nav-container {*/
+        /*    display: flex;*/
+        /*    justify-content: space-between;*/
+        /*    align-items: center;*/
+        /*    max-width: 1280px;*/
+        /*    margin: 0 auto;*/
+        /*    padding: 0 1rem;*/
+        /*}*/
+
+        /*.nav-logo {*/
+        /*    color: #5399F5;*/
+        /*    text-decoration: none;*/
+        /*    font-weight: 800;*/
+        /*    font-size: 2rem;*/
+        /*    font-style: italic;*/
+        /*}*/
+
+        /*.nav-menu {*/
+        /*    display: flex;*/
+        /*    gap: 2rem;*/
+        /*    list-style: none;*/
+        /*}*/
+
+        /*.nav-menu a {*/
+        /*    color: black;*/
+        /*    text-decoration: none;*/
+        /*    font-weight: 600;*/
+        /*    padding: 0.4rem 1rem;*/
+        /*    border-radius: 12px;*/
+        /*    transition: all 0.2s ease-in-out;*/
+        /*}*/
+
+        /*.nav-menu a:hover {*/
+        /*    background: rgba(66, 133, 244, 0.08);*/
+        /*    color: #4285F4;*/
+        /*}*/
 
         .content-wrapper {
             max-width: 1100px;
@@ -420,31 +477,20 @@
             color: #333;
         }
 
-        .book-button {
-            background: #2B96ED;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .price-text {
+            flex: 1;
+            text-align: left;
         }
 
-        .book-button:hover {
-            background: #2280D0;
-        }
-
-        /* 모달 창 스타일 */
         .modal {
-            display: none; /* 기본적으로 숨겨짐 */
+            display: none;
             position: fixed;
-            z-index: 1; /* 가장 위에 */
+            z-index: 1;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
+            background-color: rgba(0, 0, 0, 0.4); 
             overflow: auto;
             padding-top: 60px;
         }
@@ -593,6 +639,76 @@
             margin-top: 0.5rem;
         }
 
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5399F5;
+            transition: all 0.2s ease;
+        }
+
+        .quantity-btn:hover {
+            background-color: #5399F5;
+            color: white;
+            border-color: #5399F5;
+        }
+
+        .room-price-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .room-price {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .price-amount {
+            flex: 1;
+            text-align: left;
+        }
+
+        .price-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .purchase {
+            display: flex;
+            gap: 10px;
+        }
+
+        .purchase-button {
+            width: 100px;
+            height: 40px;
+            background-color: #5399F5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .purchase-button:hover {
+            background-color: #4285F4;
+        }
+
     </style>
 
 </head>
@@ -604,18 +720,36 @@
     final int reviewCount = (int) request.getAttribute("reviewCount");
     final float averageRating = (float) request.getAttribute("averageRating");
     final List<ResortReviewDTO> reviewList = (List<ResortReviewDTO>) request.getAttribute("reviewList");
+    final int minPrice = (int) request.getAttribute("minPrice");
 
-    // 현재 날짜와 다음날 날짜 계산
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     Calendar calendar = Calendar.getInstance();
     String today = sdf.format(calendar.getTime());
     calendar.add(Calendar.DATE, 1);
     String tomorrow = sdf.format(calendar.getTime());
+
+    Cookie[] cookies = request.getCookies();
+    String userId = null;
+    int uuid = -1;
+
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("user_id")) {
+                userId = cookie.getValue();
+                break;
+            }
+        }
+    }
+
+    if (userId != null) {
+        UsersDao usersDao = new UsersDao();
+        uuid = usersDao.getUUID(userId);
+    }
 %>
 
 <div id="photoModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="close">&times;</span>
         <div class="modal-images">
             <img id="modalImage1" src="" alt="modalImage" class="modal-image">
             <img id="modalImage2" src="" alt="modalImage" class="modal-image">
@@ -626,24 +760,43 @@
 </div>
 
 <div class="container">
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">SKI:P</a>
-            <ul class="nav-menu">
-                <li><a href="#">로그아웃</a></li>
-                <li><a href="#">찜</a></li>
-                <li><a href="#">마이페이지</a></li>
-                <li><a href="#">장바구니</a></li>
-            </ul>
-        </div>
-    </nav>
+    <header>
+        <nav class="header_nav">
+            <div class="header_menu">
+                <div class="header_logo">
+                    <h1>
+                        <a href="index.html">SKI:P</a>
+                    </h1>
+                </div>
+                <div class="login">
+                    <ul>
+                        <li>
+                            <a href="#">로그인</a>
+                        </li>
+                        <li>
+                            <a href="#">로그아웃</a>
+                        </li>
+                        <li>
+                            <a href="#">마이페이지</a>
+                        </li>
+                        <li>
+                            <a href="#">찜</a>
+                        </li>
+                        <li>
+                            <a href="#">장바구니</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <div class="content-wrapper">
         <div class="search-info-box">
             <div class="search">
                 <i class="fas fa-search"></i>
                 <input type="text" name="search"
-                       placeholder="${resortDTO.name != null ? resortDTO.name : '검색어를 입력하세요.'}"/>
+                       placeholder="${requestScope.resortDTO.name != null ? requestScope.resortDTO.name : '검색어를 입력하세요.'}"/>
             </div>
             <div class="search-date">
                 <input type="text" id="datePickerInput" value="<%= today %> - <%= tomorrow %>" readonly
@@ -684,29 +837,22 @@
                 <span>(<fmt:formatNumber value="${requestScope.reviewCount}" pattern="#,###"/>개 평가)</span>
             </div>
             <div class="resort-price">
-                    <%-- ${requestScope.resortDTO.price_per_night}<span>원~</span>--%>asd
+                <fmt:formatNumber value="${requestScope.minPrice}" pattern="#,###"/><span> 원~</span>
             </div>
             <div class="service-icons">
-                <div class="service-item">
-                    <i class="fas fa-wifi"></i>
-                    <span>무료 와이파이</span>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-parking"></i>
-                    <span>주차 무료</span>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-tv"></i>
-                    <span>TV</span>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-snowflake"></i>
-                    <span>에어컨</span>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>서울임</span>
-                </div>
+                <c:choose>
+                    <c:when test="${not empty requestScope.resortList}">
+                        <c:forEach var="facility" items="${requestScope.resortList}">
+                            <div class="service-item">
+                                <i class="${facility.icon}"></i>
+                                <span>${facility.name}</span>
+                            </div>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="service-item">시설이 없습니다.</div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
 
@@ -740,13 +886,27 @@
                                     </div>
                                     <div class="room-price-section">
                                         <div class="room-price">
-                                            <div class="price-amount"><fmt:formatNumber
-                                                    value="${item.price_per_night}" pattern="#,###"
-                                                    var="formattedPrice"/>
-                                                    ${formattedPrice}원
+                                            <div class="price-amount">
+                                                <fmt:formatNumber value="${item.price_per_night}" pattern="#,###"
+                                                                  var="formattedPrice"/>
+                                                <span class="price-text">${formattedPrice}원</span>
                                             </div>
                                         </div>
-                                        <button class="book-button" onclick="validateAndSubmit()">객실 예약</button>
+                                        <div class="purchase">
+                                            <div class="quantity-control">
+                                                <button type="button" class="quantity-btn minus-btn">-</button>
+                                                <span class="quantity" data-quantity="1">1</span>
+                                                <button type="button" class="quantity-btn plus-btn">+</button>
+                                            </div>
+                                            <button class="purchase-button"
+                                                    onclick="addToCart('${item.room_name}', ${item.price_per_night})">
+                                                장바구니
+                                            </button>
+                                            <button class="purchase-button"
+                                                    onclick="validateAndSubmit('${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
+                                                바로 예약
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -760,7 +920,6 @@
                 </c:choose>
             </div>
         </div>
-        <!-- 리뷰와 문의 섹션 추가 -->
         <div class="review-qna-container">
             <div class="tab-container">
                 <button class="tab-button active" onclick="showTab('review')">리뷰</button>
@@ -817,6 +976,93 @@
 <script>
     let startDate = null;
     let endDate = null;
+    const uuid = <%= uuid %>;
+
+    document.querySelectorAll('.room-item').forEach(item => {
+        let quantity = 1; // 기본 수량
+
+        // 수량 증가 버튼 클릭 이벤트
+        const plusBtn = item.querySelector('.plus-btn');
+        if (plusBtn) {
+            plusBtn.addEventListener('click', () => {
+                quantity++;
+                item.querySelector('.quantity').textContent = quantity;
+                item.querySelector('.quantity').setAttribute('data-quantity', quantity);
+            });
+        }
+
+        // 수량 감소 버튼 클릭 이벤트
+        const minusBtn = item.querySelector('.minus-btn');
+        if (minusBtn) {
+            minusBtn.addEventListener('click', () => {
+                if (quantity > 1) {
+                    quantity--;
+                    item.querySelector('.quantity').textContent = quantity;
+                    item.querySelector('.quantity').setAttribute('data-quantity', quantity);
+                }
+            });
+        }
+
+        // 장바구니 버튼 클릭 이벤트
+        const addToCartButton = item.querySelector('.purchase-button');
+
+    });
+
+    // 장바구니에 추가하는 함수
+    function addToCart(roomName, totalPrice) {
+        alert(`${roomName}이(가) ${quantity}개만큼 장바구니에 추가되었습니다. 총 가격: ${totalPrice}원`);
+    }
+
+    // 예약을 처리하는 함수
+    function validateAndSubmit(roomId, price, startTime) {
+        const dateInput = document.getElementById("datePickerInput");
+        if (!dateInput || !dateInput.value.includes(" - ")) {
+            alert("날짜를 선택해 주세요.");
+            return;
+        }
+
+        const quantityElement = document.querySelector('.quantity');
+        const quantity = parseInt(quantityElement.getAttribute('data-quantity'));
+
+        const [startDate, endDate] = dateInput.value.split(" - ");
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const timeDifference = end - start; //밀리초 단위로 차이
+        const daysDifference = timeDifference / (1000 * 3600 * 24); //일별로 차이
+        const totalPrice = daysDifference * price * quantity; //총 금액
+
+        const roomTimeElement = document.querySelector('.room-time');
+        const checkTime = roomTimeElement ? roomTimeElement.textContent : 10; // 기본 체크인 시간
+
+        // 폼 생성
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/resort/payment'; // 서버의 결제 처리 URL
+
+
+        // 폼 필드 추가
+        const fields = [
+            {name: 'roomId', value: roomId},
+            {name: 'price', value: totalPrice},
+            {name: 'quantity', value: quantity},
+            {name: 'startDate', value: startDate},
+            {name: 'endDate', value: endDate},
+            {name: 'startTime', value: startTime},
+            {name: 'uuid', value: uuid} // uuid 추가
+        ];
+
+        fields.forEach(field => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = field.name;
+            input.value = field.value;
+            form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit(); // 폼 제출
+    }
+
 
     <%--function handleSearch() {--%>
     <%--    const searchInput = document.getElementById('searchResort');--%>
@@ -840,28 +1086,30 @@
     <%--    });--%>
     <%--});--%>
 
-    function validateAndSubmit() {
-        if (startDate != null || endDate != null) {
 
-        }
-        const selectDate = document.getElementById("datePickerInput").value = startDate + " - " + endDate;
-
-
-    }
-
-    // Flatpickr 초기화
     flatpickr("#datePickerInput", {
         mode: "range",
         dateFormat: "Y-m-d",
-        locale: "ko",  // 한국어 적용
+        locale: "ko",
         onClose: function (selectedDates) {
             if (selectedDates.length === 2) {
-                startDate = selectedDates[0].toISOString().split('T')[0];
-                endDate = selectedDates[1].toISOString().split('T')[0];
+                let startDate = selectedDates[0].toLocaleDateString('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                }).replace(/\. /g, '-').replace('.', '');
+
+                let endDate = selectedDates[1].toLocaleDateString('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                }).replace(/\. /g, '-').replace('.', '');
+
                 document.getElementById("datePickerInput").value = startDate + " - " + endDate;
             }
         }
     });
+
 
     function openModal(images) {
         const modalImages = images.split(','); // 이미지 URL을 ','를 기준으로 배열로 변환

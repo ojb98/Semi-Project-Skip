@@ -1,7 +1,6 @@
 package dao;
 
 import dto.RentalShopDTO;
-
 import dto.SkiDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

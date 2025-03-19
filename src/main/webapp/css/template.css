@@ -1,0 +1,133 @@
+@import url('/css/reset.css');
+@import url('/css/font.css');
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+/* 캘린더 */
+
+.calendar {
+	width: 120px;
+	height: 64px;
+	background-color: #f3f6f6;
+	border-radius: 12px;
+	padding: 10px 10px 10px 15px;
+	position: relative;
+	box-sizing: border-box;
+}
+
+input[type='date'] {
+	position: relative;
+	background-image: none;
+}
+
+input[type='date']::before {
+	content: attr(data-placeholder);
+	position: absolute;
+	left: 35px;
+}
+
+input[type='date']::after {
+	content: '\f073';
+	font-family: 'FontAwesome';
+	font-weight: 700;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #555;
+}
+
+/* 인원수 버튼, 룸타입 버튼 */
+.personnel_btn,
+.room_btn {
+	width: 130px;
+	height: 64px;
+	text-align: left;
+	background-color: #f3f6f6;
+	border-radius: 12px;
+	padding: 0 15px 0 45px;
+	box-sizing: border-box;
+	border: none;
+	position: relative;
+}
+
+.personnel_btn::before {
+	content: '\f007';
+	font-family: 'FontAwesome';
+	font-weight: 700;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 20px;
+	color: #555;
+}
+
+.room_btn::before {
+	content: '\f236';
+	font-family: 'FontAwesome';
+	font-weight: 700;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 20px;
+	color: #555;
+}
+
+/* 인원수 선택, 룸타입 선택 박스 */
+.personnel_box,
+.room_box {
+	display: none;
+	position: absolute;
+	top: 86px;
+	width: 300px;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+	padding: 15px;
+	z-index: 1000;
+}
+
+.personnel_box {
+	right: 136px;
+}
+.room_box {
+	right: 0;
+}
+
+.personnel_box small {
+	font-size: 11px;
+	color: #898989;
+}
+
+.personnel_item,
+.room_item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.label {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.counter {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.counter button {
+	width: 30px;
+	height: 30px;
+	border: 1px solid #ddd;
+	background: white;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.counter .count {
+	font-size: 16px;
+	font-weight: bold;
+	width: 40px;
+	text-align: center;
+}

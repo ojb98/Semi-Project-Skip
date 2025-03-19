@@ -1,12 +1,12 @@
 package dto;
 
 public class CartItemDTO {
-    int cart_id;
-    int uuid;
-    String category;
-    int ref_id;
-    int quantity;
-    int price;
+    private int cart_id;
+    private int uuid;
+    private String category;
+    private int ref_id;
+    private int quantity;
+    private int price;
 
     public CartItemDTO() {
     }

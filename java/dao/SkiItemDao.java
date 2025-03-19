@@ -1,7 +1,6 @@
 package dao;
 
 import dto.RentItemDTO;
-
 import dto.SkiItemDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

@@ -1,4 +1,5 @@
 <%@ page import="dto.RentalShopDTO" %>
+<%@ page import="dto.SkiDTO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -211,7 +212,7 @@
         }
 
         .review-item,
-        .qna-item{
+        .qna-item {
             padding: 1.5rem 0;
             border-bottom: 1px solid #eee;
         }
@@ -236,7 +237,14 @@
         <img src="../배너.jpg" alt="배너">
     </div>
 
-    <% RentalShopDTO dto = (RentalShopDTO) request.getAttribute("dto");%>
+    <%
+        String isRentalOrSki = (String) request.getAttribute("isRentalOrSki");
+        if (isRentalOrSki.equalsIgnoreCase("RENTAL")) {
+            RentalShopDTO dto = (RentalShopDTO) request.getAttribute("dto");
+        } else if (isRentalOrSki.equalsIgnoreCase("SKI")) {
+            SkiDTO dto = (SkiDTO) request.getAttribute("dto");
+        }
+    %>
     <c:choose>
         <c:when test="${not empty dto}">
             <div class="shop-name">
@@ -248,8 +256,20 @@
                            items="${fn:split('리프트권,패키지,스키,보드,보호구,상의,하의,신발', ',')}"
                            varStatus="status">
                     <div class="item-box">
-                        <a href="<%= request.getContextPath()%>/rental/rentalItem?item_type=${item}&rentalshop_id=${dto.rentalshop_id}&img_num=${status.index + 1}">
-                            <img src="../mainImage/main${status.index + 1}.jpg?v=${System.currentTimeMillis()}"
+                        <c:set var="linkUrl" value=""/>
+
+                        <c:if test="${isRentalOrSki eq 'RENTAL'}">
+                            <c:set var="linkUrl"
+                                   value="${pageContext.request.contextPath}/rental/rentalItem?item_type=${item}&rentalshop_id=${dto.rentalshop_id}&img_num=${status.index + 1}&isRentalOrSki=RENTAL"/>
+                        </c:if>
+
+                        <c:if test="${isRentalOrSki eq 'SKI'}">
+                            <c:set var="linkUrl"
+                                   value="${pageContext.request.contextPath}/rental/rentalItem?item_type=${item}&ski_id=${dto.ski_id}&img_num=${status.index + 1}&isRentalOrSki=SKI"/>
+                        </c:if>
+
+                        <a href="${linkUrl}">
+                            <img src="../rentMainImage/main${status.index + 1}.jpg?v=${System.currentTimeMillis()}"
                                  alt="장비"/>
                             <div class="item-content">
                                 <h3 class="item-title">${item}</h3>
@@ -299,19 +319,6 @@
 </div>
 
 <script>
-    function test(list) {
-        alert(list);
-    }
-
-    function onlyOne(checkbox) {
-        const checkboxes = document.getElementsByName(checkbox.name);
-        checkboxes.forEach((item) => {
-            if (item !== checkbox) {
-                item.checked = false;
-            }
-        });
-    }
-
     function showTab(tabName) {
         const reviewSection = document.getElementById('review-section');
         const qnaSection = document.getElementById('qna-section');

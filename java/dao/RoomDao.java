@@ -1,7 +1,6 @@
 package dao;
 
 import dto.RoomDTO;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import mybatis.system.SqlSessionFactorySystem;

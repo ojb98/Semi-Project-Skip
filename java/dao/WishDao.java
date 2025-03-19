@@ -12,9 +12,15 @@ public class WishDao {
     private SqlSessionFactory sqlSessionFactory = SqlSessionFactorySystem.getSqlSessionFactory();
     private final String NAMESPACE = "mybatis.mapper.WishMapper";
 
-    public List<WishDTO> getRefIdList(Map<String, Object> map) {
+//    public List<WishDTO> getRefIdList(Map<String, Object> map) {
+//        try (SqlSession session = sqlSessionFactory.openSession()) {
+//            return session.selectList(NAMESPACE + ".getRefIdList", map);
+//        }
+//    }
+
+    public int getCheckWish(Map<String, Object> map) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            return session.selectList(NAMESPACE + ".getRefIdList", map);
+            return session.selectOne(NAMESPACE + ".checkWish", map);
         }
     }
 
