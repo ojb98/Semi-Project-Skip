@@ -53,17 +53,6 @@ public class ResortReviewsPagingController extends HttpServlet {
 
         // JSON 변환
         JSONArray arr = new JSONArray(rrList);
-//        JSONArray arr = new JSONArray();
-//        for (ResortReviewsDTO review : rrList) {
-//            JSONObject obj = new JSONObject();
-//            obj.put("reviewId", review.getReviewId());
-//            obj.put("uuid", review.getUuid());
-//            obj.put("createdAt", review.getCreatedAt());
-//            obj.put("rating", review.getRating());
-//            obj.put("resortComment", review.getResortComment());
-//            obj.put("reviewImg", review.getReviewImg());
-//            arr.put(obj);
-//        }
 
         JSONObject json = new JSONObject();
         //페이징처리에 관련된 데이터 json에 담기

@@ -49,7 +49,7 @@ public class ResortReviewsArrayController extends HttpServlet{
 			endPage = pageCount;
 		}
 		
-		List<ResortReviewsDTO> rrList = rrDao.reviewList(sortType, startRow, endRow);
+		List<ResortReviewsDTO> rrList = rrDao.reviewArray(sortType, startRow, endRow);
 		
 		
 		JSONObject json = new JSONObject();
