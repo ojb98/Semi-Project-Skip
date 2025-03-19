@@ -13,8 +13,22 @@
 		justify-content: space-between;
 	}
 
+	.mypage h1 {
+		font-size: 27px;
+		font-weight: 500;
+		margin-bottom: 30px;
+		color: black;
+	}
+	
+	.mypage h2 {
+		font-size: 18px;
+		font-weight: 500;
+		margin-bottom: 60px;
+		color: rgb(99, 99, 99)
+	}
+
 	.mypage .nav_container {
-		margin-top: 80px;
+		margin-top: 60px;
 	}
 	
 	.nav_container li:first-child input {
@@ -55,10 +69,99 @@
 		transition: 0.5s;
 		color: white;
 	}
+	
+	.nav_title {
+		border-bottom: 1px solid #eaeaea;
+	}
 
 	.content_container {
 		width: 800px;
 		margin-right: 60px;
+	}
+
+	.user_info .input_frame {
+		border-bottom: 1px solid #eaeaea;
+		padding-top: 20px;
+		padding-bottom: 50px;
+	}
+	
+	.user_info .input_box {
+		width: 70%;
+		margin-top: 30px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
+	.user_info .input_text {
+		width: 300px;
+		border: 1px solid #dadada;
+		padding-top: 14px;
+		padding-bottom: 14px;
+		border-radius: 5px;
+		box-sizing: border-box;
+	}
+	
+	.user_info .input_text:focus {
+		border-color: #5399f5;
+		box-shadow: 0 0 8px rgba(83, 153, 245, 0.6);
+		transition: box-shadow 0.2s ease-in-out;
+	}
+	
+	.user_info .err_box {
+		width: 70%;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.user_info .err_box span {
+		width: 275px;
+	}
+	
+	.user_info .err_msg {
+		text-align: left;
+	}
+	
+	.user_info .input_email {
+		position: relative;
+	}
+	
+	.user_info .input_email input {
+		width: 274px;
+	}
+	
+	.user_info .input_btn {
+		position: absolute;
+		font-size: 0.9em;
+		top: 15px;
+		right: 10px;
+		width: 30px;
+  		color:rgb(100, 100, 100);
+	}
+	
+	.login_btn_box {
+		display: flex;
+		justify-content: center;
+	}
+	
+	.input_box .output_text {
+		font-size: 0.9em;
+	}
+	
+	.input_desc {
+		font-size: 0.9em;
+		font-weight: 600;
+	}
+	
+	.input_box span {
+		width: 299px;
+		text-align: left;
+	}
+	
+	.user_info .login_btn {
+		margin-top: 50px;
+		justify-content: center;
+		width: 200px;
 	}
 	
 	.tab_container {
@@ -66,6 +169,7 @@
 		margin-bottom: 60px;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 	}
 	
 	.tab_container ul {
@@ -102,31 +206,35 @@
 		cursor: pointer;
 	}
 
-	.tab_container .search_box input {
+	.mypage .search_box input {
 		height: 40px;
 		border-radius: 10px;
 	}
 
-	.tab_container .search_box input:first-child {
+	.mypage .search_box input:first-child {
 		border: 1px solid #5399f5;
 		width: 200px;
 		margin-right: 10px;
 	}
 
-	.tab_container .search_box input:first-child:focus {
+	.mypage .search_box input:first-child:focus {
 		border-color: #5399f5;
 		box-shadow: 0 0 8px rgba(83, 153, 245, 0.6);
 		transition: box-shadow 0.2s ease-in-out;
 	}
+	
+	.mypage .search_box input::placeholder {
+		text-indent: 10px;
+	}
 
-	.tab_container .search_box input:last-child {
+	.mypage .search_box input:last-child {
 		background-color: #5399f5;
 		color: white;
 		width: 60px;
 		cursor: pointer;
 	}
 
-	.tab_container .search_box input:last-child:hover {
+	.mypage .search_box input:last-child:hover {
 		background-color: #2c7fec;
 	}
 	
@@ -147,9 +255,15 @@
 		justify-content: space-between;
 		align-items: center;
 	}
+	
 	.reserv_title span {
 		font-size: 0.9em;
 		font-weight: 800;
+	}
+	
+	.reserv_title a:hover {
+		text-decoration: underline;
+		text-underline-position: under;
 	}
 	
 	.reserv_content {
@@ -172,18 +286,6 @@
 	.reserv_place a:hover {
 		text-decoration: underline;
 		text-underline-position: under;
-	}
-	
-	.reserv_content table {
-		height: 100%;	
-	}
-
-	.reserv_content tbody td > div:not(.reserv_items) {
-		display: flex;
-		flex-direction: row;
-		height: 100%;
-		justify-content: center;
-		align-items: center;
 	}
 	
 	.reserv_stat {
@@ -317,106 +419,81 @@
 		background-color: rgb(220, 220, 220);
 	}
 	
-	.mypage h1 {
-		font-size: 27px;
-		font-weight: 500;
-		margin-bottom: 30px;
-		color: black;
-	}
-	
-	.nav_title {
-		border-bottom: 1px solid #eaeaea;
-	}
-
-	.user_info .input_frame {
-		border-bottom: 1px solid #eaeaea;
-		padding-top: 20px;
-		padding-bottom: 50px;
-	}
-	
-	.user_info .input_box {
-		width: 70%;
-		margin-top: 30px;
+	.select_container {
+		margin-top: 20px;
+		margin-bottom: 60px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
 	
-	.user_info .input_text {
-		width: 300px;
-		border: 1px solid #dadada;
-		padding-top: 14px;
-		padding-bottom: 14px;
-		border-radius: 5px;
-		box-sizing: border-box;
-	}
-	
-	.user_info .input_text:focus {
-		border-color: #5399f5;
-		box-shadow: 0 0 8px rgba(83, 153, 245, 0.6);
-		transition: box-shadow 0.2s ease-in-out;
-	}
-	
-	.user_info .err_box {
-		width: 70%;
-		display: flex;
-		justify-content: flex-end;
+	.review_select {
+		width: 50%;
 	}
 
-	.user_info .err_box span {
-		width: 275px;
+	.review_container {
+		border: 1px solid rgb(240, 240, 240);
+		border-radius: 10px;
+		box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px,
+		rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+		margin-bottom: 30px;
 	}
 	
-	.user_info .err_msg {
-		text-align: left;
+	.review_select select {
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		appearance: none;
+		padding-left: 10px;
+		width: 70px;
+		height: 40px;
+		border: 1px solid #aaa;
+		border-radius: 10px;
+		box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
 	}
 	
-	.user_info .input_email {
-		position: relative;
+	.review_select select:last-child {
+		margin-left: 10px;
+		width: 115px;
 	}
 	
-	.user_info .input_email input {
-		width: 274px;
+	.review_select select:focus {
+		border: 1px solid #5399f5;
+		box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.4);
+		outline: none;
 	}
 	
-	.user_info .input_btn {
-		position: absolute;
-		font-size: 0.9em;
-		top: 15px;
-		right: 10px;
-		width: 30px;
-  		color:rgb(100, 100, 100);
+	.review_title {
+		height: 40px;
+	}
+
+	.review_content {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		height: 120px;
+		display: flex;
 	}
 	
-	.login_btn_box {
+	.review_rating {
+		width: 20%;
 		display: flex;
 		justify-content: center;
+		align-items: center;
 	}
 	
-	.input_box .output_text {
-		font-size: 0.9em;
+	.review_image {
+		width: 130px;
 	}
 	
-	.input_desc {
-		font-size: 0.9em;
-		font-weight: 600;
-	}
-	
-	.input_box span {
-		width: 299px;
-		text-align: left;
-	}
-	
-	.user_info .login_btn {
-		margin-top: 50px;
-		justify-content: center;
-		width: 200px;
+	.review_comment {
+		width: 50%;
+		overflow-y: auto;
+		word-break: break all;
 	}
 </style>
 </head>
 <body>
 <!-- header -->
-<jsp:include page="/header.jsp" />
+<jsp:include page="/header.jsp"/>
 
 <main>
 	<div class="mypage main_container">

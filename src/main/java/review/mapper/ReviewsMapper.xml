@@ -6,12 +6,16 @@
 	<sql id="filter">
 		<where>
 			uuid = #{uuid}
-			<if test="rating != null and rating != 'total'">
+			<if test="rating != null and rating != ''">
 				and rating = to_number(#{rating})
 			</if>
 			
-			<if test="category != null and category != 'total'">
+			<if test="category != null and category != ''">
 				and category = #{category}
+			</if>
+			
+			<if test="year != null and year != ''">
+				and to_char(created_at, 'yyyy') = #{year}
 			</if>
 		</where>
 	</sql>
@@ -25,7 +29,7 @@
 	<select id="list" resultType="review.dto.ReviewsDto" parameterType="hashmap">
 		select *
 		from (select rownum rn, r.*
-			from (select category, review_id, payment_id, uuid, ref_id, rating, review_comment, img, created_at
+			from (select category, review_id, payment_id, uuid, ref_id, ref_name, rating, review_comment, img, created_at
 					from reviews_view
 					<include refid="filter"/>
 					order by created_at desc) r)
