@@ -6,3 +6,7 @@ CREATE TABLE RESORT_REVIEWS_RE(
     content VARCHAR2(300) NOT NULL, -- 답변 내용
     created_at DATE DEFAULT SYSDATE -- 답변일  
 );
+
+--시퀀스
+create sequence resort_review_seq;
+

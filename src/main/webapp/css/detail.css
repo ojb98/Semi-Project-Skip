@@ -333,7 +333,6 @@
 /* 탭 메뉴 */
 
 /* 리뷰 */
-
 .tabs {
 	margin: 70px 0;
 	box-sizing: border-box;
@@ -519,4 +518,10 @@
 	background-color: #3D3D4F;
 	color: #fff;
 }
+
+.review h2 {
+	font-size: 24px;
+	font-weight: 700;
+}
+
 

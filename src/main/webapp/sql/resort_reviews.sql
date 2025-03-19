@@ -11,3 +11,6 @@ CREATE TABLE RESORT_REVIEWS(
     review_img VARCHAR2(255),   -- 리뷰 이미지
     created_at DATE DEFAULT SYSDATE  -- 작성일
 );
+
+--시퀀스
+create sequence resort_review_re_seq;

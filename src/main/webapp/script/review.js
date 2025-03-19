@@ -44,8 +44,8 @@ function getList(pageNum) {
 
             /* 리뷰 이미지 */
             let imgTag = "";
-            if (reviewDto.reviewImg) {
-                imgTag = `<img src=${contextPath}/reviewImgs/${reviewDto.reviewImg}>`;
+            if (reviewDto.review_img) {
+                imgTag = `<img src=${contextPath}/reviewImgs/${reviewDto.review_img}>`;
             }
 
             review_item.innerHTML = `
@@ -57,18 +57,18 @@ function getList(pageNum) {
                         </div>
                         <div class="user_box">
                             <p class="user_id">아이디: ${reviewDto.uuid}</p>
-                            <p class="created_at">작성일: ${reviewDto.createdAt}</p>
+                            <p class="created_at">작성일: ${reviewDto.created_at}</p>
                             <div class="content">
                                 <p>리뷰 내용</p>
-                                <p>${reviewDto.resortComment}</p>
+                                <p>${reviewDto.resort_comment}</p>
                             </div>
                         </div>
                     </div>
                     <div class="item_img">${imgTag}</div>
                 </div>
                 <div class="item_ctrl">
-                    <a href="javascript:updatePopup(${reviewDto.reviewId})">수정</a>
-                    <a href="${contextPath}/jsp/delete?reviewId=${reviewDto.reviewId}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                    <a href="javascript:updatePopup(${reviewDto.review_id})">수정</a>
+                    <a href="${contextPath}/jsp/delete?reviewId=${reviewDto.review_id}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                 </div>
             `;
             reviewList.appendChild(review_item);
@@ -166,8 +166,8 @@ function reviewSort(sortType, pageNum = 1) {
 
 			/* 리뷰 이미지 */
 			let imgTag = "";
-			if (reviewDto.reviewImg) {
-				imgTag = `<img src=${contextPath}/reviewImgs/${reviewDto.reviewImg}>`;
+			if (reviewDto.review_img) {
+				imgTag = `<img src=${contextPath}/reviewImgs/${reviewDto.review_img}>`;
 			}
 
 			review_item.innerHTML = `
@@ -178,18 +178,18 @@ function reviewSort(sortType, pageNum = 1) {
 							<span class="rating_number">${reviewDto.rating} 점</span>
 						</div>
 						<div class="user_box">
-							<p class="user_id">${reviewDto.uuid}</p>
-							<p class="created_at">${reviewDto.createdAt}</p>
+							<p class="user_id">아이디: ${reviewDto.uuid}</p>
+							<p class="created_at">작성일: ${reviewDto.created_at}</p>
 							<div class="content">
-								<p>${reviewDto.resortComment}</p>
+								<p>리뷰내용: ${reviewDto.resort_comment}</p>
 							</div>
 						</div>
 					</div>
 					<div class="item_img">${imgTag}</div>
 				</div>
 				<div class="item_ctrl">
-					<a href="javascript:updatePopup(${reviewDto.reviewId})">수정</a>
-					<a href="${contextPath}/jsp/delete?reviewId=${reviewDto.reviewId}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+					<a href="javascript:updatePopup(${reviewDto.review_id})">수정</a>
+					<a href="${contextPath}/jsp/delete?reviewId=${reviewDto.review_id}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
 				</div>
 			`;
 			reviewList.appendChild(review_item);

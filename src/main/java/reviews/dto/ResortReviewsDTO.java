@@ -3,44 +3,44 @@ package reviews.dto;
 import java.sql.Date;
 
 public class ResortReviewsDTO {
-	private int reviewId;
-	private int paymentId;
+	private int review_id;
+	private int payment_id;
 	private int uuid;
-	private int resortId;
+	private int resort_id;
 	private double rating;
-	private String resortComment;
-	private String reviewImg;
-	private Date createdAt;
+	private String resort_comment;
+	private String review_img;
+	private Date created_at;
 	
 	public ResortReviewsDTO() {}
-
-	public ResortReviewsDTO(int reviewId, int paymentId, int uuid, int resortId, double rating, String resortComment,
-			String reviewImg, Date createdAt) {
+	
+	public ResortReviewsDTO(int review_id, int payment_id, int uuid, int resort_id, double rating,
+			String resort_comment, String review_img, Date created_at) {
 		super();
-		this.reviewId = reviewId;
-		this.paymentId = paymentId;
+		this.review_id = review_id;
+		this.payment_id = payment_id;
 		this.uuid = uuid;
-		this.resortId = resortId;
+		this.resort_id = resort_id;
 		this.rating = rating;
-		this.resortComment = resortComment;
-		this.reviewImg = reviewImg;
-		this.createdAt = createdAt;
+		this.resort_comment = resort_comment;
+		this.review_img = review_img;
+		this.created_at = created_at;
 	}
 
-	public int getReviewId() {
-		return reviewId;
+	public int getReview_id() {
+		return review_id;
 	}
 
-	public void setReviewId(int reviewId) {
-		this.reviewId = reviewId;
+	public void setReview_id(int review_id) {
+		this.review_id = review_id;
 	}
 
-	public int getPaymentId() {
-		return paymentId;
+	public int getPayment_id() {
+		return payment_id;
 	}
 
-	public void setPaymentId(int paymentId) {
-		this.paymentId = paymentId;
+	public void setPayment_id(int payment_id) {
+		this.payment_id = payment_id;
 	}
 
 	public int getUuid() {
@@ -51,12 +51,12 @@ public class ResortReviewsDTO {
 		this.uuid = uuid;
 	}
 
-	public int getResortId() {
-		return resortId;
+	public int getResort_id() {
+		return resort_id;
 	}
 
-	public void setResortId(int resortId) {
-		this.resortId = resortId;
+	public void setResort_id(int resort_id) {
+		this.resort_id = resort_id;
 	}
 
 	public double getRating() {
@@ -67,34 +67,34 @@ public class ResortReviewsDTO {
 		this.rating = rating;
 	}
 
-	public String getResortComment() {
-		return resortComment;
+	public String getResort_comment() {
+		return resort_comment;
 	}
 
-	public void setResortComment(String resortComment) {
-		this.resortComment = resortComment;
+	public void setResort_comment(String resort_comment) {
+		this.resort_comment = resort_comment;
 	}
 
-	public String getReviewImg() {
-		return reviewImg;
+	public String getReview_img() {
+		return review_img;
 	}
 
-	public void setReviewImg(String reviewImg) {
-		this.reviewImg = reviewImg;
+	public void setReview_img(String review_img) {
+		this.review_img = review_img;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public Date getCreated_at() {
+		return created_at;
 	}
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
 	}
 
 	@Override
 	public String toString() {
-		return "ResortReviewsDTO [reviewId=" + reviewId + ", paymentId=" + paymentId + ", uuid=" + uuid + ", resortId="
-				+ resortId + ", rating=" + rating + ", resortComment=" + resortComment + ", reviewImg=" + reviewImg
-				+ ", createdAt=" + createdAt + "]";
+		return "ResortReviewsDTO [review_id=" + review_id + ", payment_id=" + payment_id + ", uuid=" + uuid
+				+ ", resort_id=" + resort_id + ", rating=" + rating + ", resort_comment=" + resort_comment
+				+ ", review_img=" + review_img + ", created_at=" + created_at + "]";
 	}
 }

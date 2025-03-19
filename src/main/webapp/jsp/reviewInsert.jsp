@@ -19,7 +19,7 @@
 		<h2>리뷰작성</h2>
 		<div class = "">
 			<lable>리조트 결제 아이디</lable>
-			<input type="text" name="paymentId">		
+			<input type="text" name="payment_id">		
 		</div>
 		<div class="">
 			<lable>회원 아이디</lable>
@@ -27,7 +27,7 @@
 		</div>
 		<div class="">
 			<lable>리조트 아이디</lable>
-			<input type="text" name="resortId">
+			<input type="text" name="resort_id">
 		</div>
 		<div class="">
 			<label>리뷰 평점</label>
@@ -43,12 +43,12 @@
 		</div>
 		<div class="">
 			<label>리뷰내용</label>
-			<textarea id="resortComment" rows="5" cols="50" name="resortComment" placeholder="5자 이상입력하세요."></textarea>
+			<textarea id="resortComment" rows="5" cols="50" name="resort_comment" placeholder="5자 이상입력하세요."></textarea>
 			<p class="comment_msg">리뷰를 5자 이상 작성해주세요.</p>
 		</div>
 		<div class="">
 			<label>첨부파일</label>
-			<input type="file" name="reviewImg">
+			<input type="file" name="review_img">
 			<input type="submit" value="등록">
 		</div>
 	</form>

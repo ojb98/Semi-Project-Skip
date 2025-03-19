@@ -24,11 +24,11 @@ import reviews.dto.ResortReviewsDTO;
 public class ResortReviewsUpdateController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int reviewId = Integer.parseInt(req.getParameter("reviewId"));
-		System.out.println(reviewId);
+		int review_id = Integer.parseInt(req.getParameter("review_id"));
+		System.out.println(review_id);
 		
 		ResortReviewsDAO rrDao = new ResortReviewsDAO();
-		ResortReviewsDTO rrDto = rrDao.updateSelect(reviewId);
+		ResortReviewsDTO rrDto = rrDao.updateSelect(review_id);
 		
 		if(rrDto!=null) {
 			req.setAttribute("rrDto", rrDto);
@@ -41,30 +41,30 @@ public class ResortReviewsUpdateController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int reviewId = Integer.parseInt(req.getParameter("reviewId"));
-		int paymentId = Integer.parseInt(req.getParameter("paymentId"));
+		int review_id = Integer.parseInt(req.getParameter("review_id"));
+		int payment_id = Integer.parseInt(req.getParameter("payment_id"));
 		int uuid = Integer.parseInt(req.getParameter("uuid"));
-		int resortId = Integer.parseInt(req.getParameter("resortId"));
+		int resort_id = Integer.parseInt(req.getParameter("resort_id"));
 		double rating  = Double.parseDouble(req.getParameter("rating"));
-		String resortComment = req.getParameter("resortComment");
-		String reviewImg = req.getParameter("reviewImg");
-		System.out.println("리뷰아이디:" + reviewId);
-		System.out.println("결제아이디:" + paymentId);
+		String resort_comment = req.getParameter("resort_comment");
+		String review_img = req.getParameter("review_img");
+		System.out.println("리뷰아이디:" + review_id);
+		System.out.println("결제아이디:" + payment_id);
 		System.out.println("사용자아이디:" + uuid);
-		System.out.println("리조트아이디:" + resortId);
+		System.out.println("리조트아이디:" + resort_id);
 		System.out.println("별점:" + rating);
-		System.out.println("리뷰내용:" + resortComment);
-		System.out.println("리뷰이미지:" + reviewImg);
+		System.out.println("리뷰내용:" + resort_comment);
+		System.out.println("리뷰이미지:" + review_img);
 		
 		ResortReviewsDAO rrDao = new ResortReviewsDAO();
-		ResortReviewsDTO rrDto = rrDao.updateSelect(reviewId);
+		ResortReviewsDTO rrDto = rrDao.updateSelect(review_id);
 		System.out.println("DAO:" + rrDao);
 		System.out.println("DTO:" + rrDto);
 		
-		String saveFilename=rrDto.getReviewImg(); //기존 이미지명
+		String saveFilename=rrDto.getReview_img(); //기존 이미지명
 		System.out.println(saveFilename);
 		
-		Part part = req.getPart("reviewImg"); // input 태그 name="reviewImg" 확인
+		Part part = req.getPart("review_img"); // input 태그 name="review_img" 확인
 		String newFilename = part.getSubmittedFileName(); //새파일명
 		
 		String path = req.getServletContext().getRealPath("/reviewImgs"); //파일 저장 경로
@@ -87,7 +87,7 @@ public class ResortReviewsUpdateController extends HttpServlet {
 		}
 		
 		
-		rrDto = new ResortReviewsDTO(reviewId, paymentId, uuid, resortId, rating, resortComment, saveFilename, null);
+		rrDto = new ResortReviewsDTO(review_id, payment_id, uuid, resort_id, rating, resort_comment, saveFilename, null);
 		int n = rrDao.update(rrDto);
 		
 		resp.sendRedirect(req.getContextPath() + "/jsp/reviewList");

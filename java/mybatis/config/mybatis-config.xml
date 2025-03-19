@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="oracle.jdbc.OracleDriver"/>
+                <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+                <property name="username" value="c##scott"/>
+                <property name="password" value="tiger"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!-- 읽어올 Mapper XML 파일 포함하기 패키지명을 .으로 구분하면 안되고 디렉토리구분자       (/)를 써야 함 -->
+        <mapper resource="mybatis/mapper/ItemCategoryMapper.xml"/>
+        <mapper resource="mybatis/mapper/SkiMapper.xml"/>
+        <mapper resource="mybatis/mapper/RentItemMapper.xml"/>
+        <mapper resource="mybatis/mapper/SkiItemMapper.xml"/>
+        <mapper resource="mybatis/mapper/UsersMapper.xml"/>
+        <mapper resource="mybatis/mapper/RentalShopMapper.xml"/>
+        <mapper resource="mybatis/mapper/ResortMapper.xml"/>
+        <mapper resource="mybatis/mapper/ResortReviewMapper.xml"/>
+        <mapper resource="mybatis/mapper/CartItemMapper.xml"/>
+        <mapper resource="mybatis/mapper/WishMapper.xml"/>
+        <mapper resource="mybatis/mapper/RoomMapper.xml"/>
+        <mapper resource="mybatis/mapper/UsersMapper.xml"/>
+        <mapper resource="mybatis/mapper/FacilityMapper.xml"/>
+        <mapper resource="mybatis/mapper/ResortFacilityMapper.xml"/>
+    </mappers>
+</configuration>

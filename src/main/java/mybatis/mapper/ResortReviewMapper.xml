@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.ResortReviewMapper">
+    <select id="countReviewsByResortId" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM resort_reviews
+        WHERE resort_id = #{resort_id}
+    </select>
+
+    <select id="selectAvgRatingByResortId" parameterType="int" resultType="float">
+        select avg(rating)
+        from resort_reviews
+        where resort_id = #{resort_id}
+    </select>
+
+    <select id="selectReviewByResortId" parameterType="int" resultType="dto.ResortReviewDTO">
+        select u.name, r.rating, r.resort_comment, r.review_img, created_at
+        from resort_reviews r left join users u
+        on r.uuid = u.uuid
+        where r.resort_id = #{resort_id}
+    </select>
+</mapper>

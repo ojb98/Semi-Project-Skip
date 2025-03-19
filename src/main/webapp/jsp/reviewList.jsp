@@ -268,7 +268,7 @@
             </div>
           </div>
           <div class="review_contents">
-            <ul class="review_list"">
+            <ul class="review_list">
             </ul>
           </div>
           <!-- 페이징 -->

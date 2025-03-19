@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import reviews.dao.ResortReviewsDAO;
 import reviews.dto.ResortReviewsDTO;
-import reviews.dto.ResortReviewsReDTO;
 
 @MultipartConfig (
 	maxFileSize = 1024 * 1024 * 10
@@ -31,13 +30,11 @@ public class ResortReviewsController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		 int paymentId = Integer.parseInt(req.getParameter("paymentId"));
+		 int payment_id = Integer.parseInt(req.getParameter("payment_id"));
 		 int uuid = Integer.parseInt(req.getParameter("uuid"));
-		 int resortId = Integer.parseInt(req.getParameter("resortId"));
+		 int resort_id = Integer.parseInt(req.getParameter("resort_id"));
 		 double rating  = Double.parseDouble(req.getParameter("rating"));
-		 String resortComment = req.getParameter("resortComment");
-		 
-//		 String reviewImg = req.getParameter("reviewImg");
+		 String resort_comment = req.getParameter("resort_comment");
 		 
 		 //파일 업로드
 		 ServletContext application = req.getServletContext();
@@ -48,12 +45,12 @@ public class ResortReviewsController extends HttpServlet {
 		 File reviewImgs = new File(path);
 		 if (!reviewImgs.exists()) {
 			 reviewImgs.mkdirs();
-			 System.out.println("reviewImg 폴더가 생성되었습니다.");
+			 System.out.println("reviewImgs 폴더가 생성되었습니다.");
 		 }
 		 
 		 try {
 			 String savefilename = null;
-			 Part part = req.getPart("reviewImg");
+			 Part part = req.getPart("review_img");
 			 String orgfilename = part.getSubmittedFileName();
 			 System.out.println("originalfilename:" + orgfilename);
 			 if (orgfilename != null && !orgfilename.isEmpty()) { // 파일이 있을 때만 UUID를 생성하여 파일값 전달
@@ -70,7 +67,7 @@ public class ResortReviewsController extends HttpServlet {
 			 System.out.println("savefilename:" + savefilename);
 			 
 			 ResortReviewsDAO rrDao = new ResortReviewsDAO();
-			 ResortReviewsDTO rrDto = new ResortReviewsDTO(0, paymentId, uuid, resortId, rating, resortComment, savefilename, null);
+			 ResortReviewsDTO rrDto = new ResortReviewsDTO(0, payment_id, uuid, resort_id, rating, resort_comment, savefilename, null);
 			 
 			 int n = rrDao.insert(rrDto);
 			 
