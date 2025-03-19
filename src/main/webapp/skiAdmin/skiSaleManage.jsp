@@ -100,43 +100,129 @@
     </aside>
     
     <!-- 메인 컨텐츠 영역 -->
-    <main class="main-content">
-        <!-- 테이블 영역 -->
-        <div class="table-container">
-        <!-- 리스트 상단 우측에 작게 표시되는 검색 컨트롤 영역 -->
-        <div class="list-header">
-        <h3>전체 예약 리스트</h3>
-            <div class="search-filter-container">
-                <select id="filterSelect">
-                    <option value="userName">이름</option>
-                    <option value="userId">아이디</option>
-                    <option value="userEmail">이메일</option>                    
-                </select>
-                <div class="search-box">
-                  <input type="text" id="searchInput" placeholder="검색어 입력" />
-                  <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList()"/>
-                </div>
-            </div>
+<main class="main-content">
+    <h2>📊 매출 관리 / 통계</h2>
+
+    <!-- 매출 요약 카드 -->
+    <section class="dashboard">
+        <div class="card">
+            <h3>💰 총 매출</h3>
+            <p style="color:red;">10,000,000원</p>
         </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>예약번호</th>
-                        <th>이름</th>
-                        <th>아이디</th>
-                        <th>이메일</th>
-                        <th>전화번호</th>
-                        <th>이용예정일</th>                         
-                        <th>예약생성일</th>
-                        <th>상태</th>
-                        <th>수정</th>
-                    </tr>
-                </thead>
-                <tbody id="reservationTableBody">
-                    <!-- 백엔드에서 반복문으로 출력할 데이터 -->
-                </tbody>
-            </table>
+        <div class="card">
+            <h3>📅 총 예약</h3>
+            <p style="color:red;">150건</p>
         </div>
-    </main>
+        <div class="card">
+            <h3>✅ 완료된 예약</h3>
+            <p style="color:red;">120건</p>
+        </div>
+        <div class="card">
+            <h3>❌ 취소된 예약</h3>
+            <p style="color:red;">30건</p>
+        </div>
+    </section>
+
+    <!-- 차트 카드 (매출 추이 & 예약 상태 비율) -->
+    <div class="chart-cards">
+        <!-- 매출 변동 차트 -->
+        <div class="chart-card">
+            <h3>📈 날짜별 매출 변동</h3>
+            <canvas id="salesChart"></canvas>
+        </div>
+
+        <!-- 예약 상태 비율 차트 -->
+        <div class="chart-card">
+            <h3>📊 예약 상태별 비율</h3>
+            <canvas id="statusChart"></canvas>
+        </div>
+
+        <!-- 상품별 매출 비교 차트 -->
+        <div class="chart-card">
+            <h3>🏂 상품별 매출 기여도</h3>
+            <canvas id="productChart"></canvas>
+        </div>
+    </div>
+
+    <!-- 결제 내역 테이블 -->
+    <div class="table-container">
+        <h3>💳 결제 내역</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>결제번호</th>
+                    <th>고객명</th>
+                    <th>아이디</th>
+                    <th>결제금액</th>
+                    <th>결제상태</th>
+                    <th>결제일자</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>0001</td>
+                    <td>홍길동</td>
+                    <td>user001</td>
+                    <td>200,000원</td>
+                    <td>결제완료</td>
+                    <td>2025-03-15</td>
+                </tr>
+                <tr>
+                    <td>0002</td>
+                    <td>김철수</td>
+                    <td>user002</td>
+                    <td>150,000원</td>
+                    <td>환불완료</td>
+                    <td>2025-03-14</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<!-- Chart.js 스크립트 -->
+<script>
+    // 매출 변동 차트 (막대 그래프)
+    var ctx1 = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['3월 1일', '3월 5일', '3월 10일', '3월 15일', '3월 20일'],
+            datasets: [{
+                label: '매출 (단위: 원)',
+                data: [2000000, 1500000, 2500000, 1800000, 2200000],
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+            }]
+        }
+    });
+
+    // 예약 상태 비율 차트 (원형 그래프)
+    var ctx2 = document.getElementById('statusChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: ['완료된 예약', '취소된 예약'],
+            datasets: [{
+                data: [120, 30],
+                backgroundColor: ['#4CAF50', '#FF5733']
+            }]
+        }
+    });
+
+    // 상품별 매출 기여도 (막대 그래프)
+    var ctx3 = document.getElementById('productChart').getContext('2d');
+    new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ['리프트권', '스키 대여', '스키 강습', '스노우보드 대여'],
+            datasets: [{
+                label: '매출 (단위: 원)',
+                data: [4000000, 3000000, 2000000, 1000000],
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+            }]
+        }
+    });
+</script>
+
 </body>
 </html>

@@ -33,8 +33,10 @@ public class SkiReservationController extends HttpServlet {
         Integer skiID = (Integer) session.getAttribute("skiID");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         
-        Date reserv_date_start = parseDate(req.getParameter("reservDateStart"), dateFormat);
-        Date reserv_date_end = parseDate(req.getParameter("reservDateEnd"), dateFormat);
+        Date reserv_date1_start = parseDate(req.getParameter("reservDate1Start"), dateFormat);
+        Date reserv_date1_end = parseDate(req.getParameter("reservDate1End"), dateFormat);
+        Date reserv_date2_start = parseDate(req.getParameter("reservDate2Start"), dateFormat);
+        Date reserv_date2_end = parseDate(req.getParameter("reservDate2End"), dateFormat);
         Date created_at_start = parseDate(req.getParameter("createdAtStart"), dateFormat);
         Date created_at_end = parseDate(req.getParameter("createdAtEnd"), dateFormat);
         
@@ -46,11 +48,11 @@ public class SkiReservationController extends HttpServlet {
         } 
         // 필터맵을 적용하여 한글 필터명을 DB 컬럼명으로 변환
         if (filter == null || filter.trim().isEmpty()) {
-            filter = "name"; // 기본 필터 설정
+            filter = "이름"; // 기본 필터 설정
         } else {
             filter = FilterMapping.getColumn(filter); // 필터맵 변환 적용
             if (filter == null) {
-                filter = "name"; // 필터가 존재하지 않으면 기본값 사용
+                filter = "이름"; // 필터가 존재하지 않으면 기본값 사용
             }
         }
 
@@ -61,23 +63,41 @@ public class SkiReservationController extends HttpServlet {
         if (keyword != null && !keyword.trim().isEmpty()) {
             params.put(filter, keyword); // 변환된 필터 컬럼 적용
         }
-        params.put("reserv_date_start", reserv_date_start);
-        params.put("reserv_date_end", reserv_date_end);
+        params.put("reserv_date1_start", reserv_date1_start);
+        params.put("reserv_date1_end", reserv_date1_end);
+        params.put("reserv_date2_start", reserv_date2_start);
+        params.put("reserv_date2_end", reserv_date2_end);
         params.put("created_at_start", created_at_start);
         params.put("created_at_end", created_at_end);
         
-        
-
         List<SkiReservationPrintDto> reservationList;
         try (SqlSession sqlSession = SqlSessionFactoryService.getSqlSessionFactory().openSession()) {
             SkiReservationMapper mapper = sqlSession.getMapper(SkiReservationMapper.class);
+            
+            // 현재 날짜 구하기
+            java.util.Date today = new java.util.Date();
+            java.sql.Date sqlToday = new java.sql.Date(today.getTime());
+
+            // 상태 업데이트를 위한 파라미터 맵 생성
+            Map<String, Object> updateParams = new HashMap<>();
+            updateParams.put("skiID", skiID);
+            updateParams.put("today", sqlToday);
+
+            // 상태 업데이트 실행
+            mapper.updateReservationStatusToCompleted(updateParams);
+            
+            // 변경사항 커밋
+            sqlSession.commit();
+            
+            // 업데이트된 리스트 다시 조회
             reservationList = mapper.selectReservationBySkiId(params);
-                
         }
         
         req.setAttribute("reservationList", reservationList);
         req.getRequestDispatcher("/skiAdmin/reservationList.jsp").forward(req, resp);
     }
+
+    
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // 사용자의 스키장 ID가 1이라고 가정

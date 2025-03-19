@@ -23,9 +23,9 @@
     	for(SkiReservationItemDto reservationitem : reservationItemList){
 %>
     <tr>
-      <td><%= reservationitem.getSki_reserv_id() %></td>
       <td><%= reservationitem.getSki_item_id() %></td>
-      <td><%= reservationitem.getItem_name() %></td>            
+      <td><%= reservationitem.getItem_name() %></td>
+      <td><%= reservationitem.getSki_reserv_id() %></td>      
       <td><%= reservationitem.getQuantity() %></td>
       <td><%= reservationitem.getSubtotal_price() %>원</td>      
     </tr>

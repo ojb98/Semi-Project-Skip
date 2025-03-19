@@ -9,9 +9,9 @@ public class FilterMapping {
 
     static {
         Map<String, String> map = new LinkedHashMap<>(); 
-        map.put("userName", "name"); 
-        map.put("userId", "user_id");
-        map.put("userEmail", "email");
+        map.put("이름", "name"); 
+        map.put("아이디", "user_id");
+        map.put("이메일", "email");
 
         FILTER_MAP = Collections.unmodifiableMap(map); 
     }

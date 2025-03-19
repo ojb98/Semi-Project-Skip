@@ -14,14 +14,15 @@ public class SkiReservationPrintDto {
     private String phone;
 	private int total_price;
 	private String status;
-	private Date reserv_date;
+	private Date reserv_start;
+	private Date reserv_end;
 	private Date created_at;
 	private String payment_id;
 	private List<SkiReservationItemDto> skiReservationItemDtoList;
 	
 	public SkiReservationPrintDto() {}
 	public SkiReservationPrintDto(int ski_reserv_id, int ski_id, int uuid, String name, String userName, String userId,
-			String userEmail, String phone, int total_price, String status, Date reserv_date, Date created_at,
+			String userEmail, String phone, int total_price, String status, Date reserv_start, Date reserv_end, Date created_at,
 			String payment_id, List<SkiReservationItemDto> skiReservationItemDtoList) {
 		super();
 		this.ski_reserv_id = ski_reserv_id;
@@ -34,7 +35,8 @@ public class SkiReservationPrintDto {
 		this.phone = phone;
 		this.total_price = total_price;
 		this.status = status;
-		this.reserv_date = reserv_date;
+		this.reserv_start = reserv_start;
+		this.reserv_end = reserv_end;
 		this.created_at = created_at;
 		this.payment_id = payment_id;
 		this.skiReservationItemDtoList = skiReservationItemDtoList;
@@ -99,12 +101,19 @@ public class SkiReservationPrintDto {
 		this.uuid = uuid;
 	}
 
-	public Date getReserv_date() {
-		return reserv_date;
+	public Date getReserv_start() {
+		return reserv_start;
 	}
 
-	public void setReserv_date(Date reserv_date) {
-		this.reserv_date = reserv_date;
+	public void setReserv_start(Date reserv_start) {
+		this.reserv_start = reserv_start;
+	}
+	public Date getReserv_end() {
+		return reserv_end;
+	}
+
+	public void setReserv_end(Date reserv_end) {
+		this.reserv_end = reserv_end;
 	}
 
 	public int getTotal_price() {

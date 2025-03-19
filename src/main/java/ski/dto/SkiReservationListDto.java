@@ -10,6 +10,7 @@ public class SkiReservationListDto {
 	private int uuid;
 	private Timestamp reserv_start;
 	private Timestamp reserv_end;
+	
 	private int total_price;
 	private String status;
 	private Date created_at;
@@ -24,6 +25,7 @@ public class SkiReservationListDto {
 
 	public SkiReservationListDto(int ski_reserv_id, int ski_id, int uuid, Timestamp reserv_start, Timestamp reserv_end,
 			int total_price, String status, Date created_at, String name, String payment_id,
+
 			List<SkiReservationItemDto> skiReservationItemDtoList) {
 		super();
 		this.ski_reserv_id = ski_reserv_id;
@@ -76,6 +78,7 @@ public class SkiReservationListDto {
 	}
 
 	public void setReserv_end(Timestamp reserv_end) {
+
 		this.reserv_end = reserv_end;
 	}
 

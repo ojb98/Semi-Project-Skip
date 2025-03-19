@@ -14,4 +14,10 @@ public interface AdminApprovalRequestMapper {
     List<UsersDTO> getDeniedUsers();
     List<UsersDTO> getSearchPendingUsers(Map<String, Object> params);
     List<UsersDTO> getSearchDeniedUsers(Map<String, Object> params);
+	int getTotalCount();
+	List<UsersDTO> getPagedList(Map<String, Object> params);
+	int getPendingTotalCount();
+	List<UsersDTO> getPendingPagedList(Map<String, Object> params);
+	int getDeniedTotalCount();
+	List<UsersDTO> getDeniedPagedList(Map<String, Object> params);
 }

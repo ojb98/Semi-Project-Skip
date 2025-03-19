@@ -31,12 +31,12 @@
         <div class="admin-name">관리자님</div>
     </div>
     <ul>
-        <li><a href="${pageContext.request.contextPath}/resortAdmin/testservlet1">사업장등록신청</a></li>
-        <li><a href="${pageContext.request.contextPath}/resortAdmin/testservlet2">상품등록/관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/resortAdmin/testservlet3">예약 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/resortAdmin/testservlet4">문의 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/resortAdmin/testservlet5">리뷰 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/resortAdmin/testservlet6">통계</a></li>
+        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortRegist.jsp">사업장등록신청</a></li>
+        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortItemRegist.jsp">상품등록/관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortReservation.jsp">예약 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortQnA.jsp">문의 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortReview.jsp">리뷰 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/resortAdmin/reortSaleManage.sjp">통계</a></li>
     </ul>
 </aside>
 

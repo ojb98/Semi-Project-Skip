@@ -24,7 +24,7 @@
                U.EMAIL as userEmail, 
                U.PHONE, 
                SR.STATUS, 
-               SR.RESERV_DATE, 
+               SR.RESERV_START, 
                SR.CREATED_AT
         FROM SKI_RESERVATION SR 
         JOIN USERS U ON SR.UUID = U.UUID
