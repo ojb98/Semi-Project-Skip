@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rental.mapper.RentItemAdminMapper">
+
+  <insert id="riInsert" parameterType="rental.dto.RentItemDTO">
+    insert into RENT_ITEM(item_id,category_id,rentalshop_id,item_name,item_detail,
+    total_quantity,item_img,created_at)
+    values(RENT_ITEM_SEQ.NEXTVAL,#{category_id},#{rentalshop_id},#{item_name},#{item_detail},
+    #{total_quantity},#{item_img},sysdate)
+  </insert>
+
+</mapper>

@@ -38,4 +38,10 @@
 		set password = #{password}
 		where uuid = #{uuid}
 	</update>
+	
+	<delete id="deleteUser">
+		delete
+		from users
+		where uuid = #{uuid}
+	</delete>
 </mapper>

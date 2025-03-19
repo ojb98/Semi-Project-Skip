@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="resort.mapper.FacilitiesAdminMapper">
+
+  <!-- 시설유형이름 중복제거 후 가져오기 -->
+  <select id="getTypes" resultType="String">
+  	 select DISTINCT type_name from FACILITY_TYPES order by type_name
+  </select>
+	
+  <!-- 시설 추가시 중복방지 -->
+  <select id="isFacilityNameExists" parameterType="String" resultType="int">
+    select COUNT(facility_name) from FACILITIES where facility_name=#{facilityName}
+  </select>
+   
+  <!-- 시설 추가 -->
+  <insert id="insert" parameterType="resort.dto.FacilitiesDTO">
+    insert into FACILITIES values(facilities_seq.nextval,#{type_id},#{facility_name})
+  </insert>
+  
+  <!-- 시설 삭제 -->
+  <delete id="delete" parameterType="int">
+  	delete from FACILITIES where facility_id=#{facilityId}
+  </delete>
+  
+  <!-- 시설유형 + 시설 조인하여 유형이름(1):시설이름(N) -->
+  <resultMap type="resort.dto.FacilityListDTO" id="listAll">
+  	<id column="type_id" property="type_id"/>
+  	<result column="type_name" property="type_name"/>
+  	
+	<collection property="ftypesDto" ofType="resort.dto.FacilitiesDTO">
+		<id column="facility_id" property="facility_id"/>
+	  	<result column="type_id" property="type_id"/>
+	  	<result column="facility_name" property="facility_name"/>
+	</collection>
+  </resultMap>
+  
+  <!-- 시설고유아이디,유형이름,시설이름 컬럼 조회(리조트 상세정보에서 리조트에 해당되는 시설유형과 시설이름을 조회)-->
+  <select id="facilityList" resultMap="listAll">
+  	select f.facility_id,ft.type_name,f.facility_name from 
+	FACILITIES f join FACILITY_TYPES ft
+	on f.type_id=ft.type_id
+	order by facility_id desc
+  </select>
+  
+
+  <!-- 리조트-시설 추가 -->
+  <insert id="mapInsert" parameterType="resort.dto.ResortFacilityMapDTO">
+    insert into RESORT_FACILITY_MAP values(#{resort_id},#{facility_id})
+  </insert>
+  
+  <!-- 해당 리조트에 해당하는 facility_id 조회(중복체크 위한 쿼리) -->
+  <select id="getFacilityId" parameterType="int" resultType="int">
+    select facility_id
+    from RESORT_FACILITY_MAP
+    where resort_id=#{resort_id}
+  </select>
+  
+  
+   <!-- 리조트-시설 삭제(resortId,typeId 이용) -->
+  <delete id="mapDelete" parameterType="hashmap">
+  	delete from RESORT_FACILITY_MAP
+    where resort_id=#{resortId}
+    AND facility_id IN(
+      select facility_id from FACILITIES where type_id=#{typeId}
+  	)
+  </delete>
+  
+  
+  <!-- type_id로 해당 시설유형이름 가져오기 -->
+  <select id="getFacilityType" parameterType="int" resultType="String">
+  	select type_name from FACILITY_TYPES where type_id=#{typeId}
+  </select>
+  
+
+  <!-- 해당 시설유형의 전체 시설이름들 조회 -->
+  <select id="getFacilities" parameterType="int" resultType="resort.dto.FacilitiesDTO">
+    select facility_id, type_id, facility_name
+    from FACILITIES
+    where type_id = #{typeId}
+  </select>
+  
+ 
+  <!-- 해당 리조트에 해당하는 facility_id 조회(시설 유형 한정) -->
+  <select id="getFacilityIdsByType" parameterType="map" resultType="int">
+    select rm.facility_id FROM 
+    RESORT_FACILITY_MAP rm join FACILITIES f 
+    on rm.facility_id=f.facility_id
+    where rm.resort_id=#{resortId} AND f.type_id=#{typeId}
+  </select>
+  
+</mapper>

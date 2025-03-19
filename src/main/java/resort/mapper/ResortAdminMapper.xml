@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="resort.mapper.ResortAdminMapper">
+
+  <!-- 시설유형 + 시설 조인하여 유형이름(1):시설이름(N) -->
+  <resultMap type="resort.dto.FacilityListDTO" id="flistAll">
+  	<id column="type_id" property="type_id"/>
+  	<result column="type_name" property="type_name"/>
+  	
+	<collection property="ftypesDto" ofType="resort.dto.FacilitiesDTO">
+		<id column="facility_id" property="facility_id"/>
+	  	<result column="type_id" property="type_id"/>
+	  	<result column="facility_name" property="facility_name"/>
+	</collection>
+  </resultMap>
+ 
+  <!-- 시설고유아이디,유형이름,시설이름 컬럼 조회 -->
+  <select id="fList" resultMap="flistAll">
+  	select f.facility_id,ft.type_name,f.facility_name from 
+	FACILITIES f join FACILITY_TYPES ft
+	on f.type_id=ft.type_id
+	order by ft.type_name desc
+  </select>
+  
+  <!-- 시설유형 + 시설 + 리조트-시설 조인  -->
+  <select id="facilityDetail" parameterType="int" resultMap="flistAll">
+    select ft.type_id,ft.type_name,f.facility_id,f.facility_name 
+    from RESORT_FACILITY_MAP fm join FACILITIES f
+	on fm.facility_id = f.facility_id 
+	join FACILITY_TYPES ft
+	on f.type_id = ft.type_id
+	where fm.resort_id=#{resortId}
+	order by ft.type_name desc
+  </select>
+
+
+  <!-- 리조트 추가(삽입) -->
+  <insert id="reInsert" parameterType="resort.dto.ResortDTO">
+    insert into RESORT(resort_id,uuid,name,resort_type,resort_phone,location,
+    remain_img,resub_img1,resub_img2,resub_img3,description,check_time,created_at)
+    values(resort_seq.nextval,#{uuid},#{name},#{resort_type},#{resort_phone},#{location},#{remain_img},
+    #{resub_img1, jdbcType=VARCHAR},
+    #{resub_img2, jdbcType=VARCHAR},
+    #{resub_img3, jdbcType=VARCHAR},
+    #{description},#{check_time},sysdate)
+  </insert>
+  
+  <!-- 현재 리조트고유아이디 조회 -->
+  <select id="getResortId" resultType="int">
+    select resort_seq.currval from dual
+  </select>
+
+  
+  <!-- 모든 리조트 조회 -->
+  <select id="reList" resultType="resort.dto.ResortDTO">
+  	select resort_id,uuid,name,resort_type,location,resort_phone,check_time,remain_img
+    from RESORT order by resort_id desc
+  </select>
+  
+  <!-- 해당 리조트 조회(한행 가져오기) -->
+  <select id="getResortInfo" parameterType="int" resultType="resort.dto.ResortDTO">
+  	select resort_id,uuid,name,resort_type,resort_phone,location,remain_img,
+  	resub_img1,resub_img2,resub_img3,description,check_time,created_at
+  	from RESORT where resort_id=#{resortId}
+  </select>
+ 
+  <!-- 리조트 삭제 -->
+  <delete id="reDelete" parameterType="int">
+  	delete from RESORT where resort_id=#{resortId}
+  </delete>
+  
+  <!-- 리조트 수정 -->
+  <update id="reUpdate" parameterType="resort.dto.ResortDTO">
+  	update RESORT set name=#{name},resort_type=#{resort_type},check_time=#{check_time},
+  	resort_phone=#{resort_phone},location=#{location},
+  	remain_img=#{remain_img, jdbcType=VARCHAR},
+  	resub_img1=#{resub_img1, jdbcType=VARCHAR},
+    resub_img2=#{resub_img2, jdbcType=VARCHAR},
+    resub_img3=#{resub_img3, jdbcType=VARCHAR},
+    description=#{description} where resort_id=#{resort_id}
+  </update>
+  
+</mapper>

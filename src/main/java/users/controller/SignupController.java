@@ -26,10 +26,9 @@ public class SignupController extends HttpServlet {
 		String name = req.getParameter("name");
 		int n = UsersDao.getInstance().insert(new UsersDto(0, user_id, password, name, email, phone, "NORMAL", "USER", "Y", null));
 		if (n > 0) {
-			req.setAttribute("result", "가입 성공");
+			resp.sendRedirect(req.getContextPath() + "/users/login");
 		} else {
-			req.setAttribute("result", "가입 실패");
+			req.getRequestDispatcher("/users/signup.jsp").forward(req, resp);
 		}
-		req.getRequestDispatcher("/users/result.jsp").forward(req, resp);
 	}
 }

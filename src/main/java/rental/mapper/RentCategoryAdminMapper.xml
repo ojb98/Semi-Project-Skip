@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rental.mapper.RentCategoryAdminMapper">
+  <!-- 카테고리 등록 -->
+  <insert id="rcInsert" parameterType="rental.dto.RentItemCategoryDTO">
+    insert into ITEM_CATEGORY(category_id,item_type,price_per_hour)
+    values(ITEM_CATEGORY_SEQ.NEXTVAL,#{item_type},#{price_per_hour})
+  </insert>
+  
+  <!-- 카테고리 전체조회(여러건) -->
+  <select id="rcList" resultType="rental.dto.RentItemCategoryDTO">
+  	select category_id,item_type,price_per_hour from ITEM_CATEGORY
+  </select>
+  
+
+</mapper>

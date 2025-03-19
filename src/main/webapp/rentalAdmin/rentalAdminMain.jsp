@@ -30,8 +30,9 @@
         <div class="admin-name">관리자님</div>
     </div>
     <ul>
-        <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet1">사업장등록신청</a></li>
-        <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet2">상품등록/관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/adminRental/insert">렌탈샵 등록</a></li>
+        <li><a href="${pageContext.request.contextPath}/adminRentCategory/insert">장비카테고리 등록</a></li>
+        <li><a href="${pageContext.request.contextPath}/adminRental/list">렌탈샵 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet3">예약 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet4">문의 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet5">리뷰 관리</a></li>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rental.mapper.RentalShopAdminMapper">
+
+  <!-- 렌탈샵 등록 -->
+  <insert id="rsInsert" parameterType="rental.dto.RentalShopDTO">
+	 insert into RENTALSHOP(rentalshop_id,uuid,name,rental_phone,location,
+	 remain_img,resub_img1,resub_img2,resub_img3,description,created_at)
+	 values(RENTALSHOP_SEQ.NEXTVAL,#{uuid},#{name},#{rental_phone},#{location},
+	 #{remain_img},
+	 #{resub_img1, jdbcType=VARCHAR},
+	 #{resub_img2, jdbcType=VARCHAR},
+	 #{resub_img3, jdbcType=VARCHAR},
+	 #{description},sysdate)
+  </insert>
+    
+  <!-- 렌탈샵 전체조회(여러건) -->  
+  <select id="rsList" resultType="rental.dto.RentalShopDTO">
+    select rentalshop_id,uuid,name,rental_phone,location,remain_img
+    from RENTALSHOP
+  </select>
+
+</mapper>

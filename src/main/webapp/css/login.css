@@ -140,7 +140,7 @@ main {
   display: flex;
 }
 
-.login_info .input_email .input_btn {
+.input_email .input_btn {
   position: absolute;
   top: 40px;
   left: 308px;
