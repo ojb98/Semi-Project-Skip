@@ -47,7 +47,10 @@
 				from (
 					select ski_reserv_id
 					from ski_reservation
-					where uuid = #{uuid}<if test="year != null and year != ''"> and to_char(created_at, 'yyyy') = #{year}</if>
+					where uuid = #{uuid}
+					<if test="year != null and year != ''">
+						and to_char(created_at, 'yyyy') = #{year}
+					</if>
 					order by created_at desc
 				) srl
 			)

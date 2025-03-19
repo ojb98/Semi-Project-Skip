@@ -195,9 +195,7 @@
 		height: 110px;
 		border-bottom: 1px solid gray;
 		margin-bottom:5px;
-	}
-	
-	.reserv_scroll {
+		padding-bottom: 10px;
 		overflow-y: auto;
 	}
 	
@@ -271,6 +269,52 @@
 	
 	.review_btn:hover {
 		background-color: #e8f2ff;
+	}
+	
+	.reserv_page {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 15px;
+	}
+	
+	.reserv_page a {
+		color: #5399f5;
+	}
+	
+	.reserv_page span {
+		font-weight: 600;
+	}
+
+	.reserv_page .page_prev {
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+		color: rgb(255, 255, 255);
+		width: 45px;
+		height: 32px;
+		margin: 6px;
+	}
+
+	.reserv_page .page_next {
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+		color: white;
+		width: 45px;
+		height: 32px;
+		margin: 6px;
+	}
+	
+	.reserv_page .page_active {
+		cursor: pointer;
+		background-color: #5399f5;
+	}
+	
+	.reserv_page .page_active:hover {
+		background-color: #2c7fec;
+	}
+
+	.reserv_page .page_inactive {
+		background-color: rgb(220, 220, 220);
 	}
 	
 	.mypage h1 {

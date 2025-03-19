@@ -33,7 +33,7 @@ public class SkiBookListController extends HttpServlet {
 		PageUtil pageUtil = new PageUtil(pageNum, dao.getCount(map), 3);
 		map.put("startRow", pageUtil.getStartRow());
 		map.put("endRow", pageUtil.getEndRow());
-		List<SkiReservationListDto> list = SkiReservationDao.getInstance().selectByUuid(map);
+		List<SkiReservationListDto> list = dao.selectByUuid(map);
 		req.setAttribute("list", list);
 		req.setAttribute("startPage", pageUtil.getStartPage());
 		req.setAttribute("pageCount", pageUtil.getPageCount());

@@ -20,8 +20,10 @@
 	</ul>
 
 	<div class="search_box">
-		<input type="text" name="year" placeholder="원하시는 연도를 조회하세요." value="${year}">
-		<input type="button" value="조회" onclick="search()">
+		<form method="post">
+			<input type="text" name="year" placeholder="원하시는 연도를 조회하세요." value="${year}">
+			<input type="submit" value="조회">
+		</form>
 	</div>
 </div>
 
@@ -30,21 +32,17 @@
 	urlMapper.set("skiBookings", "ski");
 	urlMapper.set("resortBookings", "resort");
 	urlMapper.set("rentalBookings", "rental");
-	const year = document.getElementsByName("year")[0];
+	document.getElementsByTagName("form")[0].action = "${pageContext.request.contextPath}/mypage/bookings/" + urlMapper.get("${content}");
 
 	function clickSki() {
-		location.href = "${pageContext.request.contextPath}/mypage/bookings/ski?year=" + year.value;
+		location.href = "${pageContext.request.contextPath}/mypage/bookings/ski";
 	}
 	
 	function clickResort() {
-		location.href = "${pageContext.request.contextPath}/mypage/bookings/resort?year=" + year.value;
+		location.href = "${pageContext.request.contextPath}/mypage/bookings/resort";
 	}
 	
 	function clickRental() {
-		location.href = "${pageContext.request.contextPath}/mypage/bookings/rental?year=" + year.value;
-	}
-
-	function search() {
-		location.href = "${pageContext.request.contextPath}/mypage/bookings/" + urlMapper.get("${content}") + "?year=" + year.value;
+		location.href = "${pageContext.request.contextPath}/mypage/bookings/rental";
 	}
 </script>
