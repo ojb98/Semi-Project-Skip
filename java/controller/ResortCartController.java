@@ -1,18 +1,17 @@
 package controller;
 
+import dao.CartItemDao;
+import dto.CartItemDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
-@WebServlet("/resort/payment")
-public class ResortPaymentController extends HttpServlet {
-
+@WebServlet("/resort/cart")
+public class ResortCartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int roomId = Integer.parseInt(req.getParameter("roomId"));
@@ -31,9 +30,12 @@ public class ResortPaymentController extends HttpServlet {
         System.out.println("startTime: " + startTime);
         System.out.println("uuid: " + uuid);
 
+        CartItemDao cartItemDao = new CartItemDao();
+        int n = cartItemDao.insertCartItem(new CartItemDTO(0, uuid, "RESORT" ,  roomId, quantity, price));
 
-
+        if (n != -1) {
+            System.out.println(n + "success khahahahaha");
+        }
 
     }
-
 }

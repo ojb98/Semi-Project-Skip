@@ -8,6 +8,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/reset.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/font.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/search.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/detail.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/wish.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/cart.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/pay.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css">
     <title>Simple Layout</title>
     <style>
         body {
@@ -30,52 +39,46 @@
             padding: 0;
         }
 
-        .nav {
-            background: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        .header_logo {
+            font-family: 'GumiRomanceTTF';
+            font-style: italic;
+            color: #5399f5;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 58px;
         }
 
-        .nav-container {
+        .header_menu,
+        .header_nav {
+            height: 58px;
+        }
+
+        /* header_nav */
+        .header_menu {
+            width: 1230px;
+            /* padding: 0 75px; */
+            margin: 0 auto;
+            box-sizing: border-box;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
         }
 
-        .nav-logo {
-            color: #5399F5;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 2rem;
-            font-style: italic;
-        }
-
-        .nav-menu {
+        .menu ul {
             display: flex;
-            gap: 2rem;
-            list-style: none;
+            font-weight: 700;
+            gap: 34px;
         }
 
-        .nav-menu a {
-            color: black;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.4rem 1rem;
-            border-radius: 12px;
-            transition: all 0.2s ease-in-out;
+        .login ul {
+            display: flex;
+            font-weight: 700;
+            gap: 34px;
         }
 
-        .nav-menu a:hover {
-            background: rgba(66, 133, 244, 0.08);
-            color: #4285F4;
+        .header_menu a:hover {
+            color: #5399f5;
         }
-
 
         .main-banner {
             width: 100%;
@@ -222,17 +225,36 @@
 </head>
 <body>
 <div class="container">
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="${pageContext.request.contextPath}/" class="nav-logo">SKI:P</a>
-            <ul class="nav-menu">
-                <li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
-                <li><a href="${pageContext.request.contextPath}/favorite">찜</a></li>
-                <li><a href="${pageContext.request.contextPath}/myPage">마이페이지</a></li>
-                <li><a href="${pageContext.request.contextPath}/market">장바구니</a></li>
-            </ul>
-        </div>
-    </nav>
+    <header>
+        <nav class="header_nav">
+            <div class="header_menu">
+                <div class="header_logo">
+                    <h1>
+                        <a href="index.html">SKI:P</a>
+                    </h1>
+                </div>
+                <div class="login">
+                    <ul>
+                        <li>
+                            <a href="#">로그인</a>
+                        </li>
+                        <li>
+                            <a href="#">로그아웃</a>
+                        </li>
+                        <li>
+                            <a href="#">마이페이지</a>
+                        </li>
+                        <li>
+                            <a href="#">찜</a>
+                        </li>
+                        <li>
+                            <a href="#">장바구니</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
     <div class="main-banner">
         <img src="../배너.jpg" alt="배너">
     </div>

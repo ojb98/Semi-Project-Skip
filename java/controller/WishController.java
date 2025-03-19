@@ -53,7 +53,7 @@ public class WishController extends HttpServlet {
                 System.out.println("Received GET /wish request for uuid: " + uuid);
 
                 // DB에서 찜한 아이템 목록 가져오기
-                List<Integer> wishList = wishDao.getWishList(uuid);
+                List<Integer> wishList = wishDao.getWishRefIdList(uuid);
                 System.out.println("찜한 아이템 목록: " + wishList);
 
                 JSONObject jsonResponse = new JSONObject();

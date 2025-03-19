@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/font.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/search.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/detail.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/save.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/wish.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/cart.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/pay.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css">
@@ -490,7 +490,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); 
+            background-color: rgba(0, 0, 0, 0.4);
             overflow: auto;
             padding-top: 60px;
         }
@@ -899,11 +899,11 @@
                                                 <button type="button" class="quantity-btn plus-btn">+</button>
                                             </div>
                                             <button class="purchase-button"
-                                                    onclick="addToCart('${item.room_name}', ${item.price_per_night})">
+                                                    onclick="validateAndSubmit(true, '${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
                                                 장바구니
                                             </button>
                                             <button class="purchase-button"
-                                                    onclick="validateAndSubmit('${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
+                                                    onclick="validateAndSubmit(false, '${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
                                                 바로 예약
                                             </button>
                                         </div>
@@ -1014,7 +1014,11 @@
     }
 
     // 예약을 처리하는 함수
-    function validateAndSubmit(roomId, price, startTime) {
+    function validateAndSubmit(isCart, roomId, price, startTime) {
+        if (uuid === -1) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
         const dateInput = document.getElementById("datePickerInput");
         if (!dateInput || !dateInput.value.includes(" - ")) {
             alert("날짜를 선택해 주세요.");
@@ -1037,8 +1041,7 @@
         // 폼 생성
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = '/resort/payment'; // 서버의 결제 처리 URL
-
+        form.action = isCart ? '/resort/cart' : '/resort/payment'; // 서버의 결제 처리 URL
 
         // 폼 필드 추가
         const fields = [
@@ -1048,7 +1051,7 @@
             {name: 'startDate', value: startDate},
             {name: 'endDate', value: endDate},
             {name: 'startTime', value: startTime},
-            {name: 'uuid', value: uuid} // uuid 추가
+            {name: 'uuid', value: uuid}
         ];
 
         fields.forEach(field => {

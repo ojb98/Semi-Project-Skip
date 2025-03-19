@@ -17,6 +17,16 @@
     <%-- 달력 --%>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/reset.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/font.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/search.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/detail.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/wish.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/cart.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/pay.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css">
     <%-- flatpickr 한국어 --%>
     <style>
         body {
@@ -39,51 +49,97 @@
             padding: 0;
         }
 
-        .nav {
-            background: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        header {
+            border-bottom: 1px solid #e9e9e9;
         }
 
-        .nav-container {
+        .header_logo {
+            font-family: 'GumiRomanceTTF';
+            font-style: italic;
+            color: #5399f5;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 58px;
+        }
+
+        .header_menu,
+        .header_nav {
+            height: 58px;
+        }
+
+        /* header_nav */
+        .header_menu {
+            width: 1230px;
+            /* padding: 0 75px; */
+            margin: 0 auto;
+            box-sizing: border-box;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
         }
 
-        .nav-logo {
-            color: #5399F5;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 2rem;
-            font-style: italic;
-        }
-
-        .nav-menu {
+        .menu ul {
             display: flex;
-            gap: 2rem;
-            list-style: none;
+            font-weight: 700;
+            gap: 34px;
         }
 
-        .nav-menu a {
-            color: black;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.4rem 1rem;
-            border-radius: 12px;
-            transition: all 0.2s ease-in-out;
+        .login ul {
+            display: flex;
+            font-weight: 700;
+            gap: 34px;
         }
 
-        .nav-menu a:hover {
-            background: rgba(66, 133, 244, 0.08);
-            color: #4285F4;
+        .header_menu a:hover {
+            color: #5399f5;
         }
+
+
+        /*.nav {*/
+        /*    background: white;*/
+        /*    padding: 1rem 0;*/
+        /*    position: sticky;*/
+        /*    top: 0;*/
+        /*    z-index: 1000;*/
+        /*    border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
+        /*}*/
+
+        /*.nav-container {*/
+        /*    display: flex;*/
+        /*    justify-content: space-between;*/
+        /*    align-items: center;*/
+        /*    max-width: 1280px;*/
+        /*    margin: 0 auto;*/
+        /*    padding: 0 1rem;*/
+        /*}*/
+
+        /*.nav-logo {*/
+        /*    color: #5399F5;*/
+        /*    text-decoration: none;*/
+        /*    font-weight: 800;*/
+        /*    font-size: 2rem;*/
+        /*    font-style: italic;*/
+        /*}*/
+
+        /*.nav-menu {*/
+        /*    display: flex;*/
+        /*    gap: 2rem;*/
+        /*    list-style: none;*/
+        /*}*/
+
+        /*.nav-menu a {*/
+        /*    color: black;*/
+        /*    text-decoration: none;*/
+        /*    font-weight: 600;*/
+        /*    padding: 0.4rem 1rem;*/
+        /*    border-radius: 12px;*/
+        /*    transition: all 0.2s ease-in-out;*/
+        /*}*/
+
+        /*.nav-menu a:hover {*/
+        /*    background: rgba(66, 133, 244, 0.08);*/
+        /*    color: #4285F4;*/
+        /*}*/
 
         .content-wrapper {
             max-width: 1100px;
@@ -421,17 +477,20 @@
             color: #333;
         }
 
+        .price-text {
+            flex: 1;
+            text-align: left;
+        }
 
-        /* 모달 창 스타일 */
         .modal {
-            display: none; /* 기본적으로 숨겨짐 */
+            display: none;
             position: fixed;
-            z-index: 1; /* 가장 위에 */
+            z-index: 1;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
+            background-color: rgba(0, 0, 0, 0.4);
             overflow: auto;
             padding-top: 60px;
         }
@@ -583,13 +642,13 @@
         .quantity-control {
             display: flex;
             align-items: center;
-            gap: 4px; /* 버튼 간의 간격을 줄입니다 */
+            gap: 4px;
         }
 
         .quantity-btn {
-            width: 30px; /* 버튼의 너비를 줄입니다 */
-            height: 30px; /* 버튼의 높이를 줄입니다 */
-            font-size: 16px; /* 버튼의 글자 크기를 조정합니다 */
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
             border: 1px solid #ddd;
             background-color: white;
             border-radius: 4px;
@@ -609,30 +668,45 @@
 
         .room-price-section {
             display: flex;
-            justify-content: flex-end; /* 오른쪽 정렬 */
-            align-items: center; /* 수직 정렬 */
-            gap: 8px; /* 버튼 간의 간격 */
-            margin-top: 10px; /* 위쪽 여백 추가 */
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .room-price {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .price-amount {
+            flex: 1;
+            text-align: left;
+        }
+
+        .price-text {
+            flex: 1;
+            text-align: left;
         }
 
         .purchase {
             display: flex;
-            gap: 10px; /* 버튼 간의 간격 */
+            gap: 10px;
         }
 
         .purchase-button {
-            width: 100px; /* 버튼 너비 */
-            height: 40px; /* 버튼 높이 */
-            background-color: #5399F5; /* 버튼 배경색 */
-            color: white; /* 버튼 글자색 */
-            border: none; /* 테두리 제거 */
-            border-radius: 5px; /* 모서리 둥글게 */
-            cursor: pointer; /* 커서 포인터로 변경 */
-            transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
+            width: 100px;
+            height: 40px;
+            background-color: #5399F5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .purchase-button:hover {
-            background-color: #4285F4; /* 호버 시 배경색 변화 */
+            background-color: #4285F4;
         }
 
     </style>
@@ -686,17 +760,36 @@
 </div>
 
 <div class="container">
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">SKI:P</a>
-            <ul class="nav-menu">
-                <li><a href="#">로그아웃</a></li>
-                <li><a href="#">찜</a></li>
-                <li><a href="#">마이페이지</a></li>
-                <li><a href="#">장바구니</a></li>
-            </ul>
-        </div>
-    </nav>
+    <header>
+        <nav class="header_nav">
+            <div class="header_menu">
+                <div class="header_logo">
+                    <h1>
+                        <a href="index.html">SKI:P</a>
+                    </h1>
+                </div>
+                <div class="login">
+                    <ul>
+                        <li>
+                            <a href="#">로그인</a>
+                        </li>
+                        <li>
+                            <a href="#">로그아웃</a>
+                        </li>
+                        <li>
+                            <a href="#">마이페이지</a>
+                        </li>
+                        <li>
+                            <a href="#">찜</a>
+                        </li>
+                        <li>
+                            <a href="#">장바구니</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <div class="content-wrapper">
         <div class="search-info-box">
@@ -796,21 +889,21 @@
                                             <div class="price-amount">
                                                 <fmt:formatNumber value="${item.price_per_night}" pattern="#,###"
                                                                   var="formattedPrice"/>
-                                                    ${formattedPrice}원
+                                                <span class="price-text">${formattedPrice}원</span>
                                             </div>
                                         </div>
-                                        <div class="quantity-control">
-                                            <button type="button" class="quantity-btn minus-btn">-</button>
-                                            <span class="quantity" data-quantity="1">1</span>
-                                            <button type="button" class="quantity-btn plus-btn">+</button>
-                                        </div>
                                         <div class="purchase">
+                                            <div class="quantity-control">
+                                                <button type="button" class="quantity-btn minus-btn">-</button>
+                                                <span class="quantity" data-quantity="1">1</span>
+                                                <button type="button" class="quantity-btn plus-btn">+</button>
+                                            </div>
                                             <button class="purchase-button"
-                                                    onclick="addToCart('${item.room_name}', ${item.price_per_night})">
+                                                    onclick="validateAndSubmit(true, '${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
                                                 장바구니
                                             </button>
                                             <button class="purchase-button"
-                                                    onclick="validateAndSubmit('${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
+                                                    onclick="validateAndSubmit(false, '${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
                                                 바로 예약
                                             </button>
                                         </div>
@@ -921,7 +1014,11 @@
     }
 
     // 예약을 처리하는 함수
-    function validateAndSubmit(roomId, price, startTime) {
+    function validateAndSubmit(isCart, roomId, price, startTime) {
+        if (uuid === -1) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
         const dateInput = document.getElementById("datePickerInput");
         if (!dateInput || !dateInput.value.includes(" - ")) {
             alert("날짜를 선택해 주세요.");
@@ -944,7 +1041,7 @@
         // 폼 생성
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = '/resort/payment'; // 서버의 결제 처리 URL
+        form.action = isCart ? '/resort/cart' : '/resort/payment'; // 서버의 결제 처리 URL
 
         // 폼 필드 추가
         const fields = [
@@ -954,7 +1051,7 @@
             {name: 'startDate', value: startDate},
             {name: 'endDate', value: endDate},
             {name: 'startTime', value: startTime},
-            {name: 'uuid', value: uuid} // uuid 추가
+            {name: 'uuid', value: uuid}
         ];
 
         fields.forEach(field => {
@@ -1003,7 +1100,7 @@
                     year: 'numeric',
                     month: '2-digit',
                     day: '2-digit'
-                }).replace(/\. /g, '-').replace('.', ''); // YYYY-MM-DD 포맷 변환
+                }).replace(/\. /g, '-').replace('.', '');
 
                 let endDate = selectedDates[1].toLocaleDateString('ko-KR', {
                     year: 'numeric',

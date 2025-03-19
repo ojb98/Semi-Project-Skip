@@ -11,5 +11,10 @@
         select * from rent_item where category_id = #{category_id} and rentalshop_id = #{rental}
     </select>
 
-
+    <select id = "getRentItemByItemId" parameterType="int" resultType="dto.RentCategoryDTO" >
+        select r.item_id, r.category_id, r.rentalshop_id, r.item_name, r.item_img, i.item_type, i.price_per_hour
+        from rent_item r left join item_category i
+        on r.category_id = i.category_id
+        where item_id = #{item_id}
+    </select>
 </mapper>

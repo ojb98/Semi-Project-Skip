@@ -11,4 +11,9 @@
         select * from ski_item where category_id = #{category_id} and ski_id = #{ski}
     </select>
 
+    <select id = "getSkiItemByItemId" parameterType="int" resultType="dto.SkiItemDTO" >
+        select item_id, category_id, rentalshop_id, item_name, item_img, item_type, price_per_hour
+        from
+    </select>
+
 </mapper>
