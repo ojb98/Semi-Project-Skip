@@ -21,4 +21,63 @@
         on r.uuid = u.uuid
         where r.resort_id = #{resort_id}
     </select>
+    
+    <!-- 리조트 리뷰 insert -->
+  <insert id="insert" parameterType="reviews.dto.ResortReviewsDTO">
+    insert into resort_reviews values(resort_review_seq.nextval,#{payment_id},#{uuid},#{resort_id},#{rating},#{resort_comment},#{review_img},sysdate)
+  </insert>
+  
+  <!-- 리조트 리뷰 글 전체 갯수 -->
+  <!-- 리조트 별 리뷰 글 전체 갯수 -->
+  <!-- select nvl(count(review_id),0) cnt from resort_reviews where resort_id = #{resortId} -->
+  <select id="getCount" resultType="int">
+  	select nvl(count(review_id),0) cnt from resort_reviews
+  </select>
+  
+  <!-- 리조트 별 리뷰 기본 리스트 -->
+  <select id="reviewList" parameterType="string" resultType="reviews.dto.ResortReviewsDTO">
+  	select r.review_id, r.uuid, u.user_id, r.created_at, r.rating, r.resort_comment, r.review_img
+  	from resort_reviews r left join users u
+  	on r.uuid = u.uuid
+  	where resort_id = #{resort_id}
+  	order by review_id
+  </select>   
+  
+  <!-- 리조트 별 리뷰 리스트 (정렬 및 페이징) -->
+  <select id="reviewArray" parameterType="map" resultType="reviews.dto.ResortReviewsDTO">
+	SELECT r.review_id, r.uuid, u.user_id, r.created_at, r.rating, r.resort_comment, r.review_img 
+  	FROM (
+		select row_number() over(
+			order by
+			<choose>
+				<when test="sortType == 'ratingDesc'">rating DESC</when>
+				<when test="sortType == 'ratingAsc'">rating ASC</when>
+				<otherwise>review_id DESC</otherwise>
+			</choose>
+			) AS rn, 
+			review_id, uuid created_at, rating, resort_comment, review_img
+		from resort_reviews where resort_id = #{resort_id}
+	)r
+	join users u on r.uuid = u.uuid
+	where rn between #{startRow} and {endRow};
+  </select>
+ 
+   
+  <!-- 리조트 리뷰 수정시 조회 -->
+  <select id="updateSelect" parameterType="int" resultType="reviews.dto.ResortReviewsDTO">
+  	select r.review_id, r.payment_id, r.uuid, u.user_id, r.resort_id, r.rating, r.resort_comment, r.review_img, r.created_at 
+  	from resort_reviews r left join users u
+  	on r.uuid = u.uuid 
+  	where review_id=#{review_id}
+  </select>
+  
+  <!-- 리조트 리뷰 수정 -->
+  <update id="update" parameterType="reviews.dto.ResortReviewsDTO">
+  	update resort_reviews set rating=#{rating}, resort_comment=#{resort_comment}, review_img=#{review_img} where review_id = #{review_id}
+  </update>
+  
+  <!-- 리조트 리뷰 삭제 -->
+  <delete id="delete" parameterType="int">
+  	delete from resort_reviews where review_id=#{review_id}
+  </delete>
 </mapper>

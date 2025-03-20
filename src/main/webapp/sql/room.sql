@@ -21,3 +21,16 @@ CREATE SEQUENCE room_seq;
 -- INSERT
 INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, 2, '싱글룸', 'SINGLE', 10, 1, 100000, 'IMG1', 'IMG2', 'IMG3', 'IMG4', '싱글룸설명', SYSDATE);
 INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, 3, '더블룸', 'DOUBLE', 15, 3, 200000, 'IMG1', 'IMG2', 'IMG3', 'IMG4', '더블룸설명', SYSDATE);
+
+-- 객실 예약 테이블 (Room_Reservation)
+CREATE TABLE ROOM_RESERVATION (
+    resort_reserv_id NUMBER PRIMARY KEY, 
+    uuid  NUMBER REFERENCES USERS(uuid) ON DELETE CASCADE, 
+    room_id  NUMBER REFERENCES ROOM(room_id) ON DELETE CASCADE,
+    checkin_date  DATE NOT NULL, 
+    checkout_date  DATE NOT NULL, 
+    quantity  NUMBER(2) NOT NULL,    
+    total_price  NUMBER(10,2) NOT NULL, 
+    status   VARCHAR2(50) DEFAULT '예약완료' CHECK(status IN('예약완료','예약취소')), 
+    created_at  DATE DEFAULT SYSDATE 
+);

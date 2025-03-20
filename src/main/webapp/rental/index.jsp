@@ -40,11 +40,13 @@
 <a href="<%=request.getContextPath()%>/rental/rentalShop?rentalshop_id=1&isRentalOrSki=RENTAL">rental</a>
 <br>
 <br>
-<a href="<%=request.getContextPath()%>/rental/rentalShop?ski_id=2&isRentalOrSki=SKI">ski</a>
+<a href="<%=request.getContextPath()%>/rental/rentalShop?ski_id=1&isRentalOrSki=SKI">ski</a>
 <br>
 <br>
 <%-- TODO: ROOM_RESERVATION 테이블 추가 PAYMENTS 추가 RESORT_REVIEWS 추가 후 resortDetail수정--%>
-<a href="<%=request.getContextPath()%>/rental/resort?resort_id=1">resort</a>
+<a href="<%=request.getContextPath()%>/rental/resort?resort_id=1">resort1</a>
+<a href="<%=request.getContextPath()%>/rental/resort?resort_id=2">resort2</a>
+<a href="<%=request.getContextPath()%>/rental/resort?resort_id=3">resort3</a>
 
 
 </body>

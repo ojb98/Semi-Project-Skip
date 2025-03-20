@@ -25,8 +25,12 @@
 				<input type="text" name="payment_id" value="${rrDto.getPayment_id() }" readonly>			
 			</div>
 			<div class="">
-				<lable>회원 아이디</lable>
+				<lable>uuid</lable>
 				<input type="text" name="uuid" value="${rrDto.getUuid() }" readonly>
+			</div>
+			<div class="">
+				<lable>회원 아이디</lable>
+				<input type="text" name="user_id" value="${rrDto.getUser_id() }" readonly>
 			</div>
 			<div class="">
 				<lable>리조트 아이디</lable>
@@ -49,7 +53,7 @@
 				<p class="comment_msg">리뷰를 5자 이상 작성해주세요.</p>			
 			</div>
 			<label>첨부파일</label>
-			<input type="file" name="reviewImg" value="${rrDto.getReview_img() }">
+			<input type="file" name="review_img" value="${rrDto.getReview_img() }">
 			<input type="submit" value="수정">
 	</form>
 	

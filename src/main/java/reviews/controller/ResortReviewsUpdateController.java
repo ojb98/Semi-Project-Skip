@@ -44,13 +44,15 @@ public class ResortReviewsUpdateController extends HttpServlet {
 		int review_id = Integer.parseInt(req.getParameter("review_id"));
 		int payment_id = Integer.parseInt(req.getParameter("payment_id"));
 		int uuid = Integer.parseInt(req.getParameter("uuid"));
+		String user_id = req.getParameter("user_id");
 		int resort_id = Integer.parseInt(req.getParameter("resort_id"));
 		double rating  = Double.parseDouble(req.getParameter("rating"));
 		String resort_comment = req.getParameter("resort_comment");
 		String review_img = req.getParameter("review_img");
 		System.out.println("리뷰아이디:" + review_id);
 		System.out.println("결제아이디:" + payment_id);
-		System.out.println("사용자아이디:" + uuid);
+		System.out.println("uuid:" + uuid);
+		System.out.println("회원아이디:" + user_id);
 		System.out.println("리조트아이디:" + resort_id);
 		System.out.println("별점:" + rating);
 		System.out.println("리뷰내용:" + resort_comment);
@@ -87,7 +89,8 @@ public class ResortReviewsUpdateController extends HttpServlet {
 		}
 		
 		
-		rrDto = new ResortReviewsDTO(review_id, payment_id, uuid, resort_id, rating, resort_comment, saveFilename, null);
+//		rrDto = new ResortReviewsDTO(review_id, payment_id, uuid, resort_id, rating, resort_comment, saveFilename, null);
+		rrDto = new ResortReviewsDTO(review_id, payment_id, uuid, resort_id, rating, resort_comment, saveFilename, null, user_id);
 		int n = rrDao.update(rrDto);
 		
 		resp.sendRedirect(req.getContextPath() + "/jsp/reviewList");

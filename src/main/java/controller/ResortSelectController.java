@@ -2,6 +2,7 @@ package controller;
 
 import dao.*;
 import dto.FacilityDTO;
+import dto.ResortReviewDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,10 +23,13 @@ public class ResortSelectController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             final int resort_id = Integer.parseInt(req.getParameter("resort_id"));
+            
+            String sortType = req.getParameter("sort"); //정렬 기준 가져오기
 
             ResortDao resortDao = new ResortDao();
             RoomDao roomDao = new RoomDao();
             ResortReviewDao resortReviewDao = new ResortReviewDao();
+            List<ResortReviewDTO> resortReviewList = resortReviewDao.reviewList(resort_id);
 
             ResortFacilityMapDao resortFacilityMapDao = new ResortFacilityMapDao();
             FacilityDao facilityDao = new FacilityDao();
@@ -42,6 +46,22 @@ public class ResortSelectController extends HttpServlet {
                 }
                 req.setAttribute("resortList", resortList);
             }
+            
+          //총 리뷰 개수
+    		int reviewCount = resortReviewList.size();
+    		
+    		//평균 평점 계산
+    		double totalRating = 0;
+    		for(ResortReviewDTO review : resortReviewList) {
+    			totalRating += review.getRating();
+    		}
+    		double avgRating = (resortReviewList.size() > 0) ? totalRating / resortReviewList.size() : 0;
+    		
+    		
+    		req.setAttribute("reviewList", resortReviewList);
+    		req.setAttribute("reviewCount", reviewCount);
+    		req.setAttribute("avgRating",Math.round(avgRating * 100) / 100.0);
+    		req.setAttribute("resortReviewList", resortReviewList);
 
             req.setAttribute("resortDTO", resortDao.getResortById(resort_id));
             req.setAttribute("minPrice", roomDao.getMinPrice(resort_id));

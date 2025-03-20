@@ -35,6 +35,7 @@ public class ResortReviewsController extends HttpServlet {
 		 int resort_id = Integer.parseInt(req.getParameter("resort_id"));
 		 double rating  = Double.parseDouble(req.getParameter("rating"));
 		 String resort_comment = req.getParameter("resort_comment");
+		 String user_id = req.getParameter("user_id");
 		 
 		 //파일 업로드
 		 ServletContext application = req.getServletContext();
@@ -67,7 +68,8 @@ public class ResortReviewsController extends HttpServlet {
 			 System.out.println("savefilename:" + savefilename);
 			 
 			 ResortReviewsDAO rrDao = new ResortReviewsDAO();
-			 ResortReviewsDTO rrDto = new ResortReviewsDTO(0, payment_id, uuid, resort_id, rating, resort_comment, savefilename, null);
+//			 ResortReviewsDTO rrDto = new ResortReviewsDTO(0, payment_id, uuid, resort_id, rating, resort_comment, savefilename, null);
+			 ResortReviewsDTO rrDto = new ResortReviewsDTO(0, payment_id, uuid, resort_id, rating, resort_comment, savefilename, null, user_id);
 			 
 			 int n = rrDao.insert(rrDto);
 			 

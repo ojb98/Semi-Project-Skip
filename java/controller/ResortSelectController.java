@@ -46,9 +46,9 @@ public class ResortSelectController extends HttpServlet {
             req.setAttribute("resortDTO", resortDao.getResortById(resort_id));
             req.setAttribute("minPrice", roomDao.getMinPrice(resort_id));
             req.setAttribute("roomList", roomDao.getList(resort_id));
-            req.setAttribute("reviewCount", resortReviewDao.getCount(resort_id));
-            req.setAttribute("averageRating", resortReviewDao.getAverage(resort_id));
-            req.setAttribute("reviewList", resortReviewDao.getList(resort_id));
+//            req.setAttribute("reviewCount", resortReviewDao.getCount(resort_id));
+//            req.setAttribute("averageRating", resortReviewDao.getAverage(resort_id));
+//            req.setAttribute("reviewList", resortReviewDao.getList(resort_id));
             req.getRequestDispatcher("/rental/resortDetail.jsp").forward(req, resp);
         } catch (Exception e) {
             e.printStackTrace();

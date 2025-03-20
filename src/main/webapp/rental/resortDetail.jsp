@@ -925,7 +925,11 @@
                 <button class="tab-button active" onclick="showTab('review')">리뷰</button>
                 <button class="tab-button" onclick="showTab('qna')">Q&A</button>
             </div>
-
+            <ul class="">
+            
+            </ul>
+			
+			<!-- 
             <div id="review-section" class="tab-content">
                 <div class="review-list">
                     <div class="review_amount">
@@ -950,7 +954,40 @@
                         </div>
                     </c:forEach>
                 </div>
+            </div>			
+			 -->
+         <div class="review_tab">
+          <div class="review_title">
+            <div class="title_left">
+              <div class="review_rating">
+                <h3>리뷰 평점</h3>
+                <span class="rating"><i class="fa fa-star"></i></span>
+                <div class="rating_number">
+                  <span>${avgRating}</span><span>/</span><span>5</span>
+                </div>
+              </div>
+              <div class="review_number">
+                <h3>전체 리뷰 수</h3>
+                <i class="fa fa-commenting"></i>
+                <p>${reviewCount}</p>
+              </div>
             </div>
+            <div class="title_right">
+              <div class="review_filter">
+                <a class="filter_btn active"  href="javascript:reviewSort(null)"><i class="fa fa-check"></i>최신순</a>
+                <a class="filter_btn" href="javascript:reviewSort('ratingDesc')"><i class="fa fa-check"></i>평점 높은순</a>
+                <a class="filter_btn" href="javascript:reviewSort('ratingAsc')"><i class="fa fa-check"></i>평점 낮은순</a> 
+              </div>
+            </div>
+          </div>
+          <div class="review_contents">
+            <ul class="review_list">
+            </ul>
+          </div>
+          <!-- 페이징 -->
+          <div class="page_btn">
+          </div>
+        </div>
         </div>
 
         <div id="qna-section" class="tab-content" style="display: none;">
@@ -1146,5 +1183,6 @@
     }
 
 </script>
+<script src="<%=request.getContextPath() %>/script/review.js"></script>
 </body>
 </html>

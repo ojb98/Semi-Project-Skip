@@ -31,14 +31,10 @@
   	</choose>
    -->
   <select id="reviewList" parameterType="string" resultType="reviews.dto.ResortReviewsDTO">
-  	select review_id, uuid, created_at, rating, resort_comment, review_img 
-  	from resort_reviews
-  	order by 
-  	<choose>
-  		<when test="sortType == 'ratingDesc'">rating DESC</when>
-  		<when test="sortType == 'ratingAsc'">rating ASC</when>
-  		<otherwise>review_id DESC</otherwise>
-  	</choose>
+  	select r.review_id, r.uuid, u.user_id, r.created_at, r.rating, r.resort_comment, r.review_img 
+  	from resort_reviews r left join users u
+  	on r.uuid = u.uuid
+  	order by review_id
   </select>   
   
   <!-- 리조트 리뷰 리스트(정렬 및 페이징) -->
@@ -60,6 +56,7 @@
   	
    -->
   <select id="reviewArray" parameterType="map" resultType="reviews.dto.ResortReviewsDTO">
+  	<!-- 
 	    SELECT review_id, uuid, created_at, rating, resort_comment, review_img FROM (
         	SELECT ROW_NUMBER() OVER (
                 ORDER BY 
@@ -72,14 +69,30 @@
             review_id, uuid, created_at, rating, resort_comment, review_img
         FROM resort_reviews
     ) sub
+    WHERE rn BETWEEN #{startRow} AND #{endRow}  	
+  	 -->
+	SELECT r.review_id, r.uuid, u.user_id, r.created_at, r.rating, r.resort_comment, r.review_img FROM (
+      	SELECT ROW_NUMBER() OVER (
+            ORDER BY 
+                <choose>
+                    <when test="sortType == 'ratingDesc'">rating DESC</when>
+                    <when test="sortType == 'ratingAsc'">rating ASC</when>
+                    <otherwise>review_id DESC</otherwise>
+                </choose>
+            ) AS rn,
+            review_id, uuid, created_at, rating, resort_comment, review_img
+        FROM resort_reviews
+    ) r
+    join users u on r.uuid = u.uuid
     WHERE rn BETWEEN #{startRow} AND #{endRow}
   </select>
  
    
   <!-- 리조트 리뷰 수정시 조회 -->
   <select id="updateSelect" parameterType="int" resultType="reviews.dto.ResortReviewsDTO">
-  	select review_id, uuid, created_at, rating, resort_comment, review_img 
-  	from resort_reviews 
+  	select r.review_id, r.payment_id, r.uuid, u.user_id, r.resort_id, r.rating, r.resort_comment, r.review_img, r.created_at 
+  	from resort_reviews r left join users u
+  	on r.uuid = u.uuid 
   	where review_id=#{review_id}
   </select>
   

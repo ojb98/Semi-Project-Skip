@@ -11,11 +11,12 @@ public class ResortReviewsDTO {
 	private String resort_comment;
 	private String review_img;
 	private Date created_at;
+	private String user_id;
 	
 	public ResortReviewsDTO() {}
-	
+
 	public ResortReviewsDTO(int review_id, int payment_id, int uuid, int resort_id, double rating,
-			String resort_comment, String review_img, Date created_at) {
+			String resort_comment, String review_img, Date created_at, String user_id) {
 		super();
 		this.review_id = review_id;
 		this.payment_id = payment_id;
@@ -25,6 +26,7 @@ public class ResortReviewsDTO {
 		this.resort_comment = resort_comment;
 		this.review_img = review_img;
 		this.created_at = created_at;
+		this.user_id = user_id;
 	}
 
 	public int getReview_id() {
@@ -91,10 +93,11 @@ public class ResortReviewsDTO {
 		this.created_at = created_at;
 	}
 
-	@Override
-	public String toString() {
-		return "ResortReviewsDTO [review_id=" + review_id + ", payment_id=" + payment_id + ", uuid=" + uuid
-				+ ", resort_id=" + resort_id + ", rating=" + rating + ", resort_comment=" + resort_comment
-				+ ", review_img=" + review_img + ", created_at=" + created_at + "]";
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 }

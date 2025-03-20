@@ -10,5 +10,4 @@
     <select id="getList" resultType="arraylist">
         select * from users
     </select>
-
 </mapper>
