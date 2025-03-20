@@ -21,5 +21,12 @@
     select rentalshop_id,uuid,name,rental_phone,location,remain_img
     from RENTALSHOP
   </select>
+  
+  <!-- 렌탈샵 고유아이디로 조회(한건) -->
+  <select id="getRentalId" parameterType="int" resultType="rental.dto.RentalShopDTO">
+  	select rentalshop_id,uuid,name,rental_phone,location,remain_img,
+  	resub_img1,resub_img2,resub_img3,description,created_at
+  	from RENTALSHOP where rentalshop_id=#{rentalId}
+  </select>
 
 </mapper>

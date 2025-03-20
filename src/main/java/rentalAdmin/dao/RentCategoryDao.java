@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import mybatis.service.SqlSessionFactoryService;
+import rental.dto.ItemCategoryListDTO;
 import rental.dto.RentItemCategoryDTO;
 
 public class RentCategoryDao {
@@ -35,5 +36,11 @@ public class RentCategoryDao {
 		}
 	}
 	
+	//카테고리 + 장비유형 조인 정보가져오기
+	public List<ItemCategoryListDTO> itemCategoryList(int rentalshopId){
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectList(NAMESPACE+".itemCategoryList",rentalshopId);
+		}
+	}
 	
 }

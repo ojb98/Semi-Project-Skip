@@ -29,7 +29,7 @@ public class RentalShopInsertController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/rentalAdmin/rentalInsertForm.jsp").forward(req, resp);
+		req.getRequestDispatcher("/rentalAdmin/rentalShopInsertForm.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -44,7 +44,7 @@ public class RentalShopInsertController extends HttpServlet {
 		//파일업로드
 		ServletContext application=req.getServletContext();
 		String path=application.getRealPath("/rentalImg");
-		System.out.println("path: "+path);
+		System.out.println("rentalImg path: "+path);
 				
 		File rentalImg = new File(path);
 		if (!rentalImg.exists()) {

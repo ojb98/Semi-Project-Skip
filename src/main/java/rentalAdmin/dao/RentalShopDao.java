@@ -36,5 +36,11 @@ public class RentalShopDao {
 		}
 	}
 	
+	public RentalShopDTO getRentalId(int rentalId) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectOne(NAMESPACE+".getRentalId",rentalId);
+		}
+	}
+	
 	
 }
