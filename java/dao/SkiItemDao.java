@@ -1,6 +1,8 @@
 package dao;
 
+import dto.RentCategoryDTO;
 import dto.RentItemDTO;
+import dto.SkiCategoryDTO;
 import dto.SkiItemDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -22,6 +24,12 @@ public class SkiItemDao {
     public List<SkiItemDTO> getSkiItemList(Map<String, Object> map) {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             return sqlSession.selectList(NAMESPACE + ".getList", map);
+        }
+    }
+
+    public SkiCategoryDTO getSkiItemByItemId(int item_id) {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            return sqlSession.selectOne(NAMESPACE + ".getSkiItemByItemId", item_id);
         }
     }
 

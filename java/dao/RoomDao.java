@@ -17,25 +17,19 @@ public class RoomDao {
         }
     }
 
-    public RoomDTO getRoomBytId(int room_id) {
+    public RoomDTO getWishRoomByRoomId(int room_id) {
         try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            return sqlSession.selectOne(NAMESPACE + ".selectRoomByResortId", room_id);
+            return sqlSession.selectOne(NAMESPACE + ".getWishRoomByRoomId", room_id);
         }
     }
 
-    public List<RoomDTO> getList(int ResortRoomsDao) {
+    public List<RoomDTO> getList(int resort_id) {
         try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            return sqlSession.selectList(NAMESPACE + ".getList", ResortRoomsDao);
+            return sqlSession.selectList(NAMESPACE + ".getList", resort_id);
         }
     }
 
 
-    public int deleteRoom(int room_id) {
-        try (SqlSession sqlSession = sqlSessionFactory.openSession()){
-            int n = sqlSession.delete(NAMESPACE + ".deleteRoom", room_id);
-            sqlSession.commit();
-            return n;
-        }
-    }
+
 
 }

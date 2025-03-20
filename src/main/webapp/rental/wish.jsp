@@ -7,15 +7,76 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/reset.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/font.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/search.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/detail.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/wish.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/cart.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/pay.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css">
 </head>
 <body>
-<body>
+<style>
+    .save_container {
+        width: 1230px;
+        margin: 50px auto;
+    }
+
+    .save_container .save_title {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .save_container .save_title h2 {
+        display: inline-block;
+        padding: 10px 40px;
+        border-radius: 10px;
+        background-color: #5399f5;
+        color: #fff;
+    }
+
+    /* save_box */
+    .save_box {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-column-gap: 20px;
+        grid-row-gap: 30px;
+    }
+
+    .save_item {
+        position: relative;
+    }
+
+    .save_item .heart_btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 24px;
+    }
+
+    .save_item .item_img {
+        height: 260px;
+        border-radius: 10px;
+    }
+
+    .save_item .item_img:hover {
+        background-size: 120%;
+    }
+
+    .save_item .item_text h4 {
+        font-size: 12px;
+        color: #6f7077;
+        margin: 20px 0 10px 0;
+    }
+
+    .item_text .item_bottom {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .item_bottom .left {
+        display: flex;
+    }
+
+    .item_bottom .left h3 {
+        margin-right: 5px;
+    }
+
+</style>
 <!-- header -->
 <header>
     <nav class="header_nav">
@@ -78,63 +139,34 @@
         <div class="save_box">
             <c:choose>
                 <c:when test="${not empty requestScope.wishList}">
-
                     <c:forEach var="wish" items="${requestScope.wishList}">
-                        <c:choose>
-                            <c:when test="${wish.category == 'RENTAL'}">
-
-                            </c:when>
-                            <c:when test="${wish.category == 'SKI'}">
-
-                            </c:when>
-                            <c:when test="${wish.category == 'RESORT'}">
-
-                            </c:when>
-                        </c:choose>
+                        <a href="${pageContext.request.contextPath}${wish.link}" class="save_item">
+                            <div class="item-box">
+                                <div class="main-image">
+                                    <img src="${wish.mainImg}"/>
+                                </div>
+                                <div class="item_text">
+                                    <h4>${wish.category}</h4>
+                                    <div class="item_bottom">
+                                        <div class="left">
+                                            <h3>${wish.name}</h3>
+                                            <span class="rating"><i class="fa fa-star"></i>${wish.rating}</span>
+                                        </div>
+                                        <div class="right">
+                                            <span>${wish.price}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="heart_btn fa-heart-active"><i
+                                        class="fa fa-heart fa-heart-active"></i></span>
+                            </div>
+                        </a>
                     </c:forEach>
                 </c:when>
-
                 <c:otherwise>
-                    <p>Unknown type: ${wish.name}</p>
+                    <p>현재 찜 목록이 비었음</p>
                 </c:otherwise>
             </c:choose>
-
-
-            <a href="linkUrl" class="save_item">
-                <div class="main-image">
-                    <img src=""/>
-                </div>
-                <div class="item_text">
-                    <h4>리조트</h4>
-                    <div class="item_bottom">
-                        <div class="left">
-                            <h3>용평리조트</h3>
-                            <span class="rating"><i class="fa fa-star"></i>4.6</span>
-                        </div>
-                        <div class="right">
-                            <span>279,000원</span>
-                        </div>
-                    </div>
-                </div>
-                <span class="heart_btn fa-heart-active"><i class="fa fa-heart fa-heart-active"></i></span>
-            </a>
-
-            <%--            <a href="resort_detail.html" class="save_item">--%>
-            <%--                <div class="item_img img1"></div>--%>
-            <%--                <div class="item_text">--%>
-            <%--                    <h4>리조트</h4>--%>
-            <%--                    <div class="item_bottom">--%>
-            <%--                        <div class="left">--%>
-            <%--                            <h3>용평리조트</h3>--%>
-            <%--                            <span class="rating"><i class="fa fa-star"></i>4.6</span>--%>
-            <%--                        </div>--%>
-            <%--                        <div class="right">--%>
-            <%--                            <span>279,000원</span>--%>
-            <%--                        </div>--%>
-            <%--                    </div>--%>
-            <%--                </div>--%>
-            <%--                <span class="heart_btn fa-heart-active"><i class="fa fa-heart fa-heart-active"></i></span>--%>
-            <%--            </a>--%>
         </div>
     </div>
 </main>

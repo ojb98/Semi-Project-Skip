@@ -268,9 +268,9 @@
         }
     %>
     <c:choose>
-        <c:when test="${not empty dto}">
+        <c:when test="${not empty requestScope.dto}">
             <div class="shop-name">
-                <h2>${dto.name}</h2>
+                <h2>${requestScope.dto.name}</h2>
             </div>
 
             <div class="main-content">
@@ -280,12 +280,12 @@
                     <div class="item-box">
                         <c:set var="linkUrl" value=""/>
 
-                        <c:if test="${isRentalOrSki eq 'RENTAL'}">
+                        <c:if test="${requestScope.isRentalOrSki eq 'RENTAL'}">
                             <c:set var="linkUrl"
                                    value="${pageContext.request.contextPath}/rental/rentalItem?item_type=${item}&rentalshop_id=${dto.rentalshop_id}&img_num=${status.index + 1}&isRentalOrSki=RENTAL"/>
                         </c:if>
 
-                        <c:if test="${isRentalOrSki eq 'SKI'}">
+                        <c:if test="${requestScope.isRentalOrSki eq 'SKI'}">
                             <c:set var="linkUrl"
                                    value="${pageContext.request.contextPath}/rental/rentalItem?item_type=${item}&ski_id=${dto.ski_id}&img_num=${status.index + 1}&isRentalOrSki=SKI"/>
                         </c:if>

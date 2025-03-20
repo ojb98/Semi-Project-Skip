@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatir.org//DTD Mapper 3.0//EN"
+        "https://mybatir.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.RentalShopReviewMapper">
+    <select id="countReviewsByRentalShopID" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM rentalshop_reviews
+        WHERE rentalshop_id = #{rentalshop_id}
+    </select>
+
+    <select id="selectAvgRatingByRentalShopID" parameterType="int" resultType="float">
+        select avg(rating)
+        from rentalshop_reviews
+        where rentalshop_id = #{rentalshop_id}
+    </select>
+
+    <select id="selectReviewByRentalShopID" parameterType="int" resultType="dto.RentalShopReviewDTO">
+        select u.name, r.rating, r.comments, r.review_img, r.created_at
+        from rentalshop_reviews r left join users u
+        on r.uuid = u.uuid
+        where r.rentalshop_id = #{rentalshop_id}
+    </select>
+</mapper>

@@ -10,9 +10,9 @@ public class SkiDao {
     SqlSessionFactory sqlSessionFactory = SqlSessionFactorySystem.getSqlSessionFactory();
     private final String NAMESPACE = "mybatis.mapper.SkiMapper";
 
-    public SkiDTO getSki(int id) {
+    public SkiDTO getSki(int ski_id) {
         try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            return sqlSession.selectOne(NAMESPACE + ".getInfo", id);
+            return sqlSession.selectOne(NAMESPACE + ".getInfo", ski_id);
         }
     }
 

@@ -24,9 +24,15 @@ public class WishDao {
         }
     }
 
-    public List<Integer> getWishList(int uuid) {
+    public List<WishDTO> getWishList(int uuid) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             return session.selectList(NAMESPACE + ".getWishList", uuid);
+        }
+    }
+
+    public List<Integer> getWishRefIdList(int uuid) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectList(NAMESPACE + ".getWishRefIdList", uuid);
         }
     }
 

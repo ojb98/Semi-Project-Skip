@@ -11,9 +11,11 @@
         select * from ski_item where category_id = #{category_id} and ski_id = #{ski}
     </select>
 
-    <select id = "getSkiItemByItemId" parameterType="int" resultType="dto.SkiItemDTO" >
-        select item_id, category_id, rentalshop_id, item_name, item_img, item_type, price_per_hour
-        from
+    <select id = "getSkiItemByItemId" parameterType="int" resultType="dto.SkiCategoryDTO" >
+        select s.item_id, s.category_id, s.ski_id, s.item_name, s.item_img, i.item_type, i.price_per_hour
+        from ski_item s left join item_category i
+        on s.category_id = i.category_id
+        where item_id = #{item_id}
     </select>
 
 </mapper>

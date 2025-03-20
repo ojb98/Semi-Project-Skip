@@ -7,12 +7,14 @@
         select MIN(price_per_night) from room where resort_id = #{resort_id}
     </select>
 
-    <select id="selectRoomById" parameterType="int" resultType="dto.RoomDTO">
-        select * from room where room_id = #{room_id}
-    </select>
-
     <select id="getList" parameterType="int" resultType="dto.RoomDTO">
         select * from room where resort_id = #{resort_id}
+    </select>
+
+    <select id = "getWishRoomByRoomId" parameterType="int" resultType="dto.RoomDTO">
+        select room_id, resort_id, room_name, rmain_img, price_per_night
+        from room
+        where room_id #{room_id}
     </select>
 
 </mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.SkiReviewMapper">
+    <select id="countReviewsBySkiId" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM ski_reviews
+        WHERE ski_id = #{ski_id}
+    </select>
+
+    <select id="selectAvgRatingBySkiId" parameterType="int" resultType="float">
+        select avg(rating)
+        from ski_reviews
+        where ski_id = #{ski_id}
+    </select>
+
+    <select id="selectReviewBySkiId" parameterType="int" resultType="dto.SkiReviewDTO">
+        select u.name, s.rating, s.comments, s.review_img, s.created_at
+        from ski_reviews s left join users u
+        on s.uuid = u.uuid
+        where s.ski_id = #{ski_id}
+    </select>
+</mapper>

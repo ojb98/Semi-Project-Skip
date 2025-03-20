@@ -45,25 +45,6 @@
 	background-size: 120%;
 }
 
-.save_item .img1 {
-	background: url(/img/resort_img1.jpg) no-repeat center / cover;
-}
-.save_item .img2 {
-	background: url(/img/resort_img2.jpg) no-repeat center / cover;
-}
-.save_item .img3 {
-	background: url(/img/resort_img3.jpg) no-repeat center / cover;
-}
-.save_item .img4 {
-	background: url(/img/resort_img4.jpg) no-repeat center / cover;
-}
-.save_item .img5 {
-	background: url(/img/resort_img1.jpg) no-repeat center / cover;
-}
-.save_item .img6 {
-	background: url(/img/resort_img2.jpg) no-repeat center / cover;
-}
-
 .save_item .item_text h4 {
 	font-size: 12px;
 	color: #6f7077;

@@ -24,6 +24,6 @@
     </select>
 
     <select id="getWishList" parameterType="int" resultType="dto.WishDTO">
-        select category ref_id from wish where uuid = #{uuid}
+        select category, ref_id from wish where uuid = #{uuid}
     </select>
 </mapper>

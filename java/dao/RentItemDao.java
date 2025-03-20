@@ -1,5 +1,6 @@
 package dao;
 
+import dto.RentCategoryDTO;
 import dto.RentItemDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -22,6 +23,12 @@ public class RentItemDao {
     public List<RentItemDTO> getRentItemList(Map<String, Object> map) {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             return sqlSession.selectList(NAMESPACE + ".getList", map );
+        }
+    }
+
+    public RentCategoryDTO getRentItemByItemId(int item_id) {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            return sqlSession.selectOne(NAMESPACE + ".getRentItemByItemId", item_id);
         }
     }
 

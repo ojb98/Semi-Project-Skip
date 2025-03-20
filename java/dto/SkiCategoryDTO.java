@@ -3,7 +3,7 @@ package dto;
 public class SkiCategoryDTO {
     private int item_id;
     private int category_id;
-    private int rentalshop_id;
+    private int ski_id;
     private String item_name;
     private String item_img;
     private String item_type;
@@ -12,10 +12,10 @@ public class SkiCategoryDTO {
     public SkiCategoryDTO() {
     }
 
-    public SkiCategoryDTO(int item_id, int category_id, int rentalshop_id, String item_name, String item_img, String item_type, String price_per_hour) {
+    public SkiCategoryDTO(int item_id, int category_id, int ski_id, String item_name, String item_img, String item_type, String price_per_hour) {
         this.item_id = item_id;
         this.category_id = category_id;
-        this.rentalshop_id = rentalshop_id;
+        this.ski_id = ski_id;
         this.item_name = item_name;
         this.item_img = item_img;
         this.item_type = item_type;
@@ -38,12 +38,12 @@ public class SkiCategoryDTO {
         this.category_id = category_id;
     }
 
-    public int getRentalshop_id() {
-        return rentalshop_id;
+    public int getSki_id() {
+        return ski_id;
     }
 
-    public void setRentalshop_id(int rentalshop_id) {
-        this.rentalshop_id = rentalshop_id;
+    public void setSki_id(int ski_id) {
+        this.ski_id = ski_id;
     }
 
     public String getItem_name() {

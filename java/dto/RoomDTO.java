@@ -3,6 +3,7 @@ package dto;
 import java.util.Date;
 
 public class RoomDTO {
+    //링크(resort_id), 메인이미지, 카테고리, 이름, 평점, 가격 보내야댐
     private int room_id;
     private int resort_id;
     private String room_name;

@@ -1,3 +1,4 @@
+<%@ page import="dao.UsersDao" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -13,9 +14,9 @@
     // 모든 쿠키를 가져옴
     Cookie[] cookies = request.getCookies();
     String userId = null;
+    int uuid = -1;
 
     if (cookies != null) {
-        // 쿠키 배열을 순회하면서 "user_id" 쿠키 찾기
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("user_id")) {
                 userId = cookie.getValue();
@@ -25,7 +26,10 @@
     }
 
     if (userId != null) {
+        UsersDao usersDao = new UsersDao();
+        uuid = usersDao.getUUID(userId);
         out.println("User ID: " + userId);
+        out.println("uuid: " + uuid);
     } else {
         out.println("User ID not found in cookies.");
     }
@@ -45,6 +49,9 @@
 <br>
 <%-- TODO: ROOM_RESERVATION 테이블 추가 PAYMENTS 추가 RESORT_REVIEWS 추가 후 resortDetail수정--%>
 <a href="<%=request.getContextPath()%>/rental/resort?resort_id=1">resort</a>
+<br>
+<br>
+<a href = "<%=request.getContextPath()%>/wishSelect?uuid=<%=uuid%>">찜목록</a>
 
 
 </body>
