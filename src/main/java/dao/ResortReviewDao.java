@@ -58,8 +58,8 @@ public class ResortReviewDao {
 			params.put("startRow", startRow);
 			params.put("endRow", endRow);
 			
-			List<ResortReviewDTO> rrList = sqlSession.selectList(NAMESPACE + ".reviewArray", params);
-			return rrList;
+			List<ResortReviewDTO> resortReviewList = sqlSession.selectList(NAMESPACE + ".reviewArray", params);
+			return resortReviewList;
 		}finally {
 			if (sqlSession!=null) sqlSession.close();
 		}
@@ -71,8 +71,8 @@ public class ResortReviewDao {
 		
 		try {
 			sqlSession = sqlSessionFactory.openSession();
-			List<ResortReviewDTO> rrList = sqlSession.selectList(NAMESPACE + ".reviewList", resort_id);
-			return rrList;	
+			List<ResortReviewDTO> resortReviewList = sqlSession.selectList(NAMESPACE + ".reviewList", resort_id);
+			return resortReviewList;	
 		}finally {
 			if(sqlSession!=null) sqlSession.close();
 		}
@@ -102,8 +102,8 @@ public class ResortReviewDao {
 			map.put("startRow", startRow);
 			map.put("endRow", endRow);
 			
-			List<ResortReviewDTO> rrList = sqlSession.selectList(NAMESPACE + ".pageList", map);
-			return rrList;
+			List<ResortReviewDTO> resortReviewList = sqlSession.selectList(NAMESPACE + ".pageList", map);
+			return resortReviewList;
 		}finally {
 			if(sqlSession!=null) sqlSession.close();
 		}
