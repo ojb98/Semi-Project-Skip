@@ -21,7 +21,7 @@
 
 	<div class="search_box">
 		<form method="post">
-			<input type="text" name="year" placeholder="조회하실 연도를 입력하세요." value="${year}">
+			<input type="text" name="year" placeholder="조회할 연도를 입력하세요." value="${year}">
 			<input type="submit" value="조회">
 		</form>
 	</div>

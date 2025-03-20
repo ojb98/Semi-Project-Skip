@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="nav_title">
-	<h1>리뷰 목록</h1>
+	<h1>문의 목록</h1>
 </div>
-<form action="${pageContext.request.contextPath}/mypage/reviews" method="post">
+<form action="${pageContext.request.contextPath}/mypage/qna" method="post">
 	<div class="select_container">
 		<div class="review_select">
 			<select name="category">
@@ -12,14 +12,6 @@
 		        <option value="SKI" <c:if test="${category == 'SKI'}">selected</c:if>>스키장</option>
 		        <option value="RESORT" <c:if test="${category == 'RESORT'}">selected</c:if>>리조트</option>
 		        <option value="RENTAL" <c:if test="${category == 'RENTAL'}">selected</c:if>>렌탈샵</option>
-		    </select>
-		    <select class="select_rating" name="rating">
-		        <option value="" <c:if test="${empty rating or rating == ''}">selected</c:if>>전체</option>
-		        <option value="5" <c:if test="${rating == '5'}">selected</c:if>>⭐⭐⭐⭐⭐</option>
-		        <option value="4" <c:if test="${rating == '4'}">selected</c:if>>⭐⭐⭐⭐</option>
-		        <option value="3" <c:if test="${rating == '3'}">selected</c:if>>⭐⭐⭐</option>
-		        <option value="2" <c:if test="${rating == '2'}">selected</c:if>>⭐⭐</option>
-		        <option value="1" <c:if test="${rating == '1'}">selected</c:if>>⭐</option>
 		    </select>
 	    </div>
 	    
@@ -33,24 +25,28 @@
 <c:forEach var="dto" items="${list}">
 	<div class="review_container">
 		<div class="review_title reserv_title">
-			<a href="">${dto.ref_name}</a>
+			<span>${dto.title}</span>
 			<span>${dto.created_at}</span>
 		</div>
-		<div class="review_content">
-			<div class="review_rating">
-				<c:forEach var="i" begin="1" end="${dto.rating}">
-					<img src="${pageContext.request.contextPath}/img/2B50_color.png" width="27px" height="27px"/>
-				</c:forEach>
-				<c:forEach var="i" begin="${dto.rating}" end="4">
-					<img src="${pageContext.request.contextPath}/img/2B50_black.png" width="27px" height="27px"/>
-				</c:forEach>
+		<div class="review_content qna_body">
+			<div class="qna_content">
+				${dto.content}
 			</div>
-			<div class="review_image">
-				<img src="${pageContext.request.contextPath}/reviewImgs/${dto.img}" width="120px" height="120px"/>
+			
+			<div class="qna_info">
+				<a href="">${dto.ref_name}</a>
+				<span>
+					<c:choose>
+						<c:when test="${dto.status == 'COMPLETED'}">
+							답변됨
+						</c:when>
+						<c:otherwise>
+							확인중
+						</c:otherwise>
+					</c:choose>
+				</span>
 			</div>
-			<div class="review_comment">
-				${dto.review_comment}
-			</div>
+
 			<div class="review_btns">
 				<input class="review_btn" type="button" value="수정">
 				<input class="review_btn" type="button" value="삭제">
@@ -58,8 +54,8 @@
 		</div>
 	</div>
 	
-	<!-- 리뷰 답변 -->
-	<c:if test="${dto.reviewReDto.content != null}">
+	<!-- 문의 답변 -->
+	<c:if test="${dto.qnaReDto.content != null}">
 		<div class="reply_wrapper">
 			<div class="arrow_container">
 				<!-- 답변 화살표 -->
@@ -68,12 +64,12 @@
 		
 			<div class="review_container reply_container">
 				<div class="review_title reserv_title">
-					<span>${dto.reviewReDto.user_id}</span>
-					<span>${dto.reviewReDto.created_at}</span>
+					<span>${dto.qnaReDto.user_id}</span>
+					<span>${dto.qnaReDto.created_at}</span>
 				</div>
 				
 				<div class="review_content qna_body reply_content">
-					${dto.reviewReDto.content}
+					${dto.qnaReDto.content}
 				</div>
 			</div>
 		</div>
@@ -81,26 +77,6 @@
 </c:forEach>
 <c:if test="${list.size() == 0}">
 	<h2>조회된 목록이 없습니다.</h2>
-</c:if>
-
-<c:if test="${dto.qnaRe.content != null}">
-	<div class="reply_wrapper">
-		<div class="arrow_container">
-			<!-- 답변 화살표 -->
-			<div class="arrow"></div>
-		</div>
-	
-		<div class="review_container reply_container">
-			<div class="review_title reserv_title">
-				<span>${dto.qnaRe.user_id}</span>
-				<span>${dto.qnaRe.created_at}</span>
-			</div>
-			
-			<div class="review_content qna_body reply_content">
-				${dto.qnaRe.content}
-			</div>
-		</div>
-	</div>
 </c:if>
 
 <div class="reserv_page">
@@ -118,7 +94,7 @@
 				<span>${i}</span>
 			</c:when>
 			<c:otherwise>
-				<a href="${pageContext.request.contextPath}/mypage/reviews?pageNum=${i}&category=${category}&rating=${rating}&year=${year}">${i}</a>
+				<a href="${pageContext.request.contextPath}/mypage/qna?pageNum=${i}&category=${category}&year=${year}">${i}</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -134,20 +110,14 @@
 
 <script>
 	function clickPrev() {
-		location.href = "${pageContext.request.contextPath}/mypage/reviews?pageNum=${startPage - 1}&category=${category}&rating=${rating}&year=${year}";
+		location.href = "${pageContext.request.contextPath}/mypage/qna?pageNum=${startPage - 1}&category=${category}&year=${year}";
 	}
 	
 	function clickNext() {
-		location.href = "${pageContext.request.contextPath}/mypage/reviews?pageNum=${endPage + 1}&category=${category}&rating=${rating}&year=${year}";
+		location.href = "${pageContext.request.contextPath}/mypage/qna?pageNum=${endPage + 1}&category=${category}&year=${year}";
 	}
 
-	const form = document.getElementsByTagName("form")[0];
-
 	document.getElementsByName("category")[0].addEventListener('change', () => {
-		form.submit();
-	});
-
-	document.getElementsByName("rating")[0].addEventListener('change', () => {
-		form.submit();
+		document.getElementsByTagName("form")[0].submit();
 	});
 </script>
