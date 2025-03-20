@@ -117,7 +117,7 @@ function reservationDetailList(reservId) {
 	           		if (xhr.responseText === "success") {
 	           			alert("삭제가 완료되었습니다.");
 		                requestReservationList();
-	           		} else if (xhr.responseText === "invalid_uuid") {
+	           		} else if (xhr.responseText === "invalid_reserv_id") {
 	                    alert("잘못된 UUID 값입니다.");
 	                } else {
 	                    alert("삭제 요청 실패.");
@@ -198,12 +198,11 @@ function reservationDetailList(reservId) {
         <table>
             <thead>
                 <tr>
-                    <th>상품ID</th>
-                    <th>카테고리</th>
+                    <th>예약상세ID</th>
                     <th>상품명</th>
-                    <th>상품상태</th>
+                    <th>예약번호</th>
                     <th>수량</th>
-                    <th>소계</th>
+                    <th>금액 계</th>
                 </tr>
             </thead>
             <tbody id="detailTableBody">
@@ -259,8 +258,8 @@ function reservationDetailList(reservId) {
                         <th>전화번호</th>
                         <th>이용예정일</th>                         
                         <th>예약생성일</th>
-                        <th>상태</th>
-                        <th>수정</th>
+                        <th>예약상태</th>
+                        <th>상세보기</th>
                     </tr>
                 </thead>
                 <tbody id="reservationTableBody">

@@ -80,6 +80,7 @@ public class UsersDao {
 		}
 	}
 	
+
 	public int deleteUser(int uuid) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			int n = sqlSession.update(NAMESPACE + ".deleteUser", uuid);

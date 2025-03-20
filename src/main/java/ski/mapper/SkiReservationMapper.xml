@@ -39,7 +39,8 @@
         <id column="ski_reserv_id" property="ski_reserv_id"/>
         <result column="ski_id" property="ski_id"/>
         <result column="uuid" property="uuid"/>
-        <result column="reserv_date" property="reserv_date"/>
+        <result column="reserv_start" property="reserv_start"/>
+		<result column="reserv_end" property="reserv_end"/>
         <result column="total_price" property="total_price"/>
         <result column="status" property="status"/>
         <result column="created_at" property="created_at"/>
@@ -49,7 +50,6 @@
 	    <result column="user_email" property="userEmail"/>
 	    <result column="user_name" property="userName"/>
 	    <result column="phone" property="phone"/>
-        
         
         <collection property="skiReservationItemDtoList" ofType="ski.dto.SkiReservationItemDto">
             <id column="ski_item_id" property="ski_item_id"/>
@@ -83,6 +83,7 @@
 			where rn between #{startRow} and #{endRow}
 		)
 		order by sr.created_at desc
+
 	</select>
     
     <select id="selectReservationBySkiId" resultMap="SkiReservationPrint" parameterType="map">
@@ -90,7 +91,8 @@
             sr.ski_reserv_id, 
             sr.ski_id, 
             sr.uuid, 
-            sr.reserv_date,
+            sr.reserv_start,
+            sr.reserv_end,
             sr.total_price, 
             sr.status, 
             sr.created_at,
@@ -102,7 +104,8 @@
             sp.payment_id, 
             sri.ski_item_id, 
             sri.item_id, 
-            si.item_name, 
+            si.item_name,
+            si.category_id,
             sri.quantity, 
             sri.subtotal_price
         FROM ski_reservation sr
@@ -115,8 +118,14 @@
 		    <if test="skiID != null">
 		        sr.ski_id = #{skiID}
 		    </if>
-		    <if test="reserv_date_start != null and reserv_date_end != null">
-		        AND sr.reserv_date BETWEEN #{reserv_date_start} AND #{reserv_date_end}
+		    <if test="reservId != null">
+		        sr.ski_reserv_id = #{reservId}
+		    </if>
+		    <if test="reserv_date1_start != null and reserv_date1_end != null">
+		        AND sr.reserv_start BETWEEN #{reserv_date1_start} AND #{reserv_date1_end}
+		    </if>
+		    <if test="reserv_date2_start != null and reserv_date2_end != null">
+		        AND sr.reserv_end BETWEEN #{reserv_date2_start} AND #{reserv_date2_end}
 		    </if>
 		    <if test="created_at_start != null and created_at_end != null">
 		        AND sr.created_at BETWEEN #{created_at_start} AND #{created_at_end}
@@ -132,33 +141,21 @@
 		    </if>
 		</where>
     </select>
-
+	
+	
     <!-- UUID를 기반으로 SKI_ID 조회 -->
     <select id="getSkiIdByUUID" resultType="Integer">
         SELECT SKI_ID FROM SKI WHERE UUID = #{adminUUID}
     </select>
-
-    <!-- SKI_ID를 기반으로 예약 정보 조회 -->
-    <select id="getSkiReservationUsers" parameterType="map" resultType="adminDto.SkiReservationDTO">
-        SELECT SR.SKI_RESERV_ID, U.NAME as userName, U.USER_ID, U.EMAIL as userEmail, 
-               U.PHONE, SR.STATUS, SR.RESERV_DATE, SR.CREATED_AT
-        FROM SKI_RESERVATION SR
-        JOIN USERS U ON SR.UUID = U.UUID
-        WHERE SR.SKI_ID = #{skiID}
-    </select>
-
-    <!-- 검색 필터 적용 예약 정보 조회 -->
-    <select id="getSearchSkiReservationUsers" parameterType="map" resultType="adminDto.SkiReservationDTO">
-        SELECT SR.SKI_RESERV_ID, U.NAME as userName, U.USER_ID, U.EMAIL as userEmail, 
-               U.PHONE, SR.STATUS, SR.RESERV_DATE, SR.CREATED_AT
-        FROM SKI_RESERVATION SR
-        JOIN USERS U ON SR.UUID = U.UUID
-        WHERE SR.SKI_ID = #{skiID}
-        <if test="name != null"> AND U.NAME LIKE '%' || #{name} || '%' </if>
-        <if test="user_id != null"> AND U.USER_ID LIKE '%' || #{user_id} || '%' </if>
-        <if test="email != null"> AND U.EMAIL LIKE '%' || #{email} || '%' </if>
-    </select>
-
+    
+	<!-- 오늘날짜와 비교해 예약 상태 업데이트-->
+	<update id="updateReservationStatusToCompleted" parameterType="map">
+		UPDATE ski_reservation
+		SET status = 'COMPLETED'
+		WHERE ski_id = #{skiID}
+		AND status = 'CONFIRMED'
+		AND reserv_end &lt;= #{today}
+	</update>
     <!-- 스키장 예약 고유번호를 받아 예약 상태 업데이트 -->
     <update id="reservationCancel">
         UPDATE SKI_RESERVATION SET STATUS='CANCELLED' WHERE SKI_RESERV_ID=#{ski_reserv_id}

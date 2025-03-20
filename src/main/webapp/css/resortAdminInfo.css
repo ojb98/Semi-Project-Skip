@@ -1,0 +1,93 @@
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f9f9f9;
+	margin: 40px;
+	text-align: center;
+}
+
+h1 {
+	color: #333;
+	margin-bottom: 20px;
+}
+
+.button-container {
+	margin-bottom: 20px;
+}
+
+button {
+	padding: 10px 15px;
+	border: none;
+	cursor: pointer;
+	font-size: 14px;
+	margin: 5px;
+	border-radius: 5px;
+}
+
+/* 버튼을 오른쪽 정렬 */
+.button-container-right {
+	text-align: right;
+	margin-right: 100px;
+}
+
+/* 추가 버튼 스타일 */
+.add-btn {
+	background-color: #007bff; 
+	color: #fff;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: opacity 0.3s ease;
+}
+    
+
+/* 수정 버튼 - 노랑 */
+.update-btn {
+	background-color: #ffc107;
+	color: black;
+}
+
+/* 삭제 버튼 - 빨강 */
+.delete-btn {
+	background-color: #dc3545;
+	color: white;
+}
+
+/* 리스트 버튼 - 회색 */
+.list-btn {
+	background-color: #6c757d;
+	color: white;
+}
+
+button:hover {
+	opacity: 0.85;
+}
+
+table {
+	width: 80%;
+	margin: 20px auto;
+	border-collapse: collapse;
+	border: 1px solid #ccc;
+	background-color: whit
+}
+
+th, td {
+	padding: 10px;
+	border: 1px solid #ccc;
+	text-align: center;
+}
+
+th {
+	background-color: #007bff;
+	color: white;
+}
+
+tr:hover {
+	background-color: #f1f1f1;
+}
+
+img {
+	width: 250px;
+	height: auto;
+	border-radius: 5px;
+}

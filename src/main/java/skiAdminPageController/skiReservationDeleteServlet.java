@@ -1,7 +1,7 @@
 package skiAdminPageController;
 
 import mybatis.service.SqlSessionFactoryService;
-import ski.mapper.SkiAdminMapper;
+import ski.mapper.SkiReservationMapper;
 
 import org.apache.ibatis.session.SqlSession;
 import jakarta.servlet.ServletException;
@@ -19,9 +19,10 @@ public class skiReservationDeleteServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
 
         try {
-            int reserv_id = Integer.parseInt(req.getParameter("reserv_id")); 
+            int reserv_id = Integer.parseInt(req.getParameter("reserv_id"));
+            System.out.println(reserv_id);
             try (SqlSession sqlSession = SqlSessionFactoryService.getSqlSessionFactory().openSession()) {
-                SkiAdminMapper mapper = sqlSession.getMapper(SkiAdminMapper.class);
+                SkiReservationMapper mapper = sqlSession.getMapper(SkiReservationMapper.class);
                 int deleteCount = mapper.deleteReservation(reserv_id);
 
                 if (deleteCount > 0) {
@@ -32,7 +33,7 @@ public class skiReservationDeleteServlet extends HttpServlet {
                 }
             }
         } catch (NumberFormatException e) {
-            out.print("invalid_uuid");
+            out.print("invalid_reserv_id");
         } catch (Exception e) {
             e.printStackTrace();
             out.print("error");

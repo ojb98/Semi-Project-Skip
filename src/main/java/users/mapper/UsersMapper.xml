@@ -50,4 +50,5 @@
 		set status = 'N'
 		where uuid = #{uuid}
 	</update>
+
 </mapper>

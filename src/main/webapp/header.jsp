@@ -19,10 +19,16 @@
 							<li>
 								<a href="${pageContext.request.contextPath}/users/signup">회원가입</a>
 							</li>
+							
 						</ul>
 					</c:when>
 					<c:otherwise>
 						<ul>
+							<!-- 로그인한 역할을 보고 나오게 함 (choose) 사용 -->
+							<li>
+								<a href="${pageContext.request.contextPath}/resortAdmin/resortAdminMain.jsp">관리자사이트</a>
+							</li>
+							
 							<li>
 								<a href="${pageContext.request.contextPath}/users/logout">로그아웃</a>
 							</li>
@@ -30,11 +36,13 @@
 								<a href="${pageContext.request.contextPath}/mypage/info">마이페이지</a>
 							</li>
 							<li>
-								<a href="save.html">찜</a>
+								<a href="${pageContext.request.contextPath}/wishlist/">찜</a>
 							</li>
 							<li>
 								<a href="cart.html">장바구니</a>
 							</li>
+							
+							
 						</ul>
 					</c:otherwise>
 				</c:choose>
