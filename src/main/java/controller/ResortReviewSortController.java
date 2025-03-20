@@ -15,13 +15,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/resort/reivew")
+@WebServlet("/resort/review")
 public class ResortReviewSortController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String sortType = req.getParameter("sort"); //정렬 기준 가져오기
 		String page = req.getParameter("pageNum");
 		int resort_id = Integer.parseInt(req.getParameter("resort_id"));
+		System.out.println("Received request with parameters:");
+		System.out.println("resort_id: " + req.getParameter("resort_id"));
+		System.out.println("sort: " + req.getParameter("sort"));
+		System.out.println("pageNum: " + req.getParameter("pageNum"));
 		
 		if (sortType == null || sortType.isEmpty()) {
             sortType = "latest";  

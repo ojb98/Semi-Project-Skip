@@ -59,7 +59,7 @@
 		from resort_reviews where resort_id = #{resort_id}
 	)r
 	join users u on r.uuid = u.uuid
-	where rn between #{startRow} and #{endRow};
+	where rn between #{startRow} and #{endRow}
   </select>
  
    

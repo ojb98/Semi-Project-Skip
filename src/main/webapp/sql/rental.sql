@@ -15,7 +15,8 @@ CREATE TABLE RENTALSHOP
     CONSTRAINT FK_RENTALSHOP_USER FOREIGN KEY (UUID) REFERENCES USERS (UUID)
 );
 
-insert into rentalshop values (1,1,'렌탈샵1','강원도','img1','010-1234-1234','img2','img3','img4','렌탈샵소개',sysdate);
+insert into rentalshop values (1,1,'렌탈샵1','강원도','img1','010-1234-1234','img2','img3','img4','렌탈샵소개1',sysdate);
+insert into rentalshop values (2,2,'렌탈샵2','경기도','img1','010-1212-1212','img2','img3','img4','렌탈샵2소개',sysdate);
 
 -- 렌탈샵 예약 테이블
 CREATE TABLE RENTAL_RESERVATION
