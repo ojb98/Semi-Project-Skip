@@ -28,8 +28,8 @@ public class ResortDelController extends HttpServlet{
 
 	     //경로 얻어오기
 	     ServletContext application = req.getServletContext();
-	     String resortPath = application.getRealPath("/resortImg");
-	     String roomPath = application.getRealPath("/roomImg");
+	     String resortPath = application.getRealPath("/resortImg");  //리조트 이미지경로
+	     String roomPath = application.getRealPath("/roomImg");   //객실 이미지경로
 
 	     //리조트에 모든 객실 조회후, 모든 객실 이미지 삭제
 	     List<RoomDTO> roomList = rmdao.getInfo(resortId);

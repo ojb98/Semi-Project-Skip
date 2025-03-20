@@ -36,9 +36,28 @@ public class RentalShopDao {
 		}
 	}
 	
+	//렌탈샵 고유아이디로 데이터 조회(한건)
 	public RentalShopDTO getRentalId(int rentalId) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectOne(NAMESPACE+".getRentalId",rentalId);
+		}
+	}
+	
+	//렌탈샵 수정
+	public int rentalUpdate(RentalShopDTO rsdto) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			int n=sqlSession.update(NAMESPACE+".rsUpdate",rsdto);
+			sqlSession.commit();
+			return n;
+		}
+	}
+	
+	//렌탈샵 삭제
+	public int rentalDelete(int rentalshopId) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			int n=sqlSession.delete(NAMESPACE+".rsDelete",rentalshopId);
+			sqlSession.commit();
+			return n;
 		}
 	}
 	

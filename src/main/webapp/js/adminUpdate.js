@@ -3,8 +3,8 @@ function checkData(event) {
 
     //필수 입력 필드 목록
     const fields = [
-        { id: "resortName", message: "리조트명을 입력해주세요." },
-        { id: "phone", message: "리조트 전화번호를 입력해주세요." },
+        { id: "name", message: "상호명을 입력해주세요." },
+        { id: "phone", message: "전화번호를 입력해주세요." },
         { id: "location", message: "주소를 입력해주세요." }
     ];
 
@@ -21,7 +21,7 @@ function checkData(event) {
     }
 
     //모든 검사를 통과하면 폼 제출
-    document.getElementById("resortForm").submit();
+    document.getElementById("updateForm").submit();
 }
 
 //전화번호 자동 하이픈 삽입 함수

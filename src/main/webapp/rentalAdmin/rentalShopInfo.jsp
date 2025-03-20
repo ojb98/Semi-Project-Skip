@@ -16,17 +16,17 @@
         document.getElementById("dynamicContent").style.display = section !== 'rental' ? "block" : "none";
     }
 
-
     function loadItemCategoryInfo(page) {
         showSection('item');
-        var resortId = document.getElementById("rentalInfo").getAttribute("data-rental-id");
+        // rentalInfo 요소에 저장된 rentalshop_id를 가져옵니다.
+        var rentalshopId = document.getElementById("rentalInfo").getAttribute("data-rental-id");
 
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "${pageContext.request.contextPath}/adminItemCategory/detail?rentalshop_id=" + rentalshopId + "&page=" + page, true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 document.getElementById("dynamicContent").innerHTML = xhr.responseText;
-                document.getElementById("dynamicContent").setAttribute("data-rental-id", rentalshopId); // resort_id 저장
+                document.getElementById("dynamicContent").setAttribute("data-rental-id", rentalshopId); // rentalshop_id 저장
             }
         };
         xhr.send();
@@ -39,6 +39,7 @@
     }
 </script>
 
+
 </head>
 <body>
 
@@ -46,7 +47,7 @@
 <main class="main-content">
 <div class="button-container">
     <button onclick="showRentalShopInfo()">렌탈샵 상세보기</button>
-    <button onclick="loadItemCategoryInfo(1)">장비&카테고리 상세보기</button>
+    <button onclick="loadItemCategoryInfo(1)">카테고리&장비 상세보기</button>
 </div>
 
 
@@ -54,7 +55,7 @@
 <h1>렌탈샵 상세정보</h1>
 
 <div class="button-container-right">
-	<a href="${pageContext.request.contextPath }/adminRental/update?rentalshop_id=${rddto.rentalshop_id}" >
+	<a href="${pageContext.request.contextPath }/adminRental/update?rentalshop_id=${rsdto.rentalshop_id}" >
 	<button class="update-btn">수정</button></a>
 </div>
 	

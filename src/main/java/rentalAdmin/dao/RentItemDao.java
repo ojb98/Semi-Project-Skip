@@ -1,5 +1,7 @@
 package rentalAdmin.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -26,4 +28,22 @@ public class RentItemDao {
 			return n;
 		}
 	}
+	
+	//하나의 렌탈샵에 있는 장비유형들 조회
+	public List<RentItemDTO> getItemList(int rentalshopId){
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectList(NAMESPACE+".getItemList",rentalshopId);
+		}
+	}
+	
+	//하나의 렌탈샵에 있는 장비유형들 모두 삭제
+	public int itemDelete(int rentalshopId) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			int n=sqlSession.delete(NAMESPACE+".riDelete",rentalshopId);
+			sqlSession.commit();
+			return n;
+		}
+	}
+	
+	
 }

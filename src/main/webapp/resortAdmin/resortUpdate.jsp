@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInsertUpdate.css">
 
-<script src="${pageContext.request.contextPath}/js/resortAdminUpdate.js"></script>
+<script src="${pageContext.request.contextPath}/js/adminUpdate.js"></script>
 
 <!-- 카카오(다음) 주소 API 스크립트 추가 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -35,11 +35,11 @@
 <main class="main-content">
 <h1>리조트 수정</h1>
 <div class="form-container">
-<form id="resortForm" action="${pageContext.request.contextPath }/adminResort/update" 
+<form id="updateForm" action="${pageContext.request.contextPath }/adminResort/update" 
 	method="post"enctype="multipart/form-data" onsubmit="return checkData(event)">
 	
-	<label for="resortName">리조트명</label><br>
-	<input type="text" name="name" id="resortName" value="${dto.name }"><br>
+	<label for="name">리조트명</label><br>
+	<input type="text" name="name" id="name" value="${dto.name }"><br>
 	
 	<label for="resortType">리조트 유형</label><br>
 	<select name="resort_type" id="resortType">

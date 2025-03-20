@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="rental.mapper.RentItemAdminMapper">
 
+  <!-- 장비유형 삽입 -->
   <insert id="riInsert" parameterType="rental.dto.RentItemDTO">
     insert into RENT_ITEM(item_id,category_id,rentalshop_id,item_name,item_detail,
     total_quantity,item_img,created_at)
@@ -11,4 +12,15 @@
     #{total_quantity},#{item_img},sysdate)
   </insert>
 
+  <!-- 하나의 렌탈샵의 장비유형 전체리스트 -->
+  <select id="getItemList" parameterType="int" resultType="rental.dto.RentItemDTO">
+    select * 
+    from RENT_ITEM
+  </select>
+  
+  <!-- 하나의 렌탈샵의 장비유형 전부 삭제 -->
+  <delete id="riDelete" parameterType="int">
+  	delete from RENT_ITEM where rentalshop_id=#{rentalshop_id}
+  </delete>
+  
 </mapper>

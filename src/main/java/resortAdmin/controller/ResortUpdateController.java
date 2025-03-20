@@ -52,7 +52,7 @@ public class ResortUpdateController extends HttpServlet{
 		Part subPart2=req.getPart("resub_img2");
 		Part subPart3=req.getPart("resub_img3");
 		
-		//싱글톤 dao
+		//리조트 정보 가져오기
 		ResortDTO dto=dao.getInfo(resortId);
 		
 		String orgMainImg=dto.getRemain_img();
@@ -60,7 +60,7 @@ public class ResortUpdateController extends HttpServlet{
 		String orgSubImg2=dto.getResub_img2();
 		String orgSubImg3=dto.getResub_img3();
 		
-
+		//이미지 저장 위치 
 		String path=req.getServletContext().getRealPath("/resortImg");
 			
 		//각 파트별로 새로운 파일이 업로드되었는지 확인
@@ -82,6 +82,7 @@ public class ResortUpdateController extends HttpServlet{
             orgSubImg3 = saveFile(subPart3, path, false);
         }	
 
+        //DB 작업
 		ResortDTO resortdto=new ResortDTO(resortId,uuid,name,resortType,phone,
 				location,orgMainImg,orgSubImg1,orgSubImg2,orgSubImg3,description,checkTime,null);
 		dao.resortUpdate(resortdto);
