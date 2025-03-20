@@ -88,12 +88,12 @@
             <div class="admin-name">관리자님</div>
         </div>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiAdminMain.jsp">사업장등록신청</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/testservlet2">상품등록/관리</a></li>
+            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiRegist.jsp">사업장등록신청</a></li>
+	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiItemRegist.jsp">상품등록/관리</a></li>
 	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReservation.jsp">예약 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/testservlet4">문의 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/testservlet5">리뷰 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/testservlet6">통계</a></li>
+	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiQnA.jsp">문의 관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReview.jsp">리뷰 관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiSaleManage.jsp">매출관리/통계</a></li>
         </ul>
     </aside>
     

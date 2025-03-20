@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <jsp:include page="/mypage/reserv_tab.jsp"/>
 
 <ul id="rental_list">
@@ -13,54 +15,85 @@
 				</div>
 				
 				<div class="reserv_content">
-					<table width="100%">
-						<colgroup>
-							<col style="width: 20%">
-							<col style="width: 35%"/>
-							<col style="width: 15%"/>
-							<col style="width: 15%"/>
-							<col style="width: 15%"/>
-						</colgroup>
-				
-						<thead hidden>
-							<tr>
-								<th>시설</th>
-								<th>장비 상세</th>
-								<th>총금액</th>
-								<th>예약일/예약상태</th>
-								<th>버튼</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<div>${dto.name}</div>
-								</td>
-								<td>
-									<div class="reserv_items">
-										<c:forEach var="itemDto" items="${dto.rentalReservationItemDtoList}">
-											<div>
-												<span>${itemDto.item_name} </span>
-												<span>${itemDto.quantity}개 </span>
-												<span>${itemDto.subtotal_price}원</span>
-											</div>
-										</c:forEach>
+					<div class="reserv_place"><a href="">${dto.name}</a></div>
+					<div class="reserv_stat">
+						<div class="reserv_items">
+							<div>
+								<c:forEach var="itemDto" items="${dto.rentalReservationItemDtoList}">
+									<div class="reserv_item">
+										<span class="item_name">${itemDto.item_name} </span>
+										<span class="item_stat"><fmt:formatNumber value="${itemDto.subtotal_price div itemDto.quantity}" type="number" pattern="###, ###"/>원 <span class="delimiter">·</span> ${itemDto.quantity}개</span>
 									</div>
-								</td>
-								<td>
-									<div>${dto.total_price}</div>
-								</td>
-								<td>
-									<div>${dto.rental_start}</div>
-								</td>
-								<td>
-									<div>버튼</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+								</c:forEach>
+							</div>
+						</div>
+						<div class="reserv_price">
+							<span><fmt:formatNumber value="${dto.total_price}" type="number"/>원</span>
+						</div>
+					</div>
+					<div class="reserv_date">
+						<div>
+							<div class="reserv_time"><fmt:formatDate value="${dto.rental_start}" type="date" pattern="yyyy-MM-dd"/></div>
+							<div class="reserv_time"><fmt:formatDate value="${dto.rental_start}" type="time"/></div>
+						</div>
+						<div>
+							<div class="reserv_time"><fmt:formatDate value="${dto.rental_end}" type="date" pattern="yyyy-MM-dd"/></div>
+							<div class="reserv_time"><fmt:formatDate value="${dto.rental_end}" type="time"/></div>
+						</div>
+						<div class="reserv_status">${dto.status}</div>
+					</div>
+					<div class="reserv_btns">
+						<div>
+							<input class="review_btn" type="button" value="취소하기">
+						</div>
+						<div>
+							<input class="review_btn" type="button" value="리뷰하기">
+						</div>
+						<div>
+							<input class="review_btn" type="button" value="문의하기">
+						</div>
+					</div>
 				</div>
 			</div>
 		</li>
 	</c:forEach>
 </ul>
+
+<div class="reserv_page">
+	<c:choose>
+		<c:when test="${startPage != 1}">
+			<input class="page_prev page_active" type="button" value="이전" onclick="clickPrev()"/>
+		</c:when>
+		<c:otherwise>
+			<input class="page_prev page_inactive" type="button" value="이전">
+		</c:otherwise>
+	</c:choose>
+	<c:forEach var="i" begin="${startPage}" end="${endPage}">
+		<c:choose>
+			<c:when test="${i == pageNum}">
+				<span>${i}</span>
+			</c:when>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/mypage/bookings/rental?pageNum=${i}&year=${year}">${i}</a>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+	<c:choose>
+		<c:when test="${endPage != pageCount}">
+			<input class="page_next page_active" type="button" value="다음" onclick="clickNext()"/>
+		</c:when>
+		<c:otherwise>
+			<input class="page_next page_inactive" type="button" value="다음">
+		</c:otherwise>
+	</c:choose>
+</div>
+
+<script>
+	function clickPrev() {
+		location.href = "${pageContext.request.contextPath}/mypage/bookings/rental?pageNum=${startPage - 1}&year=${year}";
+	}
+	
+	function clickNext() {
+		location.href = "${pageContext.request.contextPath}/mypage/bookings/rental?pageNum=${endPage + 1}&year=${year}";
+	}
+</script>

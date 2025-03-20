@@ -2,10 +2,13 @@ package resort.dto;
 
 import java.sql.Date;
 
-public class ResortReservationDto {
+public class ResortReservationListDto {
 	private int resort_reserv_id;
+	private String name; // 리조트 이름
 	private int uuid;
 	private int room_id;
+	private String room_name;
+	private String room_type;
 	private Date checkin_date;
 	private Date checkout_date;
 	private int quantity;
@@ -13,16 +16,20 @@ public class ResortReservationDto {
 	private String status;
 	private Date created_at;
 
-	public ResortReservationDto() {
+	public ResortReservationListDto() {
 		
 	}
 
-	public ResortReservationDto(int resort_reserv_id, int uuid, int room_id, Date checkin_date, Date checkout_date,
-			int quantity, int total_price, String status, Date created_at) {
+	public ResortReservationListDto(int resort_reserv_id, String name, int uuid, int room_id, String room_name,
+			String room_type, Date checkin_date, Date checkout_date, int quantity, int total_price, String status,
+			Date created_at) {
 		super();
 		this.resort_reserv_id = resort_reserv_id;
+		this.name = name;
 		this.uuid = uuid;
 		this.room_id = room_id;
+		this.room_name = room_name;
+		this.room_type = room_type;
 		this.checkin_date = checkin_date;
 		this.checkout_date = checkout_date;
 		this.quantity = quantity;
@@ -39,6 +46,14 @@ public class ResortReservationDto {
 		this.resort_reserv_id = resort_reserv_id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getUuid() {
 		return uuid;
 	}
@@ -53,6 +68,22 @@ public class ResortReservationDto {
 
 	public void setRoom_id(int room_id) {
 		this.room_id = room_id;
+	}
+
+	public String getRoom_name() {
+		return room_name;
+	}
+
+	public void setRoom_name(String room_name) {
+		this.room_name = room_name;
+	}
+
+	public String getRoom_type() {
+		return room_type;
+	}
+
+	public void setRoom_type(String room_type) {
+		this.room_type = room_type;
 	}
 
 	public Date getCheckin_date() {

@@ -1,47 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="info_title">
+<div class="nav_title">
 	<h1>회원 정보</h1>
 </div>
-<form class="user_info" action="${pageContext.request.contextPath}/mypage/account/update" method="post" onsubmit="">
+<form class="user_info" action="${pageContext.request.contextPath}/mypage/info" method="post" onsubmit="return checkIfValid()">
 	<div class="input_frame">
 		<div class="input_box">
 			<span class="input_desc">아이디</span>
 			<span class="output_text">${user.user_id}</span></div>
 		<div class="input_box">
 			<span class="input_desc">비밀번호</span>
-			<input class="input_text" type="password" name="password" placeholder="새 비밀번호를 입력해주세요.">
-			<div class="err_msg passwordErrMsg"></div>
+			<input class="input_text" type="password" name="password" placeholder="새 비밀번호를 입력해주세요." onblur="checkPassword()">
+		</div>
+		<div class="err_box">
+			<span class="err_msg passwordErrMsg"></span>
 		</div>
 		<div class="input_box">
 			<span class="input_desc">새 비밀번호</span>
-			<input class="input_text" type="password" name="cpassword" placeholder="새 비밀번호를 확인해주세요.">
-			<div class="err_msg cpasswordErrMsg"></div>
+			<input class="input_text" type="password" name="cpassword" placeholder="새 비밀번호를 확인해주세요." onkeyup="checkCpassword()">
+		</div>
+		<div class="err_box">
+			<span class="err_msg cpasswordErrMsg"></span>
 		</div>
 	</div>
 	<div class="input_frame">
 		<div class="input_box">
-			<span class="input_desc">이름</span>
-			<input class="input_text" type="text" name="name" value="${user.name}">
-			<div class="err_msg nameErrMsg"></div>
+			<span class="input_desc">이메일</span>
+			<span class="output_text">${user.email}</span>
 		</div>
 		<div class="input_box">
-			<span class="input_desc">이메일</span>
-			<div class="input_email">
-				<input class="input_text" type="text" name="email" value="${user.email}"><a class="input_btn" href="javascript:verifyEmail();">인증</a>
-			</div>
-			<div class="err_msg emailErrMsg"></div>
+			<span class="input_desc">이름</span>
+			<input class="input_text" type="text" name="name" value="${user.name}" onblur="checkName()">
 		</div>
-		<div class="input_box" hidden>
-			<span class="input_desc">인증번호</span>
-			<input class="input_text" type="text" name="verCode" placeholder="인증번호를 입력해주세요.">
-			<div class="err_msg verCodeErrMsg"></div>
+		<div class="err_box">
+			<span class="err_msg nameErrMsg"></span>
 		</div>
 		<div class="input_box">
 			<span class="input_desc">전화번호</span>
-			<input class="input_text" type="text" name="phone" value="${user.phone}">
-			<div class="err_msg phoneErrMsg"></div>
+			<input class="input_text" type="text" name="phone" value="${user.phone}" onblur="checkPhone()">
+		</div>
+		<div class="err_box">
+			<span class="err_msg phoneErrMsg"></span>
 		</div>
 	</div>
 	<div class="input_frame">
@@ -75,36 +75,24 @@
 <script>
 	const password = document.getElementsByName("password")[0];
 	const cpassword = document.getElementsByName("cpassword")[0];
-	const email = document.getElementsByName("email")[0];
-	const verCode = document.getElementsByName("verCode")[0];
 	const phone = document.getElementsByName("phone")[0];
 	const name = document.getElementsByName("name")[0];
 	
 	const passwordErrMsg = document.getElementsByClassName("passwordErrMsg")[0];
 	const cpasswordErrMsg = document.getElementsByClassName("cpasswordErrMsg")[0];
-	const emailErrMsg = document.getElementsByClassName("emailErrMsg")[0];
-	const verCodeErrMsg = document.getElementsByClassName("verCodeErrMsg")[0];
 	const phoneErrMsg = document.getElementsByClassName("phoneErrMsg")[0];
 	const nameErrMsg = document.getElementsByClassName("nameErrMsg")[0];
-
+	
 	// 전체 유효성 검사	
 	function checkIfValid() {
 		checkPassword();
 		checkCpassword();
-		checkEmail();
-		checkVerCode();
 		checkPhone();
 		checkName();
 		if (passwordErrMsg.innerHTML !== "") {
 			return false;
 		}
 		if (cpasswordErrMsg.innerHTML !== "") {
-			return false;
-		}
-		if (emailErrMsg.innerHTML !== "") {
-			return false;
-		}
-		if (verCodeErrMsg.innerHTML !== "") {
 			return false;
 		}
 		if (phoneErrMsg.innerHTML !== "") {
@@ -150,31 +138,6 @@
 		}
 	}
 	
-	function checkEmail() {
-		emailErrMsg.innerHTML = "";
-
-		// 이메일 형식 체크
-		const a = email.value.indexOf("@");
-		const p = email.value.indexOf(".");
-		if (a < 1 || p < a + 2 || p === email.value.length - 1) {
-			emailErrMsg.innerHTML = "이메일 형식을 맞춰주세요.";
-		}
-		
-		// 이메일 인증 체크
-		if (verCode.type === 'hidden') {
-			emailErrMsg.innerHTML = "이메일을 인증해주세요.";
-		}
-	}
-
-	function checkVerCode() {
-		verCodeErrMsg.innerHTML = "";
-
-		// 인증 번호 체크
-		if (verCode.value !== verificationCode) {
-			verCodeErrMsg.innerHTML = "인증번호가 일치하지 않습니다.";
-		}
-	}
-	
 	function checkPhone() {
 		phoneErrMsg.innerHTML = "";
 
@@ -200,25 +163,5 @@
 		if (name.value === '') {
 			nameErrMsg.innerHTML = "이름을 입력해주세요.";
 		}
-	}
-	
-	function verifyEmail() {
-		checkEmail();
-		emailErrMsg.innerHTML = (emailErrMsg.innerHTML === "이메일을 인증해주세요.") ? "" : emailErrMsg.innerHTML;
-		if (emailErrMsg.innerHTML !== "") {
-			return;
-		}
-		const verify_btn = document.getElementsByClassName("input_btn");
-		const xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = () => {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				const json = JSON.parse(xhr.responseText);
-				verCode.type = "text";
-				verCodeErrMsg.style.display = "block";
-				verificationCode = json.verificationCode;
-			}
-		};
-		xhr.open('get', "${pageContext.request.contextPath}/users/email/verify?email=" + email.value);
-		xhr.send();
 	}
 </script>

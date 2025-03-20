@@ -10,7 +10,7 @@
 	</select>
 
 	<select id="selectUser" resultType="users.dto.UsersDto" parameterType="hashmap">
-		select *
+		select uuid, user_id, password, email, name, phone, social, role, status, regdate
 		from users
 		where user_id = #{user_id} and password = #{password}
 	</select>
@@ -39,9 +39,16 @@
 		where uuid = #{uuid}
 	</update>
 	
-	<delete id="deleteUser">
-		delete
-		from users
+	<update id="updateUser" parameterType="hashmap">
+		update users
+		set password = #{password}, name = #{name}, phone = #{phone}
 		where uuid = #{uuid}
-	</delete>
+	</update>
+	
+	<update id="deleteUser">
+		update users
+		set status = 'N'
+		where uuid = #{uuid}
+	</update>
+
 </mapper>

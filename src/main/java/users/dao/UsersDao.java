@@ -72,6 +72,15 @@ public class UsersDao {
 		}
 	}
 	
+	public int updateUser(HashMap<String, Object> map) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			int n = sqlSession.update(NAMESPACE + ".updateUser", map);
+			sqlSession.commit();
+			return n;
+		}
+	}
+	
+
 	public int deleteUser(int uuid) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			int n = sqlSession.update(NAMESPACE + ".deleteUser", uuid);

@@ -1,21 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="mypage_nav_container">
+<div class="mypage nav_container">
 	<ul>
 		<li>
-			<a class="info" href="${pageContext.request.contextPath}/mypage/info">회원정보</a>
+			<input class="info" type="button" value="회원 정보" onclick="clickInfo()">
 		</li>
 		<li>
-			<a class="skiBookings rentalBookings resortBookings" href="${pageContext.request.contextPath}/mypage/bookings/ski">예약</a>
+			<input class="skiBookings rentalBookings resortBookings" type="button" value="예약 목록" onclick="clickBookings()">
 		</li>
 		<li>
-			<a class="reviews" href="${pageContext.request.contextPath}/mypage/reviews">리뷰</a>
+			<input class="reviews" type="button" value="리뷰 목록" onclick="clickReviews()">
 		</li>
 		<li>
-			<a href="inquiries">문의</a>
+			<input class="inquiries" type="button" value="문의 목록" onclick="clickInquiries()">
 		</li>
 		<li>
-			<a class="delete" href="${pageContext.request.contextPath}/mypage/account/delete">회원탈퇴</a>
+			<input class="delete" type="button" value="회원 탈퇴" onclick="clickDelete()">
 		</li>
 	</ul>
 </div>
+
+<script>
+	function clickInfo() {
+		location.href = "${pageContext.request.contextPath}/mypage/info";
+	}
+	
+	function clickBookings() {
+		location.href = "${pageContext.request.contextPath}/mypage/bookings/ski";
+	}
+	
+	function clickReviews() {
+		location.href = "${pageContext.request.contextPath}/mypage/reviews";
+	}
+	
+	function clickInquiries() {
+		location.href = "${pageContext.request.contextPath}/mypage/inquiries";
+	}
+	
+	function clickDelete() {
+		location.href = "${pageContext.request.contextPath}/mypage/account/delete";
+	}
+</script>

@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>관리자 페이지</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
     
 	<script type="text/javascript">
 	  var contextPath = "${pageContext.request.contextPath}";

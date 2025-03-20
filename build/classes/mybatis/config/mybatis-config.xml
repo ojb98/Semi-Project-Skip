@@ -15,8 +15,9 @@
 	  </environment>
 	</environments>
 	<mappers>
-		<mapper resource="users/mapper/UsersMapper.xml" />
-		<mapper resource="ski/mapper/SkiReservationMapper.xml" />
+		<mapper resource="users/mapper/UsersMapper.xml"/>
+		<mapper resource="ski/mapper/SkiReservationMapper.xml"/>
+		<mapper resource="resort/mapper/ResortReservationMapper.xml"/>
 		<mapper resource="rental/mapper/RentalReservationMapper.xml"/>
 		<mapper resource="review/mapper/ReviewsMapper.xml"/>
 	    <mapper resource="mybatis/mapper/RootAdminMapper.xml"/>
@@ -28,5 +29,6 @@
 	    <mapper resource="rental/mapper/RentalShopAdminMapper.xml" />
 	    <mapper resource="rental/mapper/RentItemAdminMapper.xml" />
 	    <mapper resource="rental/mapper/RentCategoryAdminMapper.xml" />
+	    <mapper resource="adminPageMapper/AdminApprovalRequestMapper.xml"/>
 	</mappers>
 </configuration>

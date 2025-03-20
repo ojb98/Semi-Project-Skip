@@ -1,11 +1,13 @@
 package ski.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import ski.dto.SkiReservationListDto;
+import ski.dto.SkiReservationPrintDto;
 import util.SqlSessionFactoryService;
 
 public class SkiReservationDao {
@@ -22,9 +24,21 @@ public class SkiReservationDao {
 		return instance;
 	}
 	
-	public List<SkiReservationListDto> selectByUuid(int uuid) {
+	public int getCount(HashMap<String, Object> map) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			return sqlSession.selectOne(NAMESPACE + ".getCount", map);
+		}
+	}
+	
+	public List<SkiReservationListDto> selectByUuid(HashMap<String, Object> map) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			return sqlSession.selectList(NAMESPACE + ".selectByUuid", map);
+		}
+	}
+	public List<SkiReservationPrintDto> selectReservationBySkiId(int uuid) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			return sqlSession.selectList(NAMESPACE + ".selectByUuid", uuid);
 		}
 	}
+	
 }
