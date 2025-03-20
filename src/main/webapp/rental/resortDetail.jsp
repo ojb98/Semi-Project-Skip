@@ -925,37 +925,7 @@
                 <button class="tab-button active" onclick="showTab('review')">리뷰</button>
                 <button class="tab-button" onclick="showTab('qna')">Q&A</button>
             </div>
-            <ul class="">
-            
-            </ul>
-			
-			<!-- 
-            <div id="review-section" class="tab-content">
-                <div class="review-list">
-                    <div class="review_amount">
-                        <h3>리뷰 ${requestScope.reviewCount} 건</h3>
-                    </div>
-                    <c:forEach var="review" items="${requestScope.reviewList}">
-                        <div class="review-item">
-                            <div class="review-header">
-                                <span class="review-user">${review.name}</span>
-                                <span class="review-rating">
-                                    <i class="fas fa-star" style="color: #FFA500;"></i>
-                                    <fmt:formatNumber value="${review.rating}" type="number" maxFractionDigits="1"/>
-                                </span>
-                                <span class="review-date">${review.created_at}</span>
-                            </div>
-                            <div class="review-content">
-                                <p>${review.resort_comment}</p>
-                            </div>
-                            <c:if test="${not empty review.review_img}">
-                                <img src="${review.review_img}" alt="Review Image" class="review-image"/>
-                            </c:if>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>			
-			 -->
+
          <div class="review_tab">
           <div class="review_title">
             <div class="title_left">
