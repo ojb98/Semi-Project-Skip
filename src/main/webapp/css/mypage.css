@@ -97,14 +97,6 @@
     text-align: left;
 }
 
-.user_info .input_email {
-    position: relative;
-}
-
-.user_info .input_email input {
-    width: 274px;
-}
-
 .user_info .input_btn {
     position: absolute;
     font-size: 0.9em;
