@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="rental.mapper.RentCategoryAdminMapper">
+
   <!-- 카테고리 등록 -->
   <insert id="rcInsert" parameterType="rental.dto.RentItemCategoryDTO">
     insert into ITEM_CATEGORY(category_id,item_type,price_per_hour)
@@ -39,5 +40,17 @@
   where i.rentalshop_id=#{rentalshop_id}
   order by i.item_id desc
   </select>
+  
+  <!-- 카테고리아이디로 카테고리 데이터 조회(1건) -->
+  <select id="getCategoryId" parameterType="int" resultType="rental.dto.RentItemCategoryDTO">
+    select category_id,item_type,price_per_hour from ITEM_CATEGORY 
+    where category_id=#{category_id }
+  </select>
+  
+  <!-- 카테고리 가격만 수정하기 -->
+  <update id="rcmUpdate" parameterType="hashmap">
+  	update ITEM_CATEGORY set price_pre_hour=#{price}
+  	where category_id=#{categoryId}
+  </update>
 
 </mapper>

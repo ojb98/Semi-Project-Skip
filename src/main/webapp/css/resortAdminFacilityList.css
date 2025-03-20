@@ -41,6 +41,12 @@
         margin: 5px;
         border-radius: 5px;
     }
+    
+    /* 수정 버튼 - 노랑 */
+    .update-btn {
+        background-color: #ffc107;
+        color: black;
+    }
 
     /* 삭제 버튼 - 빨강 */
     .delete-btn {

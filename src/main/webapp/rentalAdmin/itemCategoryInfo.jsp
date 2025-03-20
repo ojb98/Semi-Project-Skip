@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <h1>카테고리&장비 상세정보</h1>
 	<table border="1" width="1000">
@@ -26,15 +26,16 @@
             <td>${it.item_name }</td>
             <td>${it.item_detail }</td>
             <td>${it.total_quantity }</td>
-            <td>${list.price_per_hour}</td>
+            <fmt:formatNumber var="price" value="${list.price_per_hour }" pattern="###,###" />
+            <td>${price }원</td>
             <td>
                 <img src="${pageContext.request.contextPath}/rentItemImg/${it.item_img}" width="100">
             </td>
             <td>${it.created_at}</td>
-            <td><a href="${pageContext.request.contextPath}/admin/update?">
+            <td><a href="${pageContext.request.contextPath}/adminItemCategory/update?item_id=${it.item_id}&category_id=${list.category_id}">
             <button class="update-btn">수정</button></a></td>
             <td>
-            	<a href="${pageContext.request.contextPath}/admin/delete?" 
+            	<a href="${pageContext.request.contextPath}/adminItem/delete?item_id=${it.item_id}" 
             		onclick="return confirm('정말 삭제하시겠습니까?');">
             	<button class="delete-btn">삭제</button>
             	</a>

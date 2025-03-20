@@ -14,13 +14,26 @@
 
   <!-- 하나의 렌탈샵의 장비유형 전체리스트 -->
   <select id="getItemList" parameterType="int" resultType="rental.dto.RentItemDTO">
-    select * 
+    select item_id,category_id,rentalshop_id,item_name,
+    item_detail,total_quantity,item_img,created_at
     from RENT_ITEM
   </select>
   
   <!-- 하나의 렌탈샵의 장비유형 전부 삭제 -->
-  <delete id="riDelete" parameterType="int">
+  <delete id="riListDelete" parameterType="int">
   	delete from RENT_ITEM where rentalshop_id=#{rentalshop_id}
   </delete>
+  
+  <!-- 장비고유아이디로 장비유형 삭제(1건) -->
+  <delete id="riDelete" parameterType="int">
+    delete from RENT_ITEM where item_id=#{itemId}
+  </delete>
+  
+  <!--장비고유아이디로 장비유형 데이터 조회(1건) -->
+  <select id="getItemId" parameterType="int" resultType="rental.dto.RentItemDTO">
+  	select item_id,category_id,rentalshop_id,item_name,
+    item_detail,total_quantity,item_img,created_at
+    from RENT_ITEM where item_id=#{item_id}
+  </select>
   
 </mapper>

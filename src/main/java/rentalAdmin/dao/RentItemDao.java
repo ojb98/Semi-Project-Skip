@@ -37,11 +37,27 @@ public class RentItemDao {
 	}
 	
 	//하나의 렌탈샵에 있는 장비유형들 모두 삭제
-	public int itemDelete(int rentalshopId) {
+	public int itemListDelete(int rentalshopId) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
-			int n=sqlSession.delete(NAMESPACE+".riDelete",rentalshopId);
+			int n=sqlSession.delete(NAMESPACE+".riListDelete",rentalshopId);
 			sqlSession.commit();
 			return n;
+		}
+	}
+	
+	//장비고유아이디로 장비유형 삭제(1건)
+	public int itemDelete(int itemId) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			int n=sqlSession.delete(NAMESPACE+".riDelete",itemId);
+			sqlSession.commit();
+			return n;
+		}
+	}
+	
+	//장비고유아이디로 장비유형 데이터 조회(1건)
+	public RentItemDTO getItemId(int itemId){
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectOne(NAMESPACE+".getItemId",itemId);
 		}
 	}
 	

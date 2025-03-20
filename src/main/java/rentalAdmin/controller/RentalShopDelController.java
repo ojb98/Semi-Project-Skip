@@ -54,7 +54,7 @@ public class RentalShopDelController extends HttpServlet{
 	     }
 	     
 	     //DB에서 렌탈샵과 장비유형 삭제처리
-	     ridao.itemDelete(rentalId);
+	     ridao.itemListDelete(rentalId);
 	     int n = rsdao.rentalDelete(rentalId);
 	     
 	     

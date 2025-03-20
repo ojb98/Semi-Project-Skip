@@ -29,7 +29,7 @@
 	<label for="quantity">총 장비수량</label>
 	<input type="number" name="total_quantity" id="quantity"><br>
 	
-	<label for="itemImg">메인이미지</label>
+	<label for="itemImg">장비 이미지</label>
 	<input type="file" name="item_img" id="itemImg"><br>
 	
 	

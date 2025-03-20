@@ -26,8 +26,5 @@ public class RentalShopDetailController extends HttpServlet{
 		req.getRequestDispatcher("/rentalAdmin/rentalShopInfo.jsp").forward(req, resp);
 	}
 	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-	}
+	
 }

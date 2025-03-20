@@ -1,5 +1,6 @@
 package rentalAdmin.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -40,6 +41,23 @@ public class RentCategoryDao {
 	public List<ItemCategoryListDTO> itemCategoryList(int rentalshopId){
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectList(NAMESPACE+".itemCategoryList",rentalshopId);
+		}
+	}
+	
+	//카테고리 고유아이디로 카테고리 데이터 조회(1건)
+	public RentItemCategoryDTO getCategoryId(int categoryId){
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectOne(NAMESPACE+".getCategoryId",categoryId);
+		}
+	}
+	
+	
+	//카테고리 가격만 수정
+	public int categoryMapUpdate(HashMap<String,Integer> map) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			int n=sqlSession.update(NAMESPACE+".rcmUpdate",map);
+			sqlSession.commit();
+			return n;
 		}
 	}
 	
