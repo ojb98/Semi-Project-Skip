@@ -1,999 +1,996 @@
-<%@ page import="dto.ResortDTO" %>
-<%@ page import="java.util.List" %>
-<%@ page import="dto.RoomDTO" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Calendar" %>
-<%@ page import="dto.ResortReviewDTO" %>
-<%@ page import="dao.UsersDao" %>
-	
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="dto.ResortDTO"%>
+<%@ page import="java.util.List"%>
+<%@ page import="dto.RoomDTO"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Calendar"%>
+<%@ page import="dto.ResortReviewDTO"%>
+<%@ page import="dao.UsersDao"%>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html>
 <head>
-    <title>resort</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <%-- 아이콘 --%>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <%-- 달력 --%>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
-
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/reset.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/font.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/search.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/detail.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/save.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/cart.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/pay.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css">
-    <%-- flatpickr 한국어 --%>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: white;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .container {
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 0;
-        }
-
-        header {
-            border-bottom: 1px solid #e9e9e9;
-        }
-
-        .header_logo {
-            font-family: 'GumiRomanceTTF';
-            font-style: italic;
-            color: #5399f5;
-            font-size: 24px;
-            font-weight: 700;
-            line-height: 58px;
-        }
-
-        .header_menu,
-        .header_nav {
-            height: 58px;
-        }
-
-        /* header_nav */
-        .header_menu {
-            width: 1230px;
-            /* padding: 0 75px; */
-            margin: 0 auto;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .menu ul {
-            display: flex;
-            font-weight: 700;
-            gap: 34px;
-        }
-
-        .login ul {
-            display: flex;
-            font-weight: 700;
-            gap: 34px;
-        }
-
-        .header_menu a:hover {
-            color: #5399f5;
-        }
-
-
-        /*.nav {*/
-        /*    background: white;*/
-        /*    padding: 1rem 0;*/
-        /*    position: sticky;*/
-        /*    top: 0;*/
-        /*    z-index: 1000;*/
-        /*    border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
-        /*}*/
-
-        /*.nav-container {*/
-        /*    display: flex;*/
-        /*    justify-content: space-between;*/
-        /*    align-items: center;*/
-        /*    max-width: 1280px;*/
-        /*    margin: 0 auto;*/
-        /*    padding: 0 1rem;*/
-        /*}*/
-
-        /*.nav-logo {*/
-        /*    color: #5399F5;*/
-        /*    text-decoration: none;*/
-        /*    font-weight: 800;*/
-        /*    font-size: 2rem;*/
-        /*    font-style: italic;*/
-        /*}*/
-
-        /*.nav-menu {*/
-        /*    display: flex;*/
-        /*    gap: 2rem;*/
-        /*    list-style: none;*/
-        /*}*/
-
-        /*.nav-menu a {*/
-        /*    color: black;*/
-        /*    text-decoration: none;*/
-        /*    font-weight: 600;*/
-        /*    padding: 0.4rem 1rem;*/
-        /*    border-radius: 12px;*/
-        /*    transition: all 0.2s ease-in-out;*/
-        /*}*/
-
-        /*.nav-menu a:hover {*/
-        /*    background: rgba(66, 133, 244, 0.08);*/
-        /*    color: #4285F4;*/
-        /*}*/
-
-        .content-wrapper {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .search-info-box {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            background-color: #F7F7F7;
-            width: fit-content;
-            height: 42px;
-            border-radius: 30px;
-            padding: 0 8px;
-            gap: 4px;
-            border: 1px solid #EBEBEB;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            margin: 20px 0;
-        }
-
-        .search {
-            display: flex;
-            align-items: center;
-            padding: 8px 16px;
-            gap: 8px;
-            border-right: 1px solid #EBEBEB;
-            min-width: 200px;
-        }
-
-        .search i {
-            color: #666;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .search-date {
-            display: flex;
-            align-items: center;
-            padding: 8px 16px;
-            border-right: 1px solid #EBEBEB;
-            color: #333;
-            font-weight: 500;
-        }
-
-        .search-date input {
-            border: none;
-            background-color: transparent;
-            color: #333;
-            cursor: pointer;
-            padding: 8px;
-            font-size: 14px;
-        }
-
-        .search-maxGuest {
-            display: flex;
-            align-items: center;
-            padding: 8px 16px;
-            color: #333;
-            font-weight: 500;
-        }
-
-        .image-container {
-            margin: 0;
-            padding: 0;
-        }
-
-        .image-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 8px;
-            height: 550px;
-            position: relative;
-        }
-
-        .main-image {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        .main-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 15px 0 0 15px;
-        }
-
-        .sub-images {
-            display: grid;
-            grid-template-rows: 1fr 1fr;
-            gap: 8px;
-            height: 100%;
-        }
-
-        .sub-image-top {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .sub-image-top img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .sub-image-bottom {
-            width: 100%;
-            height: 100%;
-        }
-
-        .sub-image-bottom img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .sub-image-top img:first-child {
-            border-radius: 0 15px 0 0;
-        }
-
-        .sub-image-top img:last-child {
-            border-radius: 0 15px 0 0;
-        }
-
-        .sub-image-bottom img {
-            border-radius: 0 0 15px 0;
-        }
-
-        .more-photos {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .more-photos:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .more-photos i {
-            margin-right: 6px;
-        }
-
-        .search input {
-            border: none;
-            outline: none;
-            background: transparent;
-            font-size: 14px;
-            width: 150px;
-            color: #333;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .search input::placeholder {
-            color: #999;
-        }
-
-        .resort-info {
-            margin-top: 24px;
-            border-bottom: 1px solid #EBEBEB;
-            padding-bottom: 24px;
-        }
-
-        .resort-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: #333;
-        }
-
-        .resort-price {
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .resort-price span {
-            font-weight: normal;
-            font-size: 16px;
-        }
-
-        .service-icons {
-            display: flex;
-            gap: 24px;
-            margin-top: 20px;
-        }
-
-        .service-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .service-item i {
-            font-size: 18px;
-            color: #333;
-        }
-
-        .review-count {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: #666;
-            font-size: 14px;
-            margin-top: 12px;
-        }
-
-        .review-count i {
-            color: #FFA500;
-        }
-
-        .room-selection {
-            margin-top: 40px;
-        }
-
-        .room-selection h2 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .room-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .room-item {
-            display: flex;
-            gap: 24px;
-            padding: 24px;
-            background: #F8F9FA;
-            border-radius: 12px;
-        }
-
-        .room-image {
-            width: 280px;
-            height: 186px;
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .room-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .room-image .photo-count {
-            position: absolute;
-            right: 8px;
-            bottom: 8px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-
-        .room-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .room-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 16px;
-        }
-
-        .room-name {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .room-detail-link {
-            color: #2B96ED;
-            text-decoration: none;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .room-detail-link:hover {
-            text-decoration: underline;
-        }
-
-        .room-time {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-
-        .room-features {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 16px;
-        }
-
-        .room-price-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .room-price {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .price-amount {
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .price-text {
-            flex: 1;
-            text-align: left;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); 
-            overflow: auto;
-            padding-top: 60px;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            height: 80%;
-            max-width: 1000px;
-            text-align: center;
-        }
-
-        .close {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            position: absolute;
-            top: 10px;
-            right: 25px;
-            transition: 0.3s;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-images {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            padding: 10px;
-        }
-
-        .modal-image {
-            width: 100%;
-            aspect-ratio: 1920 / 1260;
-            object-fit: cover;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .modal-image:hover {
-            transform: scale(1.05);
-        }
-
-        .tab-button.active {
-            color: #5399F5;
-            border-bottom: 2px solid #5399F5;
-        }
-
-        .tab-button:hover {
-            color: #5399F5;
-        }
-
-        .review-qna-container {
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 7rem 0;
-        }
-
-        .tab-container {
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 2rem;
-        }
-
-        .tab-button {
-            font-size: 16px;
-            padding: 1rem 2rem;
-            border: none;
-            background: none;
-            cursor: pointer;
-        }
-
-        .tab-button:first-child {
-            font-weight: bold;
-        }
-
-        .review-meta span {
-            color: #5399F5;
-        }
-
-        .review-list,
-        .qna-list {
-            height: 500px;
-        }
-
-        .review-item,
-        .qna-item {
-            padding: 1.5rem 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .review-list {
-            margin-top: 20px;
-        }
-
-        .review-item {
-            padding: 1.5rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            background-color: #f9f9f9;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .review-item:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .review-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .review-user {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .review-rating {
-            color: #FFA500;
-        }
-
-        .review-date {
-            font-size: 12px;
-            color: #999;
-        }
-
-        .review-content {
-            margin: 0.5rem 0;
-            color: #555;
-        }
-
-        .review-image {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-top: 0.5rem;
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .quantity-btn {
-            width: 30px;
-            height: 30px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            background-color: white;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #5399F5;
-            transition: all 0.2s ease;
-        }
-
-        .quantity-btn:hover {
-            background-color: #5399F5;
-            color: white;
-            border-color: #5399F5;
-        }
-
-        .room-price-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .room-price {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .price-amount {
-            flex: 1;
-            text-align: left;
-        }
-
-        .price-text {
-            flex: 1;
-            text-align: left;
-        }
-
-        .purchase {
-            display: flex;
-            gap: 10px;
-        }
-
-        .purchase-button {
-            width: 100px;
-            height: 40px;
-            background-color: #5399F5;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .purchase-button:hover {
-            background-color: #4285F4;
-        }
-
-    </style>
+<title>resort</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<%-- 아이콘 --%>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<%-- 달력 --%>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/style.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/reset.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/font.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/search.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/detail.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/save.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/cart.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/pay.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/login.css">
+<%-- flatpickr 한국어 --%>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: white;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container {
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 0;
+}
+
+header {
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.header_logo {
+	font-family: 'GumiRomanceTTF';
+	font-style: italic;
+	color: #5399f5;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 58px;
+}
+
+.header_menu, .header_nav {
+	height: 58px;
+}
+
+/* header_nav */
+.header_menu {
+	width: 1230px;
+	/* padding: 0 75px; */
+	margin: 0 auto;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.menu ul {
+	display: flex;
+	font-weight: 700;
+	gap: 34px;
+}
+
+.login ul {
+	display: flex;
+	font-weight: 700;
+	gap: 34px;
+}
+
+.header_menu a:hover {
+	color: #5399f5;
+}
+
+/*.nav {*/
+/*    background: white;*/
+/*    padding: 1rem 0;*/
+/*    position: sticky;*/
+/*    top: 0;*/
+/*    z-index: 1000;*/
+/*    border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.nav-container {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    max-width: 1280px;*/
+/*    margin: 0 auto;*/
+/*    padding: 0 1rem;*/
+/*}*/
+
+/*.nav-logo {*/
+/*    color: #5399F5;*/
+/*    text-decoration: none;*/
+/*    font-weight: 800;*/
+/*    font-size: 2rem;*/
+/*    font-style: italic;*/
+/*}*/
+
+/*.nav-menu {*/
+/*    display: flex;*/
+/*    gap: 2rem;*/
+/*    list-style: none;*/
+/*}*/
+
+/*.nav-menu a {*/
+/*    color: black;*/
+/*    text-decoration: none;*/
+/*    font-weight: 600;*/
+/*    padding: 0.4rem 1rem;*/
+/*    border-radius: 12px;*/
+/*    transition: all 0.2s ease-in-out;*/
+/*}*/
+
+/*.nav-menu a:hover {*/
+/*    background: rgba(66, 133, 244, 0.08);*/
+/*    color: #4285F4;*/
+/*}*/
+.content-wrapper {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.search-info-box {
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	background-color: #F7F7F7;
+	width: fit-content;
+	height: 42px;
+	border-radius: 30px;
+	padding: 0 8px;
+	gap: 4px;
+	border: 1px solid #EBEBEB;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	margin: 20px 0;
+}
+
+.search {
+	display: flex;
+	align-items: center;
+	padding: 8px 16px;
+	gap: 8px;
+	border-right: 1px solid #EBEBEB;
+	min-width: 200px;
+}
+
+.search i {
+	color: #666;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.search-date {
+	display: flex;
+	align-items: center;
+	padding: 8px 16px;
+	border-right: 1px solid #EBEBEB;
+	color: #333;
+	font-weight: 500;
+}
+
+.search-date input {
+	border: none;
+	background-color: transparent;
+	color: #333;
+	cursor: pointer;
+	padding: 8px;
+	font-size: 14px;
+}
+
+.search-maxGuest {
+	display: flex;
+	align-items: center;
+	padding: 8px 16px;
+	color: #333;
+	font-weight: 500;
+}
+
+.image-container {
+	margin: 0;
+	padding: 0;
+}
+
+.image-grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 8px;
+	height: 550px;
+	position: relative;
+}
+
+.main-image {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.main-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 15px 0 0 15px;
+}
+
+.sub-images {
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	gap: 8px;
+	height: 100%;
+}
+
+.sub-image-top {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 8px;
+}
+
+.sub-image-top img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.sub-image-bottom {
+	width: 100%;
+	height: 100%;
+}
+
+.sub-image-bottom img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.sub-image-top img:first-child {
+	border-radius: 0 15px 0 0;
+}
+
+.sub-image-top img:last-child {
+	border-radius: 0 15px 0 0;
+}
+
+.sub-image-bottom img {
+	border-radius: 0 0 15px 0;
+}
+
+.more-photos {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: white;
+	padding: 8px 16px;
+	border-radius: 4px;
+	font-size: 14px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.more-photos:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.more-photos i {
+	margin-right: 6px;
+}
+
+.search input {
+	border: none;
+	outline: none;
+	background: transparent;
+	font-size: 14px;
+	width: 150px;
+	color: #333;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.search input::placeholder {
+	color: #999;
+}
+
+.resort-info {
+	margin-top: 24px;
+	border-bottom: 1px solid #EBEBEB;
+	padding-bottom: 24px;
+}
+
+.resort-title {
+	font-size: 24px;
+	font-weight: 600;
+	margin-bottom: 16px;
+	color: #333;
+}
+
+.resort-price {
+	font-size: 20px;
+	font-weight: 600;
+	color: #333;
+	margin-bottom: 20px;
+}
+
+.resort-price span {
+	font-weight: normal;
+	font-size: 16px;
+}
+
+.service-icons {
+	display: flex;
+	gap: 24px;
+	margin-top: 20px;
+}
+
+.service-item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: #666;
+	font-size: 14px;
+}
+
+.service-item i {
+	font-size: 18px;
+	color: #333;
+}
+
+.review-count {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	color: #666;
+	font-size: 14px;
+	margin-top: 12px;
+}
+
+.review-count i {
+	color: #FFA500;
+}
+
+.room-selection {
+	margin-top: 40px;
+}
+
+.room-selection h2 {
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 20px;
+	color: #333;
+}
+
+.room-list {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.room-item {
+	display: flex;
+	gap: 24px;
+	padding: 24px;
+	background: #F8F9FA;
+	border-radius: 12px;
+}
+
+.room-image {
+	width: 280px;
+	height: 186px;
+	border-radius: 8px;
+	overflow: hidden;
+	position: relative;
+}
+
+.room-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.room-image .photo-count {
+	position: absolute;
+	right: 8px;
+	bottom: 8px;
+	background: rgba(0, 0, 0, 0.7);
+	color: white;
+	padding: 4px 8px;
+	border-radius: 4px;
+	font-size: 12px;
+}
+
+.room-info {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.room-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 16px;
+}
+
+.room-name {
+	font-size: 18px;
+	font-weight: 600;
+	color: #333;
+}
+
+.room-detail-link {
+	color: #2B96ED;
+	text-decoration: none;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.room-detail-link:hover {
+	text-decoration: underline;
+}
+
+.room-time {
+	color: #666;
+	font-size: 14px;
+	margin-bottom: 12px;
+}
+
+.room-features {
+	color: #666;
+	font-size: 14px;
+	margin-bottom: 16px;
+}
+
+.room-price-section {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: auto;
+}
+
+.room-price {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.price-amount {
+	font-size: 20px;
+	font-weight: 600;
+	color: #333;
+}
+
+.price-text {
+	flex: 1;
+	text-align: left;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	overflow: auto;
+	padding-top: 60px;
+}
+
+.modal-content {
+	background-color: #fff;
+	margin: 5% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	height: 80%;
+	max-width: 1000px;
+	text-align: center;
+}
+
+.close {
+	color: #aaa;
+	font-size: 28px;
+	font-weight: bold;
+	position: absolute;
+	top: 10px;
+	right: 25px;
+	transition: 0.3s;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-images {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 10px;
+	padding: 10px;
+}
+
+.modal-image {
+	width: 100%;
+	aspect-ratio: 1920/1260;
+	object-fit: cover;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+}
+
+.modal-image:hover {
+	transform: scale(1.05);
+}
+
+.tab-button.active {
+	color: #5399F5;
+	border-bottom: 2px solid #5399F5;
+}
+
+.tab-button:hover {
+	color: #5399F5;
+}
+
+.review-qna-container {
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 7rem 0;
+}
+
+.tab-container {
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 2rem;
+}
+
+.tab-button {
+	font-size: 16px;
+	padding: 1rem 2rem;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.tab-button:first-child {
+	font-weight: bold;
+}
+
+.review-meta span {
+	color: #5399F5;
+}
+
+.review-list, .qna-list {
+	height: 500px;
+}
+
+.review-item, .qna-item {
+	padding: 1.5rem 0;
+	border-bottom: 1px solid #eee;
+}
+
+.review-list {
+	margin-top: 20px;
+}
+
+.review-item {
+	padding: 1.5rem;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	margin-bottom: 1rem;
+	background-color: #f9f9f9;
+	transition: box-shadow 0.3s ease;
+}
+
+.review-item:hover {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+.review-user {
+	font-weight: bold;
+	color: #333;
+}
+
+.review-rating {
+	color: #FFA500;
+}
+
+.review-date {
+	font-size: 12px;
+	color: #999;
+}
+
+.review-content {
+	margin: 0.5rem 0;
+	color: #555;
+}
+
+.review-image {
+	max-width: 100%;
+	border-radius: 8px;
+	margin-top: 0.5rem;
+}
+
+.quantity-control {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.quantity-btn {
+	width: 30px;
+	height: 30px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	background-color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #5399F5;
+	transition: all 0.2s ease;
+}
+
+.quantity-btn:hover {
+	background-color: #5399F5;
+	color: white;
+	border-color: #5399F5;
+}
+
+.room-price-section {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: auto;
+}
+
+.room-price {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.price-amount {
+	flex: 1;
+	text-align: left;
+}
+
+.price-text {
+	flex: 1;
+	text-align: left;
+}
+
+.purchase {
+	display: flex;
+	gap: 10px;
+}
+
+.purchase-button {
+	width: 100px;
+	height: 40px;
+	background-color: #5399F5;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.purchase-button:hover {
+	background-color: #4285F4;
+}
+</style>
 
 </head>
 <body>
 
-<%
-    final ResortDTO resortDTO = (ResortDTO) request.getAttribute("resortDTO");
-    final List<RoomDTO> roomList = (List<RoomDTO>) request.getAttribute("roomList");
-    final int reviewCount = (int) request.getAttribute("reviewCount");
-    final float averageRating = (float) request.getAttribute("averageRating");
-    final List<ResortReviewDTO> reviewList = (List<ResortReviewDTO>) request.getAttribute("reviewList");
-    final int minPrice = (int) request.getAttribute("minPrice");
+	<%
+	final ResortDTO resortDTO = (ResortDTO) request.getAttribute("resortDTO");
+	final List<RoomDTO> roomList = (List<RoomDTO>) request.getAttribute("roomList");
+	final int reviewCount = (int) request.getAttribute("reviewCount");
+	final float averageRating = (float) request.getAttribute("averageRating");
+	final List<ResortReviewDTO> reviewList = (List<ResortReviewDTO>) request.getAttribute("reviewList");
+	final int minPrice = (int) request.getAttribute("minPrice");
 
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    Calendar calendar = Calendar.getInstance();
-    String today = sdf.format(calendar.getTime());
-    calendar.add(Calendar.DATE, 1);
-    String tomorrow = sdf.format(calendar.getTime());
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	Calendar calendar = Calendar.getInstance();
+	String today = sdf.format(calendar.getTime());
+	calendar.add(Calendar.DATE, 1);
+	String tomorrow = sdf.format(calendar.getTime());
 
-    Cookie[] cookies = request.getCookies();
-    String userId = null;
-    int uuid = -1;
+	Cookie[] cookies = request.getCookies();
+	String userId = null;
+	int uuid = -1;
 
-    if (cookies != null) {
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("user_id")) {
-                userId = cookie.getValue();
-                break;
-            }
-        }
-    }
+	if (cookies != null) {
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("user_id")) {
+		userId = cookie.getValue();
+		break;
+			}
+		}
+	}
 
-    if (userId != null) {
-        UsersDao usersDao = new UsersDao();
-        uuid = usersDao.getUUID(userId);
-    }
-%>
+	if (userId != null) {
+		UsersDao usersDao = new UsersDao();
+		uuid = usersDao.getUUID(userId);
+	}
+	%>
 
-<div id="photoModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="modal-images">
-            <img id="modalImage1" src="" alt="modalImage" class="modal-image">
-            <img id="modalImage2" src="" alt="modalImage" class="modal-image">
-            <img id="modalImage3" src="" alt="modalImage" class="modal-image">
-            <img id="modalImage4" src="" alt="modalImage" class="modal-image">
-        </div>
-    </div>
-</div>
+	<div id="photoModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<div class="modal-images">
+				<img id="modalImage1" src="" alt="modalImage" class="modal-image">
+				<img id="modalImage2" src="" alt="modalImage" class="modal-image">
+				<img id="modalImage3" src="" alt="modalImage" class="modal-image">
+				<img id="modalImage4" src="" alt="modalImage" class="modal-image">
+			</div>
+		</div>
+	</div>
 
-<div class="container">
-    <header>
-        <nav class="header_nav">
-            <div class="header_menu">
-                <div class="header_logo">
-                    <h1>
-                        <a href="index.html">SKI:P</a>
-                    </h1>
-                </div>
-                <div class="login">
-                    <ul>
-                        <li>
-                            <a href="#">로그인</a>
-                        </li>
-                        <li>
-                            <a href="#">로그아웃</a>
-                        </li>
-                        <li>
-                            <a href="#">마이페이지</a>
-                        </li>
-                        <li>
-                            <a href="#">찜</a>
-                        </li>
-                        <li>
-                            <a href="#">장바구니</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+	<div class="container">
+		<header>
+			<nav class="header_nav">
+				<div class="header_menu">
+					<div class="header_logo">
+						<h1>
+							<a href="index.html">SKI:P</a>
+						</h1>
+					</div>
+					<div class="login">
+						<ul>
+							<li><a href="#">로그인</a></li>
+							<li><a href="#">로그아웃</a></li>
+							<li><a href="#">마이페이지</a></li>
+							<li><a href="#">찜</a></li>
+							<li><a href="#">장바구니</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
 
-    <div class="content-wrapper">
-        <div class="search-info-box">
-            <div class="search">
-                <i class="fas fa-search"></i>
-                <input type="text" name="search"
-                       placeholder="${requestScope.resortDTO.name != null ? requestScope.resortDTO.name : '검색어를 입력하세요.'}"/>
-            </div>
-            <div class="search-date">
-                <input type="text" id="datePickerInput" value="<%= today %> - <%= tomorrow %>" readonly
-                       style="border: none; background-color: transparent; color: #333; cursor: pointer;"/>
-            </div>
-            <div class="search-maxGuest">인원 2</div>
-        </div>
+		<div class="content-wrapper">
+			<div class="search-info-box">
+				<div class="search">
+					<i class="fas fa-search"></i> <input type="text" name="search"
+						placeholder="${requestScope.resortDTO.name != null ? requestScope.resortDTO.name : '검색어를 입력하세요.'}" />
+				</div>
+				<div class="search-date">
+					<input type="text" id="datePickerInput"
+						value="<%=today%> - <%=tomorrow%>" readonly
+						style="border: none; background-color: transparent; color: #333; cursor: pointer;" />
+				</div>
+				<div class="search-maxGuest">인원 2</div>
+			</div>
 
-        <c:choose>
-        <c:when test="${not empty requestScope.resortDTO}">
-        <div class="image-container">
-            <div class="image-grid">
-                <div class="main-image">
-                    <img src="${requestScope.resortDTO.remain_img}" alt="mainImage">
-                </div>
-                <div class="sub-images">
-                    <div class="sub-image-top">
-                        <img src="${requestScope.resortDTO.resub_img1}" alt="subImage">
-                        <img src="${requestScope.resortDTO.resub_img2}" alt="subImage">
-                    </div>
-                    <div class="sub-image-bottom">
-                        <img src="${requestScope.resortDTO.resub_img3}" alt="subImage">
-                    </div>
-                </div>
-                <div class="more-photos" onclick=
-                        "openModal('${requestScope.resortDTO.remain_img},${requestScope.resortDTO.resub_img1},${requestScope.resortDTO.resub_img2},${requestScope.resortDTO.resub_img3}')">
-                    <i class="fas fa-images"></i>사진 더보기
-                </div>
-            </div>
-        </div>
+			<c:choose>
+				<c:when test="${not empty requestScope.resortDTO}">
+					<div class="image-container">
+						<div class="image-grid">
+							<div class="main-image">
+								<img src="${requestScope.resortDTO.remain_img}" alt="mainImage">
+							</div>
+							<div class="sub-images">
+								<div class="sub-image-top">
+									<img src="${requestScope.resortDTO.resub_img1}" alt="subImage">
+									<img src="${requestScope.resortDTO.resub_img2}" alt="subImage">
+								</div>
+								<div class="sub-image-bottom">
+									<img src="${requestScope.resortDTO.resub_img3}" alt="subImage">
+								</div>
+							</div>
+							<div class="more-photos"
+								onclick="openModal('${requestScope.resortDTO.remain_img},${requestScope.resortDTO.resub_img1},${requestScope.resortDTO.resub_img2},${requestScope.resortDTO.resub_img3}')">
+								<i class="fas fa-images"></i>사진 더보기
+							</div>
+						</div>
+					</div>
 
-        <div class="resort-info">
-            <h1 class="resort-title">${requestScope.resortDTO.name}</h1>
-            <div class="review-count">
-                <i class="fas fa-star"></i>
-                <span><fmt:formatNumber value="${requestScope.averageRating}" type="number"
-                                        maxFractionDigits="2"/></span>
-                <span>(<fmt:formatNumber value="${requestScope.reviewCount}" pattern="#,###"/>개 평가)</span>
-            </div>
-            <div class="resort-price">
-                <fmt:formatNumber value="${requestScope.minPrice}" pattern="#,###"/><span> 원~</span>
-            </div>
-            <div class="service-icons">
-                <c:choose>
-                    <c:when test="${not empty requestScope.resortList}">
-                        <c:forEach var="facility" items="${requestScope.resortList}">
-                            <div class="service-item">
-                                <i class="${facility.icon}"></i>
-                                <span>${facility.name}</span>
-                            </div>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="service-item">시설이 없습니다.</div>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </div>
+					<div class="resort-info">
+						<h1 class="resort-title">${requestScope.resortDTO.name}</h1>
+						<div class="review-count">
+							<i class="fas fa-star"></i> <span><fmt:formatNumber
+									value="${requestScope.averageRating}" type="number"
+									maxFractionDigits="2" /></span> <span>(<fmt:formatNumber
+									value="${requestScope.reviewCount}" pattern="#,###" />개 평가)
+							</span>
+						</div>
+						<div class="resort-price">
+							<fmt:formatNumber value="${requestScope.minPrice}"
+								pattern="#,###" />
+							<span> 원~</span>
+						</div>
+						<div class="service-icons">
+							<c:choose>
+								<c:when test="${not empty requestScope.resortList}">
+									<c:forEach var="facility" items="${requestScope.resortList}">
+										<div class="service-item">
+											<i class="${facility.icon}"></i> <span>${facility.name}</span>
+										</div>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<div class="service-item">시설이 없습니다.</div>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</div>
 
-        <div class="room-selection">
-            <h2>객실 선택</h2>
-            <div class="room-list">
-                <c:choose>
-                    <c:when test="${not empty requestScope.roomList}">
-                        <c:forEach var="item" items="${requestScope.roomList}">
-                            <div class="room-item">
-                                <div class="room-image">
-                                    <img src="${item.rmain_img}" alt="${item.room_name}">
-                                </div>
-                                <div class="room-info">
-                                    <div>
-                                        <div class="room-header">
-                                            <div class="room-name">[${requestScope.resortDTO.check_time}시
-                                                체크인] ${item.room_name}</div>
-                                            <a class="room-detail-link"
-                                               onclick="openModal('${item.rmain_img},${item.rsub_img1},${item.rsub_img2},${item.rsub_img3}')">상세
-                                                정보 ></a>
-                                        </div>
-                                        <div class="room-time">
-                                            <i class="far fa-clock"></i>
-                                            입실 ${requestScope.resortDTO.check_time}:00 / 퇴실 12:00
-                                        </div>
-                                        <div class="room-features">
-                                            <div>기준 2인 / 최대 ${item.max_guests}인</div>
-                                            <div>${item.description}</div>
-                                        </div>
-                                    </div>
-                                    <div class="room-price-section">
-                                        <div class="room-price">
-                                            <div class="price-amount">
-                                                <fmt:formatNumber value="${item.price_per_night}" pattern="#,###"
-                                                                  var="formattedPrice"/>
-                                                <span class="price-text">${formattedPrice}원</span>
-                                            </div>
-                                        </div>
-                                        <div class="purchase">
-                                            <div class="quantity-control">
-                                                <button type="button" class="quantity-btn minus-btn">-</button>
-                                                <span class="quantity" data-quantity="1">1</span>
-                                                <button type="button" class="quantity-btn plus-btn">+</button>
-                                            </div>
-                                            <button class="purchase-button"
-                                                    onclick="addToCart('${item.room_name}', ${item.price_per_night})">
-                                                장바구니
-                                            </button>
-                                            <button class="purchase-button"
-                                                    onclick="validateAndSubmit('${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
-                                                바로 예약
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <div style="text-align: center; padding: 40px; color: #666;">
-                            현재 예약 가능한 객실이 없습니다.
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </div>
-        <div class="review-qna-container">
-            <div class="tab-container">
-                <button class="tab-button active" onclick="showTab('review')">리뷰</button>
-                <button class="tab-button" onclick="showTab('qna')">Q&A</button>
-            </div>
-            
-	        <div id="review-section" class="tab-content">
-	            <div class="review-list">
-					         <div class="review_tab">
-          <div class="review_title">
-            <div class="title_left">
-              <div class="review_rating">
-                <h3>리뷰 평점</h3>
-                <span class="rating"><i class="fa fa-star"></i></span>
-                <div class="rating_number">
-                  <span>${avgRating}</span><span>/</span><span>5</span>
-                </div>
-              </div>
-              <div class="review_number">
-                <h3>전체 리뷰 수</h3>
-                <i class="fa fa-commenting"></i>
-                <p>${reviewCount}</p>
-              </div>
-            </div>
-            <div class="title_right">
-              <div class="review_filter">
-                <a class="filter_btn active"  href="javascript:reviewSort(null,'${resort_id}')"><i class="fa fa-check"></i>최신순</a>
-                <a class="filter_btn" href="javascript:reviewSort('ratingDesc','${resort_id}')"><i class="fa fa-check"></i>평점 높은순</a>
-                <a class="filter_btn" href="javascript:reviewSort('ratingAsc','${resort_id}')"><i class="fa fa-check"></i>평점 낮은순</a> 
-              </div>
-            </div>
-          </div>
-          <div class="review_contents">
-            <ul class="review_list">
-            </ul>
-          </div>
-          <!-- 페이징 -->
-          <div class="page_btn">
-          </div>
-        </div>
-	            </div>
-	        </div>
-        </div>
+					<div class="room-selection">
+						<h2>객실 선택</h2>
+						<div class="room-list">
+							<c:choose>
+								<c:when test="${not empty requestScope.roomList}">
+									<c:forEach var="item" items="${requestScope.roomList}">
+										<div class="room-item">
+											<div class="room-image">
+												<img src="${item.rmain_img}" alt="${item.room_name}">
+											</div>
+											<div class="room-info">
+												<div>
+													<div class="room-header">
+														<div class="room-name">[${requestScope.resortDTO.check_time}시
+															체크인] ${item.room_name}</div>
+														<a class="room-detail-link"
+															onclick="openModal('${item.rmain_img},${item.rsub_img1},${item.rsub_img2},${item.rsub_img3}')">상세
+															정보 ></a>
+													</div>
+													<div class="room-time">
+														<i class="far fa-clock"></i> 입실
+														${requestScope.resortDTO.check_time}:00 / 퇴실 12:00
+													</div>
+													<div class="room-features">
+														<div>기준 2인 / 최대 ${item.max_guests}인</div>
+														<div>${item.description}</div>
+													</div>
+												</div>
+												<div class="room-price-section">
+													<div class="room-price">
+														<div class="price-amount">
+															<fmt:formatNumber value="${item.price_per_night}"
+																pattern="#,###" var="formattedPrice" />
+															<span class="price-text">${formattedPrice}원</span>
+														</div>
+													</div>
+													<div class="purchase">
+														<div class="quantity-control">
+															<button type="button" class="quantity-btn minus-btn">-</button>
+															<span class="quantity" data-quantity="1">1</span>
+															<button type="button" class="quantity-btn plus-btn">+</button>
+														</div>
+														<button class="purchase-button"
+															onclick="addToCart('${item.room_name}', ${item.price_per_night})">
+															장바구니</button>
+														<button class="purchase-button"
+															onclick="validateAndSubmit('${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
+															바로 예약</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<div style="text-align: center; padding: 40px; color: #666;">
+										현재 예약 가능한 객실이 없습니다.</div>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</div>
+					<div class="review-qna-container">
+						<div class="tab-container">
+							<button class="tab-button active" onclick="showTab('review')">리뷰</button>
+							<button class="tab-button" onclick="showTab('qna')">Q&A</button>
+						</div>
 
-        <div id="qna-section" class="tab-content" style="display: none;">
-            <div class="qna-list">
-                <div class="qna-amount">\
-                        <%--                    <h3>qna #{qweqwe} 건</h3>--%>
-                </div>
+						<div id="review-section" class="tab-content">
+							<div class="review-list">
+								<div class="review_tab">
+									<div class="review_title">
+										<div class="title_left">
+											<div class="review_rating">
+												<h3>리뷰 평점</h3>
+												<span class="rating"><i class="fa fa-star"></i></span>
+												<div class="rating_number">
+													<span>${avgRating}</span><span>/</span><span>5</span>
+												</div>
+											</div>
+											<div class="review_number">
+												<h3>전체 리뷰 수</h3>
+												<i class="fa fa-commenting"></i>
+												<p>${reviewCount}</p>
+											</div>
+										</div>
+										<div class="title_right">
+											<div class="review_filter">
+												<a class="filter_btn active"
+													href="javascript:reviewSort(null,'${resort_id}')"><i
+													class="fa fa-check"></i>최신순</a> <a class="filter_btn"
+													href="javascript:reviewSort('ratingDesc','${resort_id}')"><i
+													class="fa fa-check"></i>평점 높은순</a> <a class="filter_btn"
+													href="javascript:reviewSort('ratingAsc','${resort_id}')"><i
+													class="fa fa-check"></i>평점 낮은순</a>
+											</div>
+										</div>
+									</div>
+									<div class="review_contents">
+										<ul class="review_list">
+										</ul>
+									</div>
+									<!-- 페이징 -->
+									<div class="page_btn"></div>
+								</div>
+							</div>
+						</div>
+					</div>
 
-            </div>
-        </div>
-    </div>
-    </c:when>
-    <c:otherwise>
-        <div style="text-align: center; padding: 100px 0; color: #666;">
-            <i class="fas fa-exclamation-circle" style="font-size: 48px; margin-bottom: 20px;"></i>
-            <p>리조트 정보를 찾을 수 없습니다.</p>
-        </div>
-    </c:otherwise>
-    </c:choose>
+					<div id="qna-section" class="tab-content" style="display: none;">
+						<div class="qna-list">
+							<div class="qna-amount">
+								\
+								<%--                    <h3>qna #{qweqwe} 건</h3>--%>
+							</div>
 
-</div>
-<script src="<%=request.getContextPath() %>/script/review.js"></script>
-<script type="text/javascript">
+						</div>
+					</div>
+		</div>
+		</c:when>
+		<c:otherwise>
+			<div style="text-align: center; padding: 100px 0; color: #666;">
+				<i class="fas fa-exclamation-circle"
+					style="font-size: 48px; margin-bottom: 20px;"></i>
+				<p>리조트 정보를 찾을 수 없습니다.</p>
+			</div>
+		</c:otherwise>
+		</c:choose>
+
+	</div>
+	<script src="<%=request.getContextPath()%>/script/review.js"></script>
+	<script type="text/javascript">
 reviewSort("latest",'${resort_id}', 1);
 </script>
-<script>
+	<script>
     let startDate = null;
     let endDate = null;
-    const uuid = <%= uuid %>;
+    const uuid = <%=uuid%>;
 
     document.querySelectorAll('.room-item').forEach(item => {
         let quantity = 1; // 기본 수량

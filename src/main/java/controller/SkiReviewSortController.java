@@ -8,21 +8,23 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import dao.ResortReviewDao;
+import dao.SkiReviewDao;
 import dto.ResortReviewDTO;
+import dto.SkiReviewDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/resort/review")
-public class ResortReviewSortController extends HttpServlet{
+@WebServlet("/ski/review")
+public class SkiReviewSortController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String sortType = req.getParameter("sort"); //정렬 기준 가져오기
 		String page = req.getParameter("pageNum");
-		int resort_id = Integer.parseInt(req.getParameter("resort_id"));
-		System.out.println("resort_id: " + req.getParameter("resort_id"));
+		int ski_id = Integer.parseInt(req.getParameter("ski_id"));
+		System.out.println("ski_id: " + req.getParameter("ski_id"));
 		System.out.println("sort: " + req.getParameter("sort"));
 		System.out.println("pageNum: " + req.getParameter("pageNum"));
 		
@@ -39,8 +41,8 @@ public class ResortReviewSortController extends HttpServlet{
 			pageNum = Integer.parseInt(page);
 		}
 		
-		ResortReviewDao resortReviewDao = new ResortReviewDao();
-		int totalReviews = resortReviewDao.getCount(resort_id); //전체 리뷰 개수
+		SkiReviewDao skiReviewDao = new SkiReviewDao();
+		int totalReviews = skiReviewDao.getCount(ski_id); //전체 리뷰 개수
 		int pageCount = (int)Math.ceil(totalReviews / 10.0); // 글 10개씩 페이지에 보이기
 		
 		if(pageNum > pageCount) pageNum = pageCount;
@@ -54,18 +56,17 @@ public class ResortReviewSortController extends HttpServlet{
 			endPage = pageCount;
 		}
 		
-		List<ResortReviewDTO> resortReviewList = resortReviewDao.reviewArray(resort_id ,sortType, startRow, endRow);
-		
+		List<SkiReviewDTO> skiReviewList = skiReviewDao.reviewArray(ski_id ,sortType, startRow, endRow);
 		
 		JSONObject json = new JSONObject();
-		JSONArray arr = new JSONArray(resortReviewList);
+		JSONArray arr = new JSONArray(skiReviewList);
 		
 		json.put("list", arr);
 		json.put("pageCount", pageCount);
 		json.put("startPage", startPage);
 		json.put("endPage", endPage);
 		json.put("pageNum", pageNum);
-		json.put("resort_id", resort_id);
+		json.put("ski_id", ski_id);
 		
 		resp.setContentType("application/json;charset=utf-8");
 		PrintWriter pw = resp.getWriter();

@@ -28,6 +28,7 @@
     <mapper resource="mybatis/mapper/RentalShopMapper.xml"/>
     <mapper resource="mybatis/mapper/ResortMapper.xml"/>
     <mapper resource="mybatis/mapper/ResortReviewMapper.xml"/>
+    <mapper resource="mybatis/mapper/SkiReviewMapper.xml"/>
     <mapper resource="mybatis/mapper/CartItemMapper.xml"/>
     <mapper resource="mybatis/mapper/WishMapper.xml"/>
     <mapper resource="mybatis/mapper/RoomMapper.xml"/>

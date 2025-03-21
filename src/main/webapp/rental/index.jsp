@@ -45,6 +45,7 @@
 <a href="<%=request.getContextPath()%>/rental/rentalShop?ski_id=1&isRentalOrSki=SKI">ski1</a>
 <a href="<%=request.getContextPath()%>/rental/rentalShop?ski_id=2&isRentalOrSki=SKI">ski2</a>
 <a href="<%=request.getContextPath()%>/rental/rentalShop?ski_id=3&isRentalOrSki=SKI">ski3</a>
+<a href="<%=request.getContextPath()%>/ski/review?ski_id=1">ski reivew json 확인</a>
 <br>
 <br>
 <%-- TODO: ROOM_RESERVATION 테이블 추가 PAYMENTS 추가 RESORT_REVIEWS 추가 후 resortDetail수정--%>
