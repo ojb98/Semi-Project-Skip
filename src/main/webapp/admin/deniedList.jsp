@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="adminDto.UsersDTO" %>
@@ -6,6 +7,7 @@
     int currentPage = (Integer) request.getAttribute("currentPage");
     int totalPages = (Integer) request.getAttribute("totalPages");
     String listType = (String) request.getAttribute("listType");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <table>
 	<thead>
@@ -24,6 +26,14 @@
 	<%
 		if(userList != null && !userList.isEmpty()){
 			for(UsersDTO user : userList){
+				String status = user.getStatus();
+			    if (user.getStatus().equals("N")){
+			    	status="거부";
+			    }else if(user.getStatus().equals("P")){
+			    	status="승인대기중";
+			    }else{
+			    	status="승인";
+			    }
 	%>
 		<tr>
 			<td><%= user.getUser_id() %></td>
@@ -31,8 +41,8 @@
 			<td><%= user.getRole() %></td>
 			<td><%= user.getPhone() %></td>
 			<td><%= user.getEmail() %></td>
-			<td><%= user.getRegdate() %></td>
-			<td><%= user.getStatus() %></td>
+			<td><%= sdf.format(user.getRegdate()) %></td>
+			<td><%= status %></td>
 			<td>
 				<button onclick="requestApproval('<%= user.getUuid() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">승인</button>
 				<button onclick="requestDelete('<%= user.getUuid() %>')" style="background-color: #FF5D17; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">삭제</button>

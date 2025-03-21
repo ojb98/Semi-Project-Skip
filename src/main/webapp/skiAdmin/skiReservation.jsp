@@ -120,20 +120,86 @@
     font-weight: 500;
 }
 
+/* 검색 관련 스타일 수정 */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-left: 20px;
+}
+
+.search-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#filterSelect {
+    height: 32px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 0 10px;
+    font-size: 13px;
+    color: #495057;
+    min-width: 100px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.search-box input {
+    height: 32px;
+    width: 200px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 0 35px 0 10px;
+    font-size: 13px;
+    color: #495057;
+    box-sizing: border-box;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #4dabf7;
+    box-shadow: 0 0 0 1px rgba(77, 171, 247, 0.2);
+}
+
+.search-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.6;
+}
+
 .date-filters-container {
     display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 .date-filter-group {
+    flex: 1;
+    min-width: 220px;
     background: #f8f9fa;
     border-radius: 4px;
     padding: 8px;
-    flex: 1;
-    min-width: 200px;
-    box-shadow: 1px 3px 4px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .date-filter-group label {
@@ -151,14 +217,15 @@
 }
 
 .date-range input[type="date"] {
-    padding: 4px 8px;
+    flex: 1;
+    height: 28px;
     border: 1px solid #dee2e6;
-    border-radius: 3px;
+    border-radius: 4px;
+    padding: 0 6px;
     font-size: 12px;
     color: #495057;
     background-color: white;
-    transition: border-color 0.2s;
-    width: 100px;
+    min-width: 100px;
 }
 
 .date-range input[type="date"]:focus {
@@ -170,57 +237,25 @@
 .date-range span {
     color: #adb5bd;
     font-weight: 500;
-    font-size: 11px;
-}
-
-/* 검색 필드 스타일 복원 */
-.search-filter-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.search-filter-container select,
-.search-filter-container input {
-    font-size: 12px;
-    padding: 3px 6px;
-}
-
-.search-box {
-    position: relative;
-}
-
-.search-box input {
-    min-width: 120px;
-    border: 1px solid #000;
-    border-radius: 4px;
-    padding: 5px 6px;
-    padding-right: 25px;
-    font-size: 12px;
-    box-sizing: border-box;
-}
-
-.search-box .search-icon {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    right: 6px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: auto;
+    font-size: 13px;
 }
 
 .list-header {
     display: flex;
-    justify-content: flex-end;
-    padding: 15px 10px;
-    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .list-header h3 {
     margin: 0;
-    margin-right: auto;
-    font-size: 16px;
+    padding-top: 6px;
+    font-size: 18px;
+    color: #343a40;
 }
 </style>
 
@@ -348,47 +383,47 @@ function reservationDetailList(reservId) {
         <div class="table-container">
         <!-- 리스트 상단 우측에 작게 표시되는 검색 컨트롤 영역 -->
         <div class="list-header">
-        <h3>전체 예약 리스트</h3>
-            <div class="search-filter-container">
-                <!-- 날짜 필터링 추가 -->
+            <h3>전체 예약 리스트</h3>
+            <div class="search-container">
+                
                 <div class="date-filters-container">
                     <div class="date-filter-group">
-                        <label>이용예정일:</label>
+                        <label>이용예정일</label>
                         <div class="date-range">
                             <input type="date" id="reservDate1Start">
                             <span>~</span>
                             <input type="date" id="reservDate1End">
                         </div>
                     </div>
-                    
                     <div class="date-filter-group">
-                        <label>이용종료일:</label>
+                        <label>이용종료일</label>
                         <div class="date-range">
                             <input type="date" id="reservDate2Start">
                             <span>~</span>
                             <input type="date" id="reservDate2End">
                         </div>
                     </div>
-					
                     <div class="date-filter-group">
-                        <label>예약생성일:</label>
+                        <label>예약생성일</label>
                         <div class="date-range">
                             <input type="date" id="createdAtStart">
                             <span>~</span>
                             <input type="date" id="createdAtEnd">
                         </div>
                     </div>
+                    <div class="search-top">
+                    <select id="filterSelect">
+                        <option value="이름">이름</option>
+                        <option value="아이디">아이디</option>
+                        <option value="이메일">이메일</option>                    
+                    </select>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="검색어 입력" />
+                        <button type="button" class="search-button" onclick="searchList()">
+                            <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색" class="search-icon"/>
+                        </button>
+                    </div>
                 </div>
-                
-                <select id="filterSelect">
-                    <option value="이름">이름</option>
-                    <option value="아이디">아이디</option>
-                    <option value="이메일">이메일</option>                    
-                </select>
-                
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="검색어 입력" />
-                    <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList()"/>
                 </div>
             </div>
         </div>

@@ -31,6 +31,69 @@
 			background: #f5f5f5;
 			cursor: not-allowed;
 		}
+		
+		/* 검색 필터 컨테이너 스타일 수정 */
+		.table-container {
+			position: relative;
+			margin-bottom: 40px;  /* 테이블 컨테이너 간격 */
+			margin-top: 20px;    /* 상단 여백 추가 */
+		}
+		
+		.table-container h3 {
+			display: inline-block;
+			margin: 0 0 20px 0;  /* 아래쪽 여백 추가 */
+			vertical-align: middle;
+			padding-top: 20px;   /* 상단 여백 추가 */
+		}
+		
+		.search-filter-container {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			position: absolute;
+			right: 20px;
+			top: 20px;          /* 상단 위치 조정 */
+			margin-bottom: 20px;  /* 검색창 아래 여백 */
+		}
+		
+		/* 검색박스 컨테이너 스타일 */
+		.search-box {
+			display: flex;
+			align-items: center;
+			position: relative;
+			height: 38px;  /* select 높이와 동일하게 설정 */
+		}
+		
+		/* 검색 입력창 스타일 */
+		.search-box input {
+			padding: 8px 30px 8px 8px;  /* 오른쪽 패딩 증가 (아이콘 공간) */
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			width: 200px;
+			height: 100%;  /* 부모 높이에 맞춤 */
+			box-sizing: border-box;
+		}
+		
+		/* 검색 아이콘 스타일 */
+		.search-icon {
+			width: 17px;
+			height: 17px;
+			position: absolute;
+			right: 10px;
+			top: 50%;
+			transform: translateY(-50%);  /* 수직 중앙 정렬 */
+			cursor: pointer;
+		}
+		
+		/* 필터 선택 스타일 */
+		#filterSelectPending, #filterSelectDenied, #filterSelect {
+			padding: 8px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			background-color: white;
+			height: 38px;  /* 검색창과 동일한 높이 */
+			box-sizing: border-box;
+		}
 	</style>
 	<script type="text/javascript">
 		var contextPath = "${pageContext.request.contextPath}";
@@ -185,17 +248,20 @@
 		<div class="table-container">		
 			<h3>승인 대기 리스트(관리자)</h3>
 			<div class="search-filter-container">
-		    <select id="filterSelectPending">
-		        	<option value="이름">이름</option>
-                    <option value="아이디">아이디</option>
-                    <option value="이메일">이메일</option>                    
-                </select>
-		    <div class="search-box">
-		        <input type="text" id="searchInputPending" placeholder="검색어 입력" />
-		        <!-- 인자로 'pending'을 문자열로 전달 -->
-		        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList('pending')"/>
-		    </div>
-		</div>
+			    <select id="filterSelectPending">
+			        	<%
+					        Map<String, String> filterMap = FilterMapping.getFilterMap();
+					        for (Map.Entry<String, String> entry : filterMap.entrySet()) {
+					    %>
+					        <option value="<%= entry.getValue() %>"><%= entry.getKey() %></option>
+					    <% } %>                   
+	                </select>
+			    <div class="search-box">
+			        <input type="text" id="searchInputPending" placeholder="검색어 입력" />
+			        <!-- 인자로 'pending'을 문자열로 전달 -->
+			        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList('pending')"/>
+			    </div>
+			</div>
 			<!-- AJAX로 불러온 승인 대기 리스트 HTML 조각 -->
 			<div id="pendingListContainer"></div>
 		</div>

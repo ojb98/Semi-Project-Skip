@@ -97,9 +97,9 @@
         </div>
         <ul>
             <li><a href="${pageContext.request.contextPath}/admin/dashboard">대시보드</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/approvalRequest">관리자 요청 승인/관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/customersInfo">고객 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/paymentsInfo">매출 관리</a></li>
+			<li><a href="${pageContext.request.contextPath}/admin/adminApprovalRequest.jsp">관리자 요청 승인/관리</a></li>
+			<li><a href="${pageContext.request.contextPath}/admin/customersInfo">고객 관리</a></li>
+			<li><a href="${pageContext.request.contextPath}/admin/paymentsInfo">매출 관리</a></li>
         </ul>
     </aside>
     

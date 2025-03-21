@@ -1,7 +1,7 @@
-<%@page import="ski.dto.SkiReservationItemDto"%>
-<%@page import="ski.dto.SkiReservationPrintDto"%>
-<%@page import="ski.dto.SkiReservationDetailDTO"%>
-<%@page import="ski.mapper.SkiReservationMapper"%>
+<%@page import="resort.dto.ResortReservationItemDto"%>
+<%@page import="resort.dto.ResortReservationPrintDto"%>
+<%@page import="resort.dto.ResortReservationDetailDTO"%>
+<%@page import="resort.mapper.ResortReservationMapper"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>
@@ -13,19 +13,19 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	List<SkiReservationPrintDto> reservationDetailList = (List<SkiReservationPrintDto>)request.getAttribute("reservationDetailList");
-	List<SkiReservationItemDto> reservationItemList;
+	List<ResortReservationPrintDto> reservationDetailList = (List<ResortReservationPrintDto>)request.getAttribute("reservationDetailList");
+	List<ResortReservationItemDto> reservationItemList;
 %>
 <% 
 	if(reservationDetailList != null && !reservationDetailList.isEmpty()){
-       for (SkiReservationPrintDto reservation : reservationDetailList) {
-    	reservationItemList = reservation.getSkiReservationItemDtoList(); 
-    	for(SkiReservationItemDto reservationitem : reservationItemList){
+       for (ResortReservationPrintDto reservation : reservationDetailList) {
+    	reservationItemList = reservation.getResortReservationItemDtoList(); 
+    	for(ResortReservationItemDto reservationitem : reservationItemList){
 %>
     <tr>
-      <td><%= reservationitem.getSki_item_id() %></td>
+      <td><%= reservationitem.getResort_item_id() %></td>
       <td><%= reservationitem.getItem_name() %></td>
-      <td><%= reservationitem.getSki_reserv_id() %></td>      
+      <td><%= reservationitem.getResort_reserv_id() %></td>      
       <td><%= reservationitem.getQuantity() %></td>
       <td><%= reservationitem.getSubtotal_price() %>원</td>      
     </tr>

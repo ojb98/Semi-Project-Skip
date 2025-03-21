@@ -13,65 +13,9 @@
 <head>
     <meta charset="UTF-8">
     <title>관리자 페이지</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-<script type="text/javascript">
-  // 승인 대기 리스트 갱신 (AJAX GET)
-  function requestReservationList() {
-    var xhr = new XMLHttpRequest();
-    var skiID = '<%= session.getAttribute("skiID") %>';
-	xhr.onreadystatechange = function() {
-	    if(xhr.readyState === 4) {
-	        if(xhr.status === 200) {
-	        	document.getElementById("reservationTableBody").innerHTML = xhr.responseText;
-	        } else {
-	            alert("리스트 갱신 중 오류");
-	        }
-	    }
-	};
-	xhr.open("GET", "reservationList.jsp?skiID="+encodeURIComponent(skiID), true);
-	xhr.send();
-  }
-  function requestDelete(reserv_id) { //**** 관리자가 예약 취소 : 환불까지 이어져야 함?? ****
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function(){
-          if(xhr.readyState === 4){
-              if(xhr.status === 200){
-                  requestReservationList();
-              } else {
-                  alert("삭제 중 오류");
-              }
-          }
-      };
-      xhr.open("POST", "deleteRequest.jsp", true);
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.send("reserv_id=" + encodeURIComponent(reserv_id));
-  }
-  function searchList() {
-      var keyword = document.getElementById("searchInput").value;
-      var filter = document.getElementById("filterSelect").value;
-      var skiID = '<%= session.getAttribute("skiID") %>';
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function(){
-          if(xhr.readyState === 4){
-              if(xhr.status === 200){
-                  document.getElementById("reservationTableBody").innerHTML = xhr.responseText;
-              } else {
-                  alert("검색 중 오류");
-              }
-          }
-      };
-      // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
-      xhr.open("GET", "reservationList.jsp?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&skiID="+encodeURIComponent(skiID), true);
-      xhr.send();
-  }
-  // 페이지 로드 시 승인 대기 리스트 자동 갱신
-  window.onload = function() {
-	  requestReservationList();
-  };
-  
-</script>
+  	
 </head>
 <body>
     <!-- 상단 헤더 -->
@@ -107,19 +51,19 @@
     <section class="dashboard">
         <div class="card">
             <h3>💰 총 매출</h3>
-            <p style="color:red;">10,000,000원</p>
+            <p>${totalSale }</p>
         </div>
         <div class="card">
             <h3>📅 총 예약</h3>
-            <p style="color:red;">150건</p>
+            <p>${totalReserv}</p>
         </div>
         <div class="card">
             <h3>✅ 완료된 예약</h3>
-            <p style="color:red;">120건</p>
+            <p>${confirmReserv }</p>
         </div>
         <div class="card">
             <h3>❌ 취소된 예약</h3>
-            <p style="color:red;">30건</p>
+            <p>${cancleReserv }</p>
         </div>
     </section>
 

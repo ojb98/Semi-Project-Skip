@@ -1,7 +1,7 @@
-package skiAdminPageController;
+package resort.controller;
 
 import mybatis.service.SqlSessionFactoryService;
-import ski.mapper.SkiReservationMapper;
+import resort.mapper.ResortReservationMapper;
 
 import org.apache.ibatis.session.SqlSession;
 import jakarta.servlet.ServletException;
@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/skiAdmin/deleteReservation") 
-public class skiReservationDeleteServlet extends HttpServlet {
+@WebServlet("/resortAdmin/deleteReservation") 
+public class ResortReservationDeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/plain; charset=UTF-8");
         PrintWriter out = resp.getWriter();
@@ -22,7 +22,7 @@ public class skiReservationDeleteServlet extends HttpServlet {
             int reserv_id = Integer.parseInt(req.getParameter("reserv_id"));
             System.out.println(reserv_id);
             try (SqlSession sqlSession = SqlSessionFactoryService.getSqlSessionFactory().openSession()) {
-                SkiReservationMapper mapper = sqlSession.getMapper(SkiReservationMapper.class);
+                ResortReservationMapper mapper = sqlSession.getMapper(ResortReservationMapper.class);
                 int deleteCount = mapper.deleteReservation(reserv_id);
 
                 if (deleteCount > 0) {
