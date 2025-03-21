@@ -12,7 +12,7 @@
     </select>
 
     <select id = "getSkiItemByItemId" parameterType="int" resultType="ski.dto.SkiCategoryDTO" >
-        select s.item_id, s.category_id, s.ski_id, s.item_name, s.item_img, i.item_type, i.price_per_hour
+        select s.item_id, s.category_id, s.ski_id, s.item_name, s.total_quantity, s.item_detail, s.item_img, i.item_type, i.price_per_hour
         from ski_item s left join item_category i
         on s.category_id = i.category_id
         where item_id = #{item_id}

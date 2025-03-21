@@ -12,7 +12,7 @@
     </select>
 
     <select id = "getWishRoomByRoomId" parameterType="int" resultType="resort.dto.RoomDTO">
-        select room_id, resort_id, room_name, rmain_img, price_per_night
+        select room_id, resort_id, room_name, rmain_img, room_quantity, description, price_per_night
         from room
         where room_id = #{room_id}
     </select>

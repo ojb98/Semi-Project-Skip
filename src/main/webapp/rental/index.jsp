@@ -52,6 +52,9 @@
 <br>
 <br>
 <a href = "<%=request.getContextPath()%>/wishSelect?uuid=<%=uuid%>">찜목록</a>
+<br>
+<br>
+<a href = "<%=request.getContextPath()%>/cartSelect?uuid=<%=uuid%>">장바구니</a>
 
 
 </body>

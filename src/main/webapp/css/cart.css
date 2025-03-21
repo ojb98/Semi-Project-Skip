@@ -33,12 +33,8 @@
 	width: 40%;
 }
 
-.cart_item .img1 {
+.cart_item img {
 	background: url(/img/resort_img1.jpg) no-repeat center / cover;
-}
-
-.cart_item .img2 {
-	background: url(/img/resort_img2.jpg) no-repeat center / cover;
 }
 
 .cart_item .item_info {
