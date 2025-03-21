@@ -65,4 +65,10 @@
     AND category_id != #{category_id}
   </select>
   
+  <!-- 카테고리 중복체크-> item_type과 price_per_hour가 존재하는지 확인 -->
+  <select id="checkCategory1" parameterType="hashmap" resultType="int">
+    select count(*) from ITEM_CATEGORY
+    where item_type=#{itemType} AND price_per_hour=#{price}
+  </select>
+  
 </mapper>

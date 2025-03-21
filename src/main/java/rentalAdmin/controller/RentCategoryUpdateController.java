@@ -46,6 +46,9 @@ public class RentCategoryUpdateController extends HttpServlet {
 	
 		}else { //수정처리하기
 			
+			
+			//그렇지 않다면 수정작업하기
+			
 			//HashMap으로 데이터 담기
 			HashMap<String,Integer> map=new HashMap<String,Integer>();
 			map.put("categoryId", categoryId);
