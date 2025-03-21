@@ -55,9 +55,14 @@
 }
 
 .main-image {
-	position: relative;
-	height: 70%;
-	z-index: 1;
+	height: 400px; /* 원하는 높이로 조절 */
+	overflow: hidden; /* 넘치는 이미지 잘림 방지 */
+}
+
+.save_item img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* 비율 유지하며 채우기 */
 }
 
 .item_text {
@@ -103,6 +108,15 @@
 .item_bottom .left h3 {
 	margin-right: 5px;
 }
+
+.heart-icon {
+    font-size: 30px;
+    transition: color 0.3s ease; 
+}
+
+.heart-icon.fas {
+    color: red; 
+}
 </style>
 <body>
 	<main>
@@ -138,7 +152,8 @@
 					<c:when test="${not empty requestScope.wishList}">
 						<c:forEach var="wish" items="${requestScope.wishList}">
 							<a href="${pageContext.request.contextPath}${wish.link} "
-								class="save_item" data-item-id="${wish.ref_id}" data-category="${wish.category}">
+								class="save_item" data-item-id="${wish.ref_id}"
+								data-category="${wish.category}">
 								<div class="item-box">
 									<div class="main-image">
 										<img src="/test${wish.mainImg}" />
@@ -156,7 +171,7 @@
 										</div>
 									</div>
 									<span class="heart_btn"> <i
-										class="fa fa-heart ${wish.isWish ? 'fas' : 'far'} heart-icon"></i>
+										class="fa fa-heart fas heart-icon"></i>
 									</span>
 								</div>
 							</a>
@@ -218,7 +233,7 @@
                 body: new URLSearchParams({
                     uuid: uuid,
                     ref_id: itemId,
-                    isWish: isWish,  // 현재 상태 반대로 전달 (삭제하면 false)
+                    isWish: !isWish,  // 현재 상태 반대로 전달 (삭제하면 false)
                     category: category
                 })
             })

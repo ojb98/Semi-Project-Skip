@@ -2,11 +2,11 @@ package util;
 
 public enum FacilityTypeUtil {
     GYM(1, "운동시설", "fas fa-dumbbell"),
-    SPA_AND_SAUNA(2, "스파&사우나", "fas fa-spa"),
-    FOOD_AND_BEVERAGE(3, "식음료 시설", "fas fa-utensils"),
-    ENTERTAINMENT(4, "엔터테인먼트", "fas fa-film"),
-    OUTDOOR(5, "야외시설", "fas fa-tree"),
-    KIDS(6, "어린이시설", "fas fa-child"),
+    ENTERTAINMENT(2, "엔터테인먼트", "fas fa-film"),
+    KIDS(3, "어린이시설", "fas fa-child"),
+    OUTDOOR(4, "야외시설", "fas fa-tree"),
+    FOOD_AND_BEVERAGE(5, "식음료 시설", "fas fa-utensils"),
+    SPA_AND_SAUNA(6, "스파&사우나", "fas fa-spa"),
     ACCOMMODATION(7, "숙박 편의시설", "fas fa-bed"),
     TRANSPORT_AND_PARKING(8, "교통&주차", "fas fa-parking");
 
