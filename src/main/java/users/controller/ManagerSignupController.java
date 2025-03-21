@@ -22,10 +22,9 @@ public class ManagerSignupController extends HttpServlet {
 		String name = req.getParameter("name");
 		int n = UsersDao.getInstance().insert(new UsersDto(0, user_id, password, name, email, phone, "NORMAL", category, "P", null));
 		if (n > 0) {
-			req.setAttribute("result", "가입 성공");
+			resp.sendRedirect(req.getContextPath() + "/users/login");
 		} else {
-			req.setAttribute("result", "가입 실패");
+			req.getRequestDispatcher("/users/signup.jsp#manager_login").forward(req, resp);
 		}
-		req.getRequestDispatcher("/users/result.jsp").forward(req, resp);
 	}
 }

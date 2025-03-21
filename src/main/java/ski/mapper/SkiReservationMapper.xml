@@ -165,4 +165,8 @@
         UPDATE SKI_RESERVATION SET STATUS='COMPLETED' WHERE SKI_RESERV_ID=#{ski_reserv_id}
     </update>
 
+	<select id="listNameAndLocation" resultType="ski.dto.SkiNameLocationDto">
+		select name, location
+		from ski
+	</select>
 </mapper>

@@ -5,7 +5,7 @@
 .search_menu {
 	width: 1230px;
 	height: 58px;
-	margin: 0 auto;
+	margin-bottom: 30px;
 	display: flex;
 	align-items: center;
 }
@@ -19,7 +19,7 @@
 }
 
 .search_menu select {
-	width: 130px;
+	width: 150px;
 	height: 32px;
 	text-align: center;
 }
@@ -43,6 +43,56 @@
 	font-weight: 700;
 	margin: 10px 0;
 }
+
+
+	.forecast_select {
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		appearance: none;
+		margin-left: 20px;
+		width: 120px;
+		border: 1px solid white;
+		border-radius: 10px;
+		box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px,
+		rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+	}
+
+	.forecast_select:focus {
+		border: 1px solid #5399f5;
+		box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.4);
+		outline: none;
+	}
+
+	.forecasts {
+		display: flex;
+		justify-content: space-evenly;
+		height: 200px;
+	}
+
+	.forecast {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		align-items: center;
+		border-radius: 20px;
+		width: 10%;
+		background-color: white;
+		box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px,
+        rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+	}
+
+	.forecast_time {
+		color: gray;
+		font-size: 0.8em;
+	}
+
+	.forecast_day {
+		font-weight: 600;
+	}
+
+	.forecast_temp {
+		font-size: 0.9em;
+	}
 
 /* card 영역 */
 .search_card {
