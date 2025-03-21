@@ -45,7 +45,7 @@
    
   <!-- 렌탈샵 리뷰 수정시 조회 -->
   <select id="updateSelect" parameterType="int" resultType="dto.RentalshopReviewDTO">
-  	select r.review_id, r.payment_id, r.uuid, u.user_id, r.ski_id, r.rating, r.comments, r.review_img, r.created_at 
+  	select r.review_id, r.payment_id, r.uuid, u.user_id, r.rentalshop_id, r.rating, r.comments, r.review_img, r.created_at 
   	from rentalshop_reviews r left join users u
   	on r.uuid = u.uuid 
   	where rentalshop_id=#{rentalshop_id}

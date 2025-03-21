@@ -4,7 +4,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import dto.RentalshopReviewDTO;
-import dto.SkiReviewDTO;
 import mybatis.system.SqlSessionFactorySystem;
 
 import java.util.HashMap;

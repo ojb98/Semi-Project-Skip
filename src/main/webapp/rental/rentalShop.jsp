@@ -328,15 +328,25 @@ body {
 								</div>
 							</div>
 							<div class="title_right">
+							<c:set var="idType" value="${not empty ski_id ? ski_id : rentalshop_id}" />
+							<div class="review_filter">
+							    <a class="filter_btn active" href="javascript:reviewSort(null, '${idType}')">
+							        <i class="fa fa-check"></i>최신순
+							    </a>
+							    <a class="filter_btn" href="javascript:reviewSort('ratingDesc', '${idType}')">
+							        <i class="fa fa-check"></i>평점 높은순
+							    </a>
+							    <a class="filter_btn" href="javascript:reviewSort('ratingAsc', '${idType}')">
+							        <i class="fa fa-check"></i>평점 낮은순
+							    </a>
+							</div>
+							<!-- 
 								<div class="review_filter">
-									<a class="filter_btn active"
-										href="javascript:reviewSort(null,'${ski_id}')"><i
-										class="fa fa-check"></i>최신순</a> <a class="filter_btn"
-										href="javascript:reviewSort('ratingDesc','${ski_id}')"><i
-										class="fa fa-check"></i>평점 높은순</a> <a class="filter_btn"
-										href="javascript:reviewSort('ratingAsc','${ski_id}')"><i
-										class="fa fa-check"></i>평점 낮은순</a>
-								</div>
+									<a class="filter_btn active" href="javascript:reviewSort(null,'${ski_id}')"><i class="fa fa-check"></i>최신순</a> 
+									<a class="filter_btn" href="javascript:reviewSort('ratingDesc','${ski_id}')"><i	class="fa fa-check"></i>평점 높은순</a>
+									<a class="filter_btn" href="javascript:reviewSort('ratingAsc','${ski_id}')"><i class="fa fa-check"></i>평점 낮은순</a>
+								</div>							
+							 -->
 							</div>
 						</div>
 						<div class="review_contents">
@@ -359,10 +369,21 @@ body {
 			</div>
 		</div>
 	</div>
-	<script src="<%=request.getContextPath() %>/script/ski_review.js"></script>
-	<script type="text/javascript">
-	reviewSort("latest", '${ski_id}', 1);
-	</script>
+
+	<c:if test="${isRentalOrSki eq 'SKI'}">
+		<script src="<%=request.getContextPath()%>/script/ski_review.js"></script>
+		<script type="text/javascript">
+			reviewSort("latest", '${ski_id}', 1);
+		</script>
+	</c:if>
+
+	<c:if test="${isRentalOrSki eq 'RENTAL'}">
+		<script
+			src="<%=request.getContextPath()%>/script/rentalshop_review.js"></script>
+		<script type="text/javascript">
+			reviewSort("latest", '${rentalshop_id}', 1);
+		</script>
+	</c:if>
 	<script>
     function showTab(tabName) {
         const reviewSection = document.getElementById('review-section');
