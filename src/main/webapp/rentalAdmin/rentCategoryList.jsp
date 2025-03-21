@@ -44,8 +44,7 @@
                 <td>${price }원</td>
                 
                 <td>
-                    <a href="${pageContext.request.contextPath }/adminRentCategory/update?category_id=${dto.category_id }&item_type=${dto.item_type }"
-                    	onclick="return confirm('사용중이시라면 기존내용까지 수정됩니다. 수정하시겠습니까?');">
+                    <a href="${pageContext.request.contextPath }/adminRentCategory/update?category_id=${dto.category_id }&item_type=${dto.item_type }">
                         <button class="update-btn">수정</button>
                     </a>
                 </td>

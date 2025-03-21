@@ -25,7 +25,7 @@ public class RentCategoryDelController extends HttpServlet {
 		
 		List<RentItemDTO> ridto=ridao.itemCategoryids(categoryId);
 		
-		if(ridto!=null && !ridto.isEmpty()) { //데이터가 존재한다면 수정하지않기
+		if(ridto!=null && !ridto.isEmpty()) { //데이터가 존재한다면 삭제하지않기
 			req.getSession().setAttribute("errMsg", "해당 카테고리를 사용중이므로 삭제할 수 없습니다.");
 			resp.sendRedirect(req.getContextPath() + "/adminRentCategory/list");
 			return;
