@@ -6,7 +6,7 @@
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <%
-    session.setAttribute("skiID", 1);
+    session.setAttribute("resortID", 1);
 %>
 <!DOCTYPE html>
 <html>
@@ -87,7 +87,7 @@ function reservationDetailList(reservId) {
 	        }
 	    }
     };
-    xhr.open("GET", contextPath + "/skiAdmin/reservationDetailList?reservId=" + encodeURIComponent(reservId), true);
+    xhr.open("GET", contextPath + "/resortAdmin/reservationDetailList?reservId=" + encodeURIComponent(reservId), true);
     xhr.send("reservId=" + encodeURIComponent(reservId));
 }
 
@@ -95,7 +95,7 @@ function reservationDetailList(reservId) {
   
   function requestReservationList() {
     var xhr = new XMLHttpRequest();
-    var skiID = '<%= session.getAttribute("skiID") %>';  //로그인정보 : skiID
+    var resortID = '<%= session.getAttribute("resortID") %>';  //로그인정보 : resortID
 	xhr.onreadystatechange = function() {
 	    if(xhr.readyState === 4) {
 	        if(xhr.status === 200) {
@@ -105,7 +105,7 @@ function reservationDetailList(reservId) {
 	        }
 	    }
 	};
-	xhr.open("GET", contextPath + "/skiAdmin/reservationList?skiID="+encodeURIComponent(skiID), true);
+	xhr.open("GET", contextPath + "/resortAdmin/reservationList?resortID="+encodeURIComponent(resortID), true);
 	xhr.send();
   }
   function requestDelete(reserv_id) { //**** 관리자가 예약 취소 : 환불까지 이어져야 함 ****
@@ -127,7 +127,7 @@ function reservationDetailList(reservId) {
 	              }
 	          }
       };
-      xhr.open("POST", contextPath + "/skiAdmin/deleteReservation", true);
+      xhr.open("POST", contextPath + "/resortAdmin/deleteReservation", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.send("reserv_id=" + encodeURIComponent(reserv_id));
   }
@@ -138,7 +138,7 @@ function reservationDetailList(reservId) {
       var reservDateEnd = document.getElementById("reservDateEnd").value || "";
       var createdAtStart = document.getElementById("createdAtStart").value || "";
       var createdAtEnd = document.getElementById("createdAtEnd").value || "";
-      var skiID = '<%= session.getAttribute("skiID") %>';
+      var resortID = '<%= session.getAttribute("resortID") %>';
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function(){
           if(xhr.readyState === 4){
@@ -150,7 +150,7 @@ function reservationDetailList(reservId) {
           }
       };
       // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
-      xhr.open("GET", contextPath + "/skiAdmin/reservationList?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&skiID="+encodeURIComponent(skiID) +
+      xhr.open("GET", contextPath + "/resortAdmin/reservationList?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&resortID="+encodeURIComponent(resortID) +
     		  "&reservDateStart=" + encodeURIComponent(reservDateStart) + "&reservDateEnd=" + encodeURIComponent(reservDateEnd) + 
     		  "&createdAtStart=" + encodeURIComponent(createdAtStart)+ "&createdAtEnd=" + encodeURIComponent(createdAtEnd), true);
       xhr.send();
@@ -179,12 +179,12 @@ function reservationDetailList(reservId) {
             <div class="admin-name">관리자님</div>
         </div>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiRegist.jsp">사업장등록신청</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiItemRegist.jsp">상품등록/관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReservation.jsp">예약 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiQnA.jsp">문의 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReview.jsp">리뷰 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiSaleManage.jsp">매출관리/통계</a></li>
+            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortRegist.jsp">사업장등록신청</a></li>
+	        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortItemRegist.jsp">상품등록/관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortReservation.jsp">예약 관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortQnA.jsp">문의 관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortReview.jsp">리뷰 관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortSaleManage.jsp">매출관리/통계</a></li>
         </ul>
     </aside>
     
@@ -237,9 +237,9 @@ function reservationDetailList(reservId) {
                 </div>
                 
                 <select id="filterSelect">
-                    <option value="이름">이름</option>
-                    <option value="아이디">아이디</option>
-                    <option value="이메일">이메일</option>                    
+                    <option value="userName">이름</option>
+                    <option value="userId">아이디</option>
+                    <option value="userEmail">이메일</option>                    
                 </select>
                 
                 <div class="search-box">

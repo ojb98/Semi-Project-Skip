@@ -1,5 +1,5 @@
-<%@page import="ski.dto.SkiReservationPrintDto"%>
-<%@page import="ski.mapper.SkiReservationMapper"%>
+<%@page import="resort.dto.ResortReservationPrintDto"%>
+<%@page import="resort.mapper.ResortReservationMapper"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>
@@ -11,11 +11,11 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	List<SkiReservationPrintDto> reservationList = (List<SkiReservationPrintDto>)request.getAttribute("reservationList");
+	List<ResortReservationPrintDto> reservationList = (List<ResortReservationPrintDto>)request.getAttribute("reservationList");
 %>
 <%
 if(reservationList != null && !reservationList.isEmpty()){
-       for (SkiReservationPrintDto reservation : reservationList) {
+       for (ResortReservationPrintDto reservation : reservationList) {
     		String rowStyle = "";
     		String reservStatus = "";
            if("CANCELLED".equals(reservation.getStatus()) || "COMPLETED".equals(reservation.getStatus())){
@@ -23,7 +23,7 @@ if(reservationList != null && !reservationList.isEmpty()){
            }
 %>
     <tr<%= rowStyle %>>
-      <td><%= reservation.getSki_reserv_id() %></td>
+      <td><%= reservation.getResort_reserv_id() %></td>
       <td><%= reservation.getUserName() %></td>
       <td><%= reservation.getUserId() %></td>
       <td><%= reservation.getUserEmail() %></td>
@@ -43,8 +43,8 @@ if(reservationList != null && !reservationList.isEmpty()){
 %>
       <td><%= reservStatus %></td>
       <td>
-         <!-- <button type="button" onclick="requestDelete('<%= reservation.getSki_reserv_id() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">삭제</button> -->
-         <button type="button" onclick="reservationDetailList('<%= reservation.getSki_reserv_id() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">상세보기 ▼</button>
+         <!-- <button type="button" onclick="requestDelete('<%= reservation.getResort_reserv_id() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">삭제</button> -->
+         <button type="button" onclick="reservationDetailList('<%= reservation.getResort_reserv_id() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">상세보기 ▼</button>
       </td>
     </tr>
 <% } } else { %>

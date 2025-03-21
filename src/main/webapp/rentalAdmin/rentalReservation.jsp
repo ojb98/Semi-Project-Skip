@@ -6,7 +6,7 @@
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <%
-    session.setAttribute("skiID", 1);
+    session.setAttribute("rentalID", 1);
 %>
 <!DOCTYPE html>
 <html>
@@ -71,147 +71,7 @@
     font-size: 14px;
     color: #333;
     font-weight: 500;
-
-}
-
-/* 검색 관련 스타일 수정 */
-.search-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-left: 20px;
-}
-
-.search-top {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#filterSelect {
-    height: 32px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    padding: 0 10px;
-    font-size: 13px;
-    color: #495057;
-    min-width: 100px;
-}
-
-.search-box {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.search-box input {
-    height: 32px;
-    width: 200px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    padding: 0 35px 0 10px;
-    font-size: 13px;
-    color: #495057;
-    box-sizing: border-box;
-}
-
-.search-box input:focus {
-    outline: none;
-    border-color: #4dabf7;
-    box-shadow: 0 0 0 1px rgba(77, 171, 247, 0.2);
-}
-
-.search-button {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.search-icon {
-    width: 16px;
-    height: 16px;
-    opacity: 0.6;
-}
-
-.date-filters-container {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.date-filter-group {
-    flex: 1;
-    min-width: 220px;
-    background: #f8f9fa;
-    border-radius: 4px;
-    padding: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-
-.date-filter-group label {
-    display: block;
-    font-size: 12px;
-    color: #495057;
-    margin-bottom: 4px;
-    font-weight: 500;
-}
-
-.date-range {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.date-range input[type="date"] {
-    flex: 1;
-    height: 28px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    padding: 0 6px;
-    font-size: 12px;
-    color: #495057;
-    background-color: white;
-    min-width: 100px;
-}
-
-.date-range input[type="date"]:focus {
-    outline: none;
-    border-color: #4dabf7;
-    box-shadow: 0 0 0 1px rgba(77, 171, 247, 0.2);
-}
-
-.date-range span {
-    color: #adb5bd;
-    font-weight: 500;
-    font-size: 13px;
-}
-
-.list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px;
-    margin-bottom: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-
-.list-header h3 {
-    margin: 0;
-    padding-top: 6px;
-    font-size: 18px;
-    color: #343a40;
-}
-</style>
+}</style>
 
 <script type="text/javascript">
 // 기존 함수들...
@@ -227,7 +87,7 @@ function reservationDetailList(reservId) {
 	        }
 	    }
     };
-    xhr.open("GET", contextPath + "/skiAdmin/reservationDetailList?reservId=" + encodeURIComponent(reservId), true);
+    xhr.open("GET", contextPath + "/rentalAdmin/reservationDetailList?reservId=" + encodeURIComponent(reservId), true);
     xhr.send("reservId=" + encodeURIComponent(reservId));
 }
 
@@ -235,7 +95,7 @@ function reservationDetailList(reservId) {
   
   function requestReservationList() {
     var xhr = new XMLHttpRequest();
-    var skiID = '<%= session.getAttribute("skiID") %>';  //로그인정보 : skiID
+    var rentalID = '<%= session.getAttribute("rentalID") %>';  //로그인정보 : rentalID
 	xhr.onreadystatechange = function() {
 	    if(xhr.readyState === 4) {
 	        if(xhr.status === 200) {
@@ -245,7 +105,7 @@ function reservationDetailList(reservId) {
 	        }
 	    }
 	};
-	xhr.open("GET", contextPath + "/skiAdmin/reservationList?skiID="+encodeURIComponent(skiID), true);
+	xhr.open("GET", contextPath + "/rentalAdmin/reservationList?rentalID="+encodeURIComponent(rentalID), true);
 	xhr.send();
   }
   function requestDelete(reserv_id) { //**** 관리자가 예약 취소 : 환불까지 이어져야 함 ****
@@ -267,7 +127,7 @@ function reservationDetailList(reservId) {
 	              }
 	          }
       };
-      xhr.open("POST", contextPath + "/skiAdmin/deleteReservation", true);
+      xhr.open("POST", contextPath + "/rentalAdmin/deleteReservation", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.send("reserv_id=" + encodeURIComponent(reserv_id));
   }
@@ -278,7 +138,7 @@ function reservationDetailList(reservId) {
       var reservDateEnd = document.getElementById("reservDateEnd").value || "";
       var createdAtStart = document.getElementById("createdAtStart").value || "";
       var createdAtEnd = document.getElementById("createdAtEnd").value || "";
-      var skiID = '<%= session.getAttribute("skiID") %>';
+      var rentalID = '<%= session.getAttribute("rentalID") %>';
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function(){
           if(xhr.readyState === 4){
@@ -290,7 +150,7 @@ function reservationDetailList(reservId) {
           }
       };
       // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
-      xhr.open("GET", contextPath + "/skiAdmin/reservationList?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&skiID="+encodeURIComponent(skiID) +
+      xhr.open("GET", contextPath + "/rentalAdmin/reservationList?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&rentalID="+encodeURIComponent(rentalID) +
     		  "&reservDateStart=" + encodeURIComponent(reservDateStart) + "&reservDateEnd=" + encodeURIComponent(reservDateEnd) + 
     		  "&createdAtStart=" + encodeURIComponent(createdAtStart)+ "&createdAtEnd=" + encodeURIComponent(createdAtEnd), true);
       xhr.send();
@@ -319,12 +179,12 @@ function reservationDetailList(reservId) {
             <div class="admin-name">관리자님</div>
         </div>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiRegist.jsp">사업장등록신청</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiItemRegist.jsp">상품등록/관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReservation.jsp">예약 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiQnA.jsp">문의 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReview.jsp">리뷰 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiSaleManage.jsp">매출관리/통계</a></li>
+            <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalRegist.jsp">사업장등록신청</a></li>
+	        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalItemRegist.jsp">상품등록/관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalReservation.jsp">예약 관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalQnA.jsp">문의 관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalReview.jsp">리뷰 관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalSaleManage.jsp">매출관리/통계</a></li>
         </ul>
     </aside>
     
@@ -356,48 +216,35 @@ function reservationDetailList(reservId) {
         <div class="table-container">
         <!-- 리스트 상단 우측에 작게 표시되는 검색 컨트롤 영역 -->
         <div class="list-header">
-            <h3>전체 예약 리스트</h3>
-            <div class="search-container">
-                
-                <div class="date-filters-container">
-                    <div class="date-filter-group">
-                        <label>이용예정일</label>
-                        <div class="date-range">
-                            <input type="date" id="reservDate1Start">
-                            <span>~</span>
-                            <input type="date" id="reservDate1End">
-                        </div>
-                    </div>
-                    <div class="date-filter-group">
-                        <label>이용종료일</label>
-                        <div class="date-range">
-                            <input type="date" id="reservDate2Start">
-                            <span>~</span>
-                            <input type="date" id="reservDate2End">
-                        </div>
-                    </div>
-                    <div class="date-filter-group">
-                        <label>예약생성일</label>
-                        <div class="date-range">
-                            <input type="date" id="createdAtStart">
-                            <span>~</span>
-                            <input type="date" id="createdAtEnd">
-                        </div>
-                    </div>
-                    <div class="search-top">
-                    <select id="filterSelect">
-                        <option value="이름">이름</option>
-                        <option value="아이디">아이디</option>
-                        <option value="이메일">이메일</option>                    
-                    </select>
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="검색어 입력" />
-                        <button type="button" class="search-button" onclick="searchList()">
-                            <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색" class="search-icon"/>
-                        </button>
-                    </div>
-                </div>
+        <h3>전체 예약 리스트</h3>
+            <div class="search-filter-container">
+            	
+               
 
+                <!-- 날짜 필터링 추가 -->
+                <div class="date-filter">
+                    <label>이용예정일:</label>
+                    <input type="date" id="reservDateStart">
+                    <span>~</span>
+                    <input type="date" id="reservDateEnd">
+                </div>
+				
+                <div class="date-filter">
+                    <label>예약생성일:</label>
+                    <input type="date" id="createdAtStart">
+                    <span>~</span>
+                    <input type="date" id="createdAtEnd">
+                </div>
+                
+                <select id="filterSelect">
+                    <option value="이름">이름</option>
+                    <option value="아이디">아이디</option>
+                    <option value="이메일">이메일</option>                    
+                </select>
+                
+                <div class="search-box">
+                  <input type="text" id="searchInput" placeholder="검색어 입력" />
+                  <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList()"/>
                 </div>
             </div>
         </div>

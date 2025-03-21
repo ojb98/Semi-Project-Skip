@@ -5,7 +5,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
+    background-color: #f1f3f5;
     display: flex; 
 }
 @font-face {
@@ -215,6 +215,44 @@ button:hover {
     transform: translateY(-50%);
     pointer-events: auto;
 }
+.search-filter-container {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	position: absolute;
+	right: 20px;
+	top: 20px;          /* 상단 위치 조정 */
+	margin-bottom: 20px;  /* 검색창 아래 여백 */
+}
+
+/* 검색박스 컨테이너 스타일 */
+.search-box {
+	display: flex;
+	align-items: center;
+	position: relative;
+	height: 38px;  /* select 높이와 동일하게 설정 */
+}
+
+/* 검색 입력창 스타일 */
+.search-box input {
+	padding: 8px 30px 8px 8px;  /* 오른쪽 패딩 증가 (아이콘 공간) */
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	width: 200px;
+	height: 100%;  /* 부모 높이에 맞춤 */
+	box-sizing: border-box;
+}
+
+/* 검색 아이콘 스타일 */
+.search-icon {
+	width: 17px;
+	height: 17px;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);  /* 수직 중앙 정렬 */
+	cursor: pointer;
+}
 .table-container {
 	max-height: 700px; /* 테이블 높이 증가 */
     overflow-y: auto;
@@ -223,6 +261,7 @@ button:hover {
     margin-top: 5px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
 }
 
 table {
@@ -232,15 +271,12 @@ table {
     margin-top: 0;
     background: white;
 }
-
 th, td {
-    padding: 7px 15px;
-    text-align: left;
-    font-size: 14px;
-    border: none;
+    padding: 10px;
+    text-align: center;
     border-bottom: 1px solid #eee;
+    font-size: 14px;
 }
-
 th {
     background-color: #f8f9fa;
     color: #333;
@@ -252,3 +288,11 @@ th {
 tr {
     height: 20px;
 }
+#filterSelectPending, #filterSelectDenied, #filterSelect {
+		padding: 8px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		background-color: white;
+		height: 38px;  /* 검색창과 동일한 높이 */
+		box-sizing: border-box;
+	}

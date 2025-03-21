@@ -1,4 +1,4 @@
-package skiAdminPageController;
+package ski.controller;
 
 import mybatis.service.SqlSessionFactoryService;
 import ski.dto.SkiReservationDetailDTO;

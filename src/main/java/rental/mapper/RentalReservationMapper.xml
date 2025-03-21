@@ -11,7 +11,33 @@
 			and to_char(created_at, 'yyyy') = #{year}
 		</if>
 	</select>
-
+	<resultMap type="rental.dto.RentalReservationPrintDto" id="RentalReservationPrint">
+        <id column="Rental_reserv_id" property="rental_reserv_id"/>
+        <result column="rental_id" property="rental_id"/>
+        <result column="uuid" property="uuid"/>
+        <result column="reserv_start" property="reserv_start"/>
+		<result column="reserv_end" property="reserv_end"/>
+        <result column="total_price" property="total_price"/>
+        <result column="status" property="status"/>
+        <result column="created_at" property="created_at"/>
+        <result column="name" property="name"/>
+        <result column="payment_id" property="payment_id"/>
+        <result column="user_id" property="userId"/>
+	    <result column="user_email" property="userEmail"/>
+	    <result column="user_name" property="userName"/>
+	    <result column="phone" property="phone"/>
+        
+        <collection property="rentalReservationItemDtoList" ofType="rental.dto.RentalReservationItemDto">
+            <id column="rental_item_id" property="rental_item_id"/>
+            <result column="rental_reserv_id" property="rental_reserv_id"/>
+            <result column="item_id" property="item_id"/>
+            <result column="item_name" property="item_name"/>
+            <result column="quantity" property="quantity"/>
+            <result column="subtotal_price" property="subtotal_price"/>
+        </collection>
+    </resultMap>
+    
+    
 	<resultMap type="rental.dto.RentalReservationListDto" id="RentalReservationListMapper">	
 		<id column="rent_reserv_id" property="rent_reserv_id"/>
 		<result column="rentalshop_id" property="rentalshop_id"/>
@@ -59,4 +85,80 @@
 		)
 		order by created_at desc
 	</select>
+	
+	<select id="selectReservationByReosrtId" resultMap="RentalReservationPrint" parameterType="map">
+        SELECT 
+            rr.rental_reserv_id, 
+            rr.rental_id, 
+            rr.uuid, 
+            rr.reserv_start,
+            rr.reserv_end,
+            rr.total_price, 
+            rr.status, 
+            rr.created_at,
+            r.name AS rental_name, 
+            u.name AS user_name,
+            u.user_id, 
+		    u.email AS user_email, 
+		    u.phone,
+            rp.payment_id, 
+            rri.rental_item_id, 
+            rri.item_id, 
+            ri.item_name,
+            ri.category_id,
+            rri.quantity, 
+            rri.subtotal_price
+        FROM rental_reservation rr
+        LEFT JOIN rental r ON rr.rental_id = r.rental_id
+        LEFT JOIN rental_payments rp ON sr.rental_reserv_id = rp.rental_reserv_id
+        LEFT JOIN rental_reservation_item rri ON rr.rental_reserv_id = rri.rental_reserv_id
+        LEFT JOIN rental_item ri ON rri.item_id = ri.item_id
+        LEFT JOIN users u ON rr.uuid = u.uuid
+        <where>
+		    <if test="rentalID != null">
+		        rr.rental_id = #{rentalID}
+		    </if>
+		    <if test="reservId != null">
+		        rr.rental_reserv_id = #{reservId}
+		    </if>
+		    <if test="reserv_date1_start != null and reserv_date1_end != null">
+		        AND rr.reserv_start BETWEEN #{reserv_date1_start} AND #{reserv_date1_end}
+		    </if>
+		    <if test="reserv_date2_start != null and reserv_date2_end != null">
+		        AND rr.reserv_end BETWEEN #{reserv_date2_start} AND #{reserv_date2_end}
+		    </if>
+		    <if test="created_at_start != null and created_at_end != null">
+		        AND rr.created_at BETWEEN #{created_at_start} AND #{created_at_end}
+		    </if>
+		    <if test="name != null">
+		        AND U.NAME LIKE '%' || #{name} || '%'
+		    </if>
+		    <if test="user_id != null">
+		        AND U.USER_ID LIKE '%' || #{user_id} || '%'
+		    </if>
+		    <if test="email != null">
+		        AND U.EMAIL LIKE '%' || #{email} || '%'
+		    </if>
+		</where>
+  	</select>
+  	
+  	<select id="getRentalIdByUUID" resultType="Integer">
+        SELECT Rental_ID FROM Rental WHERE UUID = #{adminUUID}
+    </select>
+    
+    <update id="updateReservationStatusToCompleted" parameterType="map">
+		UPDATE rental_reservation
+		SET status = 'COMPLETED'
+		WHERE rental_id = #{rentalID}
+		AND status = 'CONFIRMED'
+		AND reserv_end &lt;= #{today}
+	</update>
+    <!-- 스키장 예약 고유번호를 받아 예약 상태 업데이트 -->
+    <update id="reservationCancel">
+        UPDATE RESORT_RESERVATION SET STATUS='CANCELLED' WHERE RESORT_RESERV_ID=#{rental_reserv_id}
+    </update>
+
+    <update id="reservationComplete">
+        UPDATE RESORT_RESERVATION SET STATUS='COMPLETED' WHERE RESORT_RESERV_ID=#{rental_reserv_id}
+    </update>
 </mapper>
