@@ -73,14 +73,51 @@
 		</div>
 		<div class="main_content">
 			<div class="forecasts">
-				<c:forEach var="i" begin="1" end="9">
-					<div class="forecast">
-						<div class="forecast_day"></div>
-						<div class="forecast_time"></div>
-						<img class="forecast_img" width="100px" height="100px" hidden>
-						<div class="forecast_temp"></div>
+				<div class="forecast_main">
+					<div class="forecast_date_wrapper">
+						<div class="forecast_date_main"></div>
+						<div class="forecast_time_info">
+							<div class="forecast_time_main"></div>
+							<div class="forecast_day_main"></div>
+						</div>
 					</div>
-				</c:forEach>
+					<div class="forecast_info_main">
+						<img class="forecast_img_main" width="150px" height="150px" hidden>
+						<div class="forecast_desc_wrapper">
+							<div class="forecast_desc"></div>
+							<div class="forecast_temp_wrapper">
+								<div class="forecast_temp_main"></div>
+								<div class="temp_symbol">
+									<span>°C</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="forecast_details">
+						<div>
+							<span class="forecast_feel"></span>
+							<span class="forecast_humid"></span>
+						</div>
+						<div>
+							<span class="forecast_wind"></span>
+							<span class="forecast_rain"></span>
+						</div>
+						<div>
+							<span class="forecast_cloud"></span>
+							<span class="forecast_snow"></span>
+						</div>
+					</div>
+				</div>
+				<div class="forecasts_sub">
+					<c:forEach var="i" begin="0" end="8">
+						<div class="forecast" onclick="showDetail(${i})">
+							<div class="forecast_day"></div>
+							<div class="forecast_time"></div>
+							<img class="forecast_img" width="100px" height="100px" hidden>
+							<div class="forecast_temp"></div>
+						</div>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -88,19 +125,38 @@
 
 <!-- footer -->
 <jsp:include page="/footer.jsp" />
+
 <script>
 	const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 	const select = document.getElementsByTagName("select")[0];
 
+	// 상세 예보
+	const forecast_date_main = document.getElementsByClassName("forecast_date_main")[0];
+	const forecast_day_main = document.getElementsByClassName("forecast_day_main")[0];
+	const forecast_time_main = document.getElementsByClassName("forecast_time_main")[0];
+	const forecast_img_main = document.getElementsByClassName("forecast_img_main")[0];
+	const forecast_temp_main = document.getElementsByClassName("forecast_temp_main")[0];
+	const forecast_desc = document.getElementsByClassName("forecast_desc")[0];
+	const forecast_feel = document.getElementsByClassName("forecast_feel")[0];
+	const forecast_humid = document.getElementsByClassName("forecast_humid")[0];
+	const forecast_wind = document.getElementsByClassName("forecast_wind")[0];
+	const forecast_rain = document.getElementsByClassName("forecast_rain")[0];
+	const forecast_cloud = document.getElementsByClassName("forecast_cloud")[0];
+	const forecast_snow = document.getElementsByClassName("forecast_snow")[0];
+
+	// 간략 예보 배열
+	const forecast = document.getElementsByClassName("forecast");
 	const forecast_times = document.getElementsByClassName("forecast_time");
 	const forecast_days = document.getElementsByClassName("forecast_day");
 	const forecast_imgs = document.getElementsByClassName("forecast_img");
 	const forecast_temps = document.getElementsByClassName("forecast_temp");
 
+	// 좌표 정보 저장
 	let lats = [];
 	let lons = [];
 
+	// 도로명 주소를 위도, 경도로 변환해서 받아오기
 	const xhr1 = new XMLHttpRequest();
 	xhr1.onreadystatechange = () => {
 		if (xhr1.readyState === 4 && xhr1.status === 200) {
@@ -118,30 +174,68 @@
 	xhr1.open("get", "${pageContext.request.contextPath}/ski/location", false);
 	xhr1.send();
 
+	// AJAX로 받아온 JSON 객체를 저장하는 배열
 	const lists = new Array(lats.length);
+
+	// list에서 지금 시간에 가장 가까운 인덱스를 찾고 저장하는데 쓰는 배열
+	const minIdx = [];
+	for (let i = 0; i < lats.length; i++) {
+		minIdx.push(0);
+	}
+
+	function showDetail(idx) {
+		for (let i = 0; i < forecast.length; i++) { 
+			forecast[i].style.display = "flex";
+		}
+		forecast[idx].style.display = "none";
+		const list = lists[select.value];
+		const list_idx = (idx === 0) ? minIdx[select.value] : 6 + 4 * idx;
+		const date = new Date(list[list_idx].dt_txt);
+		forecast_date_main.innerText = date.getDate();
+		forecast_day_main.innerText = days[date.getDay()];
+		forecast_time_main.innerText = (idx === 0) ? "Now" : (list[list_idx].sys.pod === 'd') ? "6 AM" : "6 PM";
+		forecast_img_main.src = "${pageContext.request.contextPath}/img/weather_icon/" + list[list_idx].weather[0].icon + ".png";
+		forecast_img_main.style.display = "block";
+		forecast_temp_main.innerText = list[list_idx].main.temp;
+		forecast_desc.innerText = list[list_idx].weather[0].description;
+		forecast_feel.innerText = "Feel: " + list[list_idx].main.feels_like + "°";
+		forecast_humid.innerText = "Humidity: " + list[list_idx].main.humidity + "%";
+		forecast_wind.innerText = "Wind: " + list[list_idx].wind.speed + " m/s";
+		try {
+			forecast_rain.innerText = "Rain: " + list[list_idx].rain["3h"];
+		} catch (err) {
+			forecast_rain.innerText = 'Rain: X';
+		}
+		forecast_cloud.innerText = "Cloud: " + list[list_idx].clouds.all + "%";
+		try {
+			forecast_snow.innerText = "Snow: " + list[list_idx].snow["3h"];
+		} catch (err) {
+			forecast_snow.innerText = 'Snow: X';
+		}
+	}
 
 	function setForecastScreen(list) {
 		const now = new Date();
 		let date = new Date(list[0].dt_txt);
 		let minDif = Math.abs(date - now);
-		let minIdx = 0;
-		for (let i = 1; i < 8; i++) {
+		for (let i = 0; i < 8; i++) {
 			date = new Date(list[i].dt_txt);
 			const dif = Math.abs(date - now);
 			if (dif < minDif) {
 				minDif = dif;
-				minIdx = i;
+				minIdx[select.value] = i;
 			}
 		}
+		showDetail(0);
 		forecast_times[0].innerText = "Now";
-		forecast_days[0].innerText = days[now.getDay()];
-		forecast_imgs[0].src = "${pageContext.request.contextPath}/img/weather_icon/" + list[minIdx].weather[0].icon + ".png";
+		forecast_days[0].innerText = days[now.getDay()].substring(0, 3);
+		forecast_imgs[0].src = "${pageContext.request.contextPath}/img/weather_icon/" + list[minIdx[select.value]].weather[0].icon + ".png";
 		forecast_imgs[0].style = "display: block";
-		forecast_temps[0].innerText = list[minIdx].main.temp + "°";
+		forecast_temps[0].innerText = list[minIdx[select.value]].main.temp + "°";
 		for (let i = 10; i < 40; i += 4) {
 			const date = new Date(list[i].dt_txt);
 			const idx = (i - 6) / 4;
-			forecast_days[idx].innerText = days[date.getDay()];
+			forecast_days[idx].innerText = days[date.getDay()].substring(0, 3);
 			if (list[i].sys.pod === "d") {
 				forecast_times[idx].innerText = "6 AM";
 			} else {
@@ -171,7 +265,7 @@
 			setForecastScreen(lists[select.value]);
 		}
 	}
-	
+
 	getForecast();
 </script>
 </body>
