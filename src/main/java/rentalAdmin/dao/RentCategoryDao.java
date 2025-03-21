@@ -69,5 +69,11 @@ public class RentCategoryDao {
 		}
 	}
 	
-	
+	//카테고리 중복체크
+    public int getCategoryExists(RentCategoryDTO rcdto) {
+        try (SqlSession session=sqlSessionFactory.openSession()) {
+            return session.selectOne(NAMESPACE+".checkCategory", rcdto);
+        }
+    }
+
 }

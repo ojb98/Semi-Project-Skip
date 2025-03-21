@@ -57,5 +57,12 @@
   <delete id="rcDelete" parameterType="int">
   	delete from ITEM_CATEGORY where category_id=#{category_id}
   </delete>
-
+  
+  <!-- 카테고리 중복체크-> item_type과 price_per_hour가 존재하는지 확인 -->
+  <select id="checkCategory" parameterType="rental.dto.RentCategoryDTO" resultType="int">
+    select count(*) from ITEM_CATEGORY
+    where item_type=#{item_type} AND price_per_hour=#{price_per_hour} 
+    AND category_id != #{category_id}
+  </select>
+  
 </mapper>
