@@ -7,9 +7,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import dao.ResortReviewDao;
 import dao.SkiReviewDao;
-import dto.ResortReviewDTO;
 import dto.SkiReviewDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

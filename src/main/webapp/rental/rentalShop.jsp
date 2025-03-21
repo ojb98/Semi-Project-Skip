@@ -197,7 +197,7 @@ body {
 
 /* 리뷰와 문의 섹션 스타일 */
 .review-qna-container {
-	max-width: 65%;
+	max-width: 85%;
 	margin: 0 auto;
 	padding: 2rem;
 }
@@ -330,11 +330,11 @@ body {
 							<div class="title_right">
 								<div class="review_filter">
 									<a class="filter_btn active"
-										href="javascript:reviewSort(null,'${resort_id}')"><i
+										href="javascript:reviewSort(null,'${ski_id}')"><i
 										class="fa fa-check"></i>최신순</a> <a class="filter_btn"
-										href="javascript:reviewSort('ratingDesc','${resort_id}')"><i
+										href="javascript:reviewSort('ratingDesc','${ski_id}')"><i
 										class="fa fa-check"></i>평점 높은순</a> <a class="filter_btn"
-										href="javascript:reviewSort('ratingAsc','${resort_id}')"><i
+										href="javascript:reviewSort('ratingAsc','${ski_id}')"><i
 										class="fa fa-check"></i>평점 낮은순</a>
 								</div>
 							</div>
@@ -360,6 +360,9 @@ body {
 		</div>
 	</div>
 	<script src="<%=request.getContextPath() %>/script/ski_review.js"></script>
+	<script type="text/javascript">
+	reviewSort("latest", '${ski_id}', 1);
+	</script>
 	<script>
     function showTab(tabName) {
         const reviewSection = document.getElementById('review-section');

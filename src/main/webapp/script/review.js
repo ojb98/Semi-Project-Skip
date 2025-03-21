@@ -32,7 +32,7 @@ function popup() {
 function updatePopup(review_id) {
 	console.log("리뷰 수정 팝업 호출 확인:", review_id);
 	
-	const url = `${contextPath}/jsp/update?review_id=${review_id}`;
+	const url = `${contextPath}/review/update?review_id=${review_id}`;
 	const name = "updatePopup";
 	const option = "width=500,height=500,top=100,left=100,location=no";
 	
@@ -57,7 +57,8 @@ function reviewSort(sortType, resort_id ,pageNum = 1) {
 
 		json.list.forEach(function (reviewDto) {
 			const review_item = document.createElement("li");
-			
+		
+		// 날씨 date type 변환 참고	
 		//	let a=reviewDto.created_at;
 			
 		//	let d=new Date(a);

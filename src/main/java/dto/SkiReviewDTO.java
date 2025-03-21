@@ -1,29 +1,29 @@
 package dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class SkiReviewDTO {
 	private int review_id;
     private int payment_id;
     private int uuid;
-    private int resort_id;
+    private int ski_id;
     private float rating;
-    private String comment;
+    private String comments;
     private String review_img;
     private Date created_at;
     private String user_id;
     
     public SkiReviewDTO() {}
 
-	public SkiReviewDTO(int review_id, int payment_id, int uuid, int resort_id, float rating, String comment,
+	public SkiReviewDTO(int review_id, int payment_id, int uuid, int ski_id, float rating, String comments,
 			String review_img, Date created_at, String user_id) {
 		super();
 		this.review_id = review_id;
 		this.payment_id = payment_id;
 		this.uuid = uuid;
-		this.resort_id = resort_id;
+		this.ski_id = ski_id;
 		this.rating = rating;
-		this.comment = comment;
+		this.comments = comments;
 		this.review_img = review_img;
 		this.created_at = created_at;
 		this.user_id = user_id;
@@ -53,12 +53,12 @@ public class SkiReviewDTO {
 		this.uuid = uuid;
 	}
 
-	public int getResort_id() {
-		return resort_id;
+	public int getSki_id() {
+		return ski_id;
 	}
 
-	public void setResort_id(int resort_id) {
-		this.resort_id = resort_id;
+	public void setSki_id(int ski_id) {
+		this.ski_id = ski_id;
 	}
 
 	public float getRating() {
@@ -69,12 +69,12 @@ public class SkiReviewDTO {
 		this.rating = rating;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getComments() {
+		return comments;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 
 	public String getReview_img() {
@@ -100,7 +100,7 @@ public class SkiReviewDTO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-    
+
 }
 
 
