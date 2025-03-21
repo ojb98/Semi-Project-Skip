@@ -8,6 +8,9 @@
 <%@ page import="java.util.Calendar" %>
 <%@ page import="dto.ResortReviewDTO" %>
 <%@ page import="dao.UsersDao" %>
+	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 <head>
     <title>resort</title>
@@ -925,8 +928,10 @@
                 <button class="tab-button active" onclick="showTab('review')">리뷰</button>
                 <button class="tab-button" onclick="showTab('qna')">Q&A</button>
             </div>
-
-         <div class="review_tab">
+            
+	        <div id="review-section" class="tab-content">
+	            <div class="review-list">
+					         <div class="review_tab">
           <div class="review_title">
             <div class="title_left">
               <div class="review_rating">
@@ -944,9 +949,9 @@
             </div>
             <div class="title_right">
               <div class="review_filter">
-                <a class="filter_btn active"  href="javascript:reviewSort(null)"><i class="fa fa-check"></i>최신순</a>
-                <a class="filter_btn" href="javascript:reviewSort('ratingDesc')"><i class="fa fa-check"></i>평점 높은순</a>
-                <a class="filter_btn" href="javascript:reviewSort('ratingAsc')"><i class="fa fa-check"></i>평점 낮은순</a> 
+                <a class="filter_btn active"  href="javascript:reviewSort(null,'${resort_id}')"><i class="fa fa-check"></i>최신순</a>
+                <a class="filter_btn" href="javascript:reviewSort('ratingDesc','${resort_id}')"><i class="fa fa-check"></i>평점 높은순</a>
+                <a class="filter_btn" href="javascript:reviewSort('ratingAsc','${resort_id}')"><i class="fa fa-check"></i>평점 낮은순</a> 
               </div>
             </div>
           </div>
@@ -958,6 +963,8 @@
           <div class="page_btn">
           </div>
         </div>
+	            </div>
+	        </div>
         </div>
 
         <div id="qna-section" class="tab-content" style="display: none;">
@@ -979,7 +986,10 @@
     </c:choose>
 
 </div>
-
+<script src="<%=request.getContextPath() %>/script/review.js"></script>
+<script type="text/javascript">
+reviewSort("latest",'${resort_id}', 1);
+</script>
 <script>
     let startDate = null;
     let endDate = null;
@@ -1093,7 +1103,6 @@
     <%--    });--%>
     <%--});--%>
 
-
     flatpickr("#datePickerInput", {
         mode: "range",
         dateFormat: "Y-m-d",
@@ -1116,6 +1125,7 @@
             }
         }
     });
+
 
 
     function openModal(images) {
@@ -1153,6 +1163,6 @@
     }
 
 </script>
-<script src="<%=request.getContextPath() %>/script/review.js"></script>
+
 </body>
 </html>

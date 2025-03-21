@@ -44,7 +44,7 @@ function updatePopup(review_id) {
 }
 
 // 리뷰 정렬 및 페이징
-function reviewSort(sortType, pageNum = 1) {
+function reviewSort(sortType, resort_id ,pageNum = 1) {
 	console.log("sort 함수 작동 테스트");
 	const xhr = new XMLHttpRequest();
 	xhr.onload = function() {
@@ -57,6 +57,12 @@ function reviewSort(sortType, pageNum = 1) {
 
 		json.list.forEach(function (reviewDto) {
 			const review_item = document.createElement("li");
+			
+		//	let a=reviewDto.created_at;
+			
+		//	let d=new Date(a);
+		//	alert(d)
+		//	let c=d.getFullYear()+"-" + (d.getMonth()+1) + "-"+ d.getDate();
 			review_item.className = "review_item";
 
 			/* 평점 별 */
@@ -104,7 +110,7 @@ function reviewSort(sortType, pageNum = 1) {
 		// 이전 버튼
 		if (json.startPage > 10) {
 			let prevBtn = document.createElement("a");
-			prevBtn.href = `javascript:reviewSort('${sortType}', ${json.startPage - 1})`;
+			prevBtn.href = `javascript:reviewSort('${sortType}',${resort_id}, ${json.startPage - 1})`;
 			prevBtn.innerHTML = `<i class='fa fa-angle-left'></i> 이전`;
 			page_btn.appendChild(prevBtn);
 		}
@@ -112,7 +118,7 @@ function reviewSort(sortType, pageNum = 1) {
 		// 페이지 숫자 버튼
 		for (let i = json.startPage; i <= json.endPage; i++) {
 			let pageLink = document.createElement("a");
-			pageLink.href = `javascript:reviewSort('${sortType}', ${i})`;
+			pageLink.href = `javascript:reviewSort('${sortType}',${resort_id}, ${i})`;
 			pageLink.textContent = i;
 			if (i === json.pageNum) {
 				pageLink.classList.add("active");
@@ -123,16 +129,16 @@ function reviewSort(sortType, pageNum = 1) {
 		// 다음 버튼
 		if (json.endPage < json.pageCount) {
 			let nextBtn = document.createElement("a");
-			nextBtn.href = `javascript:reviewSort('${sortType}', ${json.endPage + 1})`;
+			nextBtn.href = `javascript:reviewSort('${sortType}', ${resort_id},${json.endPage + 1})`;
 			nextBtn.innerHTML = `다음 <i class='fa fa-angle-right'></i>`;
 			page_btn.appendChild(nextBtn);
 		}
 	};
 
-	xhr.open('get', `${contextPath}/review/array?sort=${sortType}&pageNum=${pageNum}`, true);
+	xhr.open('get', `${contextPath}/resort/review?sort=${sortType}&pageNum=${pageNum}&resort_id=${resort_id}`, true);
 	xhr.send();
 }
 
 // 기본 호출
-reviewSort("latest", 1);
+
 

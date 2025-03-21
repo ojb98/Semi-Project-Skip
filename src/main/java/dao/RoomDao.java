@@ -29,7 +29,6 @@ public class RoomDao {
         }
     }
 
-
     public int deleteRoom(int room_id) {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()){
             int n = sqlSession.delete(NAMESPACE + ".deleteRoom", room_id);

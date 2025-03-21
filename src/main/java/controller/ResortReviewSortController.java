@@ -66,7 +66,7 @@ public class ResortReviewSortController extends HttpServlet{
 		json.put("startPage", startPage);
 		json.put("endPage", endPage);
 		json.put("pageNum", pageNum);
-		
+		json.put("resort_id", resort_id);
 		
 		resp.setContentType("application/json;charset=utf-8");
 		PrintWriter pw = resp.getWriter();

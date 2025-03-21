@@ -63,6 +63,8 @@ public class ResortSelectController extends HttpServlet {
     		req.setAttribute("avgRating",Math.round(avgRating * 100) / 100.0);
     		req.setAttribute("resortReviewList", resortReviewList);
 
+    		req.setAttribute("resort_id", resort_id);
+    		
             req.setAttribute("resortDTO", resortDao.getResortById(resort_id));
             req.setAttribute("minPrice", roomDao.getMinPrice(resort_id));
             req.setAttribute("roomList", roomDao.getList(resort_id));
