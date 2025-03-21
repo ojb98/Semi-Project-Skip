@@ -19,6 +19,10 @@
   </environments>
   <mappers>
     <mapper resource="mybatis/mapper/ResortReviewsMapper.xml"/>
+    <mapper resource="mybatis/mapper/RentalshopReviewMapper.xml"/>
+    <mapper resource="mybatis/mapper/ResortReviewMapper.xml"/>
+    <mapper resource="mybatis/mapper/SkiReviewMapper.xml"/>
+    
     <!-- 읽어올 Mapper XML 파일 포함하기 패키지명을 .으로 구분하면 안되고 디렉토리구분자       (/)를 써야 함 -->
     <mapper resource="mybatis/mapper/ItemCategoryMapper.xml"/>
     <mapper resource="mybatis/mapper/SkiMapper.xml"/>
@@ -27,8 +31,6 @@
     <mapper resource="mybatis/mapper/UsersMapper.xml"/>
     <mapper resource="mybatis/mapper/RentalShopMapper.xml"/>
     <mapper resource="mybatis/mapper/ResortMapper.xml"/>
-    <mapper resource="mybatis/mapper/ResortReviewMapper.xml"/>
-    <mapper resource="mybatis/mapper/SkiReviewMapper.xml"/>
     <mapper resource="mybatis/mapper/CartItemMapper.xml"/>
     <mapper resource="mybatis/mapper/WishMapper.xml"/>
     <mapper resource="mybatis/mapper/RoomMapper.xml"/>

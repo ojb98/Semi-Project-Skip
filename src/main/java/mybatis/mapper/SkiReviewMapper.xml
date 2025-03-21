@@ -43,7 +43,7 @@
   </select>
  
    
-  <!-- 리조트 리뷰 수정시 조회 -->
+  <!-- 스키장 리뷰 수정시 조회 -->
   <select id="updateSelect" parameterType="int" resultType="dto.SkiReviewDTO">
   	select s.review_id, s.payment_id, s.uuid, u.user_id, s.ski_id, s.rating, s.comments, s.review_img, s.created_at 
   	from ski_reviews s left join users u
@@ -51,12 +51,12 @@
   	where ski_id=#{ski_id}
   </select>
   
-  <!-- 리조트 리뷰 수정 -->
+  <!-- 스키장 리뷰 수정 -->
   <update id="update" parameterType="dto.SkiReviewDTO">
   	update ski_reviews set rating=#{rating}, comments=#{comments}, review_img=#{review_img} where review_id = #{review_id}
   </update>
   
-  <!-- 리조트 리뷰 삭제 -->
+  <!-- 스키장 리뷰 삭제 -->
   <delete id="delete" parameterType="int">
   	delete from ski_reviews where review_id=#{review_id}
   </delete>
