@@ -36,4 +36,20 @@
     from RENT_ITEM where item_id=#{item_id}
   </select>
   
+  <!-- 장비유형 수정 -->
+  <update id="riUpdate" parameterType="rental.dto.RentItemDTO">
+    update RENT_ITEM set category_id=#{category_id},
+    item_name=#{item_name},item_detail=#{item_detail},
+    total_quantity=#{total_quantity},
+    item_img=#{item_img, jdbcType=VARCHAR }
+    where item_id=#{item_id}
+  </update>
+  
+  <!-- 카테고리 고유아이디로 전체 데이터 조회(여러건)-->
+  <select id="riCategoryId" parameterType="int" resultType="rental.dto.RentItemDTO">
+    select item_id,rentalshop_id,item_name,
+    item_detail,total_quantity,item_img,created_at
+    from RENT_ITEM where category_id=#{category_id}
+  </select>
+  
 </mapper>

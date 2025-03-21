@@ -13,7 +13,20 @@
 
 </head>
 <body>
+<!-- header -->
+<jsp:include page="/rentalAdmin/header.jsp" />
 
+<!-- 메인 컨텐츠 영역 -->
+<main class="main-content">
+<h1>카테고리 리스트</h1>
+<!-- 에러 메시지 출력 -->
+<c:if test="${not empty sessionScope.errMsg}">
+	<div class="error-message" style="color:red;">
+		${sessionScope.errMsg}}
+	</div>
+	<!-- 한 번 출력 후 제거 -->
+	<c:remove var="errMsg" scope="session" />
+</c:if><br>
 
 <table border="1" width="600">
     <thead>
@@ -31,14 +44,15 @@
                 <td>${price }원</td>
                 
                 <td>
-                    <a href="${pageContext.request.contextPath }/adminRentCategory/update?category_id=${dto.category_id }">
+                    <a href="${pageContext.request.contextPath }/adminRentCategory/update?category_id=${dto.category_id }&item_type=${dto.item_type }"
+                    	onclick="return confirm('사용중이시라면 기존내용까지 수정됩니다. 수정하시겠습니까?');">
                         <button class="update-btn">수정</button>
                     </a>
                 </td>
                 
                 <td>
                     <a href="${pageContext.request.contextPath }/adminRentCategory/delete?category_id=${dto.category_id }"
-                       onclick="return confirm('정말 삭제하시겠습니까?');">
+                    	onclick="return confirm('정말 삭제하시겠습니까?');">
                         <button class="delete-btn">삭제</button>
                     </a>
                 </td>
@@ -47,5 +61,6 @@
     </tbody>
 </table>
 
+</main>
 </body>
 </html>

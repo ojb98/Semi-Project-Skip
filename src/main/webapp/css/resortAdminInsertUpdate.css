@@ -114,6 +114,34 @@ h1 {
     font-weight: normal;
 }
 
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;  /* 각 옵션 간의 간격 */
+    margin-bottom: 15px;
+}
+
+
+.radio-item {
+    display: flex;
+    align-items: center;  /* 수직 가운데 정렬 */
+}
+
+
+.radio-item input[type="radio"] {
+    margin-right: 10px;  /* 라디오 버튼과 레이블 사이의 간격 */
+    vertical-align: middle; /* 수직 정렬 */
+}
+
+
+.radio-item label {
+    font-size: 16px;
+    color: #333;
+    font-weight: normal;
+    vertical-align: middle; /* 수직 정렬 */
+    line-height: 1.2;
+}
+
 
 .back-btn {
     background-color: #6c757d;

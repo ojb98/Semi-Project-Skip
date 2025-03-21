@@ -7,33 +7,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInsertUpdate.css">
+<script src="${pageContext.request.contextPath}/js/itemAdminUpdate.js"></script>
 </head>
 <body>
+<!-- header -->
+<jsp:include page="/rentalAdmin/header.jsp" />
 
+<!-- 메인 컨텐츠 영역 -->
+<main class="main-content">
 <h1>렌탈샵 카테고리&장비 수정</h1>
 
 <div class="form-container">
-
-<h2>카테고리</h2>
-<form id="" action="${pageContext.request.contextPath }/adminItemCategory/update"
-	method="post" enctype="multipart/form-data">
+<form id="itemUpdateForm" action="${pageContext.request.contextPath }/adminItemCategory/update"
+	method="post" enctype="multipart/form-data" onsubmit="return checkData(event)">
 	
-	<input type="hidden" name="category_id" value="${rcdto.category_id }" >
-	<label for="itemType">장비 종류</label>
-	<select name="item_type" id="itemType" disabled="disabled">
-		<option value="리프트권" <c:if test="${rcdto.item_type eq '리프트권' }">selected</c:if>>리프트권</option>
-		<option value="패키지" <c:if test="${rcdto.item_type eq '패키지' }">selected</c:if>>패키지</option>
-		<option value="스키" <c:if test="${rcdto.item_type eq '스키' }">selected</c:if>>스키</option>
-		<option value="보드" <c:if test="${rcdto.item_type eq '보드' }">selected</c:if>>보드</option>
-		<option value="보호구" <c:if test="${rcdto.item_type eq '보호구' }">selected</c:if>>보호구</option>
-		<option value="상의" <c:if test="${rcdto.item_type eq '상의' }">selected</c:if>>상의</option>
-		<option value="하의" <c:if test="${rcdto.item_type eq '하의' }">selected</c:if>>하의</option>
-		<option value="신발" <c:if test="${rcdto.item_type eq '신발' }">selected</c:if>>신발</option>
-	</select><br>
-	<label for="price">시간당 대여 가격</label>
-	<input type="number" name="price_per_hour" id="price" value=${rcdto.price_per_hour }><br><br>
-
 	<h2>장비</h2>
+	<input type="hidden" name="item_id" value="${ridto.item_id }">
 	<input type="hidden" name="rentalshop_id" value="${ridto.rentalshop_id }">
 	
 	<label for="itemName">장비이름</label>
@@ -49,10 +39,26 @@
 	<input type="file" name="item_img" id="itemImg"><br><br>
 	
 
+	<h2>장비 카테고리 선택</h2>
+	<div class="radio-group">
+    <c:forEach var="category" items="${rclist}">
+    <div class="radio-item">
+    <fmt:formatNumber var="price" value="${category.price_per_hour }" pattern="###,###" /> 
+		<input type="radio" id="category_${category.category_id}" name="category_id" 
+		value="${category.category_id}"
+		<c:if test="${category.category_id eq ridto.category_id }">checked</c:if>>
+		<label for="category_${category.category_id}">
+			${category.item_type}(${price }원)
+		</label><br>
+	</div>
+	</c:forEach>
+	</div>
+
+
 	<input type="submit" value="등록">
 </form>
 </div>
 
-
+</main>
 </body>
 </html>

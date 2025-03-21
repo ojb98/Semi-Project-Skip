@@ -5,35 +5,44 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import rental.dto.RentItemCategoryDTO;
+import rental.dto.RentCategoryDTO;
 import rental.dto.RentItemDTO;
 import rentalAdmin.dao.RentCategoryDao;
 import rentalAdmin.dao.RentItemDao;
 import resort.dto.RoomDTO;
 
 @WebServlet("/adminItemCategory/update")
+@MultipartConfig(
+		fileSizeThreshold = 1024 * 1024 * 2,
+		maxFileSize = 1024 * 1024 * 10,
+		maxRequestSize = 1024 * 1024 * 50
+)
 public class ItemCategoryUpdateController extends HttpServlet {
 	private RentCategoryDao rcdao=RentCategoryDao.getInstance();
 	private RentItemDao ridao=RentItemDao.getInstance();
+	private static final int SUCCESS_THRESHOLD = 0;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int itemId=Integer.parseInt(req.getParameter("item_id"));
-		int categoryId=Integer.parseInt(req.getParameter("category_id"));
 		
-		//카테고리, 장비유형 조회하기
-		RentItemCategoryDTO rcdto=rcdao.getCategoryId(categoryId);
+		//카테고리 전체 조회
+		List<RentCategoryDTO> rclist=rcdao.categoryList();
+		
+		//장비유형 조회하기
 		RentItemDTO ridto=ridao.getItemId(itemId);
 		
-		req.setAttribute("rcdto", rcdto);
+		req.setAttribute("rclist", rclist);
 		req.setAttribute("ridto", ridto);
 		
 		req.getRequestDispatcher("/rentalAdmin/itemCategoryUpdate.jsp").forward(req, resp);
@@ -42,18 +51,9 @@ public class ItemCategoryUpdateController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//카테고리 먼저 수정
+		//라디오 선택한 카테고리 값
 		int categoryId=Integer.parseInt(req.getParameter("category_id"));
-		int price=Integer.parseInt(req.getParameter("price_per_hour"));
-		
-		//HashMap으로 데이터 담기
-		HashMap<String,Integer> map=new HashMap<String,Integer>();
-		map.put("categoryId", categoryId);
-		map.put("price", price);
-		
-		//카테고리 db수정하기
-		rcdao.categoryMapUpdate(map);
-		
+
 		//장비유형 수정
 		int itemId=Integer.parseInt(req.getParameter("item_id"));
 		int rentalshop_id=Integer.parseInt(req.getParameter("rentalshop_id"));
@@ -77,9 +77,9 @@ public class ItemCategoryUpdateController extends HttpServlet {
 			f.delete();
 			
 			//새롭게 업로드하기
-			String newItemImg=UUID.randomUUID() + "_" + part.getSubmittedFileName();
+			itemImg=UUID.randomUUID() + "_" + part.getSubmittedFileName();
 			
-			FileOutputStream fos=new FileOutputStream(itemPath+ File.separator + newItemImg);
+			FileOutputStream fos=new FileOutputStream(itemPath+ File.separator + itemImg);
 			InputStream is=part.getInputStream();
 			is.transferTo(fos);
 			
@@ -90,8 +90,11 @@ public class ItemCategoryUpdateController extends HttpServlet {
 		}
 		
 		//장비유형 db수정하기
-		
-
+		RentItemDTO itemDto=new RentItemDTO(itemId,categoryId,rentalshop_id,item_name,item_detail,quantity,itemImg,null);
+		System.out.println("itemDTO :"+ itemDto);
+		ridao.itemUpdate(itemDto);
+		System.out.println("렌탈샵고유아이디:"+ rentalshop_id);
+		resp.sendRedirect(req.getContextPath()+"/adminRental/detail?rentalshop_id="+rentalshop_id);
 		
 	}
 }

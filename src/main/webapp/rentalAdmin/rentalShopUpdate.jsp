@@ -16,14 +16,25 @@
 	function execDaumPostcode(){
 		new daum.Postcode({
 			oncomplete: function(data){
-				document.getElementById("location").value = data.address;
+				//사용자가 도로명 주소를 선택한 경우
+				if(data.userSelectedType === 'R' && data.roadAddress){
+					document.getElementById("location").value = data.address;	
+				}else{
+					//도로명 주소가 아닐 경우 사용자에게 알림
+					alert("도로명 주소만 선택해 주세요")
+				}
+				
 			}
 		}).open();
 	}
 </script>
 </head>
 <body>
+<!-- header -->
+<jsp:include page="/rentalAdmin/header.jsp" />
 
+<!-- 메인 컨텐츠 영역 -->
+<main class="main-content">
 <h1>렌탈샵 수정</h1>
 <div class="form-container">
 <form id="updateForm" action="${pageContext.request.contextPath }/adminRental/update" 
@@ -36,7 +47,7 @@
 	<input type="text" name="rental_phone" id="phone" value="${rsdto.rental_phone }"
 		maxlength="13" oninput="formatPhoneNumber(this)"><br>
 		
-	<label for="location">주소</label>
+	<label for="location">도로명 주소</label>
 	<div class="address-row">
 	    <input type="text" name="location" id="location" value="${rsdto.location }" readonly>
 	    <button type="button" onclick="execDaumPostcode()">주소 검색</button>
@@ -64,6 +75,6 @@
 </form>
 </div>
 
-
+</main>
 </body>
 </html>

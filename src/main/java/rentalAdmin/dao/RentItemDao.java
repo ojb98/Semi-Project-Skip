@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import mybatis.service.SqlSessionFactoryService;
+import rental.dto.RentCategoryDTO;
 import rental.dto.RentItemDTO;
 
 
@@ -58,6 +59,22 @@ public class RentItemDao {
 	public RentItemDTO getItemId(int itemId){
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectOne(NAMESPACE+".getItemId",itemId);
+		}
+	}
+	
+	//장비유형 수정
+	public int itemUpdate(RentItemDTO ridto) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			int n=sqlSession.update(NAMESPACE+".riUpdate",ridto);
+			sqlSession.commit();
+			return n;
+		}
+	}
+	
+	//카테고리 전체조회(여러건)
+	public List<RentItemDTO> itemCategoryids(int categoryId){
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectList(NAMESPACE+".riCategoryId",categoryId);
 		}
 	}
 	

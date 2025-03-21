@@ -11,8 +11,7 @@
 <body>
 <!-- header -->
 <jsp:include page="/resortAdmin/header.jsp" />
-<!-- aside -->
-<jsp:include page="/resortAdmin/aside.jsp" />
+ide.jsp" />
 
 <!-- 메인 컨텐츠 영역 -->
 <main class="main-content">

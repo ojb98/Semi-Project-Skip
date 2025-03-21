@@ -32,7 +32,7 @@
                 <img src="${pageContext.request.contextPath}/rentItemImg/${it.item_img}" width="100">
             </td>
             <td>${it.created_at}</td>
-            <td><a href="${pageContext.request.contextPath}/adminItemCategory/update?item_id=${it.item_id}&category_id=${list.category_id}">
+            <td><a href="${pageContext.request.contextPath}/adminItemCategory/update?item_id=${it.item_id}">
             <button class="update-btn">수정</button></a></td>
             <td>
             	<a href="${pageContext.request.contextPath}/adminItem/delete?item_id=${it.item_id}" 

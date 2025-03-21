@@ -26,8 +26,6 @@ public class RentalShopDelController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//렌탈샵과 렌탈샵 장비유형을 같이 삭제작업
-		
-		
 		int rentalId = Integer.parseInt(req.getParameter("rentalshop_id"));
 
 	     //경로 얻어오기

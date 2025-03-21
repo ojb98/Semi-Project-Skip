@@ -8,6 +8,11 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminFacilityInsert.css">
 </head>
 <body>
+<!-- header -->
+<jsp:include page="/rentalAdmin/header.jsp" />
+
+<!-- 메인 컨텐츠 영역 -->
+<main class="main-content">
 
 <h1>장비카테고리 등록</h1>
 <div class="form-container">
@@ -32,5 +37,6 @@
 </form>
 </div>
 
+</main>
 </body>
 </html>

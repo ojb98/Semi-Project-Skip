@@ -7,7 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import rental.dto.RentItemCategoryDTO;
+import rental.dto.RentCategoryDTO;
 import rentalAdmin.dao.RentCategoryDao;
 
 @WebServlet("/adminRentCategory/insert")
@@ -25,7 +25,7 @@ public class RentCategoryInsertController extends HttpServlet {
 		String itemType=req.getParameter("item_type");
 		int price=Integer.parseInt(req.getParameter("price_per_hour"));
 		
-		RentItemCategoryDTO rcdto=new RentItemCategoryDTO(0,itemType,price);
+		RentCategoryDTO rcdto=new RentCategoryDTO(0,itemType,price);
 		
 		int n=rcdao.categoryInsert(rcdto);
 

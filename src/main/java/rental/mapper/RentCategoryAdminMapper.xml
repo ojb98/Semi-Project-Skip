@@ -5,13 +5,13 @@
 <mapper namespace="rental.mapper.RentCategoryAdminMapper">
 
   <!-- 카테고리 등록 -->
-  <insert id="rcInsert" parameterType="rental.dto.RentItemCategoryDTO">
+  <insert id="rcInsert" parameterType="rental.dto.RentCategoryDTO">
     insert into ITEM_CATEGORY(category_id,item_type,price_per_hour)
     values(ITEM_CATEGORY_SEQ.NEXTVAL,#{item_type},#{price_per_hour})
   </insert>
   
   <!-- 카테고리 전체조회(여러건) -->
-  <select id="rcList" resultType="rental.dto.RentItemCategoryDTO">
+  <select id="rcList" resultType="rental.dto.RentCategoryDTO">
   	select category_id,item_type,price_per_hour from ITEM_CATEGORY
   </select>
   
@@ -42,15 +42,20 @@
   </select>
   
   <!-- 카테고리아이디로 카테고리 데이터 조회(1건) -->
-  <select id="getCategoryId" parameterType="int" resultType="rental.dto.RentItemCategoryDTO">
+  <select id="getCategoryId" parameterType="int" resultType="rental.dto.RentCategoryDTO">
     select category_id,item_type,price_per_hour from ITEM_CATEGORY 
     where category_id=#{category_id }
   </select>
   
   <!-- 카테고리 가격만 수정하기 -->
   <update id="rcmUpdate" parameterType="hashmap">
-  	update ITEM_CATEGORY set price_pre_hour=#{price}
+  	update ITEM_CATEGORY set price_per_hour=#{price}
   	where category_id=#{categoryId}
   </update>
+  
+  <!-- 카테고리 삭제 -->
+  <delete id="rcDelete" parameterType="int">
+  	delete from ITEM_CATEGORY where category_id=#{category_id}
+  </delete>
 
 </mapper>

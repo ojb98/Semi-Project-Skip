@@ -8,7 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import rental.dto.RentItemCategoryDTO;
+import rental.dto.RentCategoryDTO;
 import rentalAdmin.dao.RentCategoryDao;
 
 @WebServlet("/adminRentCategory/list")
@@ -17,7 +17,7 @@ public class RentCategoryListController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<RentItemCategoryDTO> list=rcdao.categoryList();
+		List<RentCategoryDTO> list=rcdao.categoryList();
 		System.out.println("카테고리 리스트 출력:"+list);
 		req.setAttribute("list", list);
 		
