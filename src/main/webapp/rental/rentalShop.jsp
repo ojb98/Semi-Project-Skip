@@ -8,15 +8,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/mainpage.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/reset.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/font.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/search.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/detail.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/wish.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/cart.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/pay.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css">
     <title>Simple Layout</title>
     <style>
         body {
@@ -225,36 +219,8 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <nav class="header_nav">
-            <div class="header_menu">
-                <div class="header_logo">
-                    <h1>
-                        <a href="index.html">SKI:P</a>
-                    </h1>
-                </div>
-                <div class="login">
-                    <ul>
-                        <li>
-                            <a href="#">로그인</a>
-                        </li>
-                        <li>
-                            <a href="#">로그아웃</a>
-                        </li>
-                        <li>
-                            <a href="#">마이페이지</a>
-                        </li>
-                        <li>
-                            <a href="#">찜</a>
-                        </li>
-                        <li>
-                            <a href="#">장바구니</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    
+<jsp:include page="/header.jsp"/>
     <div class="main-banner">
         <img src="배너.jpg" alt="배너">
     </div>
@@ -339,6 +305,7 @@
         </div>
     </div>
 </div>
+<jsp:include page="/footer.jsp"/>
 
 <script>
     function showTab(tabName) {

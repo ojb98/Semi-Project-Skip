@@ -1,15 +1,19 @@
 <%@page import="users.dao.UsersDao"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
-    <title>Title</title>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/mainpage.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/reset.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/font.css">
+<title>찜 목록</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/mainpage.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/reset.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/font.css">
 </head>
-<body>
 <style>
+/* 기존 스타일 유지 */
 .save_container {
 	width: 1230px;
 	margin: 50px auto;
@@ -46,27 +50,27 @@
 
 .item-box {
 	width: 100%;
-	height: auto; /* height 설정 변경 */
+	height: auto;
 	position: relative;
 }
 
 .main-image {
 	position: relative;
-	height: 70%; /* 이미지 높이를 지정 */
-	z-index: 1; /* 이미지가 텍스트 아래로 가도록 설정 */
+	height: 70%;
+	z-index: 1;
 }
 
 .item_text {
 	padding: 10px;
 	flex-grow: 1;
 	position: relative;
-	z-index: 2; /* 텍스트가 이미지 위로 오도록 설정 */
+	z-index: 2;
 }
 
 .save_item img {
 	width: 100%;
 	height: 100%;
-	object-fit: fit; /* 이미지 크기 맞춤 설정 */
+	object-fit: fit;
 	border-radius: 10px;
 }
 
@@ -74,8 +78,8 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	position: relative; /* 필요한 경우 position 조정 */
-	z-index: 2; /* 텍스트 요소들이 이미지 위로 오게 설정 */
+	position: relative;
+	z-index: 2;
 }
 
 .save_item .heart_btn {
@@ -83,15 +87,7 @@
 	top: 15px;
 	right: 15px;
 	font-size: 24px;
-}
-
-.save_item .item_img {
-	height: 260px;
-	border-radius: 10px;
-}
-
-.save_item .item_img:hover {
-	background-size: 120%;
+	z-index: 10;
 }
 
 .item_text h4 {
@@ -108,147 +104,140 @@
 	margin-right: 5px;
 }
 </style>
-<!-- header -->
-<header>
-    <nav class="header_nav">
-        <div class="header_menu">
-            <div class="header_logo">
-                <h1>
-                    <a href="index.html">SKI:P</a>
-                </h1>
-            </div>
-            <div class="login">
-                <ul>
-                    <li>
-                        <a href="#none">로그인</a>
-                    </li>
-                    <li>
-                        <a href="#none">로그아웃</a>
-                    </li>
-                    <li>
-                        <a href="#none">마이페이지</a>
-                    </li>
-                    <li>
-                        <a href="save.html">찜</a>
-                    </li>
-                    <li>
-                        <a href="cart.html">장바구니</a>
-                    </li>
-                </ul>
-            </div>
-    </nav>
-</header>
+<body>
+	<main>
+		<%-- 사용자 UUID 가져오기 --%>
+		<%
+		Cookie[] cookies = request.getCookies();
+		String userId = null;
+		int uuid = -1;
 
-<!-- main-->
-<main>
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("user_id")) {
+			userId = cookie.getValue();
+			break;
+				}
+			}
+		}
 
-    <%
-        Cookie[] cookies = request.getCookies();
-        String userId = null;
-        int uuid = -1;
+		if (userId != null) {
+			UsersDao usersDao = UsersDao.getInstance();
+			uuid = usersDao.getUUID(userId);
+		}
+		%>
 
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("user_id")) {
-                    userId = cookie.getValue();
-                    break;
-                }
+		<jsp:include page="/header.jsp" />
+
+		<div class="save_container">
+			<div class="save_title">
+				<h2>찜</h2>
+			</div>
+			<div class="save_box">
+				<c:choose>
+					<c:when test="${not empty requestScope.wishList}">
+						<c:forEach var="wish" items="${requestScope.wishList}">
+							<a href="${pageContext.request.contextPath}${wish.link} "
+								class="save_item" data-item-id="${wish.ref_id}" data-category="${wish.category}">
+								<div class="item-box">
+									<div class="main-image">
+										<img src="/test${wish.mainImg}" />
+									</div>
+									<div class="item_text">
+										<h4>${wish.category}</h4>
+										<div class="item_bottom">
+											<div class="left">
+												<h3>${wish.name}</h3>
+												<span class="rating"><i class="fa fa-star"></i>${wish.rating}</span>
+											</div>
+											<div class="right">
+												<span>${wish.price}</span>
+											</div>
+										</div>
+									</div>
+									<span class="heart_btn"> <i
+										class="fa fa-heart ${wish.isWish ? 'fas' : 'far'} heart-icon"></i>
+									</span>
+								</div>
+							</a>
+
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<p>현재 찜 목록이 비었음</p>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+	</main>
+
+	<jsp:include page="/footer.jsp" />
+
+	<script>
+    const uuid = <%=uuid%>;  // 사용자 UUID
+
+    // 하트 클릭 이벤트 처리
+    const heartButtons = document.querySelectorAll('.heart_btn');
+
+    heartButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault(); // 링크 이동 방지
+
+            const itemElement = this.closest('.save_item');  // .save_item을 제대로 찾고 있는지 확인
+            if (!itemElement) {
+                alert('아이템을 찾을 수 없습니다.');
+                return;
             }
-        }
+            
+            const itemId = this.closest('.save_item').getAttribute('data-item-id');  // 아이템 ID
+            let category = itemElement.getAttribute('data-category'); 
 
-        if (userId != null) {
-            UsersDao usersDao = UsersDao.getInstance();
-            uuid = usersDao.getUUID(userId);
-        }
+            // itemId가 비어 있는지 확인
+            if (!itemId || !category) {
+                alert('잘못된 아이템 정보입니다.');
+                return;
+            }
+            const heartIcon = this.querySelector('.heart-icon');
+            const isWish = heartIcon.classList.contains('fas'); // 현재 찜 상태 확인
 
-    %>
+            if (uuid === -1) {
+                alert('로그인이 필요합니다.');
+                return;
+            }
+            
+            if (category === '스키장') category = 'SKI';
+            if (category === '렌탈샵') category = 'RENTAL';
+            if (category === '리조트') category = 'RESORT';
 
-    <div class="save_container">
-        <div class="save_title">
-            <h2>찜</h2>
-        </div>
-        <div class="save_box">
-            <c:choose>
-                <c:when test="${not empty requestScope.wishList}">
-                    <c:forEach var="wish" items="${requestScope.wishList}">
-                        <a href="${pageContext.request.contextPath}${wish.link}" class="save_item">
-                            <div class="item-box">
-                                <div class="main-image">
-                                    <img src="/test${wish.mainImg}"/>
-                                </div>
-                                <div class="item_text">
-                                    <h4>${wish.category}</h4>
-                                    <div class="item_bottom">
-                                        <div class="left">
-                                            <h3>${wish.name}</h3>
-                                            <span class="rating"><i class="fa fa-star"></i>${wish.rating}</span>
-                                        </div>
-                                        <div class="right">
-                                            <span>${wish.price}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="heart_btn fa-heart-active"><i
-                                        class="fa fa-heart fa-heart-active"></i></span>
-                            </div>
-                        </a>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <p>현재 찜 목록이 비었음</p>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </div>
-</main>
-
-
-<!-- footer -->
-<footer>
-    <div class="footer_inner">
-        <div class="footer_top">
-            <div class="footer_left">
-                <a href="#none">회사소개</a>
-                <a href="#none">이용약관</a>
-                <a href="#none">개인정보 처리방침</a>
-                <a href="#none">찾아오시는 길</a>
-            </div>
-            <div class="footer_right">
-                <a href="#none" class="sns blog"></a>
-                <a href="#none" class="sns kakao"></a>
-                <a href="#none" class="sns instagram"></a>
-            </div>
-        </div>
-
-        <div class="footer_bottom">
-            <p class="footer_title">SKI:P</p>
-            <p>사업자 등록번호: 123-45-67890</p>
-            <p>COPYRIGHT ⓒ TRAVLE CO., LTD. ALL RIGHTS RESERVED.</p>
-        </div>
-    </div>
-</footer>
-
-<script>
-    const hearts = document.querySelectorAll(".fa-heart");
-
-    hearts.forEach(function (heart) {
-        heart.addEventListener("click", function () {
-            this.classList.toggle("fa-heart-active");
+            // DB에서 해당 아이템을 찜 목록에서 제거
+            fetch('/test/wish', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    uuid: uuid,
+                    ref_id: itemId,
+                    isWish: isWish,  // 현재 상태 반대로 전달 (삭제하면 false)
+                    category: category
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 찜 목록에서 해당 아이템을 제거
+                    this.closest('.save_item').remove();  // 페이지에서 상품 제거
+                } else {
+                    alert('처리 중 오류가 발생했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('서버와의 통신에 실패했습니다.');
+            });
         });
     });
-
-    const heartBtns = document.querySelectorAll('.heart_btn');
-
-    heartBtns.forEach(btn => {
-        btn.addEventListener("click", function (event) {
-            event.preventDefault(); // a 태그 이동 막기
-            this.classList.toggle("fa-heart-active"); // 토글 효과 적용
-        });
-    });
-
 </script>
-</body>
 
-</html>
 </body>
 </html>

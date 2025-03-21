@@ -24,7 +24,6 @@ public class WishController extends HttpServlet {
                 int uuid = Integer.parseInt(req.getParameter("uuid"));
 
                 List<Integer> wishList = wishDao.getWishRefIdList(uuid);
-                System.out.println("찜한 아이템 목록: " + wishList);
 
                 JSONObject jsonResponse = new JSONObject();
                 jsonResponse.put("wishList", wishList);
@@ -42,10 +41,10 @@ public class WishController extends HttpServlet {
                 boolean isWish = Boolean.parseBoolean(req.getParameter("isWish"));
                 int uuid = Integer.parseInt(req.getParameter("uuid"));
                 int refId = Integer.parseInt(req.getParameter("ref_id"));
-                String category = req.getParameter("isRentalOrSki");
+                String category = req.getParameter("category");
 
                 // 로그 출력
-                System.out.println("Received POST request: isWish=" + isWish + ", uuid=" + uuid + ", refId=" + refId);
+                System.out.println("Received POST request: isWish=" + isWish + ", uuid=" + uuid + ", refId=" + refId + ", category=" + category);
 
                 if (isWish) {  // 찜 추가
                     int result = wishDao.insertWish(new WishDTO(0, uuid, category, refId));

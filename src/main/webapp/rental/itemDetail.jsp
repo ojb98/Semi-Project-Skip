@@ -7,15 +7,9 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/mainpage.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/reset.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/font.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/search.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/detail.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/wish.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/cart.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/pay.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css">
     <title>s</title>
     <style>
         body {
@@ -430,36 +424,8 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <nav class="header_nav">
-            <div class="header_menu">
-                <div class="header_logo">
-                    <h1>
-                        <a href="index.html">SKI:P</a>
-                    </h1>
-                </div>
-                <div class="login">
-                    <ul>
-                        <li>
-                            <a href="#">로그인</a>
-                        </li>
-                        <li>
-                            <a href="#">로그아웃</a>
-                        </li>
-                        <li>
-                            <a href="#">마이페이지</a>
-                        </li>
-                        <li>
-                            <a href="#">찜</a>
-                        </li>
-                        <li>
-                            <a href="#">장바구니</a>
-                        </li>
-            </ul>
-                </div>
-        </div>
-    </nav>
-    </header>
+    
+<jsp:include page="/header.jsp"/>
 
     <%
         int img_num = (int) request.getAttribute("img_num");
@@ -617,6 +583,7 @@
 
 </div>
 
+<jsp:include page="/footer.jsp"/>
 <script>
     let totalPrice = 0;
     let selectedItems = new Map();
@@ -714,7 +681,7 @@
                         isWish: isWish,  // 찜 상태 (true -> 찜 추가, false -> 찜 삭제)
                         uuid: uuid,      // 사용자 uuid
                         ref_id: itemId,  // 아이템 ID
-                        isRentalOrSki: isRentalOrSki  // 카테고리 (렌탈, 스키 등)
+                        category: isRentalOrSki  // 카테고리 (렌탈, 스키 등)
                     })
                 })
                     .then(response => response.json())

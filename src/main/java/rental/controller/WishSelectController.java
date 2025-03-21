@@ -51,6 +51,7 @@ public class WishSelectController extends HttpServlet {
         wishList.forEach(wish -> {
             String category = wish.getCategory();
             int ref_id = wish.getRef_id();
+            System.out.println(ref_id + "gigigigi햐햐햐햐");
             if (category.equalsIgnoreCase(ski))
                 list.add(putInfo(req.getContextPath(), ref_id, skiItemDao.getSkiItemByItemId(ref_id)));
             if (category.equalsIgnoreCase(rental))
@@ -74,6 +75,7 @@ public class WishSelectController extends HttpServlet {
             map.put("name", varDTO.getItem_name());
             map.put("rating", skiReviewDao.getAverage(varDTO.getSki_id()));
             map.put("price", varDTO.getPrice_per_hour());
+            map.put("ref_id", ref_Id);
         }
 
         if (dto instanceof RentCategoryDTO varDTO) {
@@ -85,6 +87,7 @@ public class WishSelectController extends HttpServlet {
             map.put("name", varDTO.getItem_name());
             map.put("rating", rentalShopReviewDao.getAverage(varDTO.getRentalshop_id()));
             map.put("price", varDTO.getPrice_per_hour());
+            map.put("ref_id", ref_Id);
         }
 
         if (dto instanceof RoomDTO varDTO) {
@@ -95,6 +98,7 @@ public class WishSelectController extends HttpServlet {
             map.put("name", varDTO.getRoom_name());
             map.put("rating", resortReviewDao.getAverage(varDTO.getResort_id()));
             map.put("price", varDTO.getPrice_per_night());
+            map.put("ref_id", ref_Id);
         }
 
         return map;

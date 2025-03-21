@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>resort</title>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/mainpage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <%-- 아이콘 --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -760,36 +761,8 @@
 </div>
 
 <div class="container">
-    <header>
-        <nav class="header_nav">
-            <div class="header_menu">
-                <div class="header_logo">
-                    <h1>
-                        <a href="index.html">SKI:P</a>
-                    </h1>
-                </div>
-                <div class="login">
-                    <ul>
-                        <li>
-                            <a href="#">로그인</a>
-                        </li>
-                        <li>
-                            <a href="#">로그아웃</a>
-                        </li>
-                        <li>
-                            <a href="#">마이페이지</a>
-                        </li>
-                        <li>
-                            <a href="#">찜</a>
-                        </li>
-                        <li>
-                            <a href="#">장바구니</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    
+<jsp:include page="/header.jsp"/>
 
     <div class="content-wrapper">
         <div class="search-info-box">
@@ -973,6 +946,7 @@
 
 </div>
 
+<jsp:include page="/footer.jsp"/>
 <script>
     let startDate = null;
     let endDate = null;
@@ -1003,15 +977,9 @@
             });
         }
 
-        // 장바구니 버튼 클릭 이벤트
-        const addToCartButton = item.querySelector('.purchase-button');
 
     });
 
-    // 장바구니에 추가하는 함수
-    function addToCart(roomName, totalPrice) {
-        alert(`${roomName}이(가) ${quantity}개만큼 장바구니에 추가되었습니다. 총 가격: ${totalPrice}원`);
-    }
 
     // 예약을 처리하는 함수
     function validateAndSubmit(isCart, roomId, price, startTime) {
@@ -1041,7 +1009,7 @@
         // 폼 생성
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = isCart ? '/resort/cart' : '/resort/payment'; // 서버의 결제 처리 URL
+        form.action = isCart ? '/test/resort/cart' : '/test/resort/payment'; // 서버의 결제 처리 URL
 
         // 폼 필드 추가
         const fields = [
