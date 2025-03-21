@@ -28,6 +28,8 @@ if(reservationList != null && !reservationList.isEmpty()){
       <td><%= reservation.getUserId() %></td>
       <td><%= reservation.getUserEmail() %></td>
       <td><%= reservation.getPhone() %></td>
+      <td><%= reservation.getReserv_start() %></td>
+      <td><%= reservation.getReserv_end() %></td>
       <td><%= reservation.getCreated_at() %></td>
 <% 
 	if("CONFIRMED".equals(reservation.getStatus())){

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna.mapper.QnaMapper">
+	<sql id="filter">
+		where q.uuid = #{uuid}
+		<if test="category != null and category != ''">
+			and category = #{category}
+		</if>
+		<if test="year != null and year != ''">
+			and to_char(q.created_at, 'yyyy') = #{year}
+		</if>
+	</sql>
+
+	<select id="getCount" resultType="int" parameterType="hashmap">
+		select count(*)
+		from qna q
+		<include refid="filter"/>
+	</select>
+	
+	<resultMap type="qna.dto.QnaDto" id="QnaReMapper">
+		<id column="qna_id" property="qna_id"/>
+		<result column="uuid" property="uuid"/>
+		<result column="category" property="category"/>
+		<result column="ref_id" property="ref_id"/>
+		<result column="ref_name" property="ref_name"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="status" property="status"/>
+		<result column="created_at" property="created_at"/>
+
+		<association property="qnaReDto" javaType="qna.dto.QnaReDto">
+			<id column="qna_re_id" property="qna_re_id"/>
+			<result column="qna_id" property="qna_id"/>
+			<result column="r_uuid" property="uuid"/>
+			<result column="user_id" property="user_id"/>
+			<result column="r_content" property="content"/>
+			<result column="r_created_at" property="created_at"/>
+		</association>
+	</resultMap>
+	
+	<select id="list" resultMap="QnaReMapper" parameterType="hashmap">
+		select *
+		from (
+			select rownum rn, ql.*
+			from (
+				select q.qna_id, q.uuid, q.category, q.ref_id, q.title, q.content, q.status, q.created_at,
+					decode(q.category, 'SKI', (select name from ski where ski_id = ref_id),
+					'RENTAL', (select name from rentalshop where rentalshop_id = ref_id),
+					'RESORT', (select name from resort where resort_id = ref_id)) ref_name,
+					qr.qna_re_id, qr.uuid r_uuid, qr.content r_content, qr.created_at r_created_at,
+					(select user_id from users where uuid = qr.uuid) user_id
+				from qna q left join qna_re qr on q.qna_id = qr.qna_id
+				<include refid="filter"/>
+				order by q.created_at desc
+			) ql
+		)
+		where rn between #{startRow} and #{endRow}
+	</select>
+</mapper>

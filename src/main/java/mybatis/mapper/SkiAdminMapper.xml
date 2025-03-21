@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">    
-<mapper namespace="skiAdminPageMapper.SkiAdminMapper">
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">   
+<mapper namespace="mybatis.mapper.SkiAdminMapper">
     <!-- SKI_ID를 기반으로 예약 정보 조회 -->
     <select id="getSkiReservationDetail" parameterType="map" resultType="ski.dto.SkiReservationDetailDTO">
     	SELECT 	SI.ITEM_ID,
@@ -16,7 +16,9 @@
         JOIN SKI_RESERVATION_ITEM SRI ON SI.ITEM_ID = SRI.ITEM_ID
         WHERE SRI.SKI_RESERV_ID = #{reservID}
     </select>
+    
     <!-- SKI_ID를 기반으로 예약 정보 조회 -->
+    <!--  
     <select id="getSkiReview" parameterType="map" resultType="ski.dto.SkiReviewsDTO">
     	SELECT SR.SKI_RESERV_ID, 
                U.NAME as userName, 
@@ -30,7 +32,7 @@
         JOIN USERS U ON SR.UUID = U.UUID
         WHERE SR.SKI_ID = #{skiID}
     </select>
-    
+    -->
    
     <delete id="deleteReservation" parameterType="int">
     	DELETE FROM SKI_RESERVATION WHERE SKI_RESERV_ID=#{reserv_id} 

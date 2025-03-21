@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rental.mapper.RentCategoryAdminMapper">
+  <!-- 카테고리 등록 -->
+  <insert id="rcInsert" parameterType="rental.dto.RentItemCategoryDTO">
+    insert into ITEM_CATEGORY(category_id,item_type,price_per_hour)
+    values(ITEM_CATEGORY_SEQ.NEXTVAL,#{item_type},#{price_per_hour})
+  </insert>
+  
+  <!-- 카테고리 전체조회(여러건) -->
+  <select id="rcList" resultType="rental.dto.RentItemCategoryDTO">
+  	select category_id,item_type,price_per_hour from ITEM_CATEGORY
+  </select>
+  
+  <!-- 장비유형 + 카테고리 조인하여 장비유형(1):카테고리(N) -->
+  <resultMap type="rental.dto.ItemCategoryListDTO" id="itemlistAll">
+  	<id column="category_id" property="category_id"/>
+  	<result column="item_type" property="item_type"/>
+    <result column="price_per_hour" property="price_per_hour"/>
+  
+  	<collection property="itemesDto" ofType="rental.dto.RentItemDTO">
+  		<id column="item_id" property="item_id"/>
+  		<result column="item_name" property="item_name"/>
+  		<result column="item_detail" property="item_detail"/>
+  		<result column="total_quantity" property="total_quantity"/>
+  		<result column="item_img" property="item_img"/>
+  		<result column="created_at" property="created_at"/>
+  	</collection>
+  </resultMap>
+  
+  <!-- 장비유형 + 카테고리 조인 -->
+  <select id="itemCategoryList" parameterType="int" resultMap="itemlistAll">
+  select i.item_id, c.category_id, c.item_type, c.price_per_hour,i.item_name, 
+  i.item_detail, i.total_quantity, i.item_img, i.created_at
+  from RENT_ITEM i JOIN ITEM_CATEGORY c 
+  on i.CATEGORY_ID=c.CATEGORY_ID
+  where i.rentalshop_id=#{rentalshop_id}
+  order by i.item_id desc
+  </select>
+
+</mapper>

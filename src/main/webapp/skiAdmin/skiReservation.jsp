@@ -24,58 +24,11 @@
     padding: 20px;
 }
 
-/* 예약 상품 상세정보 테이블 스타일 */
-.reservation-detail-card table {
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
-}
-
-.reservation-detail-card th,
-.reservation-detail-card td {
-    padding: 8px;
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* 각 칼럼 너비 지정 */
-.reservation-detail-card th:nth-child(1),
-.reservation-detail-card td:nth-child(1) {
-    width: 15%; /* 예약번호 */
-}
-
-.reservation-detail-card th:nth-child(2),
-.reservation-detail-card td:nth-child(2) {
-    width: 15%; /* 예약상세ID */
-}
-
-.reservation-detail-card th:nth-child(3),
-.reservation-detail-card td:nth-child(3) {
-    width: 30%; /* 상품명 */
-}
-
-.reservation-detail-card th:nth-child(4),
-.reservation-detail-card td:nth-child(4) {
-    width: 20%; /* 수량 */
-}
-
-.reservation-detail-card th:nth-child(5),
-.reservation-detail-card td:nth-child(5) {
-    width: 20%; /* 금액 계 */
-}
-
 .detail-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-}
-
-.detail-header h3 {
-    margin: 0;
-    font-size: 16px;
+    margin-bottom: 20px;
 }
 
 .close-btn {
@@ -118,6 +71,7 @@
     font-size: 14px;
     color: #333;
     font-weight: 500;
+
 }
 
 /* 검색 관련 스타일 수정 */
@@ -294,14 +248,34 @@ function reservationDetailList(reservId) {
 	xhr.open("GET", contextPath + "/skiAdmin/reservationList?skiID="+encodeURIComponent(skiID), true);
 	xhr.send();
   }
-  
+  function requestDelete(reserv_id) { //**** 관리자가 예약 취소 : 환불까지 이어져야 함 ****
+	  if (!confirm("정말로 이 예약을 삭제하시겠습니까?")) return;
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function(){
+    	  if(xhr.readyState === 4){
+	    		 if(xhr.status === 200){
+	           		if (xhr.responseText === "success") {
+	           			alert("삭제가 완료되었습니다.");
+		                requestReservationList();
+	           		} else if (xhr.responseText === "invalid_reserv_id") {
+	                    alert("잘못된 UUID 값입니다.");
+	                } else {
+	                    alert("삭제 요청 실패.");
+	                }
+	              } else {
+	                  alert("삭제 중 오류");
+	              }
+	          }
+      };
+      xhr.open("POST", contextPath + "/skiAdmin/deleteReservation", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send("reserv_id=" + encodeURIComponent(reserv_id));
+  }
   function searchList() {
       var keyword = document.getElementById("searchInput").value;
       var filter = document.getElementById("filterSelect").value;
-      var reservDate1Start = document.getElementById("reservDate1Start").value || "";
-      var reservDate1End = document.getElementById("reservDate1End").value || "";
-      var reservDate2Start = document.getElementById("reservDate2Start").value || "";
-      var reservDate2End = document.getElementById("reservDate2End").value || "";
+      var reservDateStart = document.getElementById("reservDateStart").value || "";
+      var reservDateEnd = document.getElementById("reservDateEnd").value || "";
       var createdAtStart = document.getElementById("createdAtStart").value || "";
       var createdAtEnd = document.getElementById("createdAtEnd").value || "";
       var skiID = '<%= session.getAttribute("skiID") %>';
@@ -317,8 +291,7 @@ function reservationDetailList(reservId) {
       };
       // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
       xhr.open("GET", contextPath + "/skiAdmin/reservationList?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&skiID="+encodeURIComponent(skiID) +
-    		  "&reservDate1Start=" + encodeURIComponent(reservDate1Start) + "&reservDate1End=" + encodeURIComponent(reservDate1End) +
-    		  "&reservDate2Start=" + encodeURIComponent(reservDate2Start) + "&reservDate2End=" + encodeURIComponent(reservDate2End) + 
+    		  "&reservDateStart=" + encodeURIComponent(reservDateStart) + "&reservDateEnd=" + encodeURIComponent(reservDateEnd) + 
     		  "&createdAtStart=" + encodeURIComponent(createdAtStart)+ "&createdAtEnd=" + encodeURIComponent(createdAtEnd), true);
       xhr.send();
   }
@@ -365,9 +338,9 @@ function reservationDetailList(reservId) {
         <table>
             <thead>
                 <tr>
-                	<th>예약번호</th>
                     <th>예약상세ID</th>
-                    <th>상품명</th>                    
+                    <th>상품명</th>
+                    <th>예약번호</th>
                     <th>수량</th>
                     <th>금액 계</th>
                 </tr>
@@ -424,6 +397,7 @@ function reservationDetailList(reservId) {
                         </button>
                     </div>
                 </div>
+
                 </div>
             </div>
         </div>
@@ -435,8 +409,7 @@ function reservationDetailList(reservId) {
                         <th>아이디</th>
                         <th>이메일</th>
                         <th>전화번호</th>
-                        <th>이용예정일</th>
-                        <th>이용종료일</th>                         
+                        <th>이용예정일</th>                         
                         <th>예약생성일</th>
                         <th>예약상태</th>
                         <th>상세보기</th>

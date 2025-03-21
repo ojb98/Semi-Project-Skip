@@ -43,8 +43,6 @@
 </main>
 <jsp:include page="/footer.jsp"/>
 <script type="text/javascript">
-	Kakao.init("cfdcc51d0d7080707d7e3637e4662cd4");
-
 	const user_id = document.getElementsByName("user_id")[0];
 	const password = document.getElementsByName("password")[0];
 	const user_idErrMsg = document.getElementById("user_idErrMsg");
