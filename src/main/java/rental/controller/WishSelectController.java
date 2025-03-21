@@ -51,7 +51,6 @@ public class WishSelectController extends HttpServlet {
         wishList.forEach(wish -> {
             String category = wish.getCategory();
             int ref_id = wish.getRef_id();
-            System.out.println(ref_id + "gigigigi햐햐햐햐");
             if (category.equalsIgnoreCase(ski))
                 list.add(putInfo(req.getContextPath(), ref_id, skiItemDao.getSkiItemByItemId(ref_id)));
             if (category.equalsIgnoreCase(rental))
