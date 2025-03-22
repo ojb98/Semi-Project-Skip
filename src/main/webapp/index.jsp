@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Ski:p</title>
+<title>SKI:P</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainpage.css">
 </head>
 <body>
@@ -114,7 +114,13 @@
 					</div>
 				</div>
 				<div class="forecasts_sub">
-					<c:forEach var="i" begin="0" end="8">
+					<div class="forecast" style="display: none;">
+						<div class="forecast_day"></div>
+						<div class="forecast_time"></div>
+						<img class="forecast_img" width="100px" height="100px" hidden>
+						<div class="forecast_temp"></div>
+					</div>
+					<c:forEach var="i" begin="1" end="8">
 						<div class="forecast">
 							<div class="forecast_day"></div>
 							<div class="forecast_time"></div>
@@ -132,7 +138,7 @@
 <jsp:include page="/footer.jsp" />
 
 <script>
-	const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+	const days = ['일', '월', '화', '수', '목', '금', '토'];
 
 	const select = document.getElementsByTagName("select")[0];
 
@@ -206,24 +212,24 @@
 			forecast_time_main.innerText = (list[list_idx].sys.pod === 'd') ? "6 AM" : "6 PM";
 		}
 		forecast_date_main.innerText = date.getDate();
-		forecast_day_main.innerText = days[date.getDay()];
+		forecast_day_main.innerText = days[date.getDay()] + "요일";
 		forecast_img_main.src = "${pageContext.request.contextPath}/img/weather_icon/" + list[list_idx].weather[0].icon + ".png";
 		forecast_img_main.style.display = "block";
 		forecast_temp_main.innerText = list[list_idx].main.temp;
 		forecast_desc.innerText = list[list_idx].weather[0].description;
-		forecast_feel.innerText = "Feel: " + list[list_idx].main.feels_like + "°";
-		forecast_humid.innerText = "Humidity: " + list[list_idx].main.humidity + "%";
-		forecast_wind.innerText = "Wind: " + list[list_idx].wind.speed + " m/s";
+		forecast_feel.innerText = "체감: " + list[list_idx].main.feels_like + "°";
+		forecast_humid.innerText = "습도: " + list[list_idx].main.humidity + "%";
+		forecast_wind.innerText = "바람: " + list[list_idx].wind.speed + "m/s";
 		try {
-			forecast_rain.innerText = "Rain: " + (list[list_idx].rain["3h"] / 3).toFixed(2) + "mm/h";
+			forecast_rain.innerText = "비: " + list[list_idx].rain["3h"] + "mm/h";
 		} catch (err) {
-			forecast_rain.innerText = 'Rain: X';
+			forecast_rain.innerText = '비: X';
 		}
-		forecast_cloud.innerText = "Cloud: " + list[list_idx].clouds.all + "%";
+		forecast_cloud.innerText = "구름: " + list[list_idx].clouds.all + "%";
 		try {
-			forecast_snow.innerText = "Snow: " + (list[list_idx].snow["3h"] / 3).toFixed(2) + "mm/h";
+			forecast_snow.innerText = "눈: " + list[list_idx].snow["3h"] + "mm/h";
 		} catch (err) {
-			forecast_snow.innerText = 'Snow: X';
+			forecast_snow.innerText = '눈: X';
 		}
 		temp_symbol.style.display = "flex";
 	}

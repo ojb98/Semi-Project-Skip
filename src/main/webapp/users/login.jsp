@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>users/login.jsp</title>
+<title>SKI:P</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainpage.css">
 </head>
 <body>
