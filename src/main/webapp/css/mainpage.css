@@ -26,14 +26,13 @@ header {
 	font-family: 'GumiRomanceTTF';
 	font-style: italic;
 	color: #5399f5;
-	font-size: 24px;
+	font-size: 33px;
 	font-weight: 700;
-	line-height: 58px;
 }
 
 .header_menu,
 .header_nav {
-	height: 58px;
+	height: 80px;
 }
 
 /* header_nav */
@@ -55,7 +54,8 @@ header {
 
 .login ul {
 	display: flex;
-	font-weight: 700;
+	font-weight: 500;
+	font-size: 1.1em;
 	gap: 34px;
 }
 
@@ -70,8 +70,12 @@ main {
 }
 
 .slide {
-	height: 320px;
+	height: 350px;
 	background-color: #5399f5;
+	background-image: url('../img/cloud.png'), url('../img/boarding.png');
+	background-repeat: no-repeat, no-repeat;
+	background-position: left,  right;
+	background-size: contain, contain;
 }
 
 .main_menu {
@@ -276,13 +280,13 @@ footer {
 }
 
 .blog {
-	background-image: url('/img/blog_icon.png');
+	background-image: url('../img/blog_icon.png');
 }
 .kakao {
-	background-image: url('/img/kakao_icon.png');
+	background-image: url('../img/kakao_icon.png');
 }
 .instagram {
-	background-image: url('/img/instagram_icon.png');
+	background-image: url('../img/instagram_icon.png');
 }
 
 /* 하단 텍스트 영역 */

@@ -15,7 +15,6 @@
 <!-- main -->
 <main>
 	<div class="slide">
-	  슬라이드 영역
 	</div>
 	<div class="main_menu">
 		<button type="button" class="menu_btn"><i class="fa fa-map-marker"></i>스키장 어디로 가시나요?</button>
@@ -87,7 +86,8 @@
 							<div class="forecast_desc"></div>
 							<div class="forecast_temp_wrapper">
 								<div class="forecast_temp_main"></div>
-								<div class="temp_symbol">
+								<!-- 혼자 먼저 로딩되는 것을 방지하기 위한 숨김 설정 -->
+								<div class="temp_symbol" style="display: none;">
 									<span>°C</span>
 								</div>
 							</div>
@@ -110,7 +110,7 @@
 				</div>
 				<div class="forecasts_sub">
 					<c:forEach var="i" begin="0" end="8">
-						<div class="forecast" onclick="showDetail(${i})">
+						<div class="forecast">
 							<div class="forecast_day"></div>
 							<div class="forecast_time"></div>
 							<img class="forecast_img" width="100px" height="100px" hidden>
@@ -132,11 +132,13 @@
 	const select = document.getElementsByTagName("select")[0];
 
 	// 상세 예보
+	const forecast_wrapper = document.getElementsByClassName("forecast_wrapper")[0];
 	const forecast_date_main = document.getElementsByClassName("forecast_date_main")[0];
 	const forecast_day_main = document.getElementsByClassName("forecast_day_main")[0];
 	const forecast_time_main = document.getElementsByClassName("forecast_time_main")[0];
 	const forecast_img_main = document.getElementsByClassName("forecast_img_main")[0];
 	const forecast_temp_main = document.getElementsByClassName("forecast_temp_main")[0];
+	const temp_symbol = document.getElementsByClassName("temp_symbol")[0];
 	const forecast_desc = document.getElementsByClassName("forecast_desc")[0];
 	const forecast_feel = document.getElementsByClassName("forecast_feel")[0];
 	const forecast_humid = document.getElementsByClassName("forecast_humid")[0];
@@ -156,7 +158,7 @@
 	let lats = [];
 	let lons = [];
 
-	// 도로명 주소를 위도, 경도로 변환해서 받아오기
+	// (동기 통신) 도로명 주소를 위도, 경도로 변환해서 받아오기
 	const xhr1 = new XMLHttpRequest();
 	xhr1.onreadystatechange = () => {
 		if (xhr1.readyState === 4 && xhr1.status === 200) {
@@ -174,7 +176,7 @@
 	xhr1.open("get", "${pageContext.request.contextPath}/ski/location", false);
 	xhr1.send();
 
-	// AJAX로 받아온 JSON 객체를 저장하는 배열
+	// AJAX로 받아온 예보 JSON 객체를 저장하는 배열
 	const lists = new Array(lats.length);
 
 	// list에서 지금 시간에 가장 가까운 인덱스를 찾고 저장하는데 쓰는 배열
@@ -183,17 +185,23 @@
 		minIdx.push(0);
 	}
 
-	function showDetail(idx) {
+	// 특정 예보를 상세하게 보여주는 함수
+	function showDetails(idx, list_idx) {
 		for (let i = 0; i < forecast.length; i++) { 
 			forecast[i].style.display = "flex";
 		}
 		forecast[idx].style.display = "none";
 		const list = lists[select.value];
-		const list_idx = (idx === 0) ? minIdx[select.value] : 6 + 4 * idx;
-		const date = new Date(list[list_idx].dt_txt);
+		let date;
+		if (idx === 0) {
+			date = new Date();
+			forecast_time_main.innerText = "Now";
+		} else {
+			date = new Date(list[list_idx].dt_txt);
+			forecast_time_main.innerText = (list[list_idx].sys.pod === 'd') ? "6 AM" : "6 PM";
+		}
 		forecast_date_main.innerText = date.getDate();
 		forecast_day_main.innerText = days[date.getDay()];
-		forecast_time_main.innerText = (idx === 0) ? "Now" : (list[list_idx].sys.pod === 'd') ? "6 AM" : "6 PM";
 		forecast_img_main.src = "${pageContext.request.contextPath}/img/weather_icon/" + list[list_idx].weather[0].icon + ".png";
 		forecast_img_main.style.display = "block";
 		forecast_temp_main.innerText = list[list_idx].main.temp;
@@ -202,16 +210,17 @@
 		forecast_humid.innerText = "Humidity: " + list[list_idx].main.humidity + "%";
 		forecast_wind.innerText = "Wind: " + list[list_idx].wind.speed + " m/s";
 		try {
-			forecast_rain.innerText = "Rain: " + list[list_idx].rain["3h"];
+			forecast_rain.innerText = "Rain: " + (list[list_idx].rain["3h"] / 3).toFixed(2) + "mm/h";
 		} catch (err) {
 			forecast_rain.innerText = 'Rain: X';
 		}
 		forecast_cloud.innerText = "Cloud: " + list[list_idx].clouds.all + "%";
 		try {
-			forecast_snow.innerText = "Snow: " + list[list_idx].snow["3h"];
+			forecast_snow.innerText = "Snow: " + (list[list_idx].snow["3h"] / 3).toFixed(2) + "mm/h";
 		} catch (err) {
 			forecast_snow.innerText = 'Snow: X';
 		}
+		temp_symbol.style.display = "flex";
 	}
 
 	function setForecastScreen(list) {
@@ -226,24 +235,37 @@
 				minIdx[select.value] = i;
 			}
 		}
-		showDetail(0);
+		showDetails(0, minIdx[select.value]);
+		forecast[0].addEventListener('click', () => showDetails(0, minIdx[select.value]));
 		forecast_times[0].innerText = "Now";
 		forecast_days[0].innerText = days[now.getDay()].substring(0, 3);
 		forecast_imgs[0].src = "${pageContext.request.contextPath}/img/weather_icon/" + list[minIdx[select.value]].weather[0].icon + ".png";
 		forecast_imgs[0].style = "display: block";
 		forecast_temps[0].innerText = list[minIdx[select.value]].main.temp + "°";
-		for (let i = 10; i < 40; i += 4) {
-			const date = new Date(list[i].dt_txt);
-			const idx = (i - 6) / 4;
-			forecast_days[idx].innerText = days[date.getDay()].substring(0, 3);
-			if (list[i].sys.pod === "d") {
-				forecast_times[idx].innerText = "6 AM";
-			} else {
-				forecast_times[idx].innerText = "6 PM";
+		
+		// 내일 6시 부터 예보를 받아오기 위한 오프셋
+		let offset;
+		for (let i = 2; i < 11; i++) {
+			if (new Date(list[i].dt_txt).getHours() === 6) {
+				offset = i - 4; // 밑 for 문에서 i가 1부터 시작하기 때문에 i - 4를 저장
+				break;
 			}
-			forecast_imgs[idx].src = "${pageContext.request.contextPath}/img/weather_icon/" + list[i].weather[0].icon + ".png";
-			forecast_imgs[idx].style = "display: block";
-			forecast_temps[idx].innerText = list[i].main.temp + "°";
+		}
+		
+		// 내일 부터 4일간의 날씨 정보를 각각 오전 6시, 오후 6시를 기준으로 가져온다.
+		for (let i = 1; i < 9; i++) {
+			const list_idx = offset + 4 * i;
+			const date = new Date(list[list_idx].dt_txt);
+			forecast[i].addEventListener('click', () => showDetails(i, list_idx));
+			forecast_days[i].innerText = days[date.getDay()].substring(0, 3);
+			if (list[list_idx].sys.pod === "d") {
+				forecast_times[i].innerText = "6 AM";
+			} else {
+				forecast_times[i].innerText = "6 PM";
+			}
+			forecast_imgs[i].src = "${pageContext.request.contextPath}/img/weather_icon/" + list[list_idx].weather[0].icon + ".png";
+			forecast_imgs[i].style = "display: block";
+			forecast_temps[i].innerText = list[list_idx].main.temp + "°";
 		}
 	}
 
