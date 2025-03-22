@@ -70,12 +70,26 @@ main {
 }
 
 .slide {
-	height: 350px;
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	padding-top: 100px;
 	background-color: #5399f5;
 	background-image: url('../img/cloud.png'), url('../img/boarding.png');
 	background-repeat: no-repeat, no-repeat;
 	background-position: left,  right;
 	background-size: contain, contain;
+}
+
+.slide div {
+	font-size: 50px;
+	font-weight: 800;
+	color: white;
+	cursor: default;
+}
+
+.slide h1:nth-child(2) {
+	color: #fffc7c;
 }
 
 .main_menu {

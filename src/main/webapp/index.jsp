@@ -15,6 +15,11 @@
 <!-- main -->
 <main>
 	<div class="slide">
+		<div>
+			<h1>전국의</h1>
+			<h1>스키장 렌탈</h1>
+			<h1>한 곳에서 모아보기!</h1>
+		</div>
 	</div>
 	<div class="main_menu">
 		<button type="button" class="menu_btn"><i class="fa fa-map-marker"></i>스키장 어디로 가시나요?</button>
