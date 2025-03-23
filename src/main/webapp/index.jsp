@@ -182,6 +182,9 @@
 				option.innerText = json.list[i].name;
 				select.appendChild(option);
 			}
+			if (typeof json.err !== "undefined") {
+				console.log("Java Error:", json.err);
+			}
 		}
 	};
 	xhr1.open("get", "${pageContext.request.contextPath}/ski/location", false);
@@ -299,7 +302,12 @@
 		}
 	}
 
-	getForecast();
+	try {
+		getForecast();
+	catch (err) {
+		console.log(err.name, err.message);
+	}
+	}
 </script>
 </body>
 </html>

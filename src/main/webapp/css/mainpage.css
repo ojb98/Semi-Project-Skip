@@ -55,7 +55,7 @@ header {
 .login ul {
 	display: flex;
 	font-weight: 500;
-	font-size: 1.1em;
+	font-size: 17px;
 	gap: 34px;
 }
 
@@ -82,6 +82,7 @@ main {
 }
 
 .slide div {
+	width: 550px;
 	font-size: 50px;
 	font-weight: 800;
 	color: white;
