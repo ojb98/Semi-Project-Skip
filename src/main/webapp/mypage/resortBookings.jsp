@@ -10,7 +10,7 @@
 		<li>
 			<div class="reserv_container">
 				<div class="reserv_title">
-					<span>${dto.resort_reserv_id}</span>
+					<span>${dto.resort_reserv_id} + ${dto.payment_id}</span>
 					<span>${dto.created_at}</span>
 				</div>
 				

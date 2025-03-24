@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import ski.dto.SkiNameLocationDto;
 import ski.dto.SkiReservationListDto;
 import ski.dto.SkiReservationPrintDto;
 import util.SqlSessionFactoryService;
@@ -35,10 +36,16 @@ public class SkiReservationDao {
 			return sqlSession.selectList(NAMESPACE + ".selectByUuid", map);
 		}
 	}
+	
 	public List<SkiReservationPrintDto> selectReservationBySkiId(int uuid) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			return sqlSession.selectList(NAMESPACE + ".selectByUuid", uuid);
 		}
 	}
 	
+	public List<SkiNameLocationDto> listNameAndLocation() {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			return sqlSession.selectList(NAMESPACE + ".listNameAndLocation");
+		}
+	}
 }

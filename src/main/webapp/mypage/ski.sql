@@ -120,4 +120,8 @@ SELECT * FROM SKI_RESERVATION;
 SELECT * FROM SKI_RESERVATION_ITEM;
 SELECT * FROM SKI_PAYMENTS;
 
+UPDATE SKI SET LOCATION = '강원 평창군 대관령면 올림픽로 715' WHERE NAME = '용평 리조트';
+UPDATE SKI SET LOCATION = '강원특별자치도 홍천군 서면 한치골길 262 비발디파크' WHERE NAME = '비발디 파크';
+INSERT INTO SKI VALUES(3, 21, '곤지암 리조트', '경기 광주시 도척면 도척윗로 278', '웹캠');
+
 COMMIT;

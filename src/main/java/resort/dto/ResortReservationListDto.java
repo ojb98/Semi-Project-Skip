@@ -15,6 +15,7 @@ public class ResortReservationListDto {
 	private int total_price;
 	private String status;
 	private Date created_at;
+	private int payment_id;
 
 	public ResortReservationListDto() {
 		
@@ -22,7 +23,7 @@ public class ResortReservationListDto {
 
 	public ResortReservationListDto(int resort_reserv_id, String name, int uuid, int room_id, String room_name,
 			String room_type, Date checkin_date, Date checkout_date, int quantity, int total_price, String status,
-			Date created_at) {
+			Date created_at, int payment_id) {
 		super();
 		this.resort_reserv_id = resort_reserv_id;
 		this.name = name;
@@ -36,6 +37,7 @@ public class ResortReservationListDto {
 		this.total_price = total_price;
 		this.status = status;
 		this.created_at = created_at;
+		this.payment_id = payment_id;
 	}
 
 	public int getResort_reserv_id() {
@@ -132,5 +134,13 @@ public class ResortReservationListDto {
 
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
+	}
+
+	public int getPayment_id() {
+		return payment_id;
+	}
+
+	public void setPayment_id(int payment_id) {
+		this.payment_id = payment_id;
 	}
 }

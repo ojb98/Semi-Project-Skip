@@ -47,6 +47,6 @@ public class LogoutController extends HttpServlet {
 		
 		// 세션 초기화(로그아웃)
 		req.getSession().invalidate();
-		resp.sendRedirect(req.getContextPath() + "/index.jsp");
+		resp.sendRedirect(req.getContextPath() + "/");
 	}
 }
