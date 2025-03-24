@@ -265,7 +265,7 @@
             return;
         }
 
-        const selectedItems = [];
+        /* const selectedItems = [];
         document.querySelectorAll('.cart_item').forEach(item => {
             const checkbox = item.querySelector('.cart_checkbox');
             if (checkbox.checked) {
@@ -300,7 +300,7 @@
 
         document.body.appendChild(form);
         form.submit(); 
-    });
+    }); */
 
     calculateTotal();
 </script>
