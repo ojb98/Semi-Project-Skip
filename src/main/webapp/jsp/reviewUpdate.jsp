@@ -18,19 +18,23 @@
 		<h2>리뷰 수정</h2>
 			<div class="">
 				<lable>리뷰 아이디</lable>
-				<input type="text" name="reviewId" value="${rrDto.getReviewId() }" readonly>
+				<input type="text" name="review_id" value="${rrDto.getReview_id() }" readonly>
 			</div>
 			<div class="">
 				<lable>리조트 결제 아이디</lable>
-				<input type="text" name="paymentId" value="${rrDto.getPaymentId() }" readonly>			
+				<input type="text" name="payment_id" value="${rrDto.getPayment_id() }" readonly>			
 			</div>
 			<div class="">
-				<lable>회원 아이디</lable>
+				<lable>uuid</lable>
 				<input type="text" name="uuid" value="${rrDto.getUuid() }" readonly>
 			</div>
 			<div class="">
+				<lable>회원 아이디</lable>
+				<input type="text" name="user_id" value="${rrDto.getUser_id() }" readonly>
+			</div>
+			<div class="">
 				<lable>리조트 아이디</lable>
-				<input type="text" name="resortId" value="${rrDto.getResortId() }" readonly>
+				<input type="text" name="resort_id" value="${rrDto.getResort_id() }" readonly>
 			</div>
 			<div>
 			<label>리뷰 평점</label>
@@ -45,11 +49,11 @@
 			</div>
 			<div class="">
 				<label>리뷰내용</label>
-				<textarea id="resortComment" rows="5" cols="50" name="resortComment" placeholder="5자 이상입력하세요.">${rrDto.getResortComment() }</textarea>
+				<textarea id="resortComment" rows="5" cols="50" name="resort_comment" placeholder="5자 이상입력하세요.">${rrDto.getResort_comment() }</textarea>
 				<p class="comment_msg">리뷰를 5자 이상 작성해주세요.</p>			
 			</div>
 			<label>첨부파일</label>
-			<input type="file" name="reviewImg" value="${rrDto.getReviewImg() }">
+			<input type="file" name="review_img" value="${rrDto.getReview_img() }">
 			<input type="submit" value="수정">
 	</form>
 	
