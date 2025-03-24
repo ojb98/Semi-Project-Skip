@@ -1,16 +1,16 @@
 @font-face {
 	font-family: 'Malgun Gothic';
-	src: url('/font/malgunsl.woff') format('woff');
+	src: url('../font/malgunsl.woff') format('woff');
 	font-weight: 400;
 }
 @font-face {
 	font-family: 'Malgun Gothic';
-	src: url('/font/malgun.woff') format('woff');
+	src: url('../font/malgun.woff') format('woff');
 	font-weight: 500;
 }
 @font-face {
 	font-family: 'Malgun Gothic';
-	src: url('/font/malgunbd.woff') format('woff');
+	src: url('../font/malgunbd.woff') format('woff');
 	font-weight: 700;
 }
 
@@ -18,38 +18,38 @@
 	font-family: 'NanumSquareNeo';
 	font-weight: 300;
 	font-style: normal;
-	src: url('/font/NanumSquareNeoTTF-aLt.woff') format('woff');
+	src: url('../font/NanumSquareNeoTTF-aLt.woff') format('woff');
 }
 @font-face {
 	font-family: 'NanumSquareNeo';
 	font-weight: 400;
 	font-style: normal;
-	src: url('/font/NanumSquareNeoTTF-bRg.woff') format('woff');
+	src: url('../font/NanumSquareNeoTTF-bRg.woff') format('woff');
 }
 @font-face {
 	font-family: 'NanumSquareNeo';
 	font-weight: 700;
 	font-style: normal;
-	src: url('/font/NanumSquareNeoTTF-cBd.woff') format('woff');
+	src: url('../font/NanumSquareNeoTTF-cBd.woff') format('woff');
 }
 @font-face {
 	font-family: 'NanumSquareNeo';
 	font-weight: 800;
 	font-style: normal;
-	src: url('/font/NanumSquareNeoTTF-dEb.woff') format('woff');
+	src: url('../font/NanumSquareNeoTTF-dEb.woff') format('woff');
 }
 @font-face {
 	font-family: 'NanumSquareNeo';
 	font-weight: 900;
 	font-style: normal;
-	src: url('/font/NanumSquareNeoTTF-eHv.woff') format('woff');
+	src: url('../font/NanumSquareNeoTTF-eHv.woff') format('woff');
 }
 
 @font-face {
 	font-family: 'KyoboHandwriting2023wsa';
 	font-weight: 400;
 	font-style: normal;
-	src: url('/font/KyoboHandwriting2023wsa.ttf') format('truetype');
+	src: url('../font/KyoboHandwriting2023wsa.ttf') format('truetype');
 }
 
 @font-face {

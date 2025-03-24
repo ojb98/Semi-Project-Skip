@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class SqlSessionFactoryService {
 	private static SqlSessionFactory sqlSessionFactory;
+
 	static { //스태틱멤버는 스태틱으로 초기화를 해줘야 한다.
 		String resource = "mybatis/config/mybatis-config.xml";
 		try {
@@ -18,7 +19,7 @@ public class SqlSessionFactoryService {
 			System.out.println(ie.getMessage());
 		}
 	}
-	public static SqlSessionFactory getSqlSessionFactory() { //static이기 때문에 클래스이름.메소드로 호출
+	public static SqlSessionFactory getSqlSessionFactory() {
 		return sqlSessionFactory;
 	}
 }

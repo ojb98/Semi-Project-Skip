@@ -85,7 +85,7 @@
 
 .main_img {
 	width: 100%;
-	background: url(../img/resort_img1.jpg) no-repeat center / cover;
+	background: url(/img/resort_img1.jpg) no-repeat center / cover;
 	border-radius: 10px;
 }
 
@@ -194,7 +194,6 @@
 .features_facilty .content .facilty:nth-child(1) {
 	background: url(../img/dumbbell.png) no-repeat center / cover;
 }
-
 .features_facilty .content .facilty:nth-child(5) {
 	background: url(../img/noSmoking.png) no-repeat center / cover;
 }
@@ -519,9 +518,11 @@
 	color: #fff;
 }
 
+
 .review h2 {
 	font-size: 24px;
 	font-weight: 700;
 }
+
 
 

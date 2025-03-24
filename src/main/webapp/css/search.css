@@ -1,0 +1,308 @@
+.search_detail {
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.search_menu {
+	width: 1230px;
+	height: 58px;
+	margin-bottom: 30px;
+	display: flex;
+	align-items: center;
+}
+
+.search_menu form {
+	margin-right: 30px;
+}
+
+.search_menu form label {
+	margin-right: 10px;
+}
+
+.search_menu select {
+	width: 150px;
+	height: 32px;
+	text-align: center;
+}
+
+.search_main {
+	width: 1230px;
+	display: flex;
+	margin: 50px auto;
+	height: 852px;
+}
+
+/* 리스트 */
+.search_list {
+	width: 40%;
+	box-sizing: border-box;
+	overflow: auto;
+}
+
+.list_title {
+	font-size: 16px;
+	font-weight: 700;
+	margin: 10px 0;
+}
+
+.forecast_select {
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	margin-left: 20px;
+	width: 120px;
+	border: 1px solid white;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px,
+	rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+}
+
+.forecast_select:focus {
+	border: 1px solid #5399f5;
+	box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.4);
+	outline: none;
+}
+
+.forecasts {
+	display: flex;
+	justify-content: space-evenly;
+	height: 420px;
+}
+
+.forecast_main {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	border-radius: 20px;
+	width: 350px;
+	height: 420px;
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px,
+	rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+	padding-top: 10px;
+	cursor: default;
+}
+
+.forecast_date_wrapper {
+	width: 100%;
+	height: 20%;
+	display: flex;
+	padding-left: 30px;
+	padding-right: 30px;
+	align-items: center;
+}
+
+.forecast_date_main {
+	height: 100%;
+	font-size: 5em;
+	font-weight: 800;
+	margin-right: 20px;
+}
+
+.forecast_time_info {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.forecast_time_main {
+	font-size: 1.5em;
+	color: gray;
+}
+
+.forecast_day_main {
+	font-size: 2em;
+	font-weight: 700;
+}
+
+.forecast_info_main {
+	width: 100%;
+	height: 150px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-left: 10px;
+	padding-right: 20px;
+}
+
+.forecast_desc_wrapper {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.forecast_temp_wrapper {
+	padding-bottom: 20px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.forecast_temp_main {
+	font-size: 3em;
+	font-weight: 800;
+}
+
+.temp_symbol {
+	height: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	margin-left: 5px;
+	padding-top: 3px;
+}
+
+.temp_symbol span {
+	font-weight: 500;
+	font-size: 1.2em;
+	color: rgb(50, 50, 50);
+}
+
+.forecast_desc {
+	padding-top: 40px;
+	font-size: 1.2em;
+	color: gray;
+}
+
+.forecast_details {
+	width: 100%;
+	height: 35%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.forecast_details div {
+	display: flex;
+	justify-content: space-between;
+}
+
+.forecasts_sub {
+	width: 700px;
+	height: 420px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.forecast {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	border-radius: 20px;
+	width: 164.5px;
+	height: 197.4px;
+	margin-right: 14px;
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px,
+	rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+	cursor: pointer;
+}
+
+.forecast:hover {
+	background-color: rgb(250, 250, 250);
+}
+
+.forecast_time {
+	color: gray;
+	font-size: 0.8em;
+}
+
+.forecast_day {
+	font-weight: 600;
+}
+
+.forecast_temp {
+	font-size: 0.9em;
+}
+
+/* card 영역 */
+.search_card {
+	display: flex;
+	border-radius: 10px;
+}
+
+.card_line {
+	margin: 10px 0;
+	border: 1px solid #e9e9e9;
+}
+
+.card_img {
+	border-radius: 10px;
+	width: 30%;
+	background: url(/img/resort_img1.jpg) no-repeat center / cover;
+}
+
+.card_info {
+	padding: 15px;
+	width: 70%;
+	position: relative;
+}
+.card_badge {
+	color: #ccc;
+	font-size: 12px;
+}
+.card_title {
+	font-weight: 700;
+	margin: 5px 0;
+}
+.card_location,
+.card_rating {
+	font-size: 12px;
+	margin-top: 5px;
+}
+.card_location {
+	color: #ccc;
+}
+
+.rating,
+.personnel {
+	font-size: 12px;
+}
+
+.rating {
+	display: inline-block;
+	border-radius: 7px;
+	width: 40px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	background-color: #ffc83b;
+}
+
+.card_price {
+	text-align: right;
+	margin-top: 10px;
+}
+.price_original {
+	text-decoration: line-through;
+	color: #999;
+	font-size: 12px;
+	margin-bottom: 5px;
+}
+.price_discount {
+	font-size: 18px;
+	font-weight: 700;
+}
+.card_info .heart_btn {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+}
+.card_info .fa-heart {
+	color: #999;
+}
+
+.fa-heart-active {
+	color: red !important;
+}
+
+/* 지도 api영역 */
+.search_map {
+	width: 60%;
+}
