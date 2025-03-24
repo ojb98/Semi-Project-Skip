@@ -29,12 +29,16 @@
 }
 
 .cart_item .item_img {
-	border-radius: 10px;
-	width: 40%;
+    border-radius: 10px;
+    width: 40%;
+    height: 150px; 
+    object-fit: cover; 
 }
 
 .cart_item img {
-	background: url(/img/resort_img1.jpg) no-repeat center / cover;
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
 }
 
 .cart_item .item_info {

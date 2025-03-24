@@ -1157,12 +1157,13 @@ header {
     <%--        }--%>
     <%--    });--%>
     <%--});--%>
-
+  
 
     flatpickr("#datePickerInput", {
         mode: "range",
         dateFormat: "Y-m-d",
         locale: "ko",
+        minDate: "today",
         onClose: function (selectedDates) {
             if (selectedDates.length === 2) {
                 let startDate = selectedDates[0].toLocaleDateString('ko-KR', {

@@ -1,9 +1,11 @@
 package rental.controller;
 
+import rental.dao.CartItemDao;
 import rental.dao.RentItemDao;
 import rental.dao.RentalShopDao;
 import rental.dao.RentalShopReviewDao;
 import rental.dao.WishDao;
+import rental.dto.CartItemDTO;
 import rental.dto.RentCategoryDTO;
 import resort.dao.ResortDao;
 import resort.dao.ResortReviewDao;
@@ -43,25 +45,25 @@ public class CartSelectController extends HttpServlet {
 		RentalShopDao rentalShopDao = new RentalShopDao();
 
 		ResortDao resortDao = new ResortDao();
-		WishDao wishDao = new WishDao();
-		List<WishDTO> wishList = wishDao.getWishList(uuid);
+		CartItemDao cartDao = new CartItemDao();
+		List<CartItemDTO> cartList = cartDao.getCartList(uuid);
 		List<Map<String, Object>> list = new ArrayList<>();
 
-		wishList.forEach(wish -> {
-			String category = wish.getCategory();
-			int ref_id = wish.getRef_id();
+		cartList.forEach(cart -> {
+			String category = cart.getCategory();
+			int ref_id = cart.getRef_id();
 			if (category.equalsIgnoreCase(ski))
-				list.add(putInfo(req.getContextPath(), ref_id, skiItemDao.getSkiItemByItemId(ref_id)));
+				list.add(putInfo(req.getContextPath(), ref_id, skiItemDao.getSkiItemByItemId(ref_id), cart.getQuantity(), cart.getPrice()));
 			if (category.equalsIgnoreCase(rental))
-				list.add(putInfo(req.getContextPath(), ref_id, rentItemDao.getRentItemByItemId(ref_id)));
+				list.add(putInfo(req.getContextPath(), ref_id, rentItemDao.getRentItemByItemId(ref_id), cart.getQuantity(), cart.getPrice()));
 			if (category.equalsIgnoreCase(resort))
-				list.add(putInfo(req.getContextPath(), ref_id, roomDao.getWishRoomByRoomId(ref_id)));
+				list.add(putInfo(req.getContextPath(), ref_id, roomDao.getWishRoomByRoomId(ref_id), cart.getQuantity(), cart.getPrice()));
 		});
 		req.setAttribute("cartList", list);
 		req.getRequestDispatcher("/rental/cart.jsp").forward(req, resp);
 	}
 
-	public <T> Map<String, Object> putInfo(String contextPath, int ref_Id, T dto) {
+	public <T> Map<String, Object> putInfo(String contextPath, int ref_Id, T dto, int quantity, int price) {
 		Map<String, Object> map = new HashMap<>();
 
 		if (dto instanceof SkiCategoryDTO varDTO) {
@@ -71,9 +73,9 @@ public class CartSelectController extends HttpServlet {
 			map.put("mainImg", varDTO.getItem_img());
 			map.put("category", "스키장");
 			map.put("name", varDTO.getItem_name());
-			map.put("quantity", varDTO.getTotal_quantity());
+			map.put("quantity", quantity);
 			map.put("rating", skiReviewDao.getAverage(varDTO.getSki_id()));
-			map.put("price", varDTO.getPrice_per_hour());
+			map.put("price", price);
 			map.put("description", varDTO.getItem_detail());
 			map.put("ref_id", ref_Id);
 		}
@@ -87,9 +89,9 @@ public class CartSelectController extends HttpServlet {
 			map.put("mainImg", varDTO.getItem_img());
 			map.put("category", "렌탈샵");
 			map.put("name", varDTO.getItem_name());
-			map.put("quantity", varDTO.getTotal_quantity());
+			map.put("quantity", quantity);
 			map.put("rating", rentalShopReviewDao.getAverage(varDTO.getRentalshop_id()));
-			map.put("price", varDTO.getPrice_per_hour());
+			map.put("price", price);
 			map.put("description", varDTO.getItem_detail());
 			map.put("ref_id", ref_Id);
 		}
@@ -100,9 +102,9 @@ public class CartSelectController extends HttpServlet {
 			map.put("mainImg", varDTO.getRmain_img());
 			map.put("category", "리조트");
 			map.put("name", varDTO.getRoom_name());
-			map.put("quantity", varDTO.getRoom_quantity());
+			map.put("quantity", quantity);
 			map.put("rating", resortReviewDao.getAverage(varDTO.getResort_id()));
-			map.put("price", varDTO.getPrice_per_night());
+			map.put("price", price);
 			map.put("description", varDTO.getDescription());
 			map.put("ref_id", ref_Id);
 		}

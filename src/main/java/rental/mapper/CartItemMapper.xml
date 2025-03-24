@@ -6,4 +6,9 @@
     <insert id="insertCartItem" parameterType="rental.dto.CartItemDTO">
         insert into cart_items values (cart_items_seq.nextval, #{uuid}, #{category}, #{ref_id}, #{quantity}, #{price})
     </insert>
+    
+    <select id = "selectCartItemByUUID" parameterType = "int" resultType = "rental.dto.CartItemDTO">
+    	select category, ref_id, quantity, price from cart_items where uuid = #{uuid}
+    </select>
+    
 </mapper>
