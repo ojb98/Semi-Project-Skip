@@ -12,10 +12,11 @@
   
   <!-- 카테고리 전체조회(여러건) -->
   <select id="rcList" resultType="rental.dto.RentCategoryDTO">
-  	select category_id,item_type,price_per_hour from ITEM_CATEGORY
+  	select category_id,item_type,price_per_hour from 
+  	ITEM_CATEGORY order by category_id desc
   </select>
   
-  <!-- 장비유형 + 카테고리 조인하여 장비유형(1):카테고리(N) -->
+  <!-- 렌탈샵 기준 장비유형 + 카테고리 조인하여 장비유형(1):카테고리(N) -->
   <resultMap type="rental.dto.ItemCategoryListDTO" id="itemlistAll">
   	<id column="category_id" property="category_id"/>
   	<result column="item_type" property="item_type"/>
@@ -31,7 +32,7 @@
   	</collection>
   </resultMap>
   
-  <!-- 장비유형 + 카테고리 조인 -->
+  <!-- 렌탈샵 기준 장비유형 + 카테고리 조인(상세정보) -->
   <select id="itemCategoryList" parameterType="int" resultMap="itemlistAll">
   select i.item_id, c.category_id, c.item_type, c.price_per_hour,i.item_name, 
   i.item_detail, i.total_quantity, i.item_img, i.created_at
@@ -40,6 +41,34 @@
   where i.rentalshop_id=#{rentalshop_id}
   order by i.item_id desc
   </select>
+  
+  
+  <!-- 스키장 기준 장비유형 + 카테고리 조인하여 장비유형(1):카테고리(N) -->
+  <resultMap type="ski.dto.SkiItemCategoryListDTO" id="skiItemlistAll">
+  	<id column="category_id" property="category_id"/>
+  	<result column="item_type" property="item_type"/>
+    <result column="price_per_hour" property="price_per_hour"/>
+  
+  	<collection property="skiItemDto" ofType="ski.dto.SkiItemDTO">
+  		<id column="item_id" property="item_id"/>
+  		<result column="item_name" property="item_name"/>
+  		<result column="item_detail" property="item_detail"/>
+  		<result column="total_quantity" property="total_quantity"/>
+  		<result column="item_img" property="item_img"/>
+  		<result column="created_at" property="created_at"/>
+  	</collection>
+  </resultMap>
+  
+  <!-- 스키장 기준 장비유형 + 카테고리 조인(상세정보) -->
+  <select id="skiItemCategoryList" parameterType="int" resultMap="skiItemlistAll">
+  select s.item_id, c.category_id, c.item_type, c.price_per_hour,s.item_name, 
+  s.item_detail, s.total_quantity, s.item_img, s.created_at
+  from SKI_ITEM s JOIN ITEM_CATEGORY c 
+  on s.CATEGORY_ID=c.CATEGORY_ID
+  where s.ski_id=#{ski_id}
+  order by s.item_id desc
+  </select>
+  
   
   <!-- 카테고리아이디로 카테고리 데이터 조회(1건) -->
   <select id="getCategoryId" parameterType="int" resultType="rental.dto.RentCategoryDTO">
@@ -65,10 +94,5 @@
     AND category_id != #{category_id}
   </select>
   
-  <!-- 카테고리 중복체크-> item_type과 price_per_hour가 존재하는지 확인 -->
-  <select id="checkCategory1" parameterType="hashmap" resultType="int">
-    select count(*) from ITEM_CATEGORY
-    where item_type=#{itemType} AND price_per_hour=#{price}
-  </select>
   
 </mapper>

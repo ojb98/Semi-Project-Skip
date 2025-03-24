@@ -7,8 +7,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import rental.dto.RentCategoryDTO;
 import rentalAdmin.dao.RentCategoryDao;
+import users.dto.UsersDto;
 
 @WebServlet("/adminRentCategory/insert")
 public class RentCategoryInsertController extends HttpServlet {
@@ -17,6 +19,11 @@ public class RentCategoryInsertController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//현재 로그인한 유저정보 넘기기
+		HttpSession session=req.getSession();
+		UsersDto user=(UsersDto)session.getAttribute("user");
+		
+		req.setAttribute("user", user);
 		req.getRequestDispatcher("/rentalAdmin/rentCategoryInsertForm.jsp").forward(req, resp);
 	}
 	
@@ -27,7 +34,7 @@ public class RentCategoryInsertController extends HttpServlet {
 		
 		RentCategoryDTO rcdto=new RentCategoryDTO(0,itemType,price);
 		
-		// DB에서 중복 여부 체크 (같은 item_type과 price_per_hour가 있는지)
+		//DB에서 중복여부체크(item_type과 price_per_hour 같은게 있는지)
         int exists = rcdao.getCategoryExists(rcdto);
         if (exists > 0) {
             //중복인 경우, 에러 메시지를 request에 담고 등록 폼으로 다시 포워딩
@@ -45,7 +52,8 @@ public class RentCategoryInsertController extends HttpServlet {
 			System.out.println("카테고리등록 실패");
 		}
 		
-		resp.sendRedirect(req.getContextPath()+"/adminRental/list");
+		//req.getRequestDispatcher("/adminRentCategory/list").forward(req, resp);
+		resp.sendRedirect(req.getContextPath()+"/adminRentCategory/list");
 		
 	}
 }

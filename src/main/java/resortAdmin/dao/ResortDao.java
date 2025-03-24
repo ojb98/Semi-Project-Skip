@@ -9,7 +9,7 @@ import resort.dto.ResortDTO;
 
 
 public class ResortDao {
-	SqlSessionFactory sqlSessionFactory=SqlSessionFactoryService.getSqlSessionFactory();
+	private SqlSessionFactory sqlSessionFactory=SqlSessionFactoryService.getSqlSessionFactory();
 	private final String NAMESPACE="resort.mapper.ResortAdminMapper";
 	
 	//싱글톤설정

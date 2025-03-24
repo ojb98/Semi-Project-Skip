@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ski.mapper.SkiItemAdminMapper">
+
+  <!-- 장비유형 삽입 -->
+  <insert id="siInsert" parameterType="ski.dto.SkiItemDTO">
+    insert into SKI_ITEM(item_id,category_id,ski_id,item_name,item_detail,
+    total_quantity,item_img,created_at)
+    values(SKI_ITEM_SEQ.NEXTVAL,#{category_id},#{ski_id},#{item_name},#{item_detail},
+    #{total_quantity},#{item_img},sysdate)
+  </insert>
+
+  <!-- 하나의 스키장에 장비유형 전체리스트 -->
+  <select id="getSkiItemList" parameterType="int" resultType="ski.dto.SkiItemDTO">
+    select item_id,category_id,ski_id,item_name,
+    item_detail,total_quantity,item_img,created_at
+    from SKI_ITEM where ski_id=#{ski_id}
+  </select>
+
+  <!-- 하나의 스키장에 모든 장비유형 전부 삭제 -->
+  <delete id="siListDelete" parameterType="int">
+  	delete from SKI_ITEM where ski_id=#{ski_id}
+  </delete>
+  
+  <!--장비고유아이디로 장비유형 데이터 조회(1건) -->
+  <select id="getSkiItemId" parameterType="int" resultType="ski.dto.SkiItemDTO">
+  	select item_id,category_id,ski_id,item_name,
+    item_detail,total_quantity,item_img,created_at
+    from SKI_ITEM where item_id=#{item_id}
+  </select>
+
+  <!-- 장비고유아이디로 장비유형 삭제(1건) -->
+  <delete id="siDelete" parameterType="int">
+    delete from SKI_ITEM where item_id=#{itemId}
+  </delete>
+  
+  <!-- 장비유형 수정 -->
+  <update id="siUpdate" parameterType="ski.dto.SkiItemDTO">
+    update SKI_ITEM set category_id=#{category_id},
+    item_name=#{item_name},item_detail=#{item_detail},
+    total_quantity=#{total_quantity},
+    item_img=#{item_img, jdbcType=VARCHAR }
+    where item_id=#{item_id}
+  </update>
+
+</mapper>

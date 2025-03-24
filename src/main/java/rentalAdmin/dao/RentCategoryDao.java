@@ -9,9 +9,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import mybatis.service.SqlSessionFactoryService;
 import rental.dto.ItemCategoryListDTO;
 import rental.dto.RentCategoryDTO;
+import ski.dto.SkiItemCategoryListDTO;
 
 public class RentCategoryDao {
-	SqlSessionFactory sqlSessionFactory= SqlSessionFactoryService.getSqlSessionFactory();
+	private SqlSessionFactory sqlSessionFactory= SqlSessionFactoryService.getSqlSessionFactory();
 	private final String NAMESPACE="rental.mapper.RentCategoryAdminMapper";
 	
 	//싱글톤설정
@@ -37,10 +38,17 @@ public class RentCategoryDao {
 		}
 	}
 	
-	//카테고리 + 장비유형 조인 정보가져오기
+	//렌탈샵 고유아이디 기준으로 (카테고리 + 장비유형) 조인 정보가져오기
 	public List<ItemCategoryListDTO> itemCategoryList(int rentalshopId){
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectList(NAMESPACE+".itemCategoryList",rentalshopId);
+		}
+	}
+	
+	//스키장 고유아이디 기준으로 (카테고리 + 장비유형) 조인 정보가져오기
+	public List<SkiItemCategoryListDTO> SkiItemCategoryList(int skiId){
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectList(NAMESPACE+".skiItemCategoryList",skiId);
 		}
 	}
 	

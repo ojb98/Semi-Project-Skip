@@ -10,7 +10,7 @@ import rental.dto.RentalShopDTO;
 
 
 public class RentalShopDao {
-	SqlSessionFactory sqlSessionFactory= SqlSessionFactoryService.getSqlSessionFactory();
+	private SqlSessionFactory sqlSessionFactory= SqlSessionFactoryService.getSqlSessionFactory();
 	private final String NAMESPACE="rental.mapper.RentalShopAdminMapper";
 	
 	//싱글톤설정

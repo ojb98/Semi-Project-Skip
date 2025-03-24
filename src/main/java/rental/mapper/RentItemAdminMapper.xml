@@ -16,7 +16,7 @@
   <select id="getItemList" parameterType="int" resultType="rental.dto.RentItemDTO">
     select item_id,category_id,rentalshop_id,item_name,
     item_detail,total_quantity,item_img,created_at
-    from RENT_ITEM
+    from RENT_ITEM where rentalshop_id=#{rentalshop_id}
   </select>
   
   <!-- 하나의 렌탈샵의 장비유형 전부 삭제 -->

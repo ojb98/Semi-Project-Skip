@@ -6,6 +6,7 @@
 	<select id="exists" resultType="users.dto.UsersDto" parameterType="String">
 		select *
 		from users
+		
 		where user_id = #{user_id}
 	</select>
 

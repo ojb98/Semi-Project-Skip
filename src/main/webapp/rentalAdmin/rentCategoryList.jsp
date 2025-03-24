@@ -14,7 +14,15 @@
 </head>
 <body>
 <!-- header -->
-<jsp:include page="/rentalAdmin/header.jsp" />
+<c:choose>
+	<c:when test="${user.role eq 'RENTAL' }">
+		<jsp:include page="/rentalAdmin/header.jsp" />
+	</c:when>
+	<c:when test="${user.role eq 'SKI' }">
+		<jsp:include page="/skiAdmin/header.jsp" />
+	</c:when>
+</c:choose>
+
 
 <!-- 메인 컨텐츠 영역 -->
 <main class="main-content">

@@ -36,7 +36,7 @@
 									<li><a href="${pageContext.request.contextPath}/resortAdmin/resortAdminMain.jsp">관리자사이트</a></li>
 								</c:when>
 								<c:when test="${user.role == 'ADMIN' }">
-									<li><a href="${pageContext.request.contextPath}/resortAdmin/resortAdminMain.jsp">관리자사이트</a></li>
+									<li><a href="${pageContext.request.contextPath}/admin/resortAdminMain.jsp">관리자사이트</a></li>
 								</c:when>
 								<c:otherwise>
 								

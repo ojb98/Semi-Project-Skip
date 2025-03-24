@@ -11,7 +11,7 @@ import rental.dto.RentItemDTO;
 
 
 public class RentItemDao {
-	SqlSessionFactory sqlSessionFactory= SqlSessionFactoryService.getSqlSessionFactory();
+	private SqlSessionFactory sqlSessionFactory= SqlSessionFactoryService.getSqlSessionFactory();
 	private final String NAMESPACE="rental.mapper.RentItemAdminMapper";
 	
 	//싱글톤설정
@@ -21,7 +21,7 @@ public class RentItemDao {
 		return instance;
 	}
 	
-	//장비유형 등록
+	//렌탈샵 장비유형 등록
 	public int itemInsert(RentItemDTO ridto) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			int n=sqlSession.insert(NAMESPACE+".riInsert",ridto);
@@ -62,7 +62,7 @@ public class RentItemDao {
 		}
 	}
 	
-	//장비유형 수정
+	//렌탈샵 장비유형 수정
 	public int itemUpdate(RentItemDTO ridto) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			int n=sqlSession.update(NAMESPACE+".riUpdate",ridto);
@@ -71,12 +71,13 @@ public class RentItemDao {
 		}
 	}
 	
-	//카테고리 전체조회(여러건)
+	//카테고리 고유아이디로 장비유형 전체조회(여러건) : 렌탈샵에서 사용중인 카테고리 조회
 	public List<RentItemDTO> itemCategoryids(int categoryId){
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectList(NAMESPACE+".riCategoryId",categoryId);
 		}
 	}
 	
+
 	
 }

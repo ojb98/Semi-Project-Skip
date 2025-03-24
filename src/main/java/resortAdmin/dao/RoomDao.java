@@ -9,7 +9,7 @@ import mybatis.service.SqlSessionFactoryService;
 import resort.dto.RoomDTO;
 
 public class RoomDao {
-	SqlSessionFactory sqlSessionFactory=SqlSessionFactoryService.getSqlSessionFactory();
+	private SqlSessionFactory sqlSessionFactory=SqlSessionFactoryService.getSqlSessionFactory();
 	private final String NAMESPACE="resort.mapper.RoomAdminMapper";
 	
 	//싱글톤설정
