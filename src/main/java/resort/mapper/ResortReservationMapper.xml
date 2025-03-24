@@ -17,25 +17,25 @@
         <id column="Resort_reserv_id" property="resort_reserv_id"/>
         <result column="resort_id" property="resort_id"/>
         <result column="uuid" property="uuid"/>
-        <result column="reserv_start" property="reserv_start"/>
-		<result column="reserv_end" property="reserv_end"/>
+        <result column="checkin_date" property="checkin_date"/>
+		<result column="checkout_date" property="checkout_date"/>
         <result column="total_price" property="total_price"/>
         <result column="status" property="status"/>
         <result column="created_at" property="created_at"/>
-        <result column="name" property="name"/>
-        <result column="payment_id" property="payment_id"/>
+        <result column="resort_name" property="resort_name"/>
+        <result column="user_name" property="user_name"/>
         <result column="user_id" property="userId"/>
-	    <result column="user_email" property="userEmail"/>
-	    <result column="user_name" property="userName"/>
-	    <result column="phone" property="phone"/>
+        <result column="user_email" property="userEmail"/>
+        <result column="phone" property="phone"/>
+        <result column="payment_id" property="payment_id"/>
         
         <collection property="resortReservationItemDtoList" ofType="resort.dto.ResortReservationItemDto">
-            <id column="resort_item_id" property="resort_item_id"/>
-            <result column="resort_reserv_id" property="resort_reserv_id"/>
-            <result column="item_id" property="item_id"/>
-            <result column="item_name" property="item_name"/>
+            <id column="resort_room_id" property="resortRoomId"/>
+            <result column="resort_reserv_id" property="resortReservId"/>
+            <result column="resort_room_name" property="resortRoomName"/>
+            <result column="resort_room_type" property="resortRoomType"/>
+            <result column="price_per_night" property="pricePerNight"/>
             <result column="quantity" property="quantity"/>
-            <result column="subtotal_price" property="subtotal_price"/>
         </collection>
     </resultMap>
     
@@ -57,46 +57,43 @@
 		where rn between #{startRow} and #{endRow}
 	</select>
 	
-	<select id="selectReservationByReosrtId" resultMap="ResortReservationPrint" parameterType="map">
+	<select id="selectReservationByResortId" resultMap="ResortReservationPrint" parameterType="map">
         SELECT 
             rr.resort_reserv_id, 
-            rr.resort_id, 
-            rr.uuid, 
-            rr.reserv_start,
-            rr.reserv_end,
+            rr.uuid,
+            rr.checkin_date,
+            rr.checkout_date,
             rr.total_price, 
             rr.status, 
             rr.created_at,
+            rr.quantity,
             r.name AS resort_name, 
             u.name AS user_name,
             u.user_id, 
 		    u.email AS user_email, 
 		    u.phone,
             rp.payment_id, 
-            rri.resort_item_id, 
-            rri.item_id, 
-            ri.item_name,
-            ri.category_id,
-            rri.quantity, 
-            rri.subtotal_price
-        FROM resort_reservation rr
-        LEFT JOIN resort r ON rr.resort_id = r.resort_id
-        LEFT JOIN resort_payments rp ON sr.resort_reserv_id = rp.resort_reserv_id
-        LEFT JOIN resort_reservation_item rri ON rr.resort_reserv_id = rri.resort_reserv_id
-        LEFT JOIN resort_item ri ON rri.item_id = ri.item_id
-        LEFT JOIN users u ON rr.uuid = u.uuid
+            rrs.room_id AS resort_room_id, 
+            rrs.room_name AS resort_room_name,            
+            rrs.room_type AS resort_room_type, 
+            rrs.price_per_night
+        FROM resort r
+        LEFT JOIN resort_rooms rrs ON rrs.resort_id = r.resort_id
+        LEFT JOIN resort_reservation rr ON rr.room_id = rrs.room_id
+        LEFT JOIN resort_payments rp ON rr.resort_reserv_id = rp.resort_reserv_id
+        LEFT JOIN users u ON r.uuid = u.uuid
         <where>
 		    <if test="resortID != null">
-		        rr.resort_id = #{resortID}
+		        r.resort_id = #{resortID}
 		    </if>
 		    <if test="reservId != null">
 		        rr.resort_reserv_id = #{reservId}
 		    </if>
 		    <if test="reserv_date1_start != null and reserv_date1_end != null">
-		        AND rr.reserv_start BETWEEN #{reserv_date1_start} AND #{reserv_date1_end}
+		        AND rr.checkin_date BETWEEN #{reserv_date1_start} AND #{reserv_date1_end}
 		    </if>
 		    <if test="reserv_date2_start != null and reserv_date2_end != null">
-		        AND rr.reserv_end BETWEEN #{reserv_date2_start} AND #{reserv_date2_end}
+		        AND rr.checkout_date BETWEEN #{reserv_date2_start} AND #{reserv_date2_end}
 		    </if>
 		    <if test="created_at_start != null and created_at_end != null">
 		        AND rr.created_at BETWEEN #{created_at_start} AND #{created_at_end}
@@ -122,7 +119,7 @@
 		SET status = 'COMPLETED'
 		WHERE resort_id = #{resortID}
 		AND status = 'CONFIRMED'
-		AND reserv_end &lt;= #{today}
+		AND checkout_date &lt;= #{today}
 	</update>
     <!-- 스키장 예약 고유번호를 받아 예약 상태 업데이트 -->
     <update id="reservationCancel">

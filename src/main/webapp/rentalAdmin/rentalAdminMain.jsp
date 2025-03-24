@@ -30,22 +30,14 @@
         <div class="admin-name">관리자님</div>
     </div>
     <ul>
-<<<<<<< HEAD
         <li><a href="${pageContext.request.contextPath}/adminRental/insert">렌탈샵 등록</a></li>
         <li><a href="${pageContext.request.contextPath}/adminRentCategory/insert">장비카테고리 등록</a></li>
         <li><a href="${pageContext.request.contextPath}/adminRental/list">렌탈샵 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet3">예약 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalReservation">예약 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet4">문의 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet5">리뷰 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet6">통계</a></li>
-=======
-        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalRegist.jsp">사업장등록신청</a></li>
-        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalItemRegist.jsp">상품등록/관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalReservation.jsp">예약 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalQnA.jsp">문의 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalReview.jsp">리뷰 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalSaleManager.jsp">통계</a></li>
->>>>>>> bc1df805804c6eeb40748c6b954589ff5fbd160d
+
     </ul>
 </aside>
 

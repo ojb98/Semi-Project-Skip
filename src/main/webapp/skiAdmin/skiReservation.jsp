@@ -15,203 +15,6 @@
     <title>관리자 페이지</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style type="text/css">
-.reservation-detail-card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    margin: 0 20px 20px 20px;
-    padding: 20px;
-}
-
-.detail-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    color: #666;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 0 8px;
-}
-
-.detail-content {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.detail-row {
-    display: flex;
-    gap: 20px;
-}
-
-.detail-col {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.detail-col.full {
-    flex: 2;
-}
-
-.detail-col label {
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 4px;
-}
-
-.detail-col span {
-    font-size: 14px;
-    color: #333;
-    font-weight: 500;
-
-}
-
-/* 검색 관련 스타일 수정 */
-.search-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-left: 20px;
-}
-
-.search-top {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#filterSelect {
-    height: 32px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    padding: 0 10px;
-    font-size: 13px;
-    color: #495057;
-    min-width: 100px;
-}
-
-.search-box {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.search-box input {
-    height: 32px;
-    width: 200px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    padding: 0 35px 0 10px;
-    font-size: 13px;
-    color: #495057;
-    box-sizing: border-box;
-}
-
-.search-box input:focus {
-    outline: none;
-    border-color: #4dabf7;
-    box-shadow: 0 0 0 1px rgba(77, 171, 247, 0.2);
-}
-
-.search-button {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.search-icon {
-    width: 16px;
-    height: 16px;
-    opacity: 0.6;
-}
-
-.date-filters-container {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.date-filter-group {
-    flex: 1;
-    min-width: 220px;
-    background: #f8f9fa;
-    border-radius: 4px;
-    padding: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-
-.date-filter-group label {
-    display: block;
-    font-size: 12px;
-    color: #495057;
-    margin-bottom: 4px;
-    font-weight: 500;
-}
-
-.date-range {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.date-range input[type="date"] {
-    flex: 1;
-    height: 28px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    padding: 0 6px;
-    font-size: 12px;
-    color: #495057;
-    background-color: white;
-    min-width: 100px;
-}
-
-.date-range input[type="date"]:focus {
-    outline: none;
-    border-color: #4dabf7;
-    box-shadow: 0 0 0 1px rgba(77, 171, 247, 0.2);
-}
-
-.date-range span {
-    color: #adb5bd;
-    font-weight: 500;
-    font-size: 13px;
-}
-
-.list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px;
-    margin-bottom: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-
-.list-header h3 {
-    margin: 0;
-    padding-top: 6px;
-    font-size: 18px;
-    color: #343a40;
-}
-</style>
 
 <script type="text/javascript">
 // 기존 함수들...
@@ -274,8 +77,10 @@ function reservationDetailList(reservId) {
   function searchList() {
       var keyword = document.getElementById("searchInput").value;
       var filter = document.getElementById("filterSelect").value;
-      var reservDateStart = document.getElementById("reservDateStart").value || "";
-      var reservDateEnd = document.getElementById("reservDateEnd").value || "";
+      var reservDate1Start = document.getElementById("reservDate1Start").value || "";
+      var reservDate1End = document.getElementById("reservDate1End").value || "";
+      var reservDate2Start = document.getElementById("reservDate2Start").value || "";
+      var reservDate2End = document.getElementById("reservDate2End").value || "";
       var createdAtStart = document.getElementById("createdAtStart").value || "";
       var createdAtEnd = document.getElementById("createdAtEnd").value || "";
       var skiID = '<%= session.getAttribute("skiID") %>';
@@ -291,7 +96,8 @@ function reservationDetailList(reservId) {
       };
       // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
       xhr.open("GET", contextPath + "/skiAdmin/reservationList?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&skiID="+encodeURIComponent(skiID) +
-    		  "&reservDateStart=" + encodeURIComponent(reservDateStart) + "&reservDateEnd=" + encodeURIComponent(reservDateEnd) + 
+    		  "&reservDate1Start=" + encodeURIComponent(reservDate1Start) + "&reservDate1End=" + encodeURIComponent(reservDate1End) +
+    		  "&reservDate2Start=" + encodeURIComponent(reservDate2Start) + "&reservDate2End=" + encodeURIComponent(reservDate2End) +
     		  "&createdAtStart=" + encodeURIComponent(createdAtStart)+ "&createdAtEnd=" + encodeURIComponent(createdAtEnd), true);
       xhr.send();
   }
@@ -391,7 +197,7 @@ function reservationDetailList(reservId) {
                         <option value="이메일">이메일</option>                    
                     </select>
                     <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="검색어 입력" />
+                        <input type="text" id="searchInput" placeholder="검색어 입력" onkeypress="if( event.keyCode == 13 ){searchList();}" />
                         <button type="button" class="search-button" onclick="searchList()">
                             <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색" class="search-icon"/>
                         </button>
@@ -409,7 +215,8 @@ function reservationDetailList(reservId) {
                         <th>아이디</th>
                         <th>이메일</th>
                         <th>전화번호</th>
-                        <th>이용예정일</th>                         
+                        <th>이용시작일</th>
+                        <th>이용종료일</th>                         
                         <th>예약생성일</th>
                         <th>예약상태</th>
                         <th>상세보기</th>

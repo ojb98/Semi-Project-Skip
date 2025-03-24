@@ -8,47 +8,72 @@ public class ResortReservationPrintDto {
 	private int resort_id;
 	private int uuid;
 	private String name;
-	private String userName;
+	private String user_name;
 	private String userId;
     private String userEmail;
     private String phone;
 	private int total_price;
 	private String status;
-	private Date reserv_start;
-	private Date reserv_end;
+	private String resort_name;
+	private Date checkin_date;
+	private Date checkout_date;
 	private Date created_at;
 	private String payment_id;
 	private List<ResortReservationItemDto> resortReservationItemDtoList;
 	
 	public ResortReservationPrintDto() {}
-	public ResortReservationPrintDto(int resort_reserv_id, int resort_id, int uuid, String name, String userName, String userId,
-			String userEmail, String phone, int total_price, String status, Date reserv_start, Date reserv_end, Date created_at,
+	public ResortReservationPrintDto(int resort_reserv_id, int resort_id, int uuid, String name, String user_name, String userId,
+			String userEmail, String phone, int total_price, String status, String resort_name, Date checkin_date, Date checkout_date, Date created_at,
 			String payment_id, List<ResortReservationItemDto> resortReservationItemDtoList) {
 		super();
 		this.resort_reserv_id = resort_reserv_id;
 		this.resort_id = resort_id;
 		this.uuid = uuid;
 		this.name = name;
-		this.userName = userName;
+		this.user_name = user_name;
 		this.userId = userId;
 		this.userEmail = userEmail;
 		this.phone = phone;
 		this.total_price = total_price;
 		this.status = status;
-		this.reserv_start = reserv_start;
-		this.reserv_end = reserv_end;
+		this.resort_name = resort_name;
+		this.checkin_date = checkin_date;
+		this.checkout_date = checkout_date;
 		this.created_at = created_at;
 		this.payment_id = payment_id;
 		this.resortReservationItemDtoList = resortReservationItemDtoList;
 	}
-
-	public String getUserName() {
-		return userName;
+	
+	public String getResort_name() {
+		return resort_name;
+	}
+	
+	public void setResort_name(String resort_name) {
+		this.resort_name = resort_name;
+	}
+	
+	public Date getCheckin_date() {
+		return checkin_date;
+	}
+	
+	public void setCheckin_date(Date checkin_date) {
+		this.checkin_date = checkin_date;
+	}
+	
+	public Date getCheckout_date() {
+		return checkout_date;
+	}
+	
+	public void setCheckout_date(Date checkout_date) {
+		this.checkout_date = checkout_date;
+	}
+	public String getUser_name() {
+		return user_name;
 	}
 
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 
 	public String getUserId() {
@@ -99,21 +124,6 @@ public class ResortReservationPrintDto {
 
 	public void setUuid(int uuid) {
 		this.uuid = uuid;
-	}
-
-	public Date getReserv_start() {
-		return reserv_start;
-	}
-
-	public void setReserv_start(Date reserv_start) {
-		this.reserv_start = reserv_start;
-	}
-	public Date getReserv_end() {
-		return reserv_end;
-	}
-
-	public void setReserv_end(Date reserv_end) {
-		this.reserv_end = reserv_end;
 	}
 
 	public int getTotal_price() {

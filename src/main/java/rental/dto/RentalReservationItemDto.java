@@ -3,6 +3,7 @@ package rental.dto;
 public class RentalReservationItemDto {
 	private int rent_item_id;
 	private int rent_reserv_id;
+	private int rental_item_id;
 	private int item_id;
 	private String item_name;
 	private int quantity;
@@ -21,6 +22,26 @@ public class RentalReservationItemDto {
 		this.item_name = item_name;
 		this.quantity = quantity;
 		this.subtotal_price = subtotal_price;
+	}
+
+	public RentalReservationItemDto(int rent_item_id, int rent_reserv_id, int rental_item_id,int item_id, String item_name, int quantity,
+			int subtotal_price) {
+		super();
+		this.rent_item_id = rent_item_id;
+		this.rent_reserv_id = rent_reserv_id;
+		this.rental_item_id = rental_item_id;
+		this.item_id = item_id;
+		this.item_name = item_name;
+		this.quantity = quantity;
+		this.subtotal_price = subtotal_price;
+	}
+	
+	public int getRental_item_id() {
+		return rental_item_id;
+	}
+
+	public void setRental_item_id(int rental_item_id) {
+		this.rental_item_id = rental_item_id;
 	}
 
 	public int getRent_item_id() {

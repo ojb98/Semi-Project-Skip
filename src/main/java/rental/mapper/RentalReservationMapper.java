@@ -12,6 +12,6 @@ public interface RentalReservationMapper {
     int deleteReview(int review_id);
     List<RentalReservationPrintDto> selectReservationByRentalId(Map<String, Object> params);
     List<RentalReservationDetailDTO> getRentalReservationDetail(Map<String, Object> params);
-	void updateReservationStatusToCompleted(Map<String, Object> updateParams);
+	int updateReservationStatusToCompleted(int reserv_id);
 
 }
