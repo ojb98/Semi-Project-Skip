@@ -19,15 +19,15 @@ public class ResortReviewDao {
 //        }
 //    }
 
-    public float getAverage(int resortId) {
+    public float getAverage(int roomId) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            return session.selectOne(NAMESPACE + ".selectAvgRatingByResortId", resortId);
+            return session.selectOne(NAMESPACE + ".selectAvgRatingByResortId", roomId);
         }
     }
 
-    public List<ResortReviewDTO> getList(int resortId) {
+    public List<ResortReviewDTO> getList(int roomId) {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            return sqlSession.selectList(NAMESPACE + ".selectReviewByResortId", resortId);
+            return sqlSession.selectList(NAMESPACE + ".selectReviewByResortId", roomId);
         }
     }
     
@@ -46,14 +46,14 @@ public class ResortReviewDao {
 	}
 	
 	/* 리뷰 리스트 (페이징, 정렬) */
-	public List<ResortReviewDTO> reviewArray(int resort_id, String sortType, int startRow, int endRow) {
+	public List<ResortReviewDTO> reviewArray(int room_id, String sortType, int startRow, int endRow) {
 		SqlSession sqlSession = null;
 		
 		try {
 			sqlSession = sqlSessionFactory.openSession();
 			
 			Map<String, Object> params = new HashMap<>();
-			params.put("resort_id", resort_id);
+			params.put("room_id", room_id);
 			params.put("sortType", sortType);
 			params.put("startRow", startRow);
 			params.put("endRow", endRow);
@@ -66,12 +66,12 @@ public class ResortReviewDao {
 	}
 	
 	/* 리뷰 리스트 (기본) */
-	public List<ResortReviewDTO> reviewList(int resort_id) {
+	public List<ResortReviewDTO> reviewList(int room_id) {
 		SqlSession sqlSession = null;
 		
 		try {
 			sqlSession = sqlSessionFactory.openSession();
-			List<ResortReviewDTO> resortReviewList = sqlSession.selectList(NAMESPACE + ".reviewList", resort_id);
+			List<ResortReviewDTO> resortReviewList = sqlSession.selectList(NAMESPACE + ".reviewList", room_id);
 			return resortReviewList;	
 		}finally {
 			if(sqlSession!=null) sqlSession.close();
@@ -79,12 +79,12 @@ public class ResortReviewDao {
 	}
 	
 	/* 전체 리뷰의 갯수 반환 */
-	public int getCount(int resort_id) {
+	public int getCount(int room_id) {
 		SqlSession sqlSession = null;
 		
 		try {
 			sqlSession = sqlSessionFactory.openSession();
-			int n = sqlSession.selectOne(NAMESPACE + ".getCount", resort_id); 
+			int n = sqlSession.selectOne(NAMESPACE + ".getCount", room_id); 
 			return n;
 		}finally {
 			if(sqlSession!=null) sqlSession.close();

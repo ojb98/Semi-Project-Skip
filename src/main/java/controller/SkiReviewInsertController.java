@@ -1,4 +1,4 @@
-package reviews.controller;
+package controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
+import dao.SkiReviewDao;
+import dto.SkiReviewDTO;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -21,20 +23,28 @@ import reviews.dto.ResortReviewsDTO;
 	maxFileSize = 1024 * 1024 * 10
 )
 
-@WebServlet("/jsp/reviewInsert2")
-public class ResortReviewsController extends HttpServlet {
+@WebServlet("/review/skiReviewInsert")
+public class SkiReviewInsertController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/jsp/reviewInsert.jsp").forward(req, resp);
+		int payment_id = Integer.parseInt(req.getParameter("payment_id"));
+		int uuid = Integer.parseInt(req.getParameter("uuid"));
+		int ski_id = Integer.parseInt(req.getParameter("ski_id"));
+		
+		req.setAttribute("payment_id", payment_id);
+		req.setAttribute("uuid", uuid);
+		req.setAttribute("ski_id", ski_id);
+		
+		req.getRequestDispatcher("/review/skiReviewInsert.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		 int payment_id = Integer.parseInt(req.getParameter("payment_id"));
 		 int uuid = Integer.parseInt(req.getParameter("uuid"));
-		 int resort_id = Integer.parseInt(req.getParameter("resort_id"));
-		 double rating  = Double.parseDouble(req.getParameter("rating"));
-		 String resort_comment = req.getParameter("resort_comment");
+		 int ski_id = Integer.parseInt(req.getParameter("ski_id"));
+		 float rating  = Float.parseFloat(req.getParameter("rating"));
+		 String ski_comment = req.getParameter("ski_comment");
 		 String user_id = req.getParameter("user_id");
 		 
 		 //파일 업로드
@@ -67,11 +77,11 @@ public class ResortReviewsController extends HttpServlet {
 			 }
 			 System.out.println("savefilename:" + savefilename);
 			 
-			 ResortReviewsDAO rrDao = new ResortReviewsDAO();
+			 SkiReviewDao skiReviewDao = new SkiReviewDao();
 //			 ResortReviewsDTO rrDto = new ResortReviewsDTO(0, payment_id, uuid, resort_id, rating, resort_comment, savefilename, null);
-			 ResortReviewsDTO rrDto = new ResortReviewsDTO(0, payment_id, uuid, resort_id, rating, resort_comment, savefilename, null, user_id);
+			 SkiReviewDTO skiReviewDTO = new SkiReviewDTO(0, payment_id, uuid, ski_id, rating, ski_comment, savefilename, null, user_id);
 			 
-			 int n = rrDao.insert(rrDto);
+			 int n = skiReviewDao.insert(skiReviewDTO);
 			 
 			 if(n > 0) {
 				 req.setAttribute("result", "success");
@@ -82,7 +92,8 @@ public class ResortReviewsController extends HttpServlet {
 			 System.out.println(e.getMessage());
 		 }
 		 
-		 req.getRequestDispatcher("/jsp/test.jsp").forward(req, resp);
+		 req.setAttribute("content", "skiBookings");
+		 req.getRequestDispatcher("/mypage/layout.jsp").forward(req, resp);
 		 
 	}
 }

@@ -450,6 +450,11 @@
 	color: #ffc83b;
 }
 
+.rating .fa-star {
+	color: #000;
+	line-height: 20px;
+}
+
 .rating_box .rating_number {
 	margin-left: 10px;
 }

@@ -1,4 +1,4 @@
-package reviews.controller;
+package controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,18 +21,27 @@ import reviews.dto.ResortReviewsDTO;
 	maxFileSize = 1024 * 1024 * 10
 )
 
-@WebServlet("/jsp/reviewInsert2")
-public class ResortReviewsController extends HttpServlet {
+@WebServlet("/review/resortReviewInsert")
+public class ResortReviewInsertController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/jsp/reviewInsert.jsp").forward(req, resp);
+		
+		int payment_id = Integer.parseInt(req.getParameter("payment_id"));
+		int uuid = Integer.parseInt(req.getParameter("uuid"));
+		int room_id = Integer.parseInt(req.getParameter("room_id"));
+		
+		req.setAttribute("payment_id", payment_id);
+		req.setAttribute("uuid", uuid);
+		req.setAttribute("room_id", room_id);
+		
+		req.getRequestDispatcher("/review/resortReviewInsert.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		 int payment_id = Integer.parseInt(req.getParameter("payment_id"));
 		 int uuid = Integer.parseInt(req.getParameter("uuid"));
-		 int resort_id = Integer.parseInt(req.getParameter("resort_id"));
+		 int room_id = Integer.parseInt(req.getParameter("room_id"));
 		 double rating  = Double.parseDouble(req.getParameter("rating"));
 		 String resort_comment = req.getParameter("resort_comment");
 		 String user_id = req.getParameter("user_id");
@@ -67,11 +76,11 @@ public class ResortReviewsController extends HttpServlet {
 			 }
 			 System.out.println("savefilename:" + savefilename);
 			 
-			 ResortReviewsDAO rrDao = new ResortReviewsDAO();
+			 ResortReviewsDAO resortReviewDao = new ResortReviewsDAO();
 //			 ResortReviewsDTO rrDto = new ResortReviewsDTO(0, payment_id, uuid, resort_id, rating, resort_comment, savefilename, null);
-			 ResortReviewsDTO rrDto = new ResortReviewsDTO(0, payment_id, uuid, resort_id, rating, resort_comment, savefilename, null, user_id);
+			 ResortReviewsDTO resortReviewDto = new ResortReviewsDTO(0, payment_id, uuid, room_id, rating, resort_comment, savefilename, null, user_id);
 			 
-			 int n = rrDao.insert(rrDto);
+			 int n = resortReviewDao.insert(resortReviewDto);
 			 
 			 if(n > 0) {
 				 req.setAttribute("result", "success");
@@ -82,7 +91,8 @@ public class ResortReviewsController extends HttpServlet {
 			 System.out.println(e.getMessage());
 		 }
 		 
-		 req.getRequestDispatcher("/jsp/test.jsp").forward(req, resp);
+		 req.setAttribute("content", "resortBookings");
+		 req.getRequestDispatcher("/mypage/layout.jsp").forward(req, resp);
 		 
 	}
 }

@@ -6,7 +6,7 @@
 	 
   <!-- 렌탈샵 리뷰 insert -->
   <insert id="insert" parameterType="dto.RentalshopReviewDTO">
-    insert into rentalshop_reviews values(rentalshop_review_seq.nextval,#{payment_id},#{uuid},#{rentalshop_id},#{rating},#{comments},#{review_img},sysdate)
+    insert into rentalshop_reviews values(rentalshop_review_seq.nextval,#{payment_id},#{uuid},#{rentalshop_id},#{rating},#{comments},#{review_img, jdbcType=VARCHAR},sysdate)
   </insert>
   
   <!-- 렌탈샵 별 리뷰 글 전체 갯수 -->

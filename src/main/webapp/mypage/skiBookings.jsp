@@ -47,7 +47,7 @@
 							<input class="review_btn" type="button" value="취소하기">
 						</div>
 						<div>
-							<input class="review_btn" type="button" value="리뷰하기">
+							<input class="review_btn" type="button" value="리뷰하기" onclick="skiReviewPopup(${dto.payment_id }, ${dto.uuid }, ${dto.ski_id })">
 						</div>
 						<div>
 							<input class="review_btn" type="button" value="문의하기">
@@ -97,5 +97,13 @@
 	
 	function clickNext() {
 		location.href = "${pageContext.request.contextPath}/mypage/bookings/ski?pageNum=${endPage + 1}&year=${year}";
+	}
+	
+	function skiReviewPopup(payment_id, uuid, ski_id) {
+		const url = "${pageContext.request.contextPath}/review/skiReviewInsert?payment_id=" + payment_id + "&uuid=" + uuid + "&ski_id=" + ski_id;
+		const name = "reviewPopup";
+		const option = "width=600, height=600, top=100, left=100, location = no";
+		
+		window.open(url, name, option);
 	}
 </script>

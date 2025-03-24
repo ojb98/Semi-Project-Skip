@@ -6,7 +6,7 @@
 	 
   <!-- 스키장 리뷰 insert -->
   <insert id="insert" parameterType="dto.SkiReviewDTO">
-    insert into ski_reviews values(ski_review_seq.nextval,#{payment_id},#{uuid},#{ski_id},#{rating},#{comments},#{review_img},sysdate)
+    insert into ski_reviews values(ski_review_seq.nextval,#{payment_id},#{uuid},#{ski_id},#{rating},#{comments},#{review_img, jdbcType=VARCHAR},sysdate)
   </insert>
   
   <!-- 스키장 별 리뷰 글 전체 갯수 -->

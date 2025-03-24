@@ -45,7 +45,7 @@
 			select rownum rn, rrl.*
 			from (
 				select rs.resort_reserv_id, rs.uuid, rs.checkin_date, rs.checkout_date, rs.quantity, rs.total_price, rs.status, rs.created_at,
-					rr.room_id, rr.room_name, rr.room_type, (select name from resort where resort_id = rr.resort_id) name
+					rr.room_id, rr.room_name, rr.room_type, (select name from resort where resort_id = rr.resort_id) name, (select payment_id from resort_payments where resort_reserv_id = rs.resort_reserv_id)
 				from resort_reservation rs join resort_rooms rr on rs.room_id = rr.room_id
 				where uuid = #{uuid}
 				<if test="year != null and year != ''">
