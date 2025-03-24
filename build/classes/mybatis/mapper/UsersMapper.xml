@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.UsersMapper">
+    <select id="getUUID" parameterType="String" resultType="int">
+        select uuid from users where user_id = #{user_id}
+    </select>
+
+    <select id="getList" resultType="arraylist">
+        select * from users
+    </select>
+</mapper>
