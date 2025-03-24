@@ -304,9 +304,8 @@
 
 	try {
 		getForecast();
-	catch (err) {
+	} catch (err) {
 		console.log(err.name, err.message);
-	}
 	}
 </script>
 </body>
