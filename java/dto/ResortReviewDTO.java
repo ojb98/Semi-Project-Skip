@@ -8,7 +8,7 @@ public class ResortReviewDTO {
     private int uuid;
     private int resort_id;
     private float rating;
-    private String resort_comment;
+    private String review_comment;
     private String review_img;
     private Date created_at;
     private String name;

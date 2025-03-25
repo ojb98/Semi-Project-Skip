@@ -58,6 +58,6 @@
   
   <!-- 스키장 리뷰 삭제 -->
   <delete id="delete" parameterType="int">
-  	delete from ski_reviews where review_id=#{review_id}
+  	delete from ski_reviews where payment_id=#{payment_id}
   </delete>
 </mapper>

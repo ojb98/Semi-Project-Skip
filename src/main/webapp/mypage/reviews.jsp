@@ -46,14 +46,14 @@
 				</c:forEach>
 			</div>
 			<div class="review_image">
-				<img src="${pageContext.request.contextPath}/reviewImgs/${dto.img}" width="120px" height="120px"/>
+				<img src="${pageContext.request.contextPath}/reviewImgs/${dto.review_img}" width="120px" height="120px"/>
 			</div>
 			<div class="review_comment">
 				${dto.review_comment}
 			</div>
 			<div class="review_btns">
-				<input class="review_btn" type="button" value="수정">
-				<input class="review_btn" type="button" value="삭제">
+				<input class="review_btn" type="button" value="수정" onclick="reviewUpdatePopup()">
+				<input class="review_btn" type="button" value="삭제" onclick="location.href='<%=request.getContextPath()%>/review/skiReviewDelete?review_id=${dto.review_id}'">
 			</div>
 		</div>
 	</div>
@@ -150,4 +150,18 @@
 	document.getElementsByName("rating")[0].addEventListener('change', () => {
 		form.submit();
 	});
+	
+	function reviewUpdatePopup(review_id) {
+		console.log("리뷰 수정 팝업 호출 확인:", review_id);
+		
+		const url = `${contextPath}/review/skiReviewUpdate?review_id=${review_id}`;
+		const name = "updatePopup";
+		const option = "width=500,height=500,top=100,left=100,location=no";
+		
+		const updatePop = window.open(url, name, option);
+		
+		if(!updatePop) {
+			alert("팝업이 차단되었습니다. 팝업 차단을 해제 해주세요.");
+		}
+	}
 </script>

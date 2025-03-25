@@ -35,7 +35,7 @@
 		<result column="ref_name" property="ref_name"/>
 		<result column="rating" property="rating"/>
 		<result column="review_comment" property="review_comment"/>
-		<result column="img" property="img"/>
+		<result column="review_img" property="review_img"/>
 		<result column="created_at" property="created_at"/>
 		
 		<association property="reviewReDto" javaType="review.dto.ReviewReDto">
@@ -52,7 +52,7 @@
 		from (
 			select rownum rn, r.*
 			from (
-				select category, review_id, payment_id, uuid, ref_id, ref_name, rating, review_comment, img, created_at,
+				select category, review_id, payment_id, uuid, ref_id, ref_name, rating, review_comment, review_img, created_at,
 				review_re_id, r_uuid, user_id, content, r_created_at
 				from reviews_view
 				<include refid="filter"/>
