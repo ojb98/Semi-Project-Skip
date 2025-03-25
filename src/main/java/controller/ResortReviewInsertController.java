@@ -28,11 +28,11 @@ public class ResortReviewInsertController extends HttpServlet {
 		
 		int payment_id = Integer.parseInt(req.getParameter("payment_id"));
 		int uuid = Integer.parseInt(req.getParameter("uuid"));
-		int room_id = Integer.parseInt(req.getParameter("room_id"));
+		int resort_id = Integer.parseInt(req.getParameter("resort_id"));
 		
 		req.setAttribute("payment_id", payment_id);
 		req.setAttribute("uuid", uuid);
-		req.setAttribute("room_id", room_id);
+		req.setAttribute("resort_id", resort_id);
 		
 		req.getRequestDispatcher("/review/resortReviewInsert.jsp").forward(req, resp);
 	}
@@ -41,7 +41,7 @@ public class ResortReviewInsertController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		 int payment_id = Integer.parseInt(req.getParameter("payment_id"));
 		 int uuid = Integer.parseInt(req.getParameter("uuid"));
-		 int room_id = Integer.parseInt(req.getParameter("room_id"));
+		 int resort_id = Integer.parseInt(req.getParameter("resort_id"));
 		 double rating  = Double.parseDouble(req.getParameter("rating"));
 		 String review_comment = req.getParameter("review_comment");
 		 String user_id = req.getParameter("user_id");
@@ -77,7 +77,7 @@ public class ResortReviewInsertController extends HttpServlet {
 			 System.out.println("savefilename:" + savefilename);
 			 
 			 ResortReviewsDAO resortReviewDao = new ResortReviewsDAO();
-			 ResortReviewsDTO resortReviewDto = new ResortReviewsDTO(0, payment_id, uuid, room_id, rating, review_comment, savefilename, null, user_id);
+			 ResortReviewsDTO resortReviewDto = new ResortReviewsDTO(0, payment_id, uuid, resort_id, rating, review_comment, savefilename, null, user_id);
 			 
 			 int n = resortReviewDao.insert(resortReviewDto);
 			 

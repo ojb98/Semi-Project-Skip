@@ -26,7 +26,6 @@ public class RentalshopReviewDeleteController extends HttpServlet{
 		
 		int n = rentalshopReviewDao.delete(review_id);
 		
-		req.setAttribute("content", "reviews");
-		req.getRequestDispatcher("/mypage/layout.jsp").forward(req, resp);
+		resp.sendRedirect(req.getContextPath() + "/mypage/reviews");
 	}
 }
