@@ -52,8 +52,8 @@
 				${dto.review_comment}
 			</div>
 			<div class="review_btns">
-				<input class="review_btn" type="button" value="수정" onclick="reviewUpdatePopup()">
-				<input class="review_btn" type="button" value="삭제" onclick="location.href='<%=request.getContextPath()%>/review/skiReviewDelete?review_id=${dto.review_id}'">
+				<input class="review_btn" type="button" value="수정" onclick="reviewUpdatePopup('${dto.category }','${dto.review_id}')">
+				<input class="review_btn" type="button" value="삭제" onclick="return confirmDelete('${dto.category }','${dto.review_id}')">
 			</div>
 		</div>
 	</div>
@@ -151,17 +151,46 @@
 		form.submit();
 	});
 	
-	function reviewUpdatePopup(review_id) {
-		console.log("리뷰 수정 팝업 호출 확인:", review_id);
+	function reviewUpdatePopup(category, review_id) {
+		const contextPath = "<%= request.getContextPath() %>";
 		
-		const url = `${contextPath}/review/skiReviewUpdate?review_id=${review_id}`;
+		console.log("리뷰 수정 팝업 호출 확인:", review_id, category);
+		console.log("경로확인:", contextPath);
+		
+		let url = "";
+		
+		if(category == "SKI") {
+			url = contextPath + "/review/skiReviewUpdate?review_id=" + review_id;
+		}else if (category == "RESORT") {
+			url = contextPath + "/review/resortReviewUpdate?review_id=" + review_id;
+		}else if (category == "RENTAL") {
+			url = contextPath + "/review/rentalshopReviewUpdate?review_id=" + review_id;
+		}
+		
 		const name = "updatePopup";
 		const option = "width=500,height=500,top=100,left=100,location=no";
 		
 		const updatePop = window.open(url, name, option);
-		
+
 		if(!updatePop) {
 			alert("팝업이 차단되었습니다. 팝업 차단을 해제 해주세요.");
 		}
+	}
+	
+	function confirmDelete(category, review_id) {
+		const contextPath = "<%= request.getContextPath() %>";
+		console.log("리뷰 삭제 호출 확인:", review_id, category);
+		console.log("경로확인:", contextPath)
+		
+	    if (confirm('정말 삭제하시겠습니까?')) {
+	    	if(category == "SKI") {
+		        location.href = contextPath + "/review/skiReviewDelete?review_id=" + review_id;	    		
+	    	} else if (category == "RESORT") {
+	    		location.href = contextPath + "/review/resortReviewDelete?review_id=" + review_id;
+	    	} else if (category == "RENTAL") {
+	    		location.href = contextPath + "/review/rentalReviewDelete?review_id=" + review_id;
+	    	}
+	    }
+	    return false; // 확인 창에서 "취소"를 누르면 아무 동작도 하지 않음
 	}
 </script>

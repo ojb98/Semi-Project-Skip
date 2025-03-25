@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
-import dao.ResortReviewDao;
 import dao.SkiReviewDao;
-import dto.ResortReviewDTO;
 import dto.SkiReviewDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -34,22 +32,23 @@ public class SkiReviewUpdateController extends HttpServlet {
 		
 		if(skiReviewDto!=null) {
 			req.setAttribute("skiReviewDto", skiReviewDto);
-			req.getRequestDispatcher("/review/resortReviewUpdate.jsp").forward(req, resp);
+			req.getRequestDispatcher("/review/skiReviewUpdate.jsp").forward(req, resp);
 		} else {
 			req.setAttribute("result", "not found");
-			req.getRequestDispatcher("/review/resortReviewUpdate.jsp").forward(req, resp);
+			req.getRequestDispatcher("/review/skiReviewUpdate.jsp").forward(req, resp);
 		}
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println(req.getParameter("ski_id"));
 		int review_id = Integer.parseInt(req.getParameter("review_id"));
 		int payment_id = Integer.parseInt(req.getParameter("payment_id"));
 		int uuid = Integer.parseInt(req.getParameter("uuid"));
 		String user_id = req.getParameter("user_id");
 		int ski_id = Integer.parseInt(req.getParameter("ski_id"));
 		float rating  = Float.parseFloat(req.getParameter("rating"));
-		String resort_comment = req.getParameter("resort_comment");
+		String review_comment = req.getParameter("review_comment");
 		String review_img = req.getParameter("review_img");
 		System.out.println("리뷰아이디:" + review_id);
 		System.out.println("결제아이디:" + payment_id);
@@ -57,7 +56,7 @@ public class SkiReviewUpdateController extends HttpServlet {
 		System.out.println("회원아이디:" + user_id);
 		System.out.println("스키장아이디:" + ski_id);
 		System.out.println("별점:" + rating);
-		System.out.println("리뷰내용:" + resort_comment);
+		System.out.println("리뷰내용:" + review_comment);
 		System.out.println("리뷰이미지:" + review_img);
 		
 		SkiReviewDao skiReviewDao = new SkiReviewDao();
@@ -88,11 +87,13 @@ public class SkiReviewUpdateController extends HttpServlet {
 		    }
 		}
 		
-		skiReviewDto = new SkiReviewDTO(review_id, payment_id, uuid, ski_id, rating, resort_comment, saveFilename, null, user_id);
+		skiReviewDto = new SkiReviewDTO(review_id, payment_id, uuid, ski_id, rating, review_comment, saveFilename, null, user_id);
 		int n = skiReviewDao.update(skiReviewDto);
 		
 		req.setAttribute("content", "reviews");
-		resp.sendRedirect(req.getContextPath() + "/mypage/layout.jsp");
+		req.getRequestDispatcher(req.getContextPath() + "/mypage/layout.jsp");
+		
+//		resp.sendRedirect(req.getContextPath() + "/mypage/layout.jsp");
 		
 	}
 }

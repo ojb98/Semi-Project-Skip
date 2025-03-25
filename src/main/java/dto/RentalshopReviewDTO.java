@@ -8,7 +8,7 @@ public class RentalshopReviewDTO {
     private int uuid;
     private float rating;
     private int rentalshop_id;
-    private String comments;
+    private String review_comment;
     private String review_img;
     private Date created_at;
     private String user_id;
@@ -16,14 +16,14 @@ public class RentalshopReviewDTO {
     public RentalshopReviewDTO() {}
 
 	public RentalshopReviewDTO(int review_id, int payment_id, int uuid, float rating, int rentalshop_id,
-			String comments, String review_img, Date created_at, String user_id) {
+			String review_comment, String review_img, Date created_at, String user_id) {
 		super();
 		this.review_id = review_id;
 		this.payment_id = payment_id;
 		this.uuid = uuid;
 		this.rating = rating;
 		this.rentalshop_id = rentalshop_id;
-		this.comments = comments;
+		this.review_comment = review_comment;
 		this.review_img = review_img;
 		this.created_at = created_at;
 		this.user_id = user_id;
@@ -69,12 +69,12 @@ public class RentalshopReviewDTO {
 		this.rentalshop_id = rentalshop_id;
 	}
 
-	public String getComments() {
-		return comments;
+	public String getReview_comment() {
+		return review_comment;
 	}
 
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setReview_comment(String review_comment) {
+		this.review_comment = review_comment;
 	}
 
 	public String getReview_img() {
@@ -100,6 +100,7 @@ public class RentalshopReviewDTO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+
 }
 
 

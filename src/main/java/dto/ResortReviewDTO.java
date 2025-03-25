@@ -8,7 +8,7 @@ public class ResortReviewDTO {
     private int uuid;
     private int room_id;
     private float rating;
-    private String resort_comment;
+    private String review_comment;
     private String review_img;
     private Date created_at;
     private String user_id;
@@ -16,7 +16,7 @@ public class ResortReviewDTO {
     public ResortReviewDTO() {
     }
 
-	public ResortReviewDTO(int review_id, int payment_id, int uuid, int room_id, float rating, String resort_comment,
+	public ResortReviewDTO(int review_id, int payment_id, int uuid, int room_id, float rating, String review_comment,
 			String review_img, Date created_at, String user_id) {
 		super();
 		this.review_id = review_id;
@@ -24,7 +24,7 @@ public class ResortReviewDTO {
 		this.uuid = uuid;
 		this.room_id = room_id;
 		this.rating = rating;
-		this.resort_comment = resort_comment;
+		this.review_comment = review_comment;
 		this.review_img = review_img;
 		this.created_at = created_at;
 		this.user_id = user_id;
@@ -70,12 +70,12 @@ public class ResortReviewDTO {
 		this.rating = rating;
 	}
 
-	public String getResort_comment() {
-		return resort_comment;
+	public String getReview_comment() {
+		return review_comment;
 	}
 
-	public void setResort_comment(String resort_comment) {
-		this.resort_comment = resort_comment;
+	public void setReview_comment(String review_comment) {
+		this.review_comment = review_comment;
 	}
 
 	public String getReview_img() {
@@ -102,4 +102,5 @@ public class ResortReviewDTO {
 		this.user_id = user_id;
 	}
 
+	
 }

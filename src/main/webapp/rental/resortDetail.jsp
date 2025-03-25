@@ -985,8 +985,8 @@ header {
 	</div>
 	<script src="<%=request.getContextPath()%>/script/review.js"></script>
 	<script type="text/javascript">
-reviewSort("latest",'${resort_id}', 1);
-</script>
+	reviewSort("latest",'${resort_id}', 1);
+	</script>
 	<script>
     let startDate = null;
     let endDate = null;

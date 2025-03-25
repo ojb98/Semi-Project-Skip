@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SkiReviewDeleteController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println(req.getParameter("review_id"));
 		int review_id = Integer.parseInt(req.getParameter("review_id"));
 		
 		SkiReviewDao skiReivewDao = new SkiReviewDao();
@@ -25,9 +26,6 @@ public class SkiReviewDeleteController extends HttpServlet{
 		
 		int n = skiReivewDao.delete(review_id);
 		
-		req.setAttribute("content", "reviews");
-		req.getRequestDispatcher("/mypage/layout.jsp").forward(req, resp);
-		
-//		resp.sendRedirect(req.getContextPath() + "/jsp/reviewList");
+		resp.sendRedirect(req.getContextPath() + "/mypage/reviews");
 	}
 }

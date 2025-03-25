@@ -43,7 +43,7 @@
 		</div>
 		<div class="">
 			<label>리뷰내용</label>
-			<textarea id="resortComment" rows="5" cols="50" name="resort_comment" placeholder="5자 이상입력하세요."></textarea>
+			<textarea id="review_comment" rows="5" cols="50" name="review_comment" placeholder="5자 이상입력하세요."></textarea>
 			<p class="comment_msg">리뷰를 5자 이상 작성해주세요.</p>
 		</div>
 		<div class="">
@@ -70,7 +70,7 @@
 	    }
 
 	    // 리뷰 내용 유효성 검사
-	    const reviewText = document.querySelector("#resortComment").value.trim();
+	    const reviewText = document.querySelector("#review_comment").value.trim();
 	    const commentMsg = document.querySelector(".comment_msg");
 
 	    if (reviewText.length < 5) {

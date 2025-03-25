@@ -15,6 +15,7 @@ public class ResortReviewDeleteController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int review_id = Integer.parseInt(req.getParameter("review_id"));
+		System.out.println(review_id);
 		
 		ResortReviewDao resortReviewDao = new ResortReviewDao();
 		

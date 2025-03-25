@@ -6,7 +6,7 @@
 	 
   <!-- 스키장 리뷰 insert -->
   <insert id="insert" parameterType="dto.SkiReviewDTO">
-    insert into ski_reviews values(ski_review_seq.nextval,#{payment_id},#{uuid},#{ski_id},#{rating},#{comments},#{review_img, jdbcType=VARCHAR},sysdate)
+    insert into ski_reviews values(ski_review_seq.nextval,#{payment_id},#{uuid},#{ski_id},#{rating},#{review_comment},#{review_img, jdbcType=VARCHAR},sysdate)
   </insert>
   
   <!-- 스키장 별 리뷰 글 전체 갯수 -->
@@ -16,7 +16,7 @@
   
   <!-- 스키장 별 리뷰 기본 리스트 -->
   <select id="reviewList" parameterType="int" resultType="dto.SkiReviewDTO">
-  	select s.review_id, s.uuid, u.user_id, s.created_at, s.rating, s.comments, s.review_img
+  	select s.review_id, s.uuid, u.user_id, s.created_at, s.rating, s.review_comment, s.review_img
   	from ski_reviews s left join users u
   	on s.uuid = u.uuid
   	where ski_id = #{ski_id}
@@ -25,7 +25,7 @@
   
   <!-- 스키장 별 리뷰 리스트 (정렬 및 페이징) -->
   <select id="reviewArray" parameterType="map" resultType="dto.SkiReviewDTO">
-	SELECT s.review_id, s.uuid, u.user_id, s.created_at, s.rating, s.comments, s.review_img 
+	SELECT s.review_id, s.uuid, u.user_id, s.created_at, s.rating, s.review_comment, s.review_img 
   	FROM (
 		select row_number() over(
 			order by
@@ -35,7 +35,7 @@
 				<otherwise>review_id DESC</otherwise>
 			</choose>
 			) AS rn, 
-			review_id, uuid, created_at, rating, comments, review_img
+			review_id, uuid, created_at, rating, review_comment, review_img
 		from ski_reviews where ski_id = #{ski_id}
 	)s
 	join users u on s.uuid = u.uuid
@@ -45,15 +45,15 @@
    
   <!-- 스키장 리뷰 수정시 조회 -->
   <select id="updateSelect" parameterType="int" resultType="dto.SkiReviewDTO">
-  	select s.review_id, s.payment_id, s.uuid, u.user_id, s.ski_id, s.rating, s.comments, s.review_img, s.created_at 
+  	select s.review_id, s.payment_id, s.uuid, u.user_id, s.ski_id, s.rating, s.review_comment, s.review_img, s.created_at 
   	from ski_reviews s left join users u
   	on s.uuid = u.uuid 
-  	where ski_id=#{ski_id}
+  	where review_id=#{review_id}
   </select>
   
   <!-- 스키장 리뷰 수정 -->
   <update id="update" parameterType="dto.SkiReviewDTO">
-  	update ski_reviews set rating=#{rating}, comments=#{comments}, review_img=#{review_img} where review_id = #{review_id}
+  	update ski_reviews set rating=#{rating}, review_comment=#{review_comment}, review_img=#{review_img} where review_id = #{review_id}
   </update>
   
   <!-- 스키장 리뷰 삭제 -->

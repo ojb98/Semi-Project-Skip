@@ -46,7 +46,7 @@ public class RentalshopReviewInsertController extends HttpServlet {
 		 int uuid = Integer.parseInt(req.getParameter("uuid"));
 		 int rentalshop_id = Integer.parseInt(req.getParameter("rentalshop_id"));
 		 float rating  = Float.parseFloat(req.getParameter("rating"));
-		 String rentalshop_comment = req.getParameter("rentalshop_comment");
+		 String review_comment = req.getParameter("review_comment");
 		 String user_id = req.getParameter("user_id");
 		 
 		 //파일 업로드
@@ -80,7 +80,7 @@ public class RentalshopReviewInsertController extends HttpServlet {
 			 System.out.println("savefilename:" + savefilename);
 			 
 			 RentalshopReviewDao rentalshopReviewDao = new RentalshopReviewDao();
-			 RentalshopReviewDTO rentalshopReviewDTO = new RentalshopReviewDTO(0, payment_id, uuid, rating, rentalshop_id, rentalshop_comment, savefilename, null, user_id);
+			 RentalshopReviewDTO rentalshopReviewDTO = new RentalshopReviewDTO(0, payment_id, uuid, rating, rentalshop_id, review_comment, savefilename, null, user_id);
 			 
 			 int n = rentalshopReviewDao.insert(rentalshopReviewDTO);
 			 

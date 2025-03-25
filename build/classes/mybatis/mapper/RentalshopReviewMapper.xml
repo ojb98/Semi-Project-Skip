@@ -6,7 +6,7 @@
 	 
   <!-- 렌탈샵 리뷰 insert -->
   <insert id="insert" parameterType="dto.RentalshopReviewDTO">
-    insert into rentalshop_reviews values(rentalshop_review_seq.nextval,#{payment_id},#{uuid},#{rentalshop_id},#{rating},#{comments},#{review_img, jdbcType=VARCHAR},sysdate)
+    insert into rentalshop_reviews values(rentalshop_review_seq.nextval,#{payment_id},#{uuid},#{rentalshop_id},#{rating},#{review_comment},#{review_img, jdbcType=VARCHAR},sysdate)
   </insert>
   
   <!-- 렌탈샵 별 리뷰 글 전체 갯수 -->
@@ -16,7 +16,7 @@
   
   <!-- 렌탈샵 별 리뷰 기본 리스트 -->
   <select id="reviewList" parameterType="int" resultType="dto.RentalshopReviewDTO">
-  	select r.review_id, r.uuid, u.user_id, r.created_at, r.rating, r.comments, r.review_img
+  	select r.review_id, r.uuid, u.user_id, r.created_at, r.rating, r.review_comment, r.review_img
   	from rentalshop_reviews r left join users u
   	on r.uuid = u.uuid
   	where rentalshop_id = #{rentalshop_id}
@@ -25,7 +25,7 @@
   
   <!-- 렌탈샵 별 리뷰 리스트 (정렬 및 페이징) -->
   <select id="reviewArray" parameterType="map" resultType="dto.RentalshopReviewDTO">
-	SELECT r.review_id, r.uuid, u.user_id, r.created_at, r.rating, r.comments, r.review_img 
+	SELECT r.review_id, r.uuid, u.user_id, r.created_at, r.rating, r.review_comment, r.review_img 
   	FROM (
 		select row_number() over(
 			order by
@@ -35,7 +35,7 @@
 				<otherwise>review_id DESC</otherwise>
 			</choose>
 			) AS rn, 
-			review_id, uuid, created_at, rating, comments, review_img
+			review_id, uuid, created_at, rating, review_comment, review_img
 		from rentalshop_reviews where rentalshop_id = #{rentalshop_id}
 	) r
 	join users u on r.uuid = u.uuid
@@ -45,15 +45,15 @@
    
   <!-- 렌탈샵 리뷰 수정시 조회 -->
   <select id="updateSelect" parameterType="int" resultType="dto.RentalshopReviewDTO">
-  	select r.review_id, r.payment_id, r.uuid, u.user_id, r.rentalshop_id, r.rating, r.comments, r.review_img, r.created_at 
+  	select r.review_id, r.payment_id, r.uuid, u.user_id, r.rentalshop_id, r.rating, r.review_comment, r.review_img, r.created_at 
   	from rentalshop_reviews r left join users u
   	on r.uuid = u.uuid 
-  	where rentalshop_id=#{rentalshop_id}
+  	where review_id=#{review_id}
   </select>
   
   <!-- 렌탈샵 리뷰 수정 -->
   <update id="update" parameterType="dto.RentalshopReviewDTO">
-  	update rentalshop_reviews set rating=#{rating}, comments=#{comments}, review_img=#{review_img} where review_id = #{review_id}
+  	update rentalshop_reviews set rating=#{rating}, review_comment=#{review_comment}, review_img=#{review_img} where review_id = #{review_id}
   </update>
   
   <!-- 렌탈샵 리뷰 삭제 -->

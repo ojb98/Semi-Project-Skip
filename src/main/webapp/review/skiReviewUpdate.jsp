@@ -34,7 +34,7 @@
 			</div>
 			<div class="">
 				<lable>스키장 아이디</lable>
-				<input type="text" name="resort_id" value="${skiReviewDto.getSki_id() }" readonly>
+				<input type="text" name="ski_id" value="${skiReviewDto.getSki_id() }" readonly>
 			</div>
 			<div>
 			<label>리뷰 평점</label>
@@ -49,7 +49,7 @@
 			</div>
 			<div class="">
 				<label>리뷰내용</label>
-				<textarea id="skiComment" rows="5" cols="50" name="ski_comment" placeholder="5자 이상입력하세요.">${skiReviewDto.getSki_comment() }</textarea>
+				<textarea id="review_comment" rows="5" cols="50" name="review_comment" placeholder="5자 이상입력하세요.">${skiReviewDto.getReview_comment() }</textarea>
 				<p class="comment_msg">리뷰를 5자 이상 작성해주세요.</p>			
 			</div>
 			<label>첨부파일</label>
@@ -63,7 +63,7 @@
 	    let isValid = true;
 
 	    // 리뷰 내용 유효성 검사
-	    const reviewText = document.querySelector("#skiComment").value.trim();
+	    const reviewText = document.querySelector("#review_comment").value.trim();
 	    const commentMsg = document.querySelector(".comment_msg");
 
 	    if (reviewText.length < 5) {

@@ -8,14 +8,14 @@ public class SkiReviewDTO {
     private int uuid;
     private int ski_id;
     private float rating;
-    private String comments;
+    private String review_comment;
     private String review_img;
     private Date created_at;
     private String user_id;
     
     public SkiReviewDTO() {}
 
-	public SkiReviewDTO(int review_id, int payment_id, int uuid, int ski_id, float rating, String comments,
+	public SkiReviewDTO(int review_id, int payment_id, int uuid, int ski_id, float rating, String review_comment,
 			String review_img, Date created_at, String user_id) {
 		super();
 		this.review_id = review_id;
@@ -23,7 +23,7 @@ public class SkiReviewDTO {
 		this.uuid = uuid;
 		this.ski_id = ski_id;
 		this.rating = rating;
-		this.comments = comments;
+		this.review_comment = review_comment;
 		this.review_img = review_img;
 		this.created_at = created_at;
 		this.user_id = user_id;
@@ -69,12 +69,12 @@ public class SkiReviewDTO {
 		this.rating = rating;
 	}
 
-	public String getComments() {
-		return comments;
+	public String getReview_comment() {
+		return review_comment;
 	}
 
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setReview_comment(String review_comment) {
+		this.review_comment = review_comment;
 	}
 
 	public String getReview_img() {

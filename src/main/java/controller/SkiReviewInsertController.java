@@ -44,7 +44,7 @@ public class SkiReviewInsertController extends HttpServlet {
 		 int uuid = Integer.parseInt(req.getParameter("uuid"));
 		 int ski_id = Integer.parseInt(req.getParameter("ski_id"));
 		 float rating  = Float.parseFloat(req.getParameter("rating"));
-		 String ski_comment = req.getParameter("ski_comment");
+		 String review_comment = req.getParameter("review_comment");
 		 String user_id = req.getParameter("user_id");
 		 
 		 //파일 업로드
@@ -78,8 +78,7 @@ public class SkiReviewInsertController extends HttpServlet {
 			 System.out.println("savefilename:" + savefilename);
 			 
 			 SkiReviewDao skiReviewDao = new SkiReviewDao();
-//			 ResortReviewsDTO rrDto = new ResortReviewsDTO(0, payment_id, uuid, resort_id, rating, resort_comment, savefilename, null);
-			 SkiReviewDTO skiReviewDTO = new SkiReviewDTO(0, payment_id, uuid, ski_id, rating, ski_comment, savefilename, null, user_id);
+			 SkiReviewDTO skiReviewDTO = new SkiReviewDTO(0, payment_id, uuid, ski_id, rating, review_comment, savefilename, null, user_id);
 			 
 			 int n = skiReviewDao.insert(skiReviewDTO);
 			 

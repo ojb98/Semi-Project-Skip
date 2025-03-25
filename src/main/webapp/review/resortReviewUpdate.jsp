@@ -14,7 +14,7 @@
 	}
 </style>
 <body>
-	<form id="reviewForm" action="<%=request.getContextPath() %>/jsp/update" method="post" enctype="multipart/form-data">
+	<form id="reviewForm" action="<%=request.getContextPath() %>/review/resortReviewUpdate" method="post" enctype="multipart/form-data">
 		<h2>리뷰 수정</h2>
 			<div class="">
 				<lable>리뷰 아이디</lable>
@@ -49,7 +49,7 @@
 			</div>
 			<div class="">
 				<label>리뷰내용</label>
-				<textarea id="resortComment" rows="5" cols="50" name="resort_comment" placeholder="5자 이상입력하세요.">${resortReviewDto.getResort_comment() }</textarea>
+				<textarea id="review_comment" rows="5" cols="50" name="review_comment" placeholder="5자 이상입력하세요.">${resortReviewDto.getReview_comment() }</textarea>
 				<p class="comment_msg">리뷰를 5자 이상 작성해주세요.</p>			
 			</div>
 			<label>첨부파일</label>
@@ -63,7 +63,7 @@
 	    let isValid = true;
 
 	    // 리뷰 내용 유효성 검사
-	    const reviewText = document.querySelector("#resortComment").value.trim();
+	    const reviewText = document.querySelector("#review_comment").value.trim();
 	    const commentMsg = document.querySelector(".comment_msg");
 
 	    if (reviewText.length < 5) {

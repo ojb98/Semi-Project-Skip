@@ -14,32 +14,32 @@
 	}
 </style>
 <body>
-	<form id="reviewForm" action="<%=request.getContextPath() %>/jsp/update" method="post" enctype="multipart/form-data">
+	<form id="reviewForm" action="<%=request.getContextPath() %>/review/rentalshopReviewUpdate" method="post" enctype="multipart/form-data">
 		<h2>리뷰 수정</h2>
 			<div class="">
 				<lable>리뷰 아이디</lable>
-				<input type="text" name="review_id" value="${resortReviewDto.getReview_id() }" readonly>
+				<input type="text" name="review_id" value="${rentalshopReviewDto.getReview_id() }" readonly>
 			</div>
 			<div class="">
 				<lable>리조트 결제 아이디</lable>
-				<input type="text" name="payment_id" value="${resortReviewDto.getPayment_id() }" readonly>			
+				<input type="text" name="payment_id" value="${rentalshopReviewDto.getPayment_id() }" readonly>			
 			</div>
 			<div class="">
 				<lable>uuid</lable>
-				<input type="text" name="uuid" value="${resortReviewDto.getUuid() }" readonly>
+				<input type="text" name="uuid" value="${rentalshopReviewDto.getUuid() }" readonly>
 			</div>
 			<div class="">
 				<lable>회원 아이디</lable>
-				<input type="text" name="user_id" value="${resortReviewDto.getUser_id() }" readonly>
+				<input type="text" name="user_id" value="${rentalshopReviewDto.getUser_id() }" readonly>
 			</div>
 			<div class="">
 				<lable>리조트 아이디</lable>
-				<input type="text" name="resort_id" value="${resortReviewDto.getResort_id() }" readonly>
+				<input type="text" name="rentalshop_id" value="${rentalshopReviewDto.getRentalshop_id() }" readonly>
 			</div>
 			<div>
 			<label>리뷰 평점</label>
 				<select name="rating">
-					<option value="${resortReviewDto.getRating() }">${resortReviewDto.getRating() }</option>
+					<option value="${rentalshopReviewDto.getRating() }">${rentalshopReviewDto.getRating() }</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -49,11 +49,11 @@
 			</div>
 			<div class="">
 				<label>리뷰내용</label>
-				<textarea id="resortComment" rows="5" cols="50" name="resort_comment" placeholder="5자 이상입력하세요.">${resortReviewDto.getResort_comment() }</textarea>
+				<textarea id="review_comment" rows="5" cols="50" name="review_comment" placeholder="5자 이상입력하세요.">${rentalshopReviewDto.getReview_comment() }</textarea>
 				<p class="comment_msg">리뷰를 5자 이상 작성해주세요.</p>			
 			</div>
 			<label>첨부파일</label>
-			<input type="file" name="review_img" value="${resortReviewDto.getReview_img() }">
+			<input type="file" name="review_img" value="${rentalshopReviewDto.getReview_img() }">
 			<input type="submit" value="수정">
 	</form>
 	
@@ -63,7 +63,7 @@
 	    let isValid = true;
 
 	    // 리뷰 내용 유효성 검사
-	    const reviewText = document.querySelector("#resortComment").value.trim();
+	    const reviewText = document.querySelector("#review_comment").value.trim();
 	    const commentMsg = document.querySelector(".comment_msg");
 
 	    if (reviewText.length < 5) {

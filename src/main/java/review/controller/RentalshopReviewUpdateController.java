@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
+import dao.RentalshopReviewDao;
 import dao.ResortReviewDao;
+import dto.RentalshopReviewDTO;
 import dto.ResortReviewDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -21,21 +23,23 @@ import jakarta.servlet.http.Part;
 		maxFileSize = 1024 * 1024 * 10
 	)
 
-@WebServlet("/review/resortReviewUpdate")
-public class ResortReviewUpdateController extends HttpServlet {
+@WebServlet("/review/rentalshopReviewUpdate")
+public class RentalshopReviewUpdateController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int review_id = Integer.parseInt(req.getParameter("review_id"));
+		System.out.println(review_id);
 		
-		ResortReviewDao resortReviewDao = new ResortReviewDao();
-		ResortReviewDTO resortReviewDto = resortReviewDao.updateSelect(review_id);
+		RentalshopReviewDao rentalshopReviewDao = new RentalshopReviewDao();
+		RentalshopReviewDTO rentalshopReviewDtO = rentalshopReviewDao.updateSelect(review_id);
+		System.out.println(rentalshopReviewDtO);
 		
-		if(resortReviewDto!=null) {
-			req.setAttribute("resortReviewDto", resortReviewDto);
-			req.getRequestDispatcher("/review/resortReviewUpdate.jsp").forward(req, resp);
+		if(rentalshopReviewDtO != null) {
+			req.setAttribute("rentalshopReviewDto", rentalshopReviewDtO);
+			req.getRequestDispatcher("/review/rentalshopReviewUpdate.jsp").forward(req, resp);
 		} else {
 			req.setAttribute("result", "not found");
-			req.getRequestDispatcher("/review/resortReviewUpdate.jsp").forward(req, resp);
+			req.getRequestDispatcher("/review/rentalshopReviewUpdate.jsp").forward(req, resp);
 		}
 	}
 	
@@ -45,23 +49,15 @@ public class ResortReviewUpdateController extends HttpServlet {
 		int payment_id = Integer.parseInt(req.getParameter("payment_id"));
 		int uuid = Integer.parseInt(req.getParameter("uuid"));
 		String user_id = req.getParameter("user_id");
-		int resort_id = Integer.parseInt(req.getParameter("resort_id"));
+		int rentalshop_id = Integer.parseInt(req.getParameter("rentalshop_id"));
 		float rating  = Float.parseFloat(req.getParameter("rating"));
 		String review_comment = req.getParameter("review_comment");
 		String review_img = req.getParameter("review_img");
-		System.out.println("리뷰아이디:" + review_id);
-		System.out.println("결제아이디:" + payment_id);
-		System.out.println("uuid:" + uuid);
-		System.out.println("회원아이디:" + user_id);
-		System.out.println("리조트아이디:" + resort_id);
-		System.out.println("별점:" + rating);
-		System.out.println("리뷰내용:" + review_comment);
-		System.out.println("리뷰이미지:" + review_img);
 		
-		ResortReviewDao resortReviewDao = new ResortReviewDao();
-		ResortReviewDTO resortReviewDto = resortReviewDao.updateSelect(review_id);
+		RentalshopReviewDao rentalshopReviewDao = new RentalshopReviewDao();
+		RentalshopReviewDTO rentalshopReviewDtO = rentalshopReviewDao.updateSelect(review_id);
 		
-		String saveFilename=resortReviewDto.getReview_img(); //기존 이미지명
+		String saveFilename=rentalshopReviewDtO.getReview_img(); //기존 이미지명
 		System.out.println(saveFilename);
 		
 		Part part = req.getPart("review_img"); // input 태그 name="review_img" 확인
@@ -86,8 +82,8 @@ public class ResortReviewUpdateController extends HttpServlet {
 		    }
 		}
 		
-		resortReviewDto = new ResortReviewDTO(review_id, payment_id, uuid, resort_id, rating, review_comment, saveFilename, null, user_id);
-		int n = resortReviewDao.update(resortReviewDto);
+		rentalshopReviewDtO = new RentalshopReviewDTO(review_id, payment_id, uuid, rating, rentalshop_id, review_comment, saveFilename, null, user_id);
+		int n = rentalshopReviewDao.update(rentalshopReviewDtO);
 		
 		req.setAttribute("content", "reviews");
 		req.getRequestDispatcher(req.getContextPath() + "/mypage/layout.jsp");
