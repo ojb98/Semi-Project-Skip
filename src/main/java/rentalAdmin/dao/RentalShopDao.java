@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import mybatis.service.SqlSessionFactoryService;
 import rental.dto.RentalShopDTO;
+import rental.dto.RentalShopListDTO;
 
 
 public class RentalShopDao {
@@ -29,17 +30,32 @@ public class RentalShopDao {
 		}
 	}
 	
-	//렌탈샵 리스트 조회(여러건)
-	public List<RentalShopDTO> rentalList(){
-		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
-			return sqlSession.selectList(NAMESPACE+".rsList");
-		}
-	}
+//	//렌탈샵 리스트 조회(여러건)
+//	public List<RentalShopDTO> rentalList(){
+//		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+//			return sqlSession.selectList(NAMESPACE+".rsList");
+//		}
+//	}
 	
-	//렌탈샵 고유아이디로 데이터 조회(한건)
+	//렌탈샵 리스트 조회(여러건)
+		public List<RentalShopListDTO> rentalList(){
+			try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+				return sqlSession.selectList(NAMESPACE+".rsList");
+			}
+		}
+	
+	
+	//렌탈샵 고유아이디로 데이터 조회(한건) : uuid버전
 	public RentalShopDTO getRentalId(int rentalId) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectOne(NAMESPACE+".getRentalId",rentalId);
+		}
+	}
+	
+	//렌탈샵 고유아이디로 데이터 조회(한건) : user_id버전
+	public RentalShopListDTO getRentalIdByUserId(int rentalId) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectOne(NAMESPACE+".getRentalIdByUserId",rentalId);
 		}
 	}
 	
@@ -61,5 +77,12 @@ public class RentalShopDao {
 		}
 	}
 	
+	//렌탈샵 전화번호 중복체크
+	public boolean isPhoneCheck(String phone) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			int count=sqlSession.selectOne(NAMESPACE+".checkPhoneAll", phone);
+			return count > 0;
+		}
+	}	
 	
 }

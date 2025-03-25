@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import rental.dto.RentalShopDTO;
+import rental.dto.RentalShopListDTO;
 import rentalAdmin.dao.RentalShopDao;
 
 @WebServlet("/adminRental/detail")
@@ -19,7 +20,7 @@ public class RentalShopDetailController extends HttpServlet{
 		//rentalshop_id로 해당 데이터 가져오기
 		int rentalId=Integer.parseInt(req.getParameter("rentalshop_id"));
 		
-		RentalShopDTO rsdto=rsdao.getRentalId(rentalId);
+		RentalShopListDTO rsdto=rsdao.getRentalIdByUserId(rentalId);
 		
 		req.setAttribute("rsdto", rsdto);
 		

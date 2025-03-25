@@ -43,7 +43,7 @@
 </head>
 <body>
 <!-- header -->
-<jsp:include page="/resortAdmin/header.jsp" />
+<jsp:include page="/rentalAdmin/header.jsp" />
 
 <!-- 메인 컨텐츠 영역 -->
 <main class="main-content">
@@ -69,7 +69,7 @@
 		
 		<tr>
 			<th>관리자ID</th>
-			<td></td>
+			<td>${rsdto.user_id }</td>
 		</tr>
 		
 		<tr>	

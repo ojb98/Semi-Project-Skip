@@ -48,13 +48,13 @@ h1 {
 
 
 /* 주소 입력 및 버튼을 한 줄에 붙여서 배치 */
-.address-row {
+.button-row {
     display: flex;
     align-items: stretch;
     margin-bottom: 15px;
 }
 
-.address-row input[type="text"] {
+.button-row input[type="text"] {
     flex: 1;
     height: 40px; /* 고정 높이 설정 */
     padding: 8px;
@@ -64,7 +64,7 @@ h1 {
     box-sizing: border-box;
 }
 
-.address-row button {
+.button-row button {
     height: 40px; /* 입력창과 동일한 높이 */
     padding: 0 15px;
     border: 1px solid #ccc;
@@ -76,7 +76,7 @@ h1 {
     transition: opacity 0.3s ease;
 }
 
-.address-row button:hover {
+.button-row button:hover {
     opacity: 0.85;
 }
 

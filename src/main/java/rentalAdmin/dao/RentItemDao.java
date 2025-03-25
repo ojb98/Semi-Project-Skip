@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import mybatis.service.SqlSessionFactoryService;
 import rental.dto.RentCategoryDTO;
 import rental.dto.RentItemDTO;
+import rental.dto.RentSkiItemDTO;
 
 
 public class RentItemDao {
@@ -71,8 +72,9 @@ public class RentItemDao {
 		}
 	}
 	
-	//카테고리 고유아이디로 장비유형 전체조회(여러건) : 렌탈샵에서 사용중인 카테고리 조회
-	public List<RentItemDTO> itemCategoryids(int categoryId){
+	
+	//카테고리 고유아이디로 장비유형 전체조회(여러건) : 렌탈샵,스키장에서 사용중인 카테고리 조회
+	public List<RentSkiItemDTO> itemCategoryids(int categoryId){
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectList(NAMESPACE+".riCategoryId",categoryId);
 		}

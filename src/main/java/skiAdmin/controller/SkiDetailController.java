@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import ski.dto.SkiDTO;
+import ski.dto.SkiListDTO;
 import skiAdmin.dao.SkiDao;
 
 @WebServlet("/adminSki/detail")
@@ -18,7 +19,7 @@ public class SkiDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int skiId=Integer.parseInt(req.getParameter("ski_id"));
 		
-		SkiDTO skdto=sdao.getSkiId(skiId);
+		SkiListDTO skdto=sdao.getSkiIdByUserId(skiId);
 		
 		req.setAttribute("skdto", skdto);
 		

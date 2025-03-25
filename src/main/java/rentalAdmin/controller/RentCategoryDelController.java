@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import rental.dto.RentItemDTO;
+import rental.dto.RentSkiItemDTO;
 import rentalAdmin.dao.RentCategoryDao;
 import rentalAdmin.dao.RentItemDao;
 
@@ -23,7 +24,7 @@ public class RentCategoryDelController extends HttpServlet {
 		//먼저 (카테고리로)조회해서 없으면 삭제 있으면 삭제 안되게 막기
 		int categoryId=Integer.parseInt(req.getParameter("category_id"));
 		
-		List<RentItemDTO> ridto=ridao.itemCategoryids(categoryId);
+		List<RentSkiItemDTO> ridto=ridao.itemCategoryids(categoryId);
 		
 		if(ridto!=null && !ridto.isEmpty()) { //데이터가 존재한다면 삭제하지않기
 			req.getSession().setAttribute("errMsg", "해당 카테고리를 사용중이므로 삭제할 수 없습니다.");

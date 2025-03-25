@@ -24,7 +24,7 @@ ide.jsp" />
 		<c:forEach var="dto" items="${relist }">
 			<tr>
 				<td>${dto.resort_id }</td>
-				<td>${dto.uuid }</td>
+				<td>${dto.user_id }</td>
 				<td>${dto.name }</td>
 				<td>${dto.resort_type }</td>
 				<td>${dto.location }</td>

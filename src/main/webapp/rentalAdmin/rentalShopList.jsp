@@ -24,7 +24,7 @@
 		<c:forEach var="dto" items="${rslist }">
 			<tr>
 				<td>${dto.rentalshop_id }</td>
-				<td>${dto.uuid }</td>
+				<td>${dto.user_id }</td>
 				<td>${dto.name }</td>
 				<td>${dto.location }</td>
 				<td>${dto.rental_phone }</td>

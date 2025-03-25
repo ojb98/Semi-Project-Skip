@@ -53,13 +53,34 @@
   </select>
 
   
-  <!-- 모든 리조트 조회 -->
+  <!-- 모든 리조트 조회 
   <select id="reList" resultType="resort.dto.ResortDTO">
   	select resort_id,uuid,name,resort_type,location,resort_phone,check_time,remain_img
     from RESORT order by resort_id desc
   </select>
+  -->
   
-  <!-- 해당 리조트 조회(한행 가져오기) -->
+  <!-- 모든 리조트 조회 : user_id버전 -->
+  <select id="reList" resultType="resort.dto.ResortListDTO">
+  	select r.resort_id,u.user_id,r.name,r.resort_type,r.location,
+  	r.resort_phone,r.check_time,r.remain_img
+    from RESORT r JOIN USERS u 
+    on r.uuid=u.uuid
+    order by r.resort_id desc
+  </select>
+  
+  <!-- 해당 리조트 조회(한행 가져오기) user_id버전 -->
+  <select id="getResortByUserId" parameterType="int" resultType="resort.dto.ResortListDTO">
+  	select r.resort_id,u.user_id,r.name,r.resort_type,
+  	r.resort_phone,r.location,r.remain_img,r.resub_img1,
+  	r.resub_img2,r.resub_img3,r.description,r.check_time,r.created_at
+  	from RESORT r JOIN USERS u 
+    on r.uuid=u.uuid
+  	where resort_id=#{resortId}
+  </select>
+  
+  
+  <!-- 해당 리조트 조회(한행 가져오기) user_id버전 -->
   <select id="getResortInfo" parameterType="int" resultType="resort.dto.ResortDTO">
   	select resort_id,uuid,name,resort_type,resort_phone,location,remain_img,
   	resub_img1,resub_img2,resub_img3,description,check_time,created_at
@@ -81,5 +102,11 @@
     resub_img3=#{resub_img3, jdbcType=VARCHAR},
     description=#{description} where resort_id=#{resort_id}
   </update>
+  
+  <!-- 전화번호 중복체크 -->
+  <select id="checkPhone" parameterType="String" resultType="int">
+    select COUNT(*) from RESORT where resort_phone=#{value}
+  </select>
+  
   
 </mapper>

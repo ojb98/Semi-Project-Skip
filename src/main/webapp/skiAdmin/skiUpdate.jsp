@@ -6,7 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInsertUpdate.css">
-
+<script>
+    var contextPath = "${pageContext.request.contextPath}";
+</script>
 <script src="${pageContext.request.contextPath}/js/adminUpdate.js"></script>
 
 <!-- 카카오(다음) 주소 API 스크립트 추가 -->
@@ -29,6 +31,8 @@
 </script>
 </head>
 <body>
+<!-- header -->
+<jsp:include page="/skiAdmin/header.jsp" />
 
 <!-- 메인 컨텐츠 영역 -->
 <main class="main-content">
@@ -41,13 +45,19 @@
 	<input type="text" name="name" id="name" value="${skdto.name }"><br>
 	
 	<label for="phone">스키장 전화번호</label>
-	<input type="text" name="ski_phone" id="phone" value="${skdto.ski_phone }"
-		maxlength="13" oninput="formatPhoneNumber(this)"><br>
-		
+	<div class="button-row">
+		<input type="text" name="ski_phone" id="phone" 
+			value="${skdto.ski_phone }" maxlength="13" 
+			data-original="${skidto.ski_phone }" oninput="phoneInputChanged(this)">
+		<button type="button" onclick="phoneCheck()">중복검사</button>
+	</div>
+	<span id="phoneCheckResult"></span><br>
+	
+	
 	<label for="location">도로명 주소</label>
-	<div class="address-row">
+	<div class="button-row">
 	    <input type="text" name="location" id="location" value="${skdto.location }" readonly>
-	    <button type="button" onclick="execDaumPostcode()">주소 검색</button>
+	    <button type="button" onclick="execDaumPostcode()">주소검색</button>
 	</div>	
 	
 	<label for="webcam_url">웹캠 URL</label>

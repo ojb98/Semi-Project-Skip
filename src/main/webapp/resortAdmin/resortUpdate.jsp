@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInsertUpdate.css">
-
+<script>
+    var contextPath = "${pageContext.request.contextPath}";
+</script>
 <script src="${pageContext.request.contextPath}/js/adminUpdate.js"></script>
 
 <!-- 카카오(다음) 주소 API 스크립트 추가 -->
@@ -57,11 +59,16 @@
 	<input type="text" name="check_time" id="checkTime" value="${dto.check_time }"><br>
 	
 	<label for="phone">리조트 전화번호</label><br>
-	<input type="text" name="resort_phone" id="phone" value="${dto.resort_phone }"
-		maxlength="13" oninput="formatPhoneNumber(this)"><br>
+	<div class="button-row">
+		<input type="text" name="resort_phone" id="phone" 
+			value="${dto.resort_phone }" maxlength="13" 
+			data-original="${dto.resort_phone }" oninput="phoneInputChanged(this)"><br>
+		<button type="button" onclick="phoneCheck()">중복검사</button>
+	</div>
+	<span id="phoneCheckResult"></span><br>
 		
 	<label for="location">도로명 주소</label>
-    	<div class="address-row">
+    	<div class="button-row">
 			<input type="text" name="location" id="location" value="${dto.location }" readonly>
 			<button type="button" onclick="execDaumPostcode()">주소 검색</button>
 		</div><br>

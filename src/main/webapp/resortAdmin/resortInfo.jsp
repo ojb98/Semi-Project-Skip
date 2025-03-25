@@ -84,7 +84,7 @@
 		
 		<tr>
 			<th>관리자ID</th>
-			<td></td>
+			<td>${rdto.user_id }</td>
 		</tr>
 		
 		<tr>	

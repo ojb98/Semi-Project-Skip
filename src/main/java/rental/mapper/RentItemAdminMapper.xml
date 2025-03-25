@@ -45,11 +45,31 @@
     where item_id=#{item_id}
   </update>
   
-  <!-- 카테고리 고유아이디로 전체 데이터 조회(여러건)-->
-  <select id="riCategoryId" parameterType="int" resultType="rental.dto.RentItemDTO">
-    select item_id,rentalshop_id,item_name,
-    item_detail,total_quantity,item_img,created_at
-    from RENT_ITEM where category_id=#{category_id}
+  <!-- 카테고리 고유아이디로 전체 데이터 조회(여러건) : 렌탈샵,스키장에서 사용중인 카테고리 조회-->
+  <select id="riCategoryId" parameterType="int" resultType="rental.dto.RentSkiItemDTO">
+    select 
+    	item_id,
+    	category_id,
+    	rentalshop_id as ref_id,
+    	item_name,
+    	item_detail,
+    	total_quantity,
+		item_img,
+		created_at
+	from RENT_ITEM
+	where category_id=#{category_id}
+	UNION ALL
+	select 
+		item_id,
+		category_id,
+		ski_id as ref_id,
+		item_name,
+		item_detail,
+		total_quantity,
+		item_img,
+		created_at 
+	from SKI_ITEM 
+	where category_id=#{category_id}
   </select>
   
 </mapper>

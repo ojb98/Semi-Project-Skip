@@ -9,6 +9,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminList.css">
 </head>
 <body>
+<!-- header -->
+<jsp:include page="/skiAdmin/header.jsp" />
 
 <!-- 메인 컨텐츠 영역 -->
 <main class="main-content">
@@ -21,7 +23,7 @@
 		<c:forEach var="dto" items="${list }">
 			<tr>
 				<td>${dto.ski_id }</td>
-				<td>${dto.uuid }</td>
+				<td>${dto.user_id }</td>
 				<td>${dto.name }</td>
 				<td>${dto.location }</td>
 				<td>${dto.ski_phone }</td>

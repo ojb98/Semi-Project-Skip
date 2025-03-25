@@ -6,8 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import mybatis.service.SqlSessionFactoryService;
+import rental.dto.RentalShopListDTO;
 import rentalAdmin.dao.RentItemDao;
 import ski.dto.SkiDTO;
+import ski.dto.SkiListDTO;
 
 public class SkiDao {
 	private SqlSessionFactory sqlSessionFactory= SqlSessionFactoryService.getSqlSessionFactory();
@@ -30,7 +32,7 @@ public class SkiDao {
 	}
 	
 	//스키장 리스트 조회(여러건)
-	public List<SkiDTO> skiList(){
+	public List<SkiListDTO> skiList(){
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectList(NAMESPACE+".skList");
 		}
@@ -40,6 +42,13 @@ public class SkiDao {
 	public SkiDTO getSkiId(int skiId) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectOne(NAMESPACE+".getSkiId", skiId);
+		}
+	}
+	
+	//렌탈샵 고유아이디로 데이터 조회(한건) : user_id버전
+	public SkiListDTO getSkiIdByUserId(int skiId) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectOne(NAMESPACE+".getSkiIdByUserId",skiId);
 		}
 	}
 	

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import mybatis.service.SqlSessionFactoryService;
 import resort.dto.FacilityListDTO;
 import resort.dto.ResortDTO;
+import resort.dto.ResortListDTO;
 
 
 public class ResortDao {
@@ -40,10 +41,17 @@ public class ResortDao {
 	}
 	
 	
-	//모든 리조트정보 가져오기
-	public List<ResortDTO> resortList(){
+	//모든 리조트정보 가져오기 :user_id버전
+	public List<ResortListDTO> resortList(){
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectList(NAMESPACE+".reList");
+		}
+	}
+	
+	//리조트 고유아이디로 리조트 정보가져오기(한행) : user_id버전
+	public ResortListDTO getResortByUserId(int resortId) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectOne(NAMESPACE+".getResortByUserId", resortId);
 		}
 	}
 	
@@ -78,5 +86,6 @@ public class ResortDao {
 			return n;
 		}
 	}
+	
 	
 }

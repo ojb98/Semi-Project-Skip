@@ -1,14 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInsertUpdate.css">
 
 <script src="${pageContext.request.contextPath}/js/adminUpdate.js"></script>
+
+<script>
+    var contextPath = "${pageContext.request.contextPath}";
+</script>
+
 
 <!-- 카카오(다음) 주소 API 스크립트 추가 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -27,6 +32,7 @@
 			}
 		}).open();
 	}
+	
 </script>
 </head>
 <body>
@@ -44,11 +50,16 @@
 	<input type="text" name="name" id="name" value="${rsdto.name }"><br>
 	
 	<label for="phone">렌탈샵 전화번호</label>
-	<input type="text" name="rental_phone" id="phone" value="${rsdto.rental_phone }"
-		maxlength="13" oninput="formatPhoneNumber(this)"><br>
+	<div class="button-row">
+		<input type="text" name="rental_phone" id="phone" 
+			value="${rsdto.rental_phone }" maxlength="13" 
+			data-original="${rsdto.rental_phone }" oninput="phoneInputChanged(this)"><br>
+		<button type="button" onclick="phoneCheck()">중복검사</button>
+	</div>
+	<span id="phoneCheckResult"></span><br>	
 		
 	<label for="location">도로명 주소</label>
-	<div class="address-row">
+	<div class="button-row">
 	    <input type="text" name="location" id="location" value="${rsdto.location }" readonly>
 	    <button type="button" onclick="execDaumPostcode()">주소 검색</button>
 	</div>	

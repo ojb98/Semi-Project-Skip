@@ -30,7 +30,7 @@
 <!-- 에러 메시지 출력 -->
 <c:if test="${not empty sessionScope.errMsg}">
 	<div class="error-message" style="color:red;">
-		${sessionScope.errMsg}}
+		${sessionScope.errMsg}
 	</div>
 	<!-- 한 번 출력 후 제거 -->
 	<c:remove var="errMsg" scope="session" />

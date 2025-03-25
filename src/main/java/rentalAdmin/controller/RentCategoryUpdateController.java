@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import rental.dto.RentCategoryDTO;
 import rental.dto.RentItemDTO;
+import rental.dto.RentSkiItemDTO;
 import rentalAdmin.dao.RentCategoryDao;
 import rentalAdmin.dao.RentItemDao;
 
@@ -37,7 +38,7 @@ public class RentCategoryUpdateController extends HttpServlet {
 		int categoryId=Integer.parseInt(req.getParameter("category_id"));
 		int price=Integer.parseInt(req.getParameter("price_per_hour"));
 		
-		List<RentItemDTO> ridto=ridao.itemCategoryids(categoryId);
+		List<RentSkiItemDTO> ridto=ridao.itemCategoryids(categoryId);
 		
 		if(ridto!=null && !ridto.isEmpty()) { //데이터가 존재한다면 수정하지않기
 			req.getSession().setAttribute("errMsg", "해당 카테고리를 사용중이므로 수정할 수 없습니다.");

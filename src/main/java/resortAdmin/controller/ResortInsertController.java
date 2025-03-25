@@ -16,12 +16,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import resort.dto.FacilityListDTO;
 import resort.dto.ResortDTO;
 import resort.dto.ResortFacilityMapDTO;
 import resortAdmin.dao.FacilityDao;
 import resortAdmin.dao.ResortDao;
+import users.dto.UsersDto;
 
 @WebServlet("/adminResort/insert")
 @MultipartConfig(
@@ -38,12 +40,17 @@ public class ResortInsertController extends HttpServlet{
 		//시설유형+시설이름 조회하여 가져오기
 		List<FacilityListDTO> flist=dao.facilityList();
 		req.setAttribute("flist", flist);
-		System.out.println(flist);
+		System.out.println("시설유형+시설이름 :"+flist);
 		req.getRequestDispatcher("/resortAdmin/resortInsertForm.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//현재 로그인 유저정보를 얻어와서 uuid 값을 가져온다
+		HttpSession session=req.getSession();
+		UsersDto user=(UsersDto)session.getAttribute("user");
+		int uuid=user.getUuid();
+		
 		String name=req.getParameter("name");
 		String resortType=req.getParameter("resort_type");
 		String phone=req.getParameter("resort_phone");
@@ -74,7 +81,7 @@ public class ResortInsertController extends HttpServlet{
 			String subImg3=saveFile(req.getPart("resub_img3"),path,false);
 			
 			
-			ResortDTO redto=new ResortDTO(0,1,name,resortType,phone,location,mainImg,subImg1,subImg2,subImg3,description,checkTime,null);
+			ResortDTO redto=new ResortDTO(0,uuid,name,resortType,phone,location,mainImg,subImg1,subImg2,subImg3,description,checkTime,null);
 			System.out.println("ResortDTO데이터 :"+redto);
 			
 			//싱글톤 dao 가져오기

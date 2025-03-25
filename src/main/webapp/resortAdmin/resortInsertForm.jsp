@@ -8,7 +8,9 @@
 <title>리조트관리자 페이지</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInsertUpdate.css">
-
+<script>
+    var contextPath = "${pageContext.request.contextPath}";
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminInsert.js"></script>
 
@@ -56,11 +58,16 @@
 	<input type="text" name="check_time" id="checkTime" placeholder="15:00/11:00"><br>
 	
 	<label for="phone">리조트 전화번호</label>
+	<div class="button-row">
 	<input type="text" name="resort_phone" id="phone" placeholder="070-1111-2222"
 		maxlength="13" oninput="formatPhoneNumber(this)"><br>
+		<button type="button" onclick="phoneCheck()">중복검사</button>
+	</div>
+	<span id="phoneCheckResult"></span><br>	
+		
 	
 	<label for="location">도로명 주소</label>
-	<div class="address-row">
+	<div class="button-row">
 	    <input type="text" name="location" id="location" readonly>
 	    <button type="button" onclick="execDaumPostcode()">주소 검색</button>
 	</div>

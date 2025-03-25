@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import resort.dto.ResortDTO;
+import resort.dto.ResortListDTO;
 import resortAdmin.dao.ResortDao;
 
 @WebServlet("/adminResort/list")
@@ -17,7 +18,7 @@ public class ResortListController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<ResortDTO> relist=dao.resortList();
+		List<ResortListDTO> relist=dao.resortList();
 		req.setAttribute("relist", relist);
 		req.getRequestDispatcher("/resortAdmin/resortList.jsp").forward(req, resp);
 	}

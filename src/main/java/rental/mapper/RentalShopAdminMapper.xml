@@ -16,18 +16,36 @@
 	 #{description},sysdate)
   </insert>
     
-  <!-- 렌탈샵 전체조회(여러건) -->  
+  <!-- 렌탈샵 전체조회(여러건)   
   <select id="rsList" resultType="rental.dto.RentalShopDTO">
     select rentalshop_id,uuid,name,rental_phone,location,remain_img
     from RENTALSHOP order by rentalshop_id desc
   </select>
+  -->
   
-  <!-- 렌탈샵 고유아이디로 조회(한건) -->
+  <!-- 렌탈샵 고유아이디로 조회(한건) : uuid 버전 -->
   <select id="getRentalId" parameterType="int" resultType="rental.dto.RentalShopDTO">
   	select rentalshop_id,uuid,name,rental_phone,location,remain_img,
   	resub_img1,resub_img2,resub_img3,description,created_at
   	from RENTALSHOP where rentalshop_id=#{rentalId}
   </select>
+  
+  
+  <!-- 렌탈샵 전체조회(여러건) -->  
+  <select id="rsList" resultType="rental.dto.RentalShopListDTO">
+    select r.rentalshop_id,u.user_id,r.name,r.rental_phone,r.location,r.remain_img
+    from RENTALSHOP r JOIN USERS u
+    on r.uuid=u.uuid order by rentalshop_id desc
+  </select>
+  
+  <!-- 렌탈샵 고유아이디로 조회(한건) : user_id 버전 -->
+  <select id="getRentalIdByUserId" parameterType="int" resultType="rental.dto.RentalShopListDTO">
+  	select r.rentalshop_id,u.user_id,r.name,r.rental_phone,r.location,r.remain_img,
+  	r.resub_img1,r.resub_img2,r.resub_img3,r.description,r.created_at
+  	from RENTALSHOP r JOIN USERS u
+  	on r.uuid=u.uuid where rentalshop_id=#{rentalId}
+  </select>
+  
   
   <!-- 렌탈샵 수정 -->
   <update id="rsUpdate" parameterType="rental.dto.RentalShopDTO">
@@ -44,5 +62,16 @@
   <delete id="rsDelete" parameterType="int">
   	delete from RENTALSHOP where rentalshop_id=#{rentalshop_id}
   </delete>
+  
+  <!-- 전화번호 중복체크 -->
+  <select id="checkPhoneAll" parameterType="String" resultType="int">
+    select COUNT(*) from(
+      select resort_phone AS phone from RESORT
+      UNION ALL
+      select ski_phone AS phone from SKI
+      UNION ALL
+      select rental_phone AS phone from RENTALSHOP
+    ) where phone=#{phone}
+  </select>
 
 </mapper>
