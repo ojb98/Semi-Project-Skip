@@ -11,7 +11,7 @@ public class ReviewsDto {
 	private String ref_name;
 	private int rating;
 	private String review_comment;
-	private String img;
+	private String review_img;
 	private Date created_at;
 	
 	private ReviewReDto reviewReDto;
@@ -21,7 +21,7 @@ public class ReviewsDto {
 	}
 
 	public ReviewsDto(String category, int review_id, int payment_id, int uuid, int ref_id, String ref_name, int rating,
-			String review_comment, String img, Date created_at, ReviewReDto reviewReDto) {
+			String review_comment, String review_img, Date created_at, ReviewReDto reviewReDto) {
 		super();
 		this.category = category;
 		this.review_id = review_id;
@@ -31,7 +31,7 @@ public class ReviewsDto {
 		this.ref_name = ref_name;
 		this.rating = rating;
 		this.review_comment = review_comment;
-		this.img = img;
+		this.review_img = review_img;
 		this.created_at = created_at;
 		this.reviewReDto = reviewReDto;
 	}
@@ -100,12 +100,12 @@ public class ReviewsDto {
 		this.review_comment = review_comment;
 	}
 
-	public String getImg() {
-		return img;
+	public String getReview_img() {
+		return review_img;
 	}
 
-	public void setImg(String img) {
-		this.img = img;
+	public void setReview_img(String review_img) {
+		this.review_img = review_img;
 	}
 
 	public Date getCreated_at() {

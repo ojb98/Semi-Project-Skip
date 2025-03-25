@@ -38,8 +38,8 @@
 </aside>
 
 <!-- 메인 컨텐츠 영역 -->
-<main class="main-content">
-    <section class="dashboard">
+<main class="main-content adminmain">
+    <!-- <section class="dashboard">
         <div class="card">
             <h3>총 회원 수</h3>
             <p style="color:red;"><%= request.getAttribute("totalUsers") %>명</p>
@@ -58,14 +58,14 @@
         </div>
     </section>
     
-    <!-- 차트와 신규 가입자 리스트를 포함한 카드 영역 -->
+    <!-- 차트와 신규 가입자 리스트를 포함한 카드 영역
     <div class="chart-cards">
-        <!-- 매출 차트 카드 -->
+        <!-- 매출 차트 카드
         <div class="chart-card">
             <h3>금일 시간별 매출 추이</h3>
             <canvas id="revenueChart"></canvas>
         </div>
-        <!-- 신규 가입자 리스트 카드 (최대 5줄) -->
+        <!-- 신규 가입자 리스트 카드 (최대 5줄)
         
         <div class="chart-card">
             <h3>최근 신규 가입자</h3>
@@ -99,14 +99,36 @@
                 </tbody>
             </table>
         </div>
-        <!-- 회원 역할 분포 차트 카드 -->
+        <!-- 회원 역할 분포 차트 카드
         <div class="chart-card">
             <h3>회원 역할 분포</h3>
             <canvas id="roleChart"></canvas>
         </div>
-    </div>
+    </div> -->
 
-   
+	<section class="sales-section">
+		<div>일매출: ${daily.get('today')}</div>
+		
+		<div>주매출: ${weekly.get('thisWeek')}</div>
+		
+		<div>월매출: ${monthly.get('thisMonth')}</div>
+		
+		<div>연매출: ${yearly.get('thisYear')}</div>
+	</section>
+	
+	<section class="user-section">
+        <div>방문자 수 그래프, 전체 이용자 수</div>
+        
+        <div>승인 대기 리스트</div>
+        
+        <div>최근 가입자 리스트</div>
+	</section>
+	
+	<section class="popular-section">
+		<div>스키 렌탈 리조트 중 매출 파이</div>
+		
+		<div>인기 있는 스키장</div>
+	</section>
 </main>
 
 <!-- (예시) 차트 스크립트 -->

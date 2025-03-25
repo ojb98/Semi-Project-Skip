@@ -119,4 +119,48 @@
         ORDER BY UUID DESC 
         FETCH FIRST 10 ROWS ONLY
     </select>
+    
+    <select id="getDailySales" resultType="java.util.HashMap">
+    	select 
+		    nvl((select sum(commission_amount)
+		    from transactions
+		    where trunc(created_at, 'dd') = trunc(systimestamp, 'dd')), 0) today,
+		    nvl((select sum(commission_amount)
+		    from transactions
+		    where trunc(created_at, 'dd') = trunc(systimestamp, 'dd') - interval '1' day), 0) yesterday
+		from dual
+    </select>
+    
+    <select id="getWeeklySales" resultType="java.util.HashMap">
+    	select 
+		    nvl((select sum(commission_amount)
+		    from transactions
+		    where trunc(created_at, 'iw') = trunc(systimestamp, 'iw')), 0) thisWeek,
+		    nvl((select sum(commission_amount)
+		    from transactions
+		    where trunc(created_at, 'iw') = trunc(systimestamp, 'iw') - interval '7' day), 0) lastWeek
+		from dual
+    </select>
+    
+    <select id="getMonthlySales" resultType="java.util.HashMap">
+    	select 
+		    nvl((select sum(commission_amount)
+		    from transactions
+		    where trunc(created_at, 'mm') = trunc(systimestamp, 'mm')), 0) thisMonth,
+		    nvl((select sum(commission_amount)
+		    from transactions
+		    where trunc(created_at, 'mm') = trunc(systimestamp, 'mm') - interval '1' month), 0) lastMonth
+		from dual
+    </select>
+    
+    <select id="getYearlySales" resultType="java.util.HashMap">
+    	select 
+		    nvl((select sum(commission_amount)
+		    from transactions
+		    where trunc(created_at, 'yy') = trunc(systimestamp, 'yy')), 0) thisYear,
+		    nvl((select sum(commission_amount)
+		    from transactions
+		    where trunc(created_at, 'yy') = trunc(systimestamp, 'yy') - interval '1' year), 0) lastYear
+		from dual
+    </select>
 </mapper>
