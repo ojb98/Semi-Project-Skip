@@ -32,14 +32,26 @@
   	</collection>
   </resultMap>
   
-  <!-- 렌탈샵 기준 장비유형 + 카테고리 조인(상세정보) -->
-  <select id="itemCategoryList" parameterType="int" resultMap="itemlistAll">
-  select i.item_id, c.category_id, c.item_type, c.price_per_hour,i.item_name, 
-  i.item_detail, i.total_quantity, i.item_img, i.created_at
-  from RENT_ITEM i JOIN ITEM_CATEGORY c 
-  on i.CATEGORY_ID=c.CATEGORY_ID
-  where i.rentalshop_id=#{rentalshop_id}
-  order by i.item_id desc
+  <!-- 렌탈샵 기준 장비유형 + 카테고리 조인(상세정보) : 페이징 처리를 위한 쿼리 -->
+  <select id="itemCategoryList" parameterType="map" resultMap="itemlistAll">
+  select * from(
+  	select t.*, ROWNUM rnum from(
+	  select 
+	    i.item_id, c.category_id, c.item_type, c.price_per_hour,i.item_name, 
+  		i.item_detail, i.total_quantity, i.item_img, i.created_at
+  	  from RENT_ITEM i JOIN ITEM_CATEGORY c 
+      on i.CATEGORY_ID=c.CATEGORY_ID
+      where i.rentalshop_id = #{rentalId}
+      order by i.item_id desc	
+  	)t
+  	where <![CDATA[ ROWNUM <= ]]> #{endRow}
+  )
+  WHERE <![CDATA[ rnum >= ]]> #{startRow} 
+  </select>
+  
+  <!-- 하나의 렌탈샵에 장비유형 전체 갯수 -->
+  <select id="itemCategoryCount" parameterType="int" resultType="int">
+  	select COUNT(*) from RENT_ITEM where rentalshop_id = #{rentalId}
   </select>
   
   
@@ -59,14 +71,26 @@
   	</collection>
   </resultMap>
   
-  <!-- 스키장 기준 장비유형 + 카테고리 조인(상세정보) -->
-  <select id="skiItemCategoryList" parameterType="int" resultMap="skiItemlistAll">
-  select s.item_id, c.category_id, c.item_type, c.price_per_hour,s.item_name, 
-  s.item_detail, s.total_quantity, s.item_img, s.created_at
-  from SKI_ITEM s JOIN ITEM_CATEGORY c 
-  on s.CATEGORY_ID=c.CATEGORY_ID
-  where s.ski_id=#{ski_id}
-  order by s.item_id desc
+  <!-- 스키장 기준 장비유형 + 카테고리 조인(상세정보) : 페이징 처리를 위한 쿼리 -->
+  <select id="skiItemCategoryList" parameterType="map" resultMap="skiItemlistAll">
+  select * from(
+  	select t.*, ROWNUM rnum from(
+  	  select 
+	    s.item_id, c.category_id, c.item_type, c.price_per_hour,s.item_name, 
+		s.item_detail, s.total_quantity, s.item_img, s.created_at
+	  from SKI_ITEM s JOIN ITEM_CATEGORY c 
+      on s.CATEGORY_ID=c.CATEGORY_ID
+      where s.ski_id = #{skiId}
+      order by s.item_id desc
+  	)t
+  	where <![CDATA[ ROWNUM <= ]]> #{endRow}
+  )
+  WHERE <![CDATA[ rnum >= ]]> #{startRow}
+  </select>
+  
+  <!-- 하나의 스키장에 장비유형 전체 갯수 -->
+  <select id="skiItemCategoryCount" parameterType="int" resultType="int">
+  	select COUNT(*) from SKI_ITEM where ski_id = #{skiId}
   </select>
   
   

@@ -56,7 +56,7 @@
 </head>
 <body>
 <!-- header -->
-<jsp:include page="/rentalAdmin/header.jsp" />
+<jsp:include page="/resortAdmin/header.jsp" />
 
 
 <!-- 메인 컨텐츠 영역 -->

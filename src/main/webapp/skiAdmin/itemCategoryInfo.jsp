@@ -46,12 +46,27 @@
 	</table>
 
 	
-<!-- 페이징 버튼 -->
-<div class="button-container-right">
-    <c:if test="${currentPage > 1}">
-        <button onclick="loadItemCategoryInfo(${currentPage - 1})">이전</button>
-    </c:if>
-    <c:if test="${currentPage < totalPages}">
-        <button onclick="loadItemCategoryInfo(${currentPage + 1})">다음</button>
-    </c:if>
+<!-- 블록 단위 페이징 네비게이션 -->
+<div class="paging">
+  <!-- 이전 블록 -->
+  <c:if test="${startPage > 1}">
+      <a href="javascript:void(0);" onclick="loadItemCategoryInfo(${startPage - 1});">이전</a>
+  </c:if>
+  
+  <!-- 페이지 번호 링크 -->
+  <c:forEach var="i" begin="${startPage}" end="${endPage}">
+      <c:choose>
+          <c:when test="${i == currentPage}">
+              <span class="current">${i}</span>
+          </c:when>
+          <c:otherwise>
+              <a href="javascript:void(0);" onclick="loadItemCategoryInfo(${i});">${i}</a>
+          </c:otherwise>
+      </c:choose>
+  </c:forEach>
+  
+  <!-- 다음 블록 -->
+  <c:if test="${endPage < totalPages}">
+      <a href="javascript:void(0);" onclick="loadItemCategoryInfo(${endPage + 1});">다음</a>
+  </c:if>
 </div>

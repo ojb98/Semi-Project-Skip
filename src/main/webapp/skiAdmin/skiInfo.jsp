@@ -10,34 +10,41 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInfo.css">
 
-<script>
-    function showSection(section) {
-        document.getElementById("skiInfo").style.display = section === 'ski' ? "block" : "none";
-        document.getElementById("dynamicContent").style.display = section !== 'ski' ? "block" : "none";
-    }
-
-    function loadItemCategoryInfo(page) {
-        showSection('item');
-        //skiInfo 요소에 저장된 ski_id를 가져옵니다.
-        var skiId = document.getElementById("skiInfo").getAttribute("data-ski-id");
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "${pageContext.request.contextPath}/adminSkiItemCategory/detail?ski_id=" + skiId + "&page=" + page, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                document.getElementById("dynamicContent").innerHTML = xhr.responseText;
-                document.getElementById("dynamicContent").setAttribute("data-ski-id", skiId); //ski_id 저장
-            }
-        };
-        xhr.send();
-    }
-
-    function showSkiInfo() {
-        showSection('ski');
-        document.getElementById("dynamicContent").innerHTML = "";
-        document.getElementById("dynamicContent").style.display = "none";
-    }
-</script>
+<!-- 전역 변수 설정 -->
+  <script>
+      var contextPath = "${pageContext.request.contextPath}";
+      
+      //section: 'ski'이면 렌탈샵 기본정보만, 'item'이면 카테고리&장비 정보만 보여줌
+      function showSection(section) {
+          if (section === 'ski') {
+              document.getElementById("skiInfo").style.display = "block";
+              document.getElementById("dynamicContent").style.display = "none";
+          } else if (section === 'item') {
+              document.getElementById("skiInfo").style.display = "none";
+              document.getElementById("dynamicContent").style.display = "block";
+          }
+      }
+      
+      //AJAX로 카테고리&장비 목록과 페이징 네비게이션을 로드
+      function loadItemCategoryInfo(page) {
+          showSection('item');
+          var skiId = document.getElementById("skiInfo").getAttribute("data-ski-id");
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", contextPath + "/adminSkiItemCategory/detail?ski_id=" + skiId + "&page=" + page, true);
+          xhr.onreadystatechange = function() {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                  document.getElementById("dynamicContent").innerHTML = xhr.responseText;
+              }
+          };
+          xhr.send();
+      }
+      
+      //스키장 기본정보만 다시 보여줌
+      function showSkiInfo() {
+          showSection('ski');
+          document.getElementById("dynamicContent").innerHTML = "";
+      }
+  </script>
 
 
 </head>
