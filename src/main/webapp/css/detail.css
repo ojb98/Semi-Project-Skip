@@ -435,7 +435,7 @@
 .user_review .item_content {
 	display: flex;
 	flex-direction: column;
-	gap: 7px;
+	gap: 10px;
 }
 
 .rating_box {
@@ -459,23 +459,24 @@
 	margin-left: 10px;
 }
 
-.user_review .item_content .user_box p,
-.user_review .item_content .user_box .content {
-	margin-top: 5px;
-}
-
 /* 리뷰이미지 영역 */
 .user_review .item_img img {
 	width: 150px;
 }
 
-/* 리뷰 수정 삭제 버튼 */
-.review_item .item_ctrl {
-	margin-top: 10px;
+/* 리뷰 내용 영역 */
+
+.user_box .uuid {
+	display: none;
 }
 
-.review_item .item_ctrl a {
-	border: 1px solid #000;
+.user_box .user_id {
+	margin-top: 0;
+}
+
+.user_box .created_at,
+.user_box .content {
+	margin-top: 10px;
 }
 
 /* 관리자 리뷰답변 영역 */

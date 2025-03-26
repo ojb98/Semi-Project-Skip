@@ -15,7 +15,7 @@ filterBtns.forEach(function (btn) {
 
 
 // contextPath 변수
-const contextPath = "/Semi_Project_Skip/";
+const contextPath = "/test/";
 
 
 //리뷰 작성(insert) 팝업
@@ -90,16 +90,13 @@ function reviewSort(sortType, resort_id ,pageNum = 1) {
 							<p class="user_id">유저아아디: ${reviewDto.user_id}</p>
 							<p class="created_at">작성일: ${reviewDto.created_at}</p>
 							<div class="content">
-								<p>리뷰내용: ${reviewDto.resort_comment}</p>
+								<p>리뷰내용: ${reviewDto.review_comment}</p>
 							</div>
 						</div>
 					</div>
 					<div class="item_img">${imgTag}</div>
 				</div>
-				<div class="item_ctrl">
-					<a href="javascript:updatePopup(${reviewDto.review_id})">수정</a>
-					<a href="${contextPath}/jsp/delete?review_id=${reviewDto.review_id}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-				</div>
+				
 			`;
 			reviewList.appendChild(review_item);
 		});
@@ -139,7 +136,3 @@ function reviewSort(sortType, resort_id ,pageNum = 1) {
 	xhr.open('get', `${contextPath}/resort/review?sort=${sortType}&pageNum=${pageNum}&resort_id=${resort_id}`, true);
 	xhr.send();
 }
-
-// 기본 호출
-
-

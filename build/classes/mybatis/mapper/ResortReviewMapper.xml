@@ -36,7 +36,7 @@
   
   <!-- 리조트 별 리뷰 기본 리스트 -->
   <select id="reviewList" parameterType="int" resultType="dto.ResortReviewDTO">
-  	select r.review_id, r.uuid, u.user_id, r.created_at, r.rating, r.review_comment, r.review_img
+  	select r.review_id, r.uuid, rpad(substr(u.user_id,1,4),length(u.user_id),'*') as user_id, r.created_at, r.rating, r.review_comment, r.review_img
   	from resort_reviews r left join users u
   	on r.uuid = u.uuid
   	where resort_id = #{resort_id}
@@ -45,7 +45,7 @@
   
   <!-- 리조트 별 리뷰 리스트 (정렬 및 페이징) -->
   <select id="reviewArray" parameterType="map" resultType="dto.ResortReviewDTO">
-	SELECT r.review_id, r.uuid, u.user_id, r.created_at, r.rating, r.review_comment, r.review_img 
+	SELECT r.review_id, r.uuid, rpad(substr(u.user_id,1,4),length(u.user_id),'*') as user_id, r.created_at, r.rating, r.review_comment, r.review_img 
   	FROM (
 		select row_number() over(
 			order by

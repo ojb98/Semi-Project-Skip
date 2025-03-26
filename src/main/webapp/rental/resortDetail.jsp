@@ -983,7 +983,7 @@ header {
 		</c:choose>
 
 	</div>
-	<script src="<%=request.getContextPath()%>/script/review.js"></script>
+	<script src="<%=request.getContextPath()%>/script/resort_review.js"></script>
 	<script type="text/javascript">
 	reviewSort("latest",'${resort_id}', 1);
 	</script>

@@ -1,4 +1,3 @@
-console.log("스크립트 파일 정상 로드 확인");
 
 //최신순, 평점 높은순, 평점 낮은순 선택시 색상 변화
 const filterBtns = document.querySelectorAll(".filter_btn");
@@ -12,51 +11,28 @@ filterBtns.forEach(function (btn) {
     });
 });
 
-
-
 // contextPath 변수
 const contextPath = "/Semi_Project_Skip/";
 
-
-//리뷰 작성(insert) 팝업
-function popup() {
-	console.log("popup함수 작동");
-    var url = "${pageContext.request.contextPath}/jsp/reviewInsert";
-    var name = "reviewPopup";
-    var option = "width=600,height=600,top=100,left=100,location=no";
-
-    window.open(url, name, option);
-}
-
-//리뷰 수정 팝업
-function updatePopup(review_id) {
-	console.log("리뷰 수정 팝업 호출 확인:", review_id);
-	
-	const url = `${contextPath}/jsp/update?review_id=${review_id}`;
-	const name = "updatePopup";
-	const option = "width=500,height=500,top=100,left=100,location=no";
-	
-	const updatePop = window.open(url, name, option);
-	
-	if(!updatePop) {
-		alert("팝업이 차단되었습니다. 팝업 차단을 해제 해주세요.");
-	}
-}
-
 // 리뷰 정렬 및 페이징
-function reviewSort(sortType, pageNum = 1) {
-	console.log("sort 함수 작동 테스트");
+function reviewSort(sortType, resort_id ,pageNum = 1) {
 	const xhr = new XMLHttpRequest();
 	xhr.onload = function() {
 		const resp = xhr.responseText;
 		const json = JSON.parse(resp);
-		console.log(json + " 호출 확인");
 
 		const reviewList = document.querySelector(".review_list");
 		reviewList.innerHTML = ""; // 기존 리스트 초기화
 
 		json.list.forEach(function (reviewDto) {
 			const review_item = document.createElement("li");
+		
+		// 날씨 date type 변환 참고	
+		//	let a=reviewDto.created_at;
+			
+		//	let d=new Date(a);
+		//	alert(d)
+		//	let c=d.getFullYear()+"-" + (d.getMonth()+1) + "-"+ d.getDate();
 			review_item.className = "review_item";
 
 			/* 평점 별 */
@@ -104,7 +80,7 @@ function reviewSort(sortType, pageNum = 1) {
 		// 이전 버튼
 		if (json.startPage > 10) {
 			let prevBtn = document.createElement("a");
-			prevBtn.href = `javascript:reviewSort('${sortType}', ${json.startPage - 1})`;
+			prevBtn.href = `javascript:reviewSort('${sortType}',${resort_id}, ${json.startPage - 1})`;
 			prevBtn.innerHTML = `<i class='fa fa-angle-left'></i> 이전`;
 			page_btn.appendChild(prevBtn);
 		}
@@ -112,7 +88,7 @@ function reviewSort(sortType, pageNum = 1) {
 		// 페이지 숫자 버튼
 		for (let i = json.startPage; i <= json.endPage; i++) {
 			let pageLink = document.createElement("a");
-			pageLink.href = `javascript:reviewSort('${sortType}', ${i})`;
+			pageLink.href = `javascript:reviewSort('${sortType}',${resort_id}, ${i})`;
 			pageLink.textContent = i;
 			if (i === json.pageNum) {
 				pageLink.classList.add("active");
@@ -123,16 +99,13 @@ function reviewSort(sortType, pageNum = 1) {
 		// 다음 버튼
 		if (json.endPage < json.pageCount) {
 			let nextBtn = document.createElement("a");
-			nextBtn.href = `javascript:reviewSort('${sortType}', ${json.endPage + 1})`;
+			nextBtn.href = `javascript:reviewSort('${sortType}', ${resort_id},${json.endPage + 1})`;
 			nextBtn.innerHTML = `다음 <i class='fa fa-angle-right'></i>`;
 			page_btn.appendChild(nextBtn);
 		}
 	};
 
-	xhr.open('get', `${contextPath}/review/array?sort=${sortType}&pageNum=${pageNum}`, true);
+	xhr.open('get', `${contextPath}/resort/review?sort=${sortType}&pageNum=${pageNum}&resort_id=${resort_id}`, true);
 	xhr.send();
 }
-
-// 기본 호출
-reviewSort("latest", 1);
 

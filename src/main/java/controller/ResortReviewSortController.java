@@ -56,7 +56,6 @@ public class ResortReviewSortController extends HttpServlet{
 		
 		List<ResortReviewDTO> resortReviewList = resortReviewDao.reviewArray(resort_id ,sortType, startRow, endRow);
 		
-		
 		JSONObject json = new JSONObject();
 		JSONArray arr = new JSONArray(resortReviewList);
 		

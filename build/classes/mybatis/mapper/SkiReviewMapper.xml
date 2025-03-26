@@ -16,7 +16,7 @@
   
   <!-- 스키장 별 리뷰 기본 리스트 -->
   <select id="reviewList" parameterType="int" resultType="dto.SkiReviewDTO">
-  	select s.review_id, s.uuid, u.user_id, s.created_at, s.rating, s.review_comment, s.review_img
+  	select s.review_id, s.uuid, rpad(substr(u.user_id,1,4),length(u.user_id),'*') as user_id, s.created_at, s.rating, s.review_comment, s.review_img
   	from ski_reviews s left join users u
   	on s.uuid = u.uuid
   	where ski_id = #{ski_id}
@@ -25,7 +25,7 @@
   
   <!-- 스키장 별 리뷰 리스트 (정렬 및 페이징) -->
   <select id="reviewArray" parameterType="map" resultType="dto.SkiReviewDTO">
-	SELECT s.review_id, s.uuid, u.user_id, s.created_at, s.rating, s.review_comment, s.review_img 
+	SELECT s.review_id, s.uuid, rpad(substr(u.user_id,1,4),length(u.user_id),'*') as user_id, s.created_at, s.rating, s.review_comment, s.review_img 
   	FROM (
 		select row_number() over(
 			order by

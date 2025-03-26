@@ -1,5 +1,3 @@
-console.log("스크립트 파일 정상 로드 확인");
-
 
 //최신순, 평점 높은순, 평점 낮은순 선택시 색상 변화
 const filterBtns = document.querySelectorAll(".filter_btn");
@@ -13,45 +11,16 @@ filterBtns.forEach(function (btn) {
     });
 });
 
-
-
 // contextPath 변수
-const contextPath = "/Semi_Project_Skip/";
+const contextPath = "/test/";
 
-
-//리뷰 작성(insert) 팝업
-function popup() {
-	console.log("popup함수 작동");
-    var url = "${pageContext.request.contextPath}/jsp/reviewInsert";
-    var name = "reviewPopup";
-    var option = "width=600,height=600,top=100,left=100,location=no";
-
-    window.open(url, name, option);
-}
-
-//리뷰 수정 팝업
-function updatePopup(rentalshop_id) {
-	console.log("리뷰 수정 팝업 호출 확인:", rentalshop_id);
-	
-	const url = `${contextPath}/jsp/update?rentalshop_id=${review_id}`;
-	const name = "updatePopup";
-	const option = "width=500,height=500,top=100,left=100,location=no";
-	
-	const updatePop = window.open(url, name, option);
-	
-	if(!updatePop) {
-		alert("팝업이 차단되었습니다. 팝업 차단을 해제 해주세요.");
-	}
-}
 
 // 리뷰 정렬 및 페이징
 function reviewSort(sortType, rentalshop_id ,pageNum = 1) {
-	console.log("sort 함수 작동 테스트");
 	const xhr = new XMLHttpRequest();
 	xhr.onload = function() {
 		const resp = xhr.responseText;
 		const json = JSON.parse(resp);
-		console.log(json + " 호출 확인");
 
 		const reviewList = document.querySelector(".review_list");
 		reviewList.innerHTML = ""; // 기존 리스트 초기화
@@ -85,15 +54,11 @@ function reviewSort(sortType, rentalshop_id ,pageNum = 1) {
 							<p class="user_id">유저아아디: ${reviewDto.user_id}</p>
 							<p class="created_at">작성일: ${reviewDto.created_at}</p>
 							<div class="content">
-								<p>리뷰내용: ${reviewDto.comments}</p>
+								<p>리뷰내용: ${reviewDto.review_comment}</p>
 							</div>
 						</div>
 					</div>
 					<div class="item_img">${imgTag}</div>
-				</div>
-				<div class="item_ctrl">
-					<a href="javascript:updatePopup(${reviewDto.rentalshop_id})">수정</a>
-					<a href="${contextPath}/jsp/delete?review_id=${reviewDto.rentalshop_id}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
 				</div>
 			`;
 			reviewList.appendChild(review_item);
