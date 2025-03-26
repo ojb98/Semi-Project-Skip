@@ -19,15 +19,15 @@
 		<h2>리뷰작성</h2>
 		<div class = "">
 			<lable>리조트 결제 아이디</lable>
-			<input type="text" name="payment_id" value="${payment_id }">		
+			<input type="text" name="payment_id" value="${payment_id }" readonly>	
 		</div>
 		<div class="">
 			<lable>회원 아이디</lable>
-			<input type="text" name="uuid" value="${uuid }">
+			<input type="text" name="uuid" value="${uuid }" readonly>
 		</div>
 		<div class="">
 			<lable>룸 아이디</lable>
-			<input type="text" name="room_id" value="${room_id }">
+			<input type="text" name="room_id" value="${room_id }" readonly>
 		</div>
 		<div class="">
 			<label>리뷰 평점</label>
