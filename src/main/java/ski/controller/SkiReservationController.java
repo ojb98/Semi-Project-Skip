@@ -84,7 +84,7 @@ public class SkiReservationController extends HttpServlet {
             updateParams.put("today", sqlToday);
 
             // 상태 업데이트 실행
-            mapper.updateReservationStatusToCompleted(updateParams);
+            //mapper.updateReservationStatusToCompleted(updateParams);
             
             // 변경사항 커밋
             sqlSession.commit();
