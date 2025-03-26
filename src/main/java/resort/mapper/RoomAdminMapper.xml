@@ -23,6 +23,27 @@
 		from ROOM where resort_id=#{resort_id}
 	</select>
 	
+	
+	<!-- 리조트기준 객실 상세정보 : 페이징처리 -->
+	<select id="getRoomList" parameterType="map" resultType="resort.dto.RoomDTO">
+	  select * from(
+		select t.*, ROWNUM rnum from(
+			select room_id,room_name,room_type,room_quantity,max_guests,price_per_night,
+			rmain_img,rsub_img1,rsub_img2,rsub_img3,description,created_at
+			from ROOM where resort_id=#{resortId}
+			order by room_id desc
+		)t
+		where <![CDATA[ ROWNUM <= ]]> #{endRow}
+	  )
+	  WHERE <![CDATA[ rnum >= ]]> #{startRow} 
+	</select>
+	
+	<!-- 하나의 리조트에 전체 객실 갯수 -->
+	<select id="roomCount" parameterType="int" resultType="int">
+  	    select COUNT(*) from ROOM where resort_id = #{resortId}
+	</select>
+	
+	
 	<!-- 객실 조회(한행 가져오기) -->
 	<select id="getRoomId" parameterType="int" resultType="resort.dto.RoomDTO">
 		select room_id,resort_id,room_name,room_type,room_quantity,max_guests,

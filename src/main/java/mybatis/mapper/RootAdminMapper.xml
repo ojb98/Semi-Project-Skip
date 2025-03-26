@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mybatis.mapper.RootAdminMapper">
+<mapper namespace="adminPageMapper.RootAdminMapper">
 
 	<!-- 모든유저정보 -->
     <select id="getUsersList" resultType="adminDto.UsersDTO">

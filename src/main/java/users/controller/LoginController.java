@@ -54,6 +54,7 @@ public class LoginController extends HttpServlet {
 				resp.addCookie(CookieUtil.createCookie("user_id", user_id, CookieUtil.MONTH_BY_SECONDS, "/"));
 			} else {
 				// 쿠키 초기화
+				resp.addCookie(CookieUtil.createCookie("JSESSIONID", null, 0, "/"));
 				resp.addCookie(CookieUtil.createCookie("user_id", null, 0, "/"));
 			}
 			resp.sendRedirect(req.getContextPath() + "/");

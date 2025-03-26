@@ -1,93 +1,101 @@
 body {
-	font-family: Arial, sans-serif;
-	background-color: #f9f9f9;
-	margin: 40px;
-	text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 40px;
+    text-align: center;
 }
-
 h1 {
-	color: #333;
-	margin-bottom: 20px;
+    color: #333;
+    margin-bottom: 20px;
 }
-
 .button-container {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
-
 button {
-	padding: 10px 15px;
-	border: none;
-	cursor: pointer;
-	font-size: 14px;
-	margin: 5px;
-	border-radius: 5px;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 5px;
+    border-radius: 5px;
 }
-
-/* 버튼을 오른쪽 정렬 */
 .button-container-right {
-	text-align: right;
-	margin-right: 100px;
+    text-align: right;
+    margin-right: 100px;
 }
-
-/* 추가 버튼 스타일 */
 .add-btn {
-	background-color: #007bff; 
-	color: #fff;
-	padding: 10px 15px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	transition: opacity 0.3s ease;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
 }
-    
-
-/* 수정 버튼 - 노랑 */
 .update-btn {
-	background-color: #ffc107;
-	color: black;
+    background-color: #ffc107;
+    color: black;
 }
-
-/* 삭제 버튼 - 빨강 */
 .delete-btn {
-	background-color: #dc3545;
-	color: white;
-}
-
-/* 리스트 버튼 - 회색 */
-.list-btn {
-	background-color: #6c757d;
-	color: white;
-}
-
-button:hover {
-	opacity: 0.85;
+    background-color: #dc3545;
+    color: white;
 }
 
 table {
-	width: 80%;
-	margin: 20px auto;
-	border-collapse: collapse;
-	border: 1px solid #ccc;
-	background-color: whit
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    background-color: white;  /* 수정: 올바른 색상 값 */
 }
 
 th, td {
-	padding: 10px;
-	border: 1px solid #ccc;
-	text-align: center;
-}
-
-th {
-	background-color: #007bff;
-	color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
 }
 
 tr:hover {
-	background-color: #f1f1f1;
+    background-color: #f1f1f1;
+}
+img {
+    width: 250px;
+    height: auto;
+    border-radius: 5px;
 }
 
-img {
-	width: 250px;
-	height: auto;
-	border-radius: 5px;
+/* 페이징 영역 스타일 */
+.paging {
+    text-align: center;
+    margin: 20px 0;
 }
+
+/* 페이징 링크 기본 스타일 */
+.paging a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 3px;
+    color: #000;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* 페이징 링크 호버 효과 */
+.paging a:hover {
+    background-color: #adb3b8;
+    opacity: 0.85;
+}
+
+/* 현재 선택된 페이지 표시 */
+.paging span.current {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 3px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+

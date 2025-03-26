@@ -6,11 +6,13 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import mybatis.service.SqlSessionFactoryService;
+import rental.dto.RentCategoryDTO;
 import rental.dto.RentItemDTO;
+import rental.dto.RentSkiItemDTO;
 
 
 public class RentItemDao {
-	SqlSessionFactory sqlSessionFactory= SqlSessionFactoryService.getSqlSessionFactory();
+	private SqlSessionFactory sqlSessionFactory= SqlSessionFactoryService.getSqlSessionFactory();
 	private final String NAMESPACE="rental.mapper.RentItemAdminMapper";
 	
 	//싱글톤설정
@@ -20,7 +22,7 @@ public class RentItemDao {
 		return instance;
 	}
 	
-	//장비유형 등록
+	//렌탈샵 장비유형 등록
 	public int itemInsert(RentItemDTO ridto) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			int n=sqlSession.insert(NAMESPACE+".riInsert",ridto);
@@ -37,13 +39,47 @@ public class RentItemDao {
 	}
 	
 	//하나의 렌탈샵에 있는 장비유형들 모두 삭제
-	public int itemDelete(int rentalshopId) {
+	public int itemListDelete(int rentalshopId) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
-			int n=sqlSession.delete(NAMESPACE+".riDelete",rentalshopId);
+			int n=sqlSession.delete(NAMESPACE+".riListDelete",rentalshopId);
 			sqlSession.commit();
 			return n;
 		}
 	}
 	
+	//장비고유아이디로 장비유형 삭제(1건)
+	public int itemDelete(int itemId) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			int n=sqlSession.delete(NAMESPACE+".riDelete",itemId);
+			sqlSession.commit();
+			return n;
+		}
+	}
+	
+	//장비고유아이디로 장비유형 데이터 조회(1건)
+	public RentItemDTO getItemId(int itemId){
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectOne(NAMESPACE+".getItemId",itemId);
+		}
+	}
+	
+	//렌탈샵 장비유형 수정
+	public int itemUpdate(RentItemDTO ridto) {
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			int n=sqlSession.update(NAMESPACE+".riUpdate",ridto);
+			sqlSession.commit();
+			return n;
+		}
+	}
+	
+	
+	//카테고리 고유아이디로 장비유형 전체조회(여러건) : 렌탈샵,스키장에서 사용중인 카테고리 조회
+	public List<RentSkiItemDTO> itemCategoryids(int categoryId){
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+			return sqlSession.selectList(NAMESPACE+".riCategoryId",categoryId);
+		}
+	}
+	
+
 	
 }

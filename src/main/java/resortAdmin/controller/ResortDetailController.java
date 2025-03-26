@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import resort.dto.ResortDTO;
+import resort.dto.ResortListDTO;
 import resortAdmin.dao.ResortDao;
 
 @WebServlet("/adminResort/detail")
@@ -19,7 +20,7 @@ public class ResortDetailController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int resortId = Integer.parseInt(req.getParameter("resort_id"));
         
-        ResortDTO rdto = rdao.getInfo(resortId);
+        ResortListDTO rdto = rdao.getResortByUserId(resortId);
 
         req.setAttribute("rdto", rdto);
 		

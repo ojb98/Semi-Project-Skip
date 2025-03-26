@@ -49,8 +49,7 @@
 
 <!-- header -->
 <jsp:include page="/resortAdmin/header.jsp" />
-<!-- aside -->
-<jsp:include page="/resortAdmin/aside.jsp" />
+
 
 <!-- 메인 컨텐츠 영역 -->
 <main class="main-content">
@@ -78,8 +77,6 @@
 	</form>
 	</div>
 	
-
-	<button class="main-btn" onclick="window.location.href='${pageContext.request.contextPath}/resortAdmin/resortAdminMain.jsp'">메인으로 가기</button>
 </main>
 </body>
 </html>

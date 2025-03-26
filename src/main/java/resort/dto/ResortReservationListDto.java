@@ -143,6 +143,4 @@ public class ResortReservationListDto {
 	public void setPayment_id(int payment_id) {
 		this.payment_id = payment_id;
 	}
-
-	
 }

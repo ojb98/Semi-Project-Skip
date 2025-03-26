@@ -134,8 +134,10 @@ function reservationDetailList(reservId) {
   function searchList() {
       var keyword = document.getElementById("searchInput").value;
       var filter = document.getElementById("filterSelect").value;
-      var reservDateStart = document.getElementById("reservDateStart").value || "";
-      var reservDateEnd = document.getElementById("reservDateEnd").value || "";
+      var reservDate1Start = document.getElementById("reservDate1Start").value || "";
+      var reservDate1End = document.getElementById("reservDate1End").value || "";
+      var reservDate2Start = document.getElementById("reservDate2Start").value || "";
+      var reservDate2End = document.getElementById("reservDate2End").value || "";
       var createdAtStart = document.getElementById("createdAtStart").value || "";
       var createdAtEnd = document.getElementById("createdAtEnd").value || "";
       var resortID = '<%= session.getAttribute("resortID") %>';
@@ -151,7 +153,8 @@ function reservationDetailList(reservId) {
       };
       // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
       xhr.open("GET", contextPath + "/resortAdmin/reservationList?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&resortID="+encodeURIComponent(resortID) +
-    		  "&reservDateStart=" + encodeURIComponent(reservDateStart) + "&reservDateEnd=" + encodeURIComponent(reservDateEnd) + 
+    		  "&reservDate1Start=" + encodeURIComponent(reservDate1Start) + "&reservDate1End=" + encodeURIComponent(reservDate1End) + 
+    		  "&reservDate2Start=" + encodeURIComponent(reservDate2Start) + "&reservDate2End=" + encodeURIComponent(reservDate2End) +
     		  "&createdAtStart=" + encodeURIComponent(createdAtStart)+ "&createdAtEnd=" + encodeURIComponent(createdAtEnd), true);
       xhr.send();
   }
@@ -198,9 +201,10 @@ function reservationDetailList(reservId) {
         <table>
             <thead>
                 <tr>
-                    <th>예약상세ID</th>
-                    <th>상품명</th>
+                    <th>방번호</th>
                     <th>예약번호</th>
+                    <th>객실타입</th>
+                    <th>상품명</th>                    
                     <th>수량</th>
                     <th>금액 계</th>
                 </tr>
@@ -211,40 +215,53 @@ function reservationDetailList(reservId) {
                 </tr>
             </tbody>
         </table>
-    </div>
+   </div>
         <!-- 테이블 영역 -->
         <div class="table-container">
         <!-- 리스트 상단 우측에 작게 표시되는 검색 컨트롤 영역 -->
         <div class="list-header">
-        <h3>전체 예약 리스트</h3>
-            <div class="search-filter-container">
-            	
-               
+            <h3>전체 예약 리스트</h3>
+            <div class="search-container">
+                
+                <div class="date-filters-container">
+                    <div class="date-filter-group">
+                        <label>체크인예정일</label>
+                        <div class="date-range">
+                            <input type="date" id="reservDate1Start">
+                            <span>~</span>
+                            <input type="date" id="reservDate1End">
+                        </div>
+                    </div>
+                    <div class="date-filter-group">
+                        <label>체크아웃예정일</label>
+                        <div class="date-range">
+                            <input type="date" id="reservDate2Start">
+                            <span>~</span>
+                            <input type="date" id="reservDate2End">
+                        </div>
+                    </div>
+                    <div class="date-filter-group">
+                        <label>예약생성일</label>
+                        <div class="date-range">
+                            <input type="date" id="createdAtStart">
+                            <span>~</span>
+                            <input type="date" id="createdAtEnd">
+                        </div>
+                    </div>
+                    <div class="search-top">
+                    <select id="filterSelect">
+                        <option value="이름">이름</option>
+                        <option value="아이디">아이디</option>
+                        <option value="이메일">이메일</option>                    
+                    </select>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="검색어 입력" onkeypress="if( event.keyCode == 13 ){searchList();}" />
+                        <button type="button" class="search-button" onclick="searchList()">
+                            <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색" class="search-icon"/>
+                        </button>
+                    </div>
+                </div>
 
-                <!-- 날짜 필터링 추가 -->
-                <div class="date-filter">
-                    <label>이용예정일:</label>
-                    <input type="date" id="reservDateStart">
-                    <span>~</span>
-                    <input type="date" id="reservDateEnd">
-                </div>
-				
-                <div class="date-filter">
-                    <label>예약생성일:</label>
-                    <input type="date" id="createdAtStart">
-                    <span>~</span>
-                    <input type="date" id="createdAtEnd">
-                </div>
-                
-                <select id="filterSelect">
-                    <option value="userName">이름</option>
-                    <option value="userId">아이디</option>
-                    <option value="userEmail">이메일</option>                    
-                </select>
-                
-                <div class="search-box">
-                  <input type="text" id="searchInput" placeholder="검색어 입력" />
-                  <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList()"/>
                 </div>
             </div>
         </div>
@@ -256,7 +273,8 @@ function reservationDetailList(reservId) {
                         <th>아이디</th>
                         <th>이메일</th>
                         <th>전화번호</th>
-                        <th>이용예정일</th>                         
+                        <th>Check-In예정일</th>                         
+                        <th>Check-Out예정일</th>
                         <th>예약생성일</th>
                         <th>예약상태</th>
                         <th>상세보기</th>

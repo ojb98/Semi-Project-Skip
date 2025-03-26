@@ -34,6 +34,27 @@
 		color: white;
 		cursor: pointer;
 	}
+	
+	.qna_background {
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background: rgba(0, 0, 0, 0.5);
+	}
+	
+	.qna_form {
+		position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    padding: 20px;
+	    background: #ffffff;
+	    border-radius: 20px;
+	}
 </style>
 </head>
 <body>

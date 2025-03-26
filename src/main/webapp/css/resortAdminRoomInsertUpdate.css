@@ -58,26 +58,3 @@ h1 {
 .form-container input[type="submit"]:hover {
     opacity: 0.85;
 }
-
-/* 리스트로 가기 버튼 스타일 */
-.list-btn {
-    background-color: #6c757d;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-    margin-top: 20px;
-}
-
-.back-btn {
-    background-color: #6c757d;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-    margin-top: 20px;
-}

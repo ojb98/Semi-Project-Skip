@@ -6,7 +6,7 @@
 <jsp:include page="/mypage/reserv_tab.jsp"/>
 
 <ul id="ski_list">
-	<c:forEach var="dto" items="${list}">
+	<c:forEach var="dto" varStatus="status" items="${list}">
 		<li>
 			<div class="reserv_container">
 				<div class="reserv_title">
@@ -58,6 +58,7 @@
 		</li>
 	</c:forEach>
 </ul>
+
 <c:if test="${list.size() == 0}">
 	<h2>조회된 목록이 없습니다.</h2>
 </c:if>

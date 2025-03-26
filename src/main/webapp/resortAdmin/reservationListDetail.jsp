@@ -23,11 +23,13 @@
     	for(ResortReservationItemDto reservationitem : reservationItemList){
 %>
     <tr>
-      <td><%= reservationitem.getResort_item_id() %></td>
-      <td><%= reservationitem.getItem_name() %></td>
-      <td><%= reservationitem.getResort_reserv_id() %></td>      
-      <td><%= reservationitem.getQuantity() %></td>
-      <td><%= reservationitem.getSubtotal_price() %>원</td>      
+      <td><%= reservationitem.getResortRoomId() %></td>
+      <td><%= reservationitem.getResortReservId() %></td>
+      <td><%= reservationitem.getResortRoomType() %></td>
+      <td><%= reservationitem.getResortRoomName() %></td>  
+      <td><%= reservationitem.getQuantity() %></td>      
+      <td><%= reservationitem.getPricePerNight() %>원</td>
+          
     </tr>
 <% } } } else { %>
     <tr>

@@ -1,7 +1,7 @@
-package resort.controller;
+package rental.controller;
 
 import mybatis.service.SqlSessionFactoryService;
-import resort.mapper.ResortReservationMapper;
+import rental.mapper.RentalReservationMapper;
 
 import org.apache.ibatis.session.SqlSession;
 import jakarta.servlet.ServletException;
@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/resortAdmin/deleteReservation") 
-public class ResortReservationDeleteServlet extends HttpServlet {
+@WebServlet("/rentalAdmin/updateReservation") 
+public class RentalReservationUpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/plain; charset=UTF-8");
         PrintWriter out = resp.getWriter();
@@ -22,10 +22,10 @@ public class ResortReservationDeleteServlet extends HttpServlet {
             int reserv_id = Integer.parseInt(req.getParameter("reserv_id"));
             System.out.println(reserv_id);
             try (SqlSession sqlSession = SqlSessionFactoryService.getSqlSessionFactory().openSession()) {
-                ResortReservationMapper mapper = sqlSession.getMapper(ResortReservationMapper.class);
-                int deleteCount = mapper.deleteReservation(reserv_id);
-
-                if (deleteCount > 0) {
+                RentalReservationMapper mapper = sqlSession.getMapper(RentalReservationMapper.class);
+                int updateCount = mapper.updateReservationStatusToCompleted(reserv_id);
+                System.out.println(updateCount);
+                if (updateCount > 0) {
                     sqlSession.commit();
                     out.print("success");
                 } else {

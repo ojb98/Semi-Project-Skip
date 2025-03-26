@@ -49,5 +49,7 @@
 	    <mapper resource="rental/mapper/RentItemAdminMapper.xml" />
 	    <mapper resource="rental/mapper/RentCategoryAdminMapper.xml" />
 	    <mapper resource="adminPageMapper/AdminApprovalRequestMapper.xml"/>
+	    <mapper resource="ski/mapper/SkiAdminMapper.xml" />
+	    <mapper resource="ski/mapper/SkiItemAdminMapper.xml" />
 	</mappers>
 </configuration>

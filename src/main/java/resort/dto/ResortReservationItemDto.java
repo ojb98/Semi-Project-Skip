@@ -1,58 +1,71 @@
 package resort.dto;
 
 public class ResortReservationItemDto {
-	private int resort_item_id;
-	private int resort_reserv_id;
-	private int item_id;
-	private String item_name;
+	private int resortRoomId;
+	private int resortReservId;
+	private String resortRoomName;
+	private String resortRoomType;
+	private int pricePerNight;
 	private int quantity;
-	private int subtotal_price;
+	
 	
 	public ResortReservationItemDto() {
 		
 	}
 
-	public ResortReservationItemDto(int resort_item_id, int resort_reserv_id, int item_id, String item_name, int quantity,
-			int subtotal_price) {
+
+	public ResortReservationItemDto(int resortRoomId,int resortReservId, String resortRoomName, String resortRoomType,
+			int pricePerNight, int quantity) {
 		super();
-		this.resort_item_id = resort_item_id;
-		this.resort_reserv_id = resort_reserv_id;
-		this.item_id = item_id;
-		this.item_name = item_name;
+		this.resortRoomId = resortRoomId;
+		this.resortReservId = resortReservId;		
+		this.resortRoomName = resortRoomName;
+		this.resortRoomType = resortRoomType;
+		this.pricePerNight = pricePerNight;
 		this.quantity = quantity;
-		this.subtotal_price = subtotal_price;
+	}
+	
+	
+	public int getResortReservId() {
+		return resortReservId;
 	}
 
-	public int getResort_item_id() {
-		return resort_item_id;
+
+	public void setResortReservId(int resortReservId) {
+		this.resortReservId = resortReservId;
 	}
 
-	public void setResort_item_id(int resort_item_id) {
-		this.resort_item_id = resort_item_id;
+
+	public int getResortRoomId() {
+		return resortRoomId;
 	}
 
-	public int getResort_reserv_id() {
-		return resort_reserv_id;
+	public void setResortRoomId(int resortRoomId) {
+		this.resortRoomId = resortRoomId;
 	}
 
-	public void setResort_reserv_id(int resort_reserv_id) {
-		this.resort_reserv_id = resort_reserv_id;
+	public String getResortRoomName() {
+		return resortRoomName;
 	}
 
-	public int getItem_id() {
-		return item_id;
+	public void setResortRoomName(String resortRoomName) {
+		this.resortRoomName = resortRoomName;
 	}
 
-	public void setItem_id(int item_id) {
-		this.item_id = item_id;
+	public String getResortRoomType() {
+		return resortRoomType;
 	}
 
-	public String getItem_name() {
-		return item_name;
+	public void setResortRoomType(String resortRoomType) {
+		this.resortRoomType = resortRoomType;
 	}
 
-	public void setItem_name(String item_name) {
-		this.item_name = item_name;
+	public int getPricePerNight() {
+		return pricePerNight;
+	}
+
+	public void setPricePerNight(int pricePerNight) {
+		this.pricePerNight = pricePerNight;
 	}
 
 	public int getQuantity() {
@@ -63,13 +76,6 @@ public class ResortReservationItemDto {
 		this.quantity = quantity;
 	}
 
-	public int getSubtotal_price() {
-		return subtotal_price;
-	}
-
-	public void setSubtotal_price(int subtotal_price) {
-		this.subtotal_price = subtotal_price;
-	}
-
+	
 	
 }

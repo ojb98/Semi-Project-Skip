@@ -46,7 +46,9 @@
 				</c:forEach>
 			</div>
 			<div class="review_image">
-				<img src="${pageContext.request.contextPath}/reviewImgs/${dto.review_img}" width="120px" height="120px"/>
+				<c:if test="${not empty dto.review_img}">
+					<img src="${pageContext.request.contextPath}/reviewImgs/${dto.review_img}" width="120px" height="120px"/>
+				</c:if>
 			</div>
 			<div class="review_comment">
 				${dto.review_comment}

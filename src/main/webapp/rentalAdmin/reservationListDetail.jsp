@@ -23,9 +23,9 @@
     	for(RentalReservationItemDto reservationitem : reservationItemList){
 %>
     <tr>
-      <td><%= reservationitem.getRent_item_id() %></td>
-      <td><%= reservationitem.getItem_name() %></td>
-      <td><%= reservationitem.getRent_reserv_id() %></td>      
+      <td><%= reservationitem.getRent_reserv_id() %></td>
+      <td><%= reservationitem.getRental_item_id() %></td>
+      <td><%= reservationitem.getItem_name() %></td>   
       <td><%= reservationitem.getQuantity() %></td>
       <td><%= reservationitem.getSubtotal_price() %>원</td>      
     </tr>

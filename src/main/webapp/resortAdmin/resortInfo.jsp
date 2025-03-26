@@ -10,55 +10,72 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInfo.css">
 
-<script>
-    function showSection(section) {
-        document.getElementById("resortInfo").style.display = section === 'resort' ? "block" : "none";
-        document.getElementById("dynamicContent").style.display = section !== 'resort' ? "block" : "none";
-    }
+<!-- 전역 변수 설정 -->
+ <script>
+     var contextPath = "${pageContext.request.contextPath}";
+     
+     function showSection(section) {
+         document.getElementById("resortInfo").style.display = section === 'resort' ? "block" : "none";
+         document.getElementById("dynamicContent").style.display = section !== 'resort' ? "block" : "none";
+     }
+    
+     //section: 'ski'이면 렌탈샵 기본정보만, 'item'이면 카테고리&장비 정보만 보여줌
+     function showSection(section) {
+         if (section === 'resort') {
+             document.getElementById("resortInfo").style.display = "block";
+             document.getElementById("dynamicContent").style.display = "none";
+         } else if (section === 'facility') {
+             document.getElementById("resortInfo").style.display = "none";
+             document.getElementById("dynamicContent").style.display = "block";
+         } else if (section === 'room') {
+             document.getElementById("resortInfo").style.display = "none";
+             document.getElementById("dynamicContent").style.display = "block";
+         }
+     }
+     
+     function loadFacilityInfo() {
+         showSection('facility');
+         var resortId = document.getElementById("resortInfo").getAttribute("data-resort-id");
+         var xhr = new XMLHttpRequest();
+         xhr.open("GET", contextPath + "/adminFacility/detail?resort_id=" + resortId, true);
+         xhr.onreadystatechange = function () {
+             if (xhr.readyState === 4 && xhr.status === 200) {
+                 document.getElementById("dynamicContent").innerHTML = xhr.responseText;
+                 document.getElementById("dynamicContent").setAttribute("data-resort-id", resortId); // resort_id 저장
+             }
+         };
+         xhr.send();
+     }
 
-    function loadFacilityInfo() {
-        showSection('facility');
-        var resortId = document.getElementById("resortInfo").getAttribute("data-resort-id");
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "${pageContext.request.contextPath}/adminFacility/detail?resort_id=" + resortId, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                document.getElementById("dynamicContent").innerHTML = xhr.responseText;
-                document.getElementById("dynamicContent").setAttribute("data-resort-id", resortId); // resort_id 저장
-            }
-        };
-        xhr.send();
-    }
-
-    function loadRoomInfo(page) {
-        showSection('room');
-        var resortId = document.getElementById("resortInfo").getAttribute("data-resort-id");
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "${pageContext.request.contextPath}/adminRoom/detail?resort_id=" + resortId + "&page=" + page, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                document.getElementById("dynamicContent").innerHTML = xhr.responseText;
-                document.getElementById("dynamicContent").setAttribute("data-resort-id", resortId); // resort_id 저장
-            }
-        };
-        xhr.send();
-    }
-
-    function showResortInfo() {
-        showSection('resort');
-        document.getElementById("dynamicContent").innerHTML = "";
-        document.getElementById("dynamicContent").style.display = "none";
-    }
-</script>
+     //AJAX로 객실 목록과 페이징 네비게이션을 로드
+     function loadRoomInfo(page) {
+         showSection('room');
+         var resortId = document.getElementById("resortInfo").getAttribute("data-resort-id");
+         var xhr = new XMLHttpRequest();
+         xhr.open("GET", contextPath + "/adminRoom/detail?resort_id=" + resortId + "&page=" + page, true);
+         xhr.onreadystatechange = function() {
+             if (xhr.readyState === 4 && xhr.status === 200) {
+            	  document.getElementById("dynamicContent").innerHTML = xhr.responseText;
+                  document.getElementById("dynamicContent").setAttribute("data-resort-id", resortId); // resort_id 저장
+             }
+         };
+         xhr.send();
+     }
+     
+    
+     //리조트 기본정보만 다시 보여줌
+     function showResortInfo() {
+    	 showSection('resort');
+    	 document.getElementById("dynamicContent").innerHTML = "";
+         document.getElementById("dynamicContent").style.display = "none";
+     }
+ </script>
 
 </head>
 <body>
 <!-- header -->
 <jsp:include page="/resortAdmin/header.jsp" />
-<!-- aside -->
-<jsp:include page="/resortAdmin/aside.jsp" />
+
 
 <!-- 메인 컨텐츠 영역 -->
 <main class="main-content">
@@ -85,7 +102,7 @@
 		
 		<tr>
 			<th>관리자ID</th>
-			<td></td>
+			<td>${rdto.user_id }</td>
 		</tr>
 		
 		<tr>	
@@ -178,7 +195,7 @@
 
 <div id="dynamicContent" style="display: none;"></div>
 
-<button class="list-btn" onclick="window.location.href='${pageContext.request.contextPath}/adminResort/list'">리스트로 가기</button>
+
 </main>
 </body>
 </html>
