@@ -163,4 +163,35 @@
 		    where trunc(created_at, 'yy') = trunc(systimestamp, 'yy') - interval '1' year), 0) lastYear
 		from dual
     </select>
+    
+    <select id="getRecentPie" resultType="transactions.dto.PieDto">
+		SELECT CATEGORY, SUM(COMMISSION_AMOUNT) PIE
+		FROM TRANSACTIONS
+		WHERE CREATED_AT >= ADD_MONTHS(SYSTIMESTAMP, -6)
+		GROUP BY CATEGORY
+		UNION
+		SELECT 'SKI', 0
+		FROM DUAL
+		WHERE NOT EXISTS(
+		    SELECT 1
+		    FROM TRANSACTIONS
+		    WHERE CATEGORY = 'SKI' AND CREATED_AT >= ADD_MONTHS(SYSTIMESTAMP, -6)
+		)
+		UNION
+		SELECT 'RENTAL', 0
+		FROM DUAL
+		WHERE NOT EXISTS(
+		    SELECT 1
+		    FROM TRANSACTIONS
+		    WHERE CATEGORY = 'RENTAL' AND CREATED_AT >= ADD_MONTHS(SYSTIMESTAMP, -6)
+		)
+		UNION
+		SELECT 'RESORT', 0
+		FROM DUAL
+		WHERE NOT EXISTS(
+		    SELECT 1
+		    FROM TRANSACTIONS
+		    WHERE CATEGORY = 'RESORT' AND CREATED_AT >= ADD_MONTHS(SYSTIMESTAMP, -6)
+		)
+    </select>
 </mapper>

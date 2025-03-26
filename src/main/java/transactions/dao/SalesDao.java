@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import transactions.dto.PieDto;
 import util.SqlSessionFactoryService;
 
 public class SalesDao {
@@ -43,6 +44,12 @@ public class SalesDao {
 	public HashMap<String, Integer> getYearlySales() {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			return sqlSession.selectOne(NAMESPACE + ".getYearlySales");
+		}
+	}
+	
+	public List<PieDto> getRecentPie() {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			return sqlSession.selectList(NAMESPACE + ".getRecentPie");
 		}
 	}
 }

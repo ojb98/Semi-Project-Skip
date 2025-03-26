@@ -107,17 +107,17 @@
     </div> -->
 
 	<section class="sales-section">
-		<div>일매출: ${daily.get('today')}</div>
+		<div>일매출: ${daily.TODAY}</div>
 		
-		<div>주매출: ${weekly.get('thisWeek')}</div>
+		<div>주매출: ${weekly.THISWEEK}</div>
 		
-		<div>월매출: ${monthly.get('thisMonth')}</div>
+		<div>월매출: ${monthly.THISMONTH}</div>
 		
-		<div>연매출: ${yearly.get('thisYear')}</div>
+		<div>연매출: ${yearly.THISYEAR}</div>
 	</section>
 	
 	<section class="user-section">
-        <div>방문자 수 그래프, 전체 이용자 수</div>
+        <div>방문자 수:${todayVisitorCount} 그래프 with 순 방문자 수:${todayPureVisitorCount}, 전체 이용자 수${totalUsers}, 현재 접속자 수${currentUsers}</div>
         
         <div>승인 대기 리스트</div>
         
@@ -125,9 +125,9 @@
 	</section>
 	
 	<section class="popular-section">
-		<div>스키 렌탈 리조트 중 매출 파이</div>
+		<div>최근 스키${SKI_PIE} 렌탈${RENTAL_PIE} 리조트${RESORT_PIE} 중 매출 파이</div>
 		
-		<div>인기 있는 스키장</div>
+		<div>최근 인기 있는 시설</div>
 	</section>
 </main>
 
