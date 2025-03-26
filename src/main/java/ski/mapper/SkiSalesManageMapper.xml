@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ski.mapper.SkiSalesManageMapper">	
+    <select id="getSalesListBySkiId" resultType="ski.dto.SkiSalesListDto" parameterType="map">
+        SELECT 
+            sp.payment_id,
+            sr.ski_reserv_id,
+            u.user_id,
+            sp.payment_method,
+            sp.total_price,
+            sp.status,
+            sp.created_at
+        FROM
+        	SKI_PAYMENTS sp
+        	LEFT JOIN USERS u ON sp.uuid = u.uuid
+        	LEFT JOIN SKI_RESERVATION sr ON sp.uuid = sr.uuid        	
+        <where>
+		    <if test="skiID != null">
+		        sr.ski_id = #{skiID}
+		    </if>
+		    <if test="atStart != null and atEnd != null">
+		        AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
+		    </if>
+		</where>
+    </select>
+    
+    <select id="getTotalSale" resultType="int" parameterType="map">
+    	SELECT NVL(SUM(sp.total_price),0)
+    	FROM ski_payments sp LEFT JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
+    	WHERE sr.ski_id = #{skiID} AND sr.status != '취소'
+    	<if test="atStart != null and atEnd != null">
+		        AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
+		</if> 
+    </select>
+    
+    <select id="getConfirmReserv" resultType="int" parameterType="map">
+    	SELECT NVL(count(*),0)
+    	FROM ski_payments sp LEFT JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
+    	WHERE 
+    		sr.ski_id = #{skiID} AND
+    		sr.status = '예약완료'    
+   		<if test="atStart != null and atEnd != null">
+	        AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
+		</if> 	 	
+    </select>
+    
+    <select id="getCancleReserv" resultType="int" parameterType="map">
+    	SELECT NVL(count(*),0)
+    	FROM ski_payments sp LEFT JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
+    	WHERE 
+    		sr.ski_id = #{skiID} AND
+    		sr.status = '취소' 
+   		<if test="atStart != null and atEnd != null">
+	        AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
+		</if> 
+    </select>
+    
+    <select id="getSalesChartData" resultType="map">
+	  SELECT 
+	    TO_CHAR(sp.created_at, 'MM/DD') AS salesDate,
+	    COUNT(*) AS count,
+	    SUM(sp.total_price) AS amount
+	  FROM ski_payments sp
+	  WHERE sp.created_at BETWEEN TO_DATE(#{atStart}, 'YYYY-MM-DD') AND TO_DATE(#{atEnd}, 'YYYY-MM-DD')
+	  GROUP BY TO_CHAR(sp.created_at, 'MM/DD')
+	  ORDER BY salesDate
+	</select>
+</mapper>

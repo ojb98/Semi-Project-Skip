@@ -160,9 +160,21 @@ button:hover {
     height: 400px;
     overflow: auto;
 }
+
+.chart-card1 {
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    width: 64%;
+    min-width: 280px;
+    height: 400px;
+    overflow: auto;
+}
 .chart-card canvas {
-    width: 90% !important;
-    height: 85% !important;
+	margin-left: 20px;
+    width: 88% !important;
+    height: 88% !important;
 }
 .chart-card h3 {
     text-align: center;
@@ -176,6 +188,34 @@ button:hover {
     justify-content: flex-end;
     padding: 20px 20px;
     box-sizing: border-box;            
+}
+
+.btn-group {
+  display: inline-flex;        /* 버튼을 가로로 나란히 배치 */
+  margin-bottom: 10px;         /* 차트 위/아래 여백 등 필요 시 조정 */
+}
+
+.btn-group .toggle-btn {
+  background-color: #fff;      /* 기본은 흰색 바탕 */
+  border: 1px solid #ccc;      /* 옅은 회색 테두리 */
+  padding: 8px 16px;           /* 버튼 패딩 */
+  cursor: pointer;             /* 마우스 포인터 변경 */
+  outline: none;               /* 포커스 시 파란선 제거 */
+  transition: background-color 0.2s;
+}
+
+.btn-group .toggle-btn:not(:last-child) {
+  border-right: none;          /* 버튼 사이 테두리 중복 제거 */
+}
+
+.btn-group .toggle-btn:hover {
+  background-color: #f2f2f2;   /* 호버 시 옅은 회색 */
+}
+
+.btn-group .toggle-btn.active {
+  background-color: #ccc;      /* active 상태는 회색 */
+  font-weight: bold;           /* 폰트 굵게 */
+  color: #333;                 /* 글자색 조정(선택 사항) */
 }
 .list-header h3 {
    margin: 0;
