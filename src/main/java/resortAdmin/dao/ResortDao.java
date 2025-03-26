@@ -42,9 +42,9 @@ public class ResortDao {
 	
 	
 	//모든 리조트정보 가져오기 :user_id버전
-	public List<ResortListDTO> resortList(){
+	public List<ResortListDTO> resortList(int uuid){
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
-			return sqlSession.selectList(NAMESPACE+".reList");
+			return sqlSession.selectList(NAMESPACE+".reList",uuid);
 		}
 	}
 	

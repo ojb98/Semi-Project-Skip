@@ -5,7 +5,7 @@
 <mapper namespace="ski.mapper.SkiAdminMapper">
 
   <!-- 스키장 등록 -->
-  <insert id="skInsert" parameterType="ski.dto.SkiDTO">
+  <insert id="skInsert" parameterType="ski.dto.SkiAdminDTO">
 	 insert into SKI(ski_id,uuid,name,ski_phone,location,webcam_url,
 	 skmain_img,sksub_img1,sksub_img2,sksub_img3,description,created_at)
 	 values(SKI_SEQ.NEXTVAL,#{uuid},#{name},#{ski_phone},#{location},#{webcam_url},
@@ -39,7 +39,7 @@
   </select>
   
   <!-- 스키장 고유아이디로 조회(한건): 스키장 상세정보 -->
-  <select id="getSkiId" parameterType="int" resultType="ski.dto.SkiDTO">
+  <select id="getSkiId" parameterType="int" resultType="ski.dto.SkiAdminDTO">
   	select ski_id,uuid,name,ski_phone,location,webcam_url,skmain_img,
   	sksub_img1,sksub_img2,sksub_img3,description,created_at
   	from SKI where ski_id=#{skiId}
@@ -51,7 +51,7 @@
   </delete>
   
   <!-- 스키장 수정 -->
-  <update id="skUpdate" parameterType="ski.dto.SkiDTO">
+  <update id="skUpdate" parameterType="ski.dto.SkiAdminDTO">
     update SKI set
     name=#{name},ski_phone=#{ski_phone},
     location=#{location},webcam_url=#{webcam_url},

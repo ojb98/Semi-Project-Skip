@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import rental.dto.CategoryDTO;
 import rental.dto.RentCategoryDTO;
 import rental.dto.RentItemDTO;
 import rental.dto.RentSkiItemDTO;
@@ -25,7 +26,7 @@ public class RentCategoryUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int categoryId=Integer.parseInt(req.getParameter("category_id"));
 		
-		RentCategoryDTO rcdto=rcdao.getCategoryId(categoryId);
+		CategoryDTO rcdto=rcdao.getCategoryId(categoryId);
 		
 		req.setAttribute("rcdto", rcdto);
 		
@@ -48,11 +49,11 @@ public class RentCategoryUpdateController extends HttpServlet {
 		}else { //수정처리하기
 			
 			//item_type가 disabled라서 categoryId로 값 가져오기
-			RentCategoryDTO category=rcdao.getCategoryId(categoryId);
+			CategoryDTO category=rcdao.getCategoryId(categoryId);
 			String itemType=category.getItem_type();
 			
 			//DB에서 중복여부체크(item_type과 price_per_hour가 같은게 있는지) 
-			RentCategoryDTO inputDto=new RentCategoryDTO(0,itemType,price);
+			CategoryDTO inputDto=new CategoryDTO(0,itemType,price);
 			
 			int exists = rcdao.getCategoryExists(inputDto);
 	        if (exists > 0) {

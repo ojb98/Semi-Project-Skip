@@ -5,13 +5,13 @@
 <mapper namespace="rental.mapper.RentCategoryAdminMapper">
 
   <!-- 카테고리 등록 -->
-  <insert id="rcInsert" parameterType="rental.dto.RentCategoryDTO">
+  <insert id="rcInsert" parameterType="rental.dto.CategoryDTO">
     insert into ITEM_CATEGORY(category_id,item_type,price_per_hour)
     values(ITEM_CATEGORY_SEQ.NEXTVAL,#{item_type},#{price_per_hour})
   </insert>
   
   <!-- 카테고리 전체조회(여러건) -->
-  <select id="rcList" resultType="rental.dto.RentCategoryDTO">
+  <select id="rcList" resultType="rental.dto.CategoryDTO">
   	select category_id,item_type,price_per_hour from 
   	ITEM_CATEGORY order by category_id desc
   </select>
@@ -95,7 +95,7 @@
   
   
   <!-- 카테고리아이디로 카테고리 데이터 조회(1건) -->
-  <select id="getCategoryId" parameterType="int" resultType="rental.dto.RentCategoryDTO">
+  <select id="getCategoryId" parameterType="int" resultType="rental.dto.CategoryDTO">
     select category_id,item_type,price_per_hour from ITEM_CATEGORY 
     where category_id=#{category_id }
   </select>
@@ -112,7 +112,7 @@
   </delete>
   
   <!-- 카테고리 중복체크-> item_type과 price_per_hour가 존재하는지 확인 -->
-  <select id="checkCategory" parameterType="rental.dto.RentCategoryDTO" resultType="int">
+  <select id="checkCategory" parameterType="rental.dto.CategoryDTO" resultType="int">
     select count(*) from ITEM_CATEGORY
     where item_type=#{item_type} AND price_per_hour=#{price_per_hour} 
     AND category_id != #{category_id}
