@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInsertUpdate.css">
-<script src="${pageContext.request.contextPath}/js/itemAdminInsertUpdate.js"></script>
+<script src="${pageContext.request.contextPath}/js/itemAdminInsert.js"></script>
 
 </head>
 <body>

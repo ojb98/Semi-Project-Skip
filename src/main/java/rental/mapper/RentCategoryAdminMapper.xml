@@ -49,7 +49,7 @@
   WHERE <![CDATA[ rnum >= ]]> #{startRow} 
   </select>
   
-  <!-- 하나의 렌탈샵에 장비유형 전체 갯수 -->
+  <!-- 하나의 렌탈샵에 전체 장비유형 갯수 -->
   <select id="itemCategoryCount" parameterType="int" resultType="int">
   	select COUNT(*) from RENT_ITEM where rentalshop_id = #{rentalId}
   </select>
@@ -88,7 +88,7 @@
   WHERE <![CDATA[ rnum >= ]]> #{startRow}
   </select>
   
-  <!-- 하나의 스키장에 장비유형 전체 갯수 -->
+  <!-- 하나의 스키장에 전체 장비유형 갯수 -->
   <select id="skiItemCategoryCount" parameterType="int" resultType="int">
   	select COUNT(*) from SKI_ITEM where ski_id = #{skiId}
   </select>

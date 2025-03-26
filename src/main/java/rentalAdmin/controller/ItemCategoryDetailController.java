@@ -41,7 +41,7 @@ public class ItemCategoryDetailController extends HttpServlet {
         
         List<ItemCategoryListDTO> itemList = rcdao.itemCategoryList(rentalId, startRow, endRow);
         
-        // JSP에 전달할 속성 설정
+        //JSP에 전달할 속성 설정
         req.setAttribute("list", itemList);
         req.setAttribute("currentPage", currentPage);
         req.setAttribute("totalPages", totalPages);
