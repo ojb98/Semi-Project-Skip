@@ -39,7 +39,7 @@ public class SkiInsertController extends HttpServlet{
 		//현재 로그인 유저정보를 얻어와서 uuid 값을 가져온다
 		HttpSession session=req.getSession();
 		UsersDto user=(UsersDto)session.getAttribute("user");
-		int uuid=user.getUuid();
+		int uuid=user.getUuid();		
 		
 		String name=req.getParameter("name");
 		String phone=req.getParameter("ski_phone");
