@@ -9,6 +9,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminList.css">
 </head>
 <body>
+<!-- header -->
+<jsp:include page="/rentalAdmin/header.jsp" />
 
 
 <!-- 메인 컨텐츠 영역 -->
@@ -22,7 +24,7 @@
 		<c:forEach var="dto" items="${rslist }">
 			<tr>
 				<td>${dto.rentalshop_id }</td>
-				<td>${dto.uuid }</td>
+				<td>${dto.user_id }</td>
 				<td>${dto.name }</td>
 				<td>${dto.location }</td>
 				<td>${dto.rental_phone }</td>
@@ -44,16 +46,13 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
-	<div class="center">
-    	<button class="list-btn" onclick="window.location.href='${pageContext.request.contextPath}/rentalAdmin/rentalAdminMain.jsp'">메인으로 가기</button>
-	</div>
-	
+
 	<script>
     function goToDetail(rentalId) {
         window.location.href = "${pageContext.request.contextPath }/adminRental/detail?rentalshop_id=" + rentalId;
     }
 </script>
 </main>
+
 </body>
 </html>

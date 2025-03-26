@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import rental.dto.RentalShopDTO;
+import rental.dto.RentalShopListDTO;
 import rentalAdmin.dao.RentalShopDao;
 
 @WebServlet("/adminRental/list")
@@ -17,9 +18,10 @@ public class RentalShopListController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<RentalShopDTO> rslist=rsdao.rentalList();
+		List<RentalShopListDTO> rslist=rsdao.rentalList();
 		
 		req.setAttribute("rslist", rslist);
+		System.out.println("렌탈샵 리스트: "+rslist);
 		
 		req.getRequestDispatcher("/rentalAdmin/rentalShopList.jsp").forward(req, resp);
 	}

@@ -24,10 +24,24 @@
 					</c:when>
 					<c:otherwise>
 						<ul>
-							<!-- 로그인한 역할을 보고 나오게 함 (choose) 사용 -->
-							<li>
-								<a href="${pageContext.request.contextPath}/resortAdmin/resortAdminMain.jsp">관리자사이트</a>
-							</li>
+							<!-- 로그인한 역할을 보고 나오게 함 (choose) 사용'USER', 'SKI', 'RENTAL', 'RESORT', 'ADMIN' -->
+							<c:choose>
+								<c:when test="${user.role == 'SKI' }">
+									<li><a href="${pageContext.request.contextPath}/skiAdmin/skiAdminMain.jsp">관리자사이트</a></li>
+								</c:when>
+								<c:when test="${user.role == 'RENTAL' }">
+									<li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalAdminMain.jsp">관리자사이트</a></li>
+								</c:when>
+								<c:when test="${user.role == 'RESORT' }">
+									<li><a href="${pageContext.request.contextPath}/resortAdmin/resortAdminMain.jsp">관리자사이트</a></li>
+								</c:when>
+								<c:when test="${user.role == 'ADMIN' }">
+									<li><a href="${pageContext.request.contextPath}/admin/resortAdminMain.jsp">관리자사이트</a></li>
+								</c:when>
+								<c:otherwise>
+								
+								</c:otherwise>
+							</c:choose>
 							
 							<li>
 								<a href="${pageContext.request.contextPath}/users/logout">로그아웃</a>

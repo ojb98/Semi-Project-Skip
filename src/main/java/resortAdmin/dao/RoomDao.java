@@ -1,5 +1,6 @@
 package resortAdmin.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,9 +8,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import mybatis.service.SqlSessionFactoryService;
 import resort.dto.RoomDTO;
+import ski.dto.SkiItemCategoryListDTO;
 
 public class RoomDao {
-	SqlSessionFactory sqlSessionFactory=SqlSessionFactoryService.getSqlSessionFactory();
+	private SqlSessionFactory sqlSessionFactory=SqlSessionFactoryService.getSqlSessionFactory();
 	private final String NAMESPACE="resort.mapper.RoomAdminMapper";
 	
 	//싱글톤설정
@@ -34,6 +36,27 @@ public class RoomDao {
 			return sqlSession.selectList(NAMESPACE+".getRoomInfo", resortId);
 		}
 	}
+	
+	
+	//리조트에 있는 모든 객실정보 얻어오기 : 페이징처리
+	public List<RoomDTO> getRoomList(int resortId, int startRow, int endRow){
+		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("resortId", resortId);
+            map.put("startRow", startRow);
+            map.put("endRow", endRow);
+			
+			return sqlSession.selectList(NAMESPACE+".getRoomList", map);
+		}
+	}
+
+    //하나의 리조트 전체 객실 건수를 조회하는 메서드
+    public int getRoomCount(int resortId) {
+        try(SqlSession sqlSession = sqlSessionFactory.openSession()){
+            return sqlSession.selectOne(NAMESPACE+".roomCount", resortId);
+        }
+    }
+	
 	
 	//객실고유아이디로 정보얻어오기(한행)
 	public RoomDTO getRoomId(int roomId) {

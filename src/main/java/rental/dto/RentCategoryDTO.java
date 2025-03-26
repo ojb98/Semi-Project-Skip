@@ -1,13 +1,13 @@
 package rental.dto;
 
-public class RentItemCategoryDTO {
+public class RentCategoryDTO {
 	private int category_id;
 	private String item_type;
 	private int price_per_hour;   //시간당 대여 가격
 
-	public RentItemCategoryDTO() {}
+	public RentCategoryDTO() {}
 
-	public RentItemCategoryDTO(int category_id, String item_type, int price_per_hour) {
+	public RentCategoryDTO(int category_id, String item_type, int price_per_hour) {
 		this.category_id = category_id;
 		this.item_type = item_type;
 		this.price_per_hour = price_per_hour;
