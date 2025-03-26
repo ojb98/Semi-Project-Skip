@@ -16,7 +16,7 @@
 <!-- 상단 헤더 -->
 <header>
     <div class="header-left">
-        <a href="${pageContext.request.contextPath}/admin/dashboard">
+        <a href="${pageContext.request.contextPath}/rentalAdmin/rentalAdminMain.jsp">
             <h1>SKI:P</h1>
         </a>
     </div>

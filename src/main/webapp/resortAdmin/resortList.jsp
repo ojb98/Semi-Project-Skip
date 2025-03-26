@@ -48,10 +48,6 @@ ide.jsp" />
 		</c:forEach>
 	</table>
 	
-	<div class="center">
-    	<button class="list-btn" onclick="window.location.href='${pageContext.request.contextPath}/resortAdmin/resortAdminMain.jsp'">메인으로 가기</button>
-	</div>
-	
 	<script>
     function goToDetail(resortId) {
         window.location.href = "${pageContext.request.contextPath }/adminResort/detail?resort_id=" + resortId;

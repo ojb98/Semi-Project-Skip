@@ -57,8 +57,6 @@
 	<input type="submit" value="등록">
 </form>
 </div>
-<button class="back-btn" onclick="window.location.href='${pageContext.request.contextPath}/adminSki/list'">돌아가기</button>
-
 
 </main>
 </body>

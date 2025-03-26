@@ -161,10 +161,9 @@
 </div>
 	
 <!-- 버튼을 클릭하면 AJAX로 데이터 불러오기 -->
-
 <div id="dynamicContent" style="display: none;"></div>
 
-<button class="list-btn" onclick="window.location.href='${pageContext.request.contextPath}/adminSki/list'">리스트로 가기</button>
+
 </main>
 </body>
 </html>

@@ -143,9 +143,8 @@
     
     <!-- AJAX로 불러올 영역 -->
     <div id="dynamicContent" style="display: none;"></div>
-    
-    <button class="list-btn" onclick="window.location.href='${pageContext.request.contextPath}/adminRental/list'">리스트로 가기</button>
   </main>
+  
 </body>
 </html>
 

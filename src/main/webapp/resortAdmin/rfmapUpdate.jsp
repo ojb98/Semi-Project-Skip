@@ -46,7 +46,6 @@
 </form>
 </div>
 
-<button class="back-btn" onclick="window.location.href='${pageContext.request.contextPath}/adminResort/detail?resort_id=${resort_id}'">돌아가기</button>
 </main>
 
 </body>

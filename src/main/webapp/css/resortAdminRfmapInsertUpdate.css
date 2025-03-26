@@ -52,16 +52,3 @@ h1 {
 .form-container input[type="submit"]:hover {
     opacity: 0.85;
 }
-
-
-
-.back-btn {
-    background-color: #6c757d;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-    margin-top: 20px;
-}

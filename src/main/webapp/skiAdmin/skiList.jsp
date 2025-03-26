@@ -45,11 +45,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
-	<div class="center">
-    	<button class="list-btn" onclick="window.location.href='${pageContext.request.contextPath}/skiAdmin/skiAdminMain.jsp'">메인으로 가기</button>
-	</div>
-	
+
 	<script>
     function goToDetail(skiId) {
         window.location.href = "${pageContext.request.contextPath }/adminSki/detail?ski_id=" + skiId;

@@ -54,7 +54,6 @@
 	</c:forEach>
 	</div>
 
-
 	<input type="submit" value="등록">
 </form>
 </div>

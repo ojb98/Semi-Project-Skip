@@ -70,7 +70,7 @@
         </c:forEach>
     </tbody>
 </table>
-	<button class="main-btn" onclick="window.location.href='${pageContext.request.contextPath}/resortAdmin/resortAdminMain.jsp'">메인으로 가기</button>
+
 </main>
 </body>
 </html>

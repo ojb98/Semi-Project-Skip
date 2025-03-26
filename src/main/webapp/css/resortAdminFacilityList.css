@@ -41,12 +41,6 @@
         margin: 5px;
         border-radius: 5px;
     }
-    
-    /* 수정 버튼 - 노랑 */
-    .update-btn {
-        background-color: #ffc107;
-        color: black;
-    }
 
     /* 삭제 버튼 - 빨강 */
     .delete-btn {
@@ -54,15 +48,6 @@
         color: white;
     }
     
-    /* 메인으로 가기 버튼 - 회색 */
-	.main-btn {
-    	background-color: #6c757d;
-    	color: white;
-	}
-
-    button:hover {
-        opacity: 0.85;
-    }
 
     table {
         width: 60%;
@@ -76,11 +61,6 @@
         padding: 10px;
         border: 1px solid #ccc;
         text-align: center;
-    }
-
-    th {
-        background-color: #007bff;
-        color: white;
     }
 
     tr:hover {

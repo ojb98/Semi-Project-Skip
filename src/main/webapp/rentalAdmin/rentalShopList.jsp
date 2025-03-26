@@ -46,11 +46,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
-	<div class="center">
-    	<button class="list-btn" onclick="window.location.href='${pageContext.request.contextPath}/rentalAdmin/rentalAdminMain.jsp'">메인으로 가기</button>
-	</div>
-	
+
 	<script>
     function goToDetail(rentalId) {
         window.location.href = "${pageContext.request.contextPath }/adminRental/detail?rentalshop_id=" + rentalId;

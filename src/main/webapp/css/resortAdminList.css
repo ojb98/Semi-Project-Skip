@@ -23,23 +23,16 @@
         border-radius: 5px;
     }
     
-    /* 추가 버튼 - 파랑 */
+	/* 추가 버튼 - 파랑 */
 	.add-btn {
 		background-color: #007bff;
 		color: white;
 	}
 
 
-
     /* 삭제 버튼 - 빨강 */
     .delete-btn {
         background-color: #dc3545;
-        color: white;
-    }
-
-    /* 리스트 버튼 - 회색 */
-    .list-btn {
-        background-color: #6c757d;
         color: white;
     }
 
@@ -49,10 +42,6 @@
         color: white;
     }
 
-    button:hover {
-        opacity: 0.85;
-    }
-
     table {
         width: 90%;
         margin: 20px auto;
@@ -60,16 +49,12 @@
         border: 1px solid #ccc;
         background-color: white;
     }
+   
 
     th, td {
         padding: 10px;
         border: 1px solid #ccc;
         text-align: center;
-    }
-
-    th {
-        background-color: #007bff;
-        color: white;
     }
 
     tr:hover {
@@ -81,7 +66,3 @@
         color: white;
     }
 
-    .center {
-        text-align: center;
-        margin-top: 20px;
-    }
