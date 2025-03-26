@@ -12,7 +12,7 @@
 			<input class="reviews" type="button" value="리뷰 목록" onclick="clickReviews()">
 		</li>
 		<li>
-			<input class="inquiries" type="button" value="문의 목록" onclick="clickInquiries()">
+			<input class="qna" type="button" value="문의 목록" onclick="clickInquiries()">
 		</li>
 		<li>
 			<input class="delete" type="button" value="회원 탈퇴" onclick="clickDelete()">
@@ -34,7 +34,7 @@
 	}
 	
 	function clickInquiries() {
-		location.href = "${pageContext.request.contextPath}/mypage/inquiries";
+		location.href = "${pageContext.request.contextPath}/mypage/qna";
 	}
 	
 	function clickDelete() {

@@ -15,6 +15,7 @@
     <title>관리자 페이지</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style type="text/css">
 .reservation-detail-card {
     background: white;
@@ -72,6 +73,7 @@
     color: #333;
     font-weight: 500;
 }</style>
+
 
 <script type="text/javascript">
 // 기존 함수들...
@@ -151,7 +153,9 @@ function reservationDetailList(reservId) {
       };
       // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
       xhr.open("GET", contextPath + "/skiAdmin/reservationList?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&skiID="+encodeURIComponent(skiID) +
-    		  "&reservDateStart=" + encodeURIComponent(reservDateStart) + "&reservDateEnd=" + encodeURIComponent(reservDateEnd) + 
+
+    		  "&reservDate1Start=" + encodeURIComponent(reservDate1Start) + "&reservDate1End=" + encodeURIComponent(reservDate1End) +
+    		  "&reservDate2Start=" + encodeURIComponent(reservDate2Start) + "&reservDate2End=" + encodeURIComponent(reservDate2End) +
     		  "&createdAtStart=" + encodeURIComponent(createdAtStart)+ "&createdAtEnd=" + encodeURIComponent(createdAtEnd), true);
       xhr.send();
   }
@@ -216,6 +220,7 @@ function reservationDetailList(reservId) {
         <div class="table-container">
         <!-- 리스트 상단 우측에 작게 표시되는 검색 컨트롤 영역 -->
         <div class="list-header">
+<<<<<<< HEAD
         <h3>전체 예약 리스트</h3>
             <div class="search-filter-container">
             	
@@ -245,6 +250,50 @@ function reservationDetailList(reservId) {
                 <div class="search-box">
                   <input type="text" id="searchInput" placeholder="검색어 입력" />
                   <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList()"/>
+=======
+            <h3>전체 예약 리스트</h3>
+            <div class="search-container">
+                
+                <div class="date-filters-container">
+                    <div class="date-filter-group">
+                        <label>이용예정일</label>
+                        <div class="date-range">
+                            <input type="date" id="reservDate1Start">
+                            <span>~</span>
+                            <input type="date" id="reservDate1End">
+                        </div>
+                    </div>
+                    <div class="date-filter-group">
+                        <label>이용종료일</label>
+                        <div class="date-range">
+                            <input type="date" id="reservDate2Start">
+                            <span>~</span>
+                            <input type="date" id="reservDate2End">
+                        </div>
+                    </div>
+                    <div class="date-filter-group">
+                        <label>예약생성일</label>
+                        <div class="date-range">
+                            <input type="date" id="createdAtStart">
+                            <span>~</span>
+                            <input type="date" id="createdAtEnd">
+                        </div>
+                    </div>
+                    <div class="search-top">
+                    <select id="filterSelect">
+                        <option value="이름">이름</option>
+                        <option value="아이디">아이디</option>
+                        <option value="이메일">이메일</option>                    
+                    </select>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="검색어 입력" onkeypress="if( event.keyCode == 13 ){searchList();}" />
+                        <button type="button" class="search-button" onclick="searchList()">
+                            <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색" class="search-icon"/>
+                        </button>
+                    </div>
+                </div>
+
+>>>>>>> afdef81fd1d58d737069fe8da53b74947d3570ed
                 </div>
             </div>
         </div>
@@ -256,7 +305,12 @@ function reservationDetailList(reservId) {
                         <th>아이디</th>
                         <th>이메일</th>
                         <th>전화번호</th>
+<<<<<<< HEAD
                         <th>이용예정일</th>                         
+=======
+                        <th>이용시작일</th>
+                        <th>이용종료일</th>                         
+>>>>>>> afdef81fd1d58d737069fe8da53b74947d3570ed
                         <th>예약생성일</th>
                         <th>예약상태</th>
                         <th>상세보기</th>

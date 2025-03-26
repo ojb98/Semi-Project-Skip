@@ -6,7 +6,7 @@
 <jsp:include page="/mypage/reserv_tab.jsp"/>
 
 <ul id="ski_list">
-	<c:forEach var="dto" items="${list}">
+	<c:forEach var="dto" varStatus="status" items="${list}">
 		<li>
 			<div class="reserv_container">
 				<div class="reserv_title">
@@ -58,13 +58,17 @@
 		</li>
 	</c:forEach>
 </ul>
+
+<c:if test="${list.size() == 0}">
+	<h2>조회된 목록이 없습니다.</h2>
+</c:if>
 <div class="reserv_page">
 	<c:choose>
-		<c:when test="${startPage != 1}">
-			<input class="page_prev page_active" type="button" value="이전" onclick="clickPrev()"/>
+		<c:when test="${startPage == 1}">
+			<input class="page_prev page_inactive" type="button" value="이전">
 		</c:when>
 		<c:otherwise>
-			<input class="page_prev page_inactive" type="button" value="이전">
+			<input class="page_prev page_active" type="button" value="이전" onclick="clickPrev()"/>
 		</c:otherwise>
 	</c:choose>
 	<c:forEach var="i" begin="${startPage}" end="${endPage}">
@@ -78,11 +82,11 @@
 		</c:choose>
 	</c:forEach>
 	<c:choose>
-		<c:when test="${endPage != pageCount}">
-			<input class="page_next page_active" type="button" value="다음" onclick="clickNext()"/>
+		<c:when test="${endPage == pageCount}">
+			<input class="page_next page_inactive" type="button" value="다음">
 		</c:when>
 		<c:otherwise>
-			<input class="page_next page_inactive" type="button" value="다음">
+			<input class="page_next page_active" type="button" value="다음" onclick="clickNext()"/>
 		</c:otherwise>
 	</c:choose>
 </div>

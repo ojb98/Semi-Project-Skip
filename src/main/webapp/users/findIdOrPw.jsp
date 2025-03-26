@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>find/findIdOrPw.jsp</title>
+<title>SKI:P</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainpage.css">
 <style>
     .loader {

@@ -11,14 +11,41 @@
 			and to_char(created_at, 'yyyy') = #{year}
 		</if>
 	</select>
-
+	
+	
+    <resultMap type="resort.dto.ResortReservationPrintDto" id="ResortReservationPrint">
+        <id column="Resort_reserv_id" property="resort_reserv_id"/>
+        <result column="resort_id" property="resort_id"/>
+        <result column="uuid" property="uuid"/>
+        <result column="checkin_date" property="checkin_date"/>
+		<result column="checkout_date" property="checkout_date"/>
+        <result column="total_price" property="total_price"/>
+        <result column="status" property="status"/>
+        <result column="created_at" property="created_at"/>
+        <result column="resort_name" property="resort_name"/>
+        <result column="user_name" property="user_name"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_email" property="userEmail"/>
+        <result column="phone" property="phone"/>
+        <result column="payment_id" property="payment_id"/>
+        
+        <collection property="resortReservationItemDtoList" ofType="resort.dto.ResortReservationItemDto">
+            <id column="resort_room_id" property="resortRoomId"/>
+            <result column="resort_reserv_id" property="resortReservId"/>
+            <result column="resort_room_name" property="resortRoomName"/>
+            <result column="resort_room_type" property="resortRoomType"/>
+            <result column="price_per_night" property="pricePerNight"/>
+            <result column="quantity" property="quantity"/>
+        </collection>
+    </resultMap>
+    
 	<select id="selectByUuid" resultType="resort.dto.ResortReservationListDto" parameterType="hashmap">
 		select *
 		from (
 			select rownum rn, rrl.*
 			from (
 				select rs.resort_reserv_id, rs.uuid, rs.checkin_date, rs.checkout_date, rs.quantity, rs.total_price, rs.status, rs.created_at,
-					rr.room_id, rr.room_name, rr.room_type, (select name from resort where resort_id = rr.resort_id) name
+					rr.room_id, rr.room_name, rr.room_type, (select name from resort where resort_id = rr.resort_id) name, (select payment_id from resort_payments where resort_reserv_id = rs.resort_reserv_id) payment_id
 				from resort_reservation rs join resort_rooms rr on rs.room_id = rr.room_id
 				where uuid = #{uuid}
 				<if test="year != null and year != ''">
@@ -29,4 +56,78 @@
 		)
 		where rn between #{startRow} and #{endRow}
 	</select>
+	
+	<select id="selectReservationByResortId" resultMap="ResortReservationPrint" parameterType="map">
+        SELECT 
+            rr.resort_reserv_id, 
+            rr.uuid,
+            rr.checkin_date,
+            rr.checkout_date,
+            rr.total_price, 
+            rr.status, 
+            rr.created_at,
+            rr.quantity,
+            r.name AS resort_name, 
+            u.name AS user_name,
+            u.user_id, 
+		    u.email AS user_email, 
+		    u.phone,
+            rp.payment_id, 
+            rrs.room_id AS resort_room_id, 
+            rrs.room_name AS resort_room_name,            
+            rrs.room_type AS resort_room_type, 
+            rrs.price_per_night
+        FROM resort r
+        LEFT JOIN resort_rooms rrs ON rrs.resort_id = r.resort_id
+        LEFT JOIN resort_reservation rr ON rr.room_id = rrs.room_id
+        LEFT JOIN resort_payments rp ON rr.resort_reserv_id = rp.resort_reserv_id
+        LEFT JOIN users u ON r.uuid = u.uuid
+        <where>
+		    <if test="resortID != null">
+		        r.resort_id = #{resortID}
+		    </if>
+		    <if test="reservId != null">
+		        rr.resort_reserv_id = #{reservId}
+		    </if>
+		    <if test="reserv_date1_start != null and reserv_date1_end != null">
+		        AND rr.checkin_date BETWEEN #{reserv_date1_start} AND #{reserv_date1_end}
+		    </if>
+		    <if test="reserv_date2_start != null and reserv_date2_end != null">
+		        AND rr.checkout_date BETWEEN #{reserv_date2_start} AND #{reserv_date2_end}
+		    </if>
+		    <if test="created_at_start != null and created_at_end != null">
+		        AND rr.created_at BETWEEN #{created_at_start} AND #{created_at_end}
+		    </if>
+		    <if test="name != null">
+		        AND U.NAME LIKE '%' || #{name} || '%'
+		    </if>
+		    <if test="user_id != null">
+		        AND U.USER_ID LIKE '%' || #{user_id} || '%'
+		    </if>
+		    <if test="email != null">
+		        AND U.EMAIL LIKE '%' || #{email} || '%'
+		    </if>
+		</where>
+  	</select>
+  	
+  	<select id="getResortIdByUUID" resultType="Integer">
+        SELECT Resort_ID FROM Resort WHERE UUID = #{adminUUID}
+    </select>
+    
+    <update id="updateReservationStatusToCompleted" parameterType="map">
+		UPDATE resort_reservation
+		SET status = 'COMPLETED'
+		WHERE resort_id = #{resortID}
+		AND status = 'CONFIRMED'
+		AND checkout_date &lt;= #{today}
+	</update>
+    <!-- 스키장 예약 고유번호를 받아 예약 상태 업데이트 -->
+    <update id="reservationCancel">
+        UPDATE RESORT_RESERVATION SET STATUS='CANCELLED' WHERE RESORT_RESERV_ID=#{resort_reserv_id}
+    </update>
+
+    <update id="reservationComplete">
+        UPDATE RESORT_RESERVATION SET STATUS='COMPLETED' WHERE RESORT_RESERV_ID=#{resort_reserv_id}
+    </update>
+    
 </mapper>

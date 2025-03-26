@@ -19,13 +19,15 @@ public class ReviewListController extends HttpServlet {
 		int pageNum = (req.getParameter("pageNum") == null) ? 1 : Integer.parseInt(req.getParameter("pageNum"));
 		String category = req.getParameter("category");
 		String rating = req.getParameter("rating");
+		String year = req.getParameter("year");
 		ReviewsDao dao = ReviewsDao.getInstance();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		UsersDto user = (UsersDto)(req.getSession().getAttribute("user"));
 		map.put("uuid", user.getUuid());
 		map.put("category", category);
 		map.put("rating", rating);
-		PageUtil pageUtil = new PageUtil(pageNum, dao.getCount(map), 10);
+		map.put("year", year);
+		PageUtil pageUtil = new PageUtil(pageNum, dao.getCount(map), 4);
 		map.put("startRow", pageUtil.getStartRow());
 		map.put("endRow", pageUtil.getEndRow());
 		req.setAttribute("list", dao.list(map));
@@ -35,6 +37,7 @@ public class ReviewListController extends HttpServlet {
 		req.setAttribute("pageNum", pageNum);
 		req.setAttribute("category", category);
 		req.setAttribute("rating", rating);
+		req.setAttribute("year", year);
 		req.setAttribute("content", "reviews");
 		req.getRequestDispatcher("/mypage/layout.jsp").forward(req, resp);
 	}

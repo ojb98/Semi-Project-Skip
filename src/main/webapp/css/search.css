@@ -5,7 +5,7 @@
 .search_menu {
 	width: 1230px;
 	height: 58px;
-	margin: 0 auto;
+	margin-bottom: 30px;
 	display: flex;
 	align-items: center;
 }
@@ -19,7 +19,7 @@
 }
 
 .search_menu select {
-	width: 130px;
+	width: 150px;
 	height: 32px;
 	text-align: center;
 }
@@ -42,6 +42,183 @@
 	font-size: 16px;
 	font-weight: 700;
 	margin: 10px 0;
+}
+
+.forecast_select {
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	margin-left: 20px;
+	width: 120px;
+	border: 1px solid white;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px,
+	rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+}
+
+.forecast_select:focus {
+	border: 1px solid #5399f5;
+	box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.4);
+	outline: none;
+}
+
+.forecasts {
+	display: flex;
+	justify-content: space-evenly;
+	height: 420px;
+}
+
+.forecast_main {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	border-radius: 20px;
+	width: 350px;
+	height: 420px;
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px,
+	rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+	padding-top: 10px;
+	cursor: default;
+}
+
+.forecast_date_wrapper {
+	width: 100%;
+	height: 20%;
+	display: flex;
+	padding-left: 30px;
+	padding-right: 30px;
+	align-items: center;
+}
+
+.forecast_date_main {
+	height: 100%;
+	font-size: 5em;
+	font-weight: 800;
+	margin-right: 20px;
+}
+
+.forecast_time_info {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.forecast_time_main {
+	font-size: 1.5em;
+	color: gray;
+}
+
+.forecast_day_main {
+	font-size: 2em;
+	font-weight: 700;
+}
+
+.forecast_info_main {
+	width: 100%;
+	height: 150px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-left: 10px;
+	padding-right: 20px;
+}
+
+.forecast_desc_wrapper {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.forecast_temp_wrapper {
+	padding-bottom: 20px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.forecast_temp_main {
+	font-size: 3em;
+	font-weight: 800;
+}
+
+.temp_symbol {
+	height: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	margin-left: 5px;
+	padding-top: 3px;
+}
+
+.temp_symbol span {
+	font-weight: 500;
+	font-size: 1.2em;
+	color: rgb(50, 50, 50);
+}
+
+.forecast_desc {
+	padding-top: 40px;
+	font-size: 1.2em;
+	color: gray;
+}
+
+.forecast_details {
+	width: 100%;
+	height: 35%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.forecast_details div {
+	display: flex;
+	justify-content: space-between;
+}
+
+.forecasts_sub {
+	width: 700px;
+	height: 420px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.forecast {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	border-radius: 20px;
+	width: 164.5px;
+	height: 197.4px;
+	margin-right: 14px;
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px,
+	rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+	cursor: pointer;
+}
+
+.forecast:hover {
+	background-color: rgb(250, 250, 250);
+}
+
+.forecast_time {
+	color: gray;
+	font-size: 0.8em;
+}
+
+.forecast_day {
+	font-weight: 600;
+}
+
+.forecast_temp {
+	font-size: 0.9em;
 }
 
 /* card 영역 */

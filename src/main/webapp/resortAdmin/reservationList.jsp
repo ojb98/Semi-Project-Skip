@@ -1,5 +1,5 @@
-<%@page import="ski.dto.SkiReservationPrintDto"%>
-<%@page import="ski.mapper.SkiReservationMapper"%>
+<%@page import="resort.dto.ResortReservationPrintDto"%>
+<%@page import="resort.mapper.ResortReservationMapper"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>
@@ -11,40 +11,34 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	List<SkiReservationPrintDto> reservationList = (List<SkiReservationPrintDto>)request.getAttribute("reservationList");
+	List<ResortReservationPrintDto> reservationList = (List<ResortReservationPrintDto>)request.getAttribute("reservationList");
+	java.util.Date today = new java.util.Date();
+    java.sql.Date sqlToday = new java.sql.Date(today.getTime());
 %>
 <%
 if(reservationList != null && !reservationList.isEmpty()){
-       for (SkiReservationPrintDto reservation : reservationList) {
+       for (ResortReservationPrintDto reservation : reservationList) {
     		String rowStyle = "";
     		String reservStatus = "";
-           if("CANCELLED".equals(reservation.getStatus()) || "COMPLETED".equals(reservation.getStatus())){
-               rowStyle = " style='background-color:#e8e8e8;'";
-           }
+    		if("취소".equals(reservation.getStatus())){
+                rowStyle = "style='background-color:#f08080;'";
+            }else if("완료".equals(reservation.getStatus())){
+         	   rowStyle = "style='background-color:#e8e8e8;'";
+            }
 %>
     <tr<%= rowStyle %>>
-      <td><%= reservation.getSki_reserv_id() %></td>
-      <td><%= reservation.getUserName() %></td>
+      <td><%= reservation.getResort_reserv_id() %></td>
+      <td><%= reservation.getUser_name() %></td>
       <td><%= reservation.getUserId() %></td>
       <td><%= reservation.getUserEmail() %></td>
       <td><%= reservation.getPhone() %></td>
-      <td><%= reservation.getReserv_start() %></td>
-      <td><%= reservation.getReserv_end() %></td>
+      <td><%= reservation.getCheckin_date() %></td>
+      <td><%= reservation.getCheckout_date() %></td>
       <td><%= reservation.getCreated_at() %></td>
-<% 
-	if("CONFIRMED".equals(reservation.getStatus())){
-		reservStatus = "예약완료"; 
-	}else if("CANCELLED".equals(reservation.getStatus())){
-		reservStatus = "예약취소";
-	}else{
-		reservStatus = "이용완료";
-	}
-	
-%>
-      <td><%= reservStatus %></td>
+      <td><%= reservation.getStatus() %></td>
       <td>
-         <!-- <button type="button" onclick="requestDelete('<%= reservation.getSki_reserv_id() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">삭제</button> -->
-         <button type="button" onclick="reservationDetailList('<%= reservation.getSki_reserv_id() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">상세보기 ▼</button>
+         <!-- <button type="button" onclick="requestDelete('<%= reservation.getResort_reserv_id() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">삭제</button> -->
+         <button type="button" onclick="reservationDetailList('<%= reservation.getResort_reserv_id() %>')" style="background-color: #00A2E8; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer;">상세보기 ▼</button>
       </td>
     </tr>
 <% } } else { %>

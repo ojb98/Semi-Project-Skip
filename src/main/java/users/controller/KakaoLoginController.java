@@ -86,6 +86,6 @@ public class KakaoLoginController extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.setAttribute("user", user);
 		session.setAttribute("access_token", access_token);
-		resp.sendRedirect(req.getContextPath() + "/index.jsp");
+		resp.sendRedirect(req.getContextPath() + "/");
 	}
 }

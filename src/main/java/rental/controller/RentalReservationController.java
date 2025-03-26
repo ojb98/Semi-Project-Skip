@@ -1,8 +1,8 @@
-package skiAdminPageController;
+package rental.controller;
 
 import mybatis.service.SqlSessionFactoryService;
-import ski.dto.SkiReservationPrintDto;
-import ski.mapper.SkiReservationMapper;
+import rental.dto.RentalReservationPrintDto;
+import rental.mapper.RentalReservationMapper;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -22,15 +22,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/skiAdmin/reservationList")
-public class SkiReservationController extends HttpServlet {
+@WebServlet("/rentalAdmin/reservationList")
+public class RentalReservationController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
         PrintWriter out = resp.getWriter();
         
         HttpSession session = req.getSession();
-        Integer skiID = (Integer) session.getAttribute("skiID");
+        Integer rentalID = (Integer) session.getAttribute("rentalID");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         
         Date reserv_date1_start = parseDate(req.getParameter("reservDate1Start"), dateFormat);
@@ -42,7 +42,7 @@ public class SkiReservationController extends HttpServlet {
         
         String keyword = req.getParameter("keyword");
         String filter = req.getParameter("filter");
-        if (skiID == null) {
+        if (rentalID == null) {
             out.print("{\"error\": \"로그인이 필요합니다.\"}"); //세션 공부 및 수정 필요
             return;
         } 
@@ -58,7 +58,7 @@ public class SkiReservationController extends HttpServlet {
 
         // MyBatis 파라미터 맵 생성
         Map<String, Object> params = new HashMap<>();
-        params.put("skiID", skiID);
+        params.put("rentalID", rentalID);
 
         if (keyword != null && !keyword.trim().isEmpty()) {
             params.put(filter, keyword); // 변환된 필터 컬럼 적용
@@ -70,9 +70,9 @@ public class SkiReservationController extends HttpServlet {
         params.put("created_at_start", created_at_start);
         params.put("created_at_end", created_at_end);
         
-        List<SkiReservationPrintDto> reservationList;
+        List<RentalReservationPrintDto> reservationList;
         try (SqlSession sqlSession = SqlSessionFactoryService.getSqlSessionFactory().openSession()) {
-            SkiReservationMapper mapper = sqlSession.getMapper(SkiReservationMapper.class);
+            RentalReservationMapper mapper = sqlSession.getMapper(RentalReservationMapper.class);
             
             // 현재 날짜 구하기
             java.util.Date today = new java.util.Date();
@@ -80,21 +80,21 @@ public class SkiReservationController extends HttpServlet {
 
             // 상태 업데이트를 위한 파라미터 맵 생성
             Map<String, Object> updateParams = new HashMap<>();
-            updateParams.put("skiID", skiID);
+            updateParams.put("rentalID", rentalID);
             updateParams.put("today", sqlToday);
 
             // 상태 업데이트 실행
-            mapper.updateReservationStatusToCompleted(updateParams);
+            //mapper.updateReservationStatusToCompleted(updateParams);
             
             // 변경사항 커밋
             sqlSession.commit();
             
             // 업데이트된 리스트 다시 조회
-            reservationList = mapper.selectReservationBySkiId(params);
+            reservationList = mapper.selectReservationByRentalId(params);
         }
         
         req.setAttribute("reservationList", reservationList);
-        req.getRequestDispatcher("/skiAdmin/reservationList.jsp").forward(req, resp);
+        req.getRequestDispatcher("/rentalAdmin/reservationList.jsp").forward(req, resp);
     }
 
     
@@ -102,10 +102,10 @@ public class SkiReservationController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // 사용자의 스키장 ID가 1이라고 가정
 	    HttpSession session = request.getSession();
-	    session.setAttribute("skiID", 1);
+	    session.setAttribute("rentalID", 1);
 	    
 	    // 로그인 성공 후, 관리자 페이지로 이동
-	    response.sendRedirect("/skiAdmin/skiReservation.jsp");
+	    response.sendRedirect("/rentalAdmin/rentalReservation.jsp");
 	}
     
     

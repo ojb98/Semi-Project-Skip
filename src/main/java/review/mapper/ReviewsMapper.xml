@@ -6,12 +6,16 @@
 	<sql id="filter">
 		<where>
 			uuid = #{uuid}
-			<if test="rating != null and rating != 'total'">
+			<if test="rating != null and rating != ''">
 				and rating = to_number(#{rating})
 			</if>
 			
-			<if test="category != null and category != 'total'">
+			<if test="category != null and category != ''">
 				and category = #{category}
+			</if>
+			
+			<if test="year != null and year != ''">
+				and to_char(created_at, 'yyyy') = #{year}
 			</if>
 		</where>
 	</sql>
@@ -21,14 +25,40 @@
 		from reviews_view
 		<include refid="filter"/>
 	</select>
+	
+	<resultMap type="review.dto.ReviewsDto" id="ReviewReMapper">
+		<id column="review_id" property="review_id"/>
+		<result column="category" property="category"/>
+		<result column="payment_id" property="payment_id"/>
+		<result column="uuid" property="uuid"/>
+		<result column="ref_id" property="ref_id"/>
+		<result column="ref_name" property="ref_name"/>
+		<result column="rating" property="rating"/>
+		<result column="review_comment" property="review_comment"/>
+		<result column="img" property="img"/>
+		<result column="created_at" property="created_at"/>
+		
+		<association property="reviewReDto" javaType="review.dto.ReviewReDto">
+			<id column="review_re_id" property="review_re_id"/>
+			<result column="r_uuid" property="uuid"/>
+			<result column="user_id" property="user_id"/>
+			<result column="content" property="content"/>
+			<result column="r_created_at" property="created_at"/>
+		</association>
+	</resultMap>
 
-	<select id="list" resultType="review.dto.ReviewsDto" parameterType="hashmap">
+	<select id="list" resultMap="ReviewReMapper" parameterType="hashmap">
 		select *
-		from (select rownum rn, r.*
-			from (select category, review_id, payment_id, uuid, ref_id, rating, review_comment, img, created_at
-					from reviews_view
-					<include refid="filter"/>
-					order by created_at desc) r)
+		from (
+			select rownum rn, r.*
+			from (
+				select category, review_id, payment_id, uuid, ref_id, ref_name, rating, review_comment, img, created_at,
+				review_re_id, r_uuid, user_id, content, r_created_at
+				from reviews_view
+				<include refid="filter"/>
+				order by created_at desc
+			) r
+		)
 		where rn between #{startRow} and #{endRow}
 	</select>
 </mapper>
