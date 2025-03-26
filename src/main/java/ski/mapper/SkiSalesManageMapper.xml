@@ -35,6 +35,21 @@
 		</if> 
     </select>
     
+    <select id="selectCategorySales" resultType="map">
+        SELECT 
+            si.category_id AS category,
+            SUM(sri.subtotal_price) AS total_sales
+        FROM ski_reservation_item sri
+        JOIN ski_item si 
+            ON sri.item_id = si.item_id
+        JOIN ski_reservation sr
+            ON sri.ski_reserv_id = sr.ski_reserv_id
+        <!-- 필요 시 상태 필터 -->
+        WHERE sr.status = '예약완료'
+        GROUP BY si.category_id
+        ORDER BY total_sales DESC
+    </select>
+    
     <select id="getConfirmReserv" resultType="int" parameterType="map">
     	SELECT NVL(count(*),0)
     	FROM ski_payments sp LEFT JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
