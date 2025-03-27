@@ -18,7 +18,7 @@
 
 <script type="text/javascript">
 // 기존 함수들...
-
+var contextPath = "${pageContext.request.contextPath}";
 function reservationDetailList(reservId) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
@@ -34,7 +34,7 @@ function reservationDetailList(reservId) {
     xhr.send("reservId=" + encodeURIComponent(reservId));
 }
 
-  var contextPath = "${pageContext.request.contextPath}";
+  
   
   function requestReservationList() {
     var xhr = new XMLHttpRequest();
