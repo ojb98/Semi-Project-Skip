@@ -7,10 +7,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import mybatis.service.SqlSessionFactoryService;
+import rental.dto.CategoryDTO;
 import rental.dto.ItemCategoryListDTO;
 import rental.dto.RentCategoryDTO;
 import ski.dto.SkiItemCategoryListDTO;
-import util.PageUtil;
+
 
 public class RentCategoryDao {
 	private SqlSessionFactory sqlSessionFactory= SqlSessionFactoryService.getSqlSessionFactory();
@@ -24,7 +25,7 @@ public class RentCategoryDao {
 	}
 	
 	//카테고리 등록
-	public int categoryInsert(RentCategoryDTO rcdto) {
+	public int categoryInsert(CategoryDTO rcdto) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			int n=sqlSession.insert(NAMESPACE+".rcInsert",rcdto);
 			sqlSession.commit();
@@ -33,7 +34,7 @@ public class RentCategoryDao {
 	}
 	
 	//카테고리 전체조회(여러건)
-	public List<RentCategoryDTO> categoryList(){
+	public List<CategoryDTO> categoryList(){
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectList(NAMESPACE+".rcList");
 		}
@@ -91,7 +92,7 @@ public class RentCategoryDao {
 	
 	
 	//카테고리 고유아이디로 카테고리 데이터 조회(1건)
-	public RentCategoryDTO getCategoryId(int categoryId){
+	public CategoryDTO getCategoryId(int categoryId){
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectOne(NAMESPACE+".getCategoryId",categoryId);
 		}
@@ -116,7 +117,7 @@ public class RentCategoryDao {
 	}
 	
 	//카테고리 중복체크
-    public int getCategoryExists(RentCategoryDTO rcdto) {
+    public int getCategoryExists(CategoryDTO rcdto) {
         try (SqlSession session=sqlSessionFactory.openSession()) {
             return session.selectOne(NAMESPACE+".checkCategory", rcdto);
         }

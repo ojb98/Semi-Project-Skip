@@ -1,46 +1,40 @@
-<%@ page import="dto.ResortDTO"%>
+<%@page import="users.dao.UsersDao"%>
+<%@ page import="resort.dto.ResortDTO"%>
 <%@ page import="java.util.List"%>
-<%@ page import="dto.RoomDTO"%>
+<%@ page import="resort.dto.RoomDTO"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Calendar"%>
-<%@ page import="dto.ResortReviewDTO"%>
-<%@ page import="dao.UsersDao"%>
-
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ page import="resort.dto.ResortReviewDTO"%>
 <html>
 <head>
 <title>resort</title>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/mainpage.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <%-- 아이콘 --%>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<%-- 달력 --%>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/style.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/reset.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/font.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/font.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/search.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/detail.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/save.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/cart.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/wish.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cart.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/pay.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/login.css">
-<%-- flatpickr 한국어 --%>
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -435,8 +429,9 @@ header {
 .room-header {
 	display: flex;
 	justify-content: space-between;
-	align-items: flex-start;
+	align-items: center;
 	margin-bottom: 16px;
+	position: relative;
 }
 
 .room-name {
@@ -715,6 +710,31 @@ header {
 .purchase-button:hover {
 	background-color: #4285F4;
 }
+
+.heart-container {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	z-index: 1;
+	margin-right: 5.5rem;
+}
+
+.heart-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 30px;
+	color: #999; /* 기본 색상 */
+	transition: color 0.3s ease;
+}
+
+.heart-icon.fas {
+	color: red; /* 붉은색으로 지정 */
+}
+
+.heart-button.active .heart-icon {
+	color: red; /* 활성화된 상태의 색상 */
+}
 </style>
 
 </head>
@@ -748,7 +768,7 @@ header {
 	}
 
 	if (userId != null) {
-		UsersDao usersDao = new UsersDao();
+		UsersDao usersDao = UsersDao.getInstance();
 		uuid = usersDao.getUUID(userId);
 	}
 	%>
@@ -766,26 +786,8 @@ header {
 	</div>
 
 	<div class="container">
-		<header>
-			<nav class="header_nav">
-				<div class="header_menu">
-					<div class="header_logo">
-						<h1>
-							<a href="index.html">SKI:P</a>
-						</h1>
-					</div>
-					<div class="login">
-						<ul>
-							<li><a href="#">로그인</a></li>
-							<li><a href="#">로그아웃</a></li>
-							<li><a href="#">마이페이지</a></li>
-							<li><a href="#">찜</a></li>
-							<li><a href="#">장바구니</a></li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-		</header>
+
+		<jsp:include page="/header.jsp" />
 
 		<div class="content-wrapper">
 			<div class="search-info-box">
@@ -862,15 +864,21 @@ header {
 									<c:forEach var="item" items="${requestScope.roomList}">
 										<div class="room-item">
 											<div class="room-image">
-												<img src="${item.rmain_img}" alt="${item.room_name}">
+												<img src="/test${item.rmain_img}" alt="${item.room_name}">
 											</div>
 											<div class="room-info">
 												<div>
 													<div class="room-header">
 														<div class="room-name">[${requestScope.resortDTO.check_time}시
 															체크인] ${item.room_name}</div>
+														<div class="heart-container">
+															<button class="heart-button"
+																data-room-id="${item.room_id}">
+																<i class="far fa-heart heart-icon"></i>
+															</button>
+														</div>
 														<a class="room-detail-link"
-															onclick="openModal('${item.rmain_img},${item.rsub_img1},${item.rsub_img2},${item.rsub_img3}')">상세
+															onclick="openModal('/test${item.rmain_img},/test${item.rsub_img1},/test${item.rsub_img2},/test${item.rsub_img3}')">상세
 															정보 ></a>
 													</div>
 													<div class="room-time">
@@ -897,10 +905,10 @@ header {
 															<button type="button" class="quantity-btn plus-btn">+</button>
 														</div>
 														<button class="purchase-button"
-															onclick="addToCart('${item.room_name}', ${item.price_per_night})">
+															onclick="validateAndSubmit(true, '${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
 															장바구니</button>
 														<button class="purchase-button"
-															onclick="validateAndSubmit('${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
+															onclick="validateAndSubmit(false, '${item.room_id}', ${item.price_per_night}, ${requestScope.resortDTO.check_time})">
 															바로 예약</button>
 													</div>
 												</div>
@@ -923,41 +931,28 @@ header {
 
 						<div id="review-section" class="tab-content">
 							<div class="review-list">
-								<div class="review_tab">
-									<div class="review_title">
-										<div class="title_left">
-											<div class="review_rating">
-												<h3>리뷰 평점</h3>
-												<span class="rating"><i class="fa fa-star"></i></span>
-												<div class="rating_number">
-													<span>${avgRating}</span><span>/</span><span>5</span>
-												</div>
-											</div>
-											<div class="review_number">
-												<h3>전체 리뷰 수</h3>
-												<i class="fa fa-commenting"></i>
-												<p>${reviewCount}</p>
-											</div>
-										</div>
-										<div class="title_right">
-											<div class="review_filter">
-												<a class="filter_btn active"
-													href="javascript:reviewSort(null,'${resort_id}')"><i
-													class="fa fa-check"></i>최신순</a> <a class="filter_btn"
-													href="javascript:reviewSort('ratingDesc','${resort_id}')"><i
-													class="fa fa-check"></i>평점 높은순</a> <a class="filter_btn"
-													href="javascript:reviewSort('ratingAsc','${resort_id}')"><i
-													class="fa fa-check"></i>평점 낮은순</a>
-											</div>
-										</div>
-									</div>
-									<div class="review_contents">
-										<ul class="review_list">
-										</ul>
-									</div>
-									<!-- 페이징 -->
-									<div class="page_btn"></div>
+								<div class="review_amount">
+									<h3>리뷰 ${requestScope.reviewCount} 건</h3>
 								</div>
+								<c:forEach var="review" items="${requestScope.reviewList}">
+									<div class="review-item">
+										<div class="review-header">
+											<span class="review-user">${review.name}</span> <span
+												class="review-rating"> <i class="fas fa-star"
+												style="color: #FFA500;"></i> <fmt:formatNumber
+													value="${review.rating}" type="number"
+													maxFractionDigits="1" />
+											</span> <span class="review-date">${review.created_at}</span>
+										</div>
+										<div class="review-content">
+											<p>${review.resort_comment}</p>
+										</div>
+										<c:if test="${not empty review.review_img}">
+											<img src="${review.review_img}" alt="Review Image"
+												class="review-image" />
+										</c:if>
+									</div>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
@@ -983,14 +978,80 @@ header {
 		</c:choose>
 
 	</div>
-	<script src="<%=request.getContextPath()%>/script/resort_review.js"></script>
-	<script type="text/javascript">
-	reviewSort("latest",'${resort_id}', 1);
-	</script>
+
+	<jsp:include page="/footer.jsp" />
 	<script>
     let startDate = null;
     let endDate = null;
     const uuid = <%=uuid%>;
+
+    const heartButtons = document.querySelectorAll('.heart-button');
+
+    heartButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const itemId = this.getAttribute('data-item-id');
+            if (uuid === -1) {
+                alert('로그인이 필요합니다.');
+                return;
+            }
+            const heartIcon = this.querySelector('.heart-icon');
+            const url = '/test/wish';
+
+            let isWish = heartIcon.classList.contains('far');
+            const roomId = this.getAttribute('data-room-id');
+            heartIcon.classList.toggle('fas', isWish);
+            heartIcon.classList.toggle('far', !isWish);
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    isWish: isWish,  // 찜 상태 (true -> 찜 추가, false -> 찜 삭제)
+                    uuid: uuid,      // 사용자 uuid
+                    ref_id: roomId,  // 아이템 ID
+                    category: 'RESORT'  // 카테고리 (렌탈, 스키 등)
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        alert('처리 중 오류가 발생했습니다.');
+                        // 실패하면 원래 상태로 되돌리기
+                        heartIcon.classList.toggle('fas');
+                        heartIcon.classList.toggle('far');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('서버와의 통신에 실패했습니다.');
+                });
+        });
+    });
+
+    // 페이지 로드 시 서버에서 찜 목록 불러오기
+    window.addEventListener('load', () => {
+        fetch('/test/wish?uuid=' + uuid)
+            .then(response => response.json())
+            .then(data => {
+                const wishList = data.wishList || [];
+                heartButtons.forEach(button => {
+                    const roomId = button.getAttribute('data-room-id');
+                    const heartIcon = button.querySelector('.heart-icon');
+                    if (wishList.includes(parseInt(roomId))) {
+                        heartIcon.classList.add('fas');  // 찜한 상태
+                        heartIcon.classList.remove('far');  // 빈 하트 제거
+                    } else {
+                        heartIcon.classList.add('far');  // 찜하지 않은 상태
+                        heartIcon.classList.remove('fas');  // 채워진 하트 제거
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
 
     document.querySelectorAll('.room-item').forEach(item => {
         let quantity = 1; // 기본 수량
@@ -1017,18 +1078,16 @@ header {
             });
         }
 
-        // 장바구니 버튼 클릭 이벤트
-        const addToCartButton = item.querySelector('.purchase-button');
 
     });
 
-    // 장바구니에 추가하는 함수
-    function addToCart(roomName, totalPrice) {
-        alert(`${roomName}이(가) ${quantity}개만큼 장바구니에 추가되었습니다. 총 가격: ${totalPrice}원`);
-    }
 
     // 예약을 처리하는 함수
-    function validateAndSubmit(roomId, price, startTime) {
+    function validateAndSubmit(isCart, roomId, price, startTime) {
+        if (uuid === -1) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
         const dateInput = document.getElementById("datePickerInput");
         if (!dateInput || !dateInput.value.includes(" - ")) {
             alert("날짜를 선택해 주세요.");
@@ -1051,8 +1110,7 @@ header {
         // 폼 생성
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = '/resort/payment'; // 서버의 결제 처리 URL
-
+        form.action = isCart ? '/test/resort/cart' : '/test/resort/payment'; // 서버의 결제 처리 URL
 
         // 폼 필드 추가
         const fields = [
@@ -1062,7 +1120,7 @@ header {
             {name: 'startDate', value: startDate},
             {name: 'endDate', value: endDate},
             {name: 'startTime', value: startTime},
-            {name: 'uuid', value: uuid} // uuid 추가
+            {name: 'uuid', value: uuid}
         ];
 
         fields.forEach(field => {
@@ -1099,11 +1157,13 @@ header {
     <%--        }--%>
     <%--    });--%>
     <%--});--%>
+  
 
     flatpickr("#datePickerInput", {
         mode: "range",
         dateFormat: "Y-m-d",
         locale: "ko",
+        minDate: "today",
         onClose: function (selectedDates) {
             if (selectedDates.length === 2) {
                 let startDate = selectedDates[0].toLocaleDateString('ko-KR', {
@@ -1122,7 +1182,6 @@ header {
             }
         }
     });
-
 
 
     function openModal(images) {
@@ -1160,6 +1219,5 @@ header {
     }
 
 </script>
-
 </body>
 </html>

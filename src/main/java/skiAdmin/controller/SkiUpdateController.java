@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import rental.dto.RentalShopDTO;
-import ski.dto.SkiDTO;
+import ski.dto.SkiAdminDTO;
 import skiAdmin.dao.SkiDao;
 
 @WebServlet("/adminSki/update")
@@ -30,7 +30,7 @@ public class SkiUpdateController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int skiId=Integer.parseInt(req.getParameter("ski_id"));
 		
-		SkiDTO skdto=skdao.getSkiId(skiId);
+		SkiAdminDTO skdto=skdao.getSkiId(skiId);
 		
 		req.setAttribute("skdto", skdto);
 		
@@ -56,7 +56,7 @@ public class SkiUpdateController extends HttpServlet{
 		Part subPart3=req.getPart("sksub_img3");
 		
 		//스키장 정보가져오기
-		SkiDTO dto=skdao.getSkiId(skiId);
+		SkiAdminDTO dto=skdao.getSkiId(skiId);
 		
 		String orgMainImg=dto.getSkmain_img();
 		String orgSubImg1=dto.getSksub_img1();
@@ -86,7 +86,7 @@ public class SkiUpdateController extends HttpServlet{
         }	
 
         //DB 작업
-        SkiDTO skidto=new SkiDTO(skiId,uuid,name,phone,location,webcam_url,
+        SkiAdminDTO skidto=new SkiAdminDTO(skiId,uuid,name,phone,location,webcam_url,
         		orgMainImg,orgSubImg1,orgSubImg2,orgSubImg3,description,null);
 		skdao.skiUpdate(skidto);
 		

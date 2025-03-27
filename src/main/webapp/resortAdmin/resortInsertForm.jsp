@@ -8,13 +8,11 @@
 <title>리조트관리자 페이지</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInsertUpdate.css">
+<script src="${pageContext.request.contextPath}/js/adminInsert.js"></script>
 <script>
     var contextPath = "${pageContext.request.contextPath}";
 </script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="${pageContext.request.contextPath}/js/adminInsert.js"></script>
-
-<!-- 카카오(다음) 주소 API 스크립트 추가 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	function execDaumPostcode(){
 		new daum.Postcode({

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import mybatis.service.SqlSessionFactoryService;
 import rental.dto.RentalShopListDTO;
 import rentalAdmin.dao.RentItemDao;
+import ski.dto.SkiAdminDTO;
 import ski.dto.SkiDTO;
 import ski.dto.SkiListDTO;
 
@@ -23,7 +24,7 @@ public class SkiDao {
 	}
 	
 	//스키장 등록
-	public int skiInsert(SkiDTO skdto) {
+	public int skiInsert(SkiAdminDTO skdto) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			int n=sqlSession.insert(NAMESPACE+".skInsert", skdto);
 			sqlSession.commit();
@@ -39,7 +40,7 @@ public class SkiDao {
 	}
 	
 	//스키장 고유아이디로 조회(1건): 스키장 상세정보 
-	public SkiDTO getSkiId(int skiId) {
+	public SkiAdminDTO getSkiId(int skiId) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			return sqlSession.selectOne(NAMESPACE+".getSkiId", skiId);
 		}
@@ -62,7 +63,7 @@ public class SkiDao {
 	}
 	
 	//스키장 수정
-	public int skiUpdate(SkiDTO skdto) {
+	public int skiUpdate(SkiAdminDTO skdto) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			int n=sqlSession.insert(NAMESPACE+".skUpdate", skdto);
 			sqlSession.commit();

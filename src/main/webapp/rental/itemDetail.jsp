@@ -1,12 +1,15 @@
+<%@page import="users.dao.UsersDao"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="dto.RentItemDTO" %>
+<%@ page import="rental.dto.RentItemDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="dao.UsersDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/mainpage.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/reset.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/font.css">
     <title>s</title>
     <style>
         body {
@@ -23,56 +26,55 @@
             box-sizing: border-box;
         }
 
+        header {
+            border-bottom: 1px solid #e9e9e9;
+        }
+
+        .header_logo {
+            font-family: 'GumiRomanceTTF';
+            font-style: italic;
+            color: #5399f5;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 58px;
+        }
+
+        .header_menu,
+        .header_nav {
+            height: 58px;
+        }
+
+        /* header_nav */
+        .header_menu {
+            width: 1230px;
+            /* padding: 0 75px; */
+            margin: 0 auto;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu ul {
+            display: flex;
+            font-weight: 700;
+            gap: 34px;
+        }
+
+        .login ul {
+            display: flex;
+            font-weight: 700;
+            gap: 34px;
+        }
+
+        .header_menu a:hover {
+            color: #5399f5;
+        }
+
         .container {
             max-width: 100%;
             margin: 0 auto;
             padding: 0;
-        }
-
-        .nav {
-            background: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .nav-logo {
-            color: #5399F5;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 2rem;
-            font-style: italic;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-menu a {
-            color: black;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.4rem 1rem;
-            border-radius: 12px;
-            transition: all 0.2s ease-in-out;
-        }
-
-        .nav-menu a:hover {
-            background: rgba(66, 133, 244, 0.08);
-            color: #4285F4;
         }
 
         .body-container {
@@ -422,17 +424,8 @@
 </head>
 <body>
 <div class="container">
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="${pageContext.request.contextPath}/" class="nav-logo">SKI:P</a>
-            <ul class="nav-menu">
-                <li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
-                <li><a href="${pageContext.request.contextPath}/favorite">찜</a></li>
-                <li><a href="${pageContext.request.contextPath}/myPage">마이페이지</a></li>
-                <li><a href="${pageContext.request.contextPath}/market">장바구니</a></li>
-            </ul>
-        </div>
-    </nav>
+    
+<jsp:include page="/header.jsp"/>
 
     <%
         int img_num = (int) request.getAttribute("img_num");
@@ -457,7 +450,7 @@
         }
 
         if (userId != null) {
-            UsersDao usersDao = new UsersDao();
+            UsersDao usersDao = UsersDao.getInstance();
             uuid = usersDao.getUUID(userId);
         }
     %>
@@ -497,14 +490,14 @@
                     <div class="item">
                         <label>장비선택</label><br>
                         <select name="아이템" id="item-select">
-                            <option value="">장비를 선택하세요</option>
+                        <option value="">장비를 선택하세요</option>
                             <jsp:useBean id="list" scope="request" type="java.util.List"/>
                             <c:choose>
                                 <c:when test="${not empty list}">
-                                    <c:forEach var="item" items="${list}" varStatus="status">
+                            <c:forEach var="item" items="${list}" varStatus="status">
                                         <option value="${item.item_id}"
                                                 data-name="${item.item_id}">${(status.index + 1)}</option>
-                                    </c:forEach>
+                            </c:forEach>
                                 </c:when>
                                 <c:otherwise>
                                     <option value="">장비가 없습니다.</option>
@@ -521,12 +514,12 @@
                                 <option value="">시작 시간</option>
                                 <c:forEach begin="9" end="24" varStatus="status">
                                     <option value="${status.index}">${status.index}:00</option>
-                                </c:forEach>
-                            </select>
+                            </c:forEach>
+                        </select>
                             <span style="color: #666;">~</span>
                             <select name="endTime" id="endTime" style="flex: 1;">
                                 <option value="">종료 시간</option>
-                            </select>
+                        </select>
                         </div>
                     </div>
 
@@ -570,7 +563,7 @@
                 <c:when test="${not empty list}">
                     <c:forEach var="item" items="${list}" varStatus="status">
                         <div class="item-card" data-number="${status.index + 1}">
-                            <img src="${item.item_img}" alt="장비 이미지"/>
+                            <img src="<%=request.getContextPath()%>/rentItemImg/${item.item_img}" alt="장비 이미지"/>
                             <div class="heart-container">
                                 <button class="heart-button" data-item-id="${item.item_id}">
                                     <i class="far fa-heart heart-icon"></i>
@@ -590,6 +583,7 @@
 
 </div>
 
+<jsp:include page="/footer.jsp"/>
 <script>
     let totalPrice = 0;
     let selectedItems = new Map();
@@ -617,8 +611,8 @@
             endTimeSelect.innerHTML = '<option value="">종료 시간</option>';
 
             if (startTime) {
-                const maxHours = Math.min(startTime + 8, 22);
-                for (let i = startTime + 2; i <= maxHours; i += 2) {
+                // 시작 시간보다 1시간 후부터 24시까지 선택 가능
+                for (let i = startTime + 1; i <= 24; i++) {
                     const option = document.createElement('option');
                     option.value = i;
                     option.textContent = i + ':00';
@@ -672,7 +666,7 @@
                     return;
                 }
                 const heartIcon = this.querySelector('.heart-icon');
-                const url = '/wish';
+                const url = '/test/wish';
 
                 let isWish = heartIcon.classList.contains('far');
                 heartIcon.classList.toggle('fas', isWish);
@@ -687,7 +681,7 @@
                         isWish: isWish,  // 찜 상태 (true -> 찜 추가, false -> 찜 삭제)
                         uuid: uuid,      // 사용자 uuid
                         ref_id: itemId,  // 아이템 ID
-                        isRentalOrSki: isRentalOrSki  // 카테고리 (렌탈, 스키 등)
+                        category: isRentalOrSki  // 카테고리 (렌탈, 스키 등)
                     })
                 })
                     .then(response => response.json())
@@ -708,7 +702,7 @@
 
         // 페이지 로드 시 서버에서 찜 목록 불러오기
         window.addEventListener('load', () => {
-            fetch('/wish?uuid=' + uuid)
+            fetch('/test/wish?uuid=' + uuid)
                 .then(response => response.json())
                 .then(data => {
                     const wishList = data.wishList || [];
@@ -740,15 +734,22 @@
             return;
         }
 
+        const selectedItemId = itemSelect.value;
         const selectedItem = itemSelect.options[itemSelect.selectedIndex].text;
         const startTime = parseInt(startTimeSelect.value);
         const endTime = parseInt(endTimeSelect.value);
         const hours = endTime - startTime;
         const itemPrice = pricePerHour * hours;
 
+        // 이미 선택된 장비인지 확인
+        if (selectedItems.has(selectedItemId)) {
+            alert('이미 선택된 장비입니다. 다른 장비를 선택해주세요.'); // 중복 선택 경고
+            return; // 중복 선택 시 추가하지 않음
+        }
+
         const itemElement = document.createElement('div');
         itemElement.className = 'item-list-object';
-        itemElement.dataset.itemId = itemSelect.value;
+        itemElement.dataset.itemId = selectedItemId;
 
         const html = '<div class="item-info">' +
             '<span class="item-name">' + selectedItem + '번 장비</span>' +
@@ -775,7 +776,7 @@
         plusBtn.addEventListener('click', () => changeQuantity(itemElement, 1));
         deleteBtn.addEventListener('click', () => deleteOption(deleteBtn));
 
-        selectedItems.set(itemSelect.value, {
+        selectedItems.set(selectedItemId, {
             quantity: 1,
             startTime: startTime,
             endTime: endTime,
@@ -856,6 +857,7 @@
             return;
         }
 
+        // 최소 1개 이상의 장비가 선택되었는지 확인
         if (itemCount === 0) {
             alert('최소 1개 이상의 장비를 선택해주세요.');
             return;

@@ -52,4 +52,8 @@
 		where uuid = #{uuid}
 	</update>
 
+   <select id="getUUID" parameterType="String" resultType="Integer">
+        select uuid from users where user_id = #{user_id}
+    </select>
+
 </mapper>

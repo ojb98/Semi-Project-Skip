@@ -220,37 +220,6 @@ function reservationDetailList(reservId) {
         <div class="table-container">
         <!-- 리스트 상단 우측에 작게 표시되는 검색 컨트롤 영역 -->
         <div class="list-header">
-<<<<<<< HEAD
-        <h3>전체 예약 리스트</h3>
-            <div class="search-filter-container">
-            	
-               
-
-                <!-- 날짜 필터링 추가 -->
-                <div class="date-filter">
-                    <label>이용예정일:</label>
-                    <input type="date" id="reservDateStart">
-                    <span>~</span>
-                    <input type="date" id="reservDateEnd">
-                </div>
-				
-                <div class="date-filter">
-                    <label>예약생성일:</label>
-                    <input type="date" id="createdAtStart">
-                    <span>~</span>
-                    <input type="date" id="createdAtEnd">
-                </div>
-                
-                <select id="filterSelect">
-                    <option value="userName">이름</option>
-                    <option value="userId">아이디</option>
-                    <option value="userEmail">이메일</option>                    
-                </select>
-                
-                <div class="search-box">
-                  <input type="text" id="searchInput" placeholder="검색어 입력" />
-                  <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList()"/>
-=======
             <h3>전체 예약 리스트</h3>
             <div class="search-container">
                 
@@ -292,8 +261,6 @@ function reservationDetailList(reservId) {
                         </button>
                     </div>
                 </div>
-
->>>>>>> afdef81fd1d58d737069fe8da53b74947d3570ed
                 </div>
             </div>
         </div>
@@ -305,12 +272,8 @@ function reservationDetailList(reservId) {
                         <th>아이디</th>
                         <th>이메일</th>
                         <th>전화번호</th>
-<<<<<<< HEAD
-                        <th>이용예정일</th>                         
-=======
                         <th>이용시작일</th>
-                        <th>이용종료일</th>                         
->>>>>>> afdef81fd1d58d737069fe8da53b74947d3570ed
+                        <th>이용종료일</th> 
                         <th>예약생성일</th>
                         <th>예약상태</th>
                         <th>상세보기</th>

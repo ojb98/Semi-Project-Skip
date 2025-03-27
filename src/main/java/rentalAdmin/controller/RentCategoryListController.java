@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import rental.dto.CategoryDTO;
 import rental.dto.RentCategoryDTO;
 import rentalAdmin.dao.RentCategoryDao;
 import users.dto.UsersDto;
@@ -19,7 +20,7 @@ public class RentCategoryListController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<RentCategoryDTO> list=rcdao.categoryList();
+		List<CategoryDTO> list=rcdao.categoryList();
 		System.out.println("카테고리 리스트 출력:"+list);
 		
 		//현재 로그인한 유저정보 넘기기

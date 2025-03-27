@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import ski.dto.SkiAdminDTO;
 import ski.dto.SkiDTO;
 import ski.dto.SkiItemDTO;
 import skiAdmin.dao.SkiDao;
@@ -40,7 +41,7 @@ public class SkiDelController extends HttpServlet {
 	     }
 	     
 	     //스키장 정보를 조회 후, 렌탈샵 이미지 삭제
-	     SkiDTO ski = skdao.getSkiId(skiId);
+	     SkiAdminDTO ski = skdao.getSkiId(skiId);
 	     if(ski !=null) {
 	    	 deleteFile(skiPath, ski.getSkmain_img());
 		     deleteFile(skiPath, ski.getSksub_img1());

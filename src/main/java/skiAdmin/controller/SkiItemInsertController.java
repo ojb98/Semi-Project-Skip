@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import rental.dto.CategoryDTO;
 import rental.dto.RentCategoryDTO;
 import rentalAdmin.dao.RentCategoryDao;
 import ski.dto.SkiItemDTO;
@@ -35,7 +36,7 @@ public class SkiItemInsertController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//카테고리 전체 조회
-		List<RentCategoryDTO> rclist=rcdao.categoryList();
+		List<CategoryDTO> rclist=rcdao.categoryList();
 		req.setAttribute("rclist", rclist);
 				
 		req.getRequestDispatcher("/skiAdmin/skiItemInsertForm.jsp").forward(req, resp);
