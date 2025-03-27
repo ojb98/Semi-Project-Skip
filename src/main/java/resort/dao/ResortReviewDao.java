@@ -151,4 +151,17 @@ public class ResortReviewDao {
 			if(sqlSession!=null) sqlSession.close();
 		}
 	}
+	
+	/* 리조트아이디 값 받아오기 */
+	public ResortReviewDTO getResortIdByReview(int uuid) {
+		SqlSession sqlSession = null;
+		
+		try {
+			sqlSession = sqlSessionFactory.openSession();
+			return sqlSession.selectOne(NAMESPACE + ".getResortIdByReview", uuid);
+			
+		}finally {
+			if(sqlSession!=null) sqlSession.close();
+		}
+	}
 }

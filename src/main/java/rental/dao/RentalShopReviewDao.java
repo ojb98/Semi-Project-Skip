@@ -31,7 +31,6 @@ public class RentalShopReviewDao {
             return sqlSession.selectList(NAMESPACE + ".selectReviewByRentalShopID", rentalShopId);
         }
     }
-   
 
     /* 리뷰 추가 */
 	public int insert(RentalShopReviewDTO dto) {

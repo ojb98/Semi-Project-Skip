@@ -371,6 +371,7 @@
 .title_left .review_rating,
 .title_left .review_number {
 	display: flex;
+	align-items: center;
 }
 
 .title_left .review_rating h3,

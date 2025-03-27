@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 <%@page import="users.dao.UsersDao"%>
->>>>>>> d0835b37303487453d57cd028ddc2417316c8ece
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
