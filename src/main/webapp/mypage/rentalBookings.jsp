@@ -47,7 +47,7 @@
 							<input class="review_btn" type="button" value="취소하기">
 						</div>
 						<div>
-							<input class="review_btn" type="button" value="리뷰하기">
+							<input class="review_btn" type="button" value="리뷰하기" onclick="rentalshopReviewPopup(${dto.payment_id}, ${dto.uuid }, ${dto.rentalshop_id })">
 						</div>
 						<div>
 							<input class="review_btn" type="button" value="문의하기">
@@ -97,5 +97,16 @@
 	
 	function clickNext() {
 		location.href = "${pageContext.request.contextPath}/mypage/bookings/rental?pageNum=${endPage + 1}&year=${year}";
+	}
+	
+	function rentalshopReviewPopup(payment_id, uuid, rentalshop_id) {
+		console.log(payment_id);
+		console.log("렌탈샵 팝업");
+
+		const url = "${pageContext.request.contextPath}/review/rentalshopReviewInsert?payment_id=" + payment_id + "&uuid=" + uuid + "&rentalshop_id=" + rentalshop_id;
+		const name = "reviewPopup";
+		const option = "width=600, height=600, top=100, left=100, location = no";
+		
+		window.open(url, name, option);
 	}
 </script>

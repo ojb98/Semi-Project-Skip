@@ -190,6 +190,7 @@
 	xhr1.open("get", "${pageContext.request.contextPath}/ski/location", false);
 	xhr1.send();
 
+
 	// AJAX로 받아온 예보 JSON 객체를 저장하는 배열
 	const lists = new Array(lats.length);
 

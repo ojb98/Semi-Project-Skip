@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import rental.dto.CategoryDTO;
 import rental.dto.RentCategoryDTO;
 import rental.dto.RentItemDTO;
 import rentalAdmin.dao.RentCategoryDao;
@@ -35,7 +36,7 @@ public class SkiItemUpdateController extends HttpServlet {
 		int itemId=Integer.parseInt(req.getParameter("item_id"));
 		
 		//카테고리 전체 조회
-		List<RentCategoryDTO> rclist=rcdao.categoryList();
+		List<CategoryDTO> rclist=rcdao.categoryList();
 				
 		//장비유형 조회하기
 		SkiItemDTO sidto=sidao.getItemId(itemId);

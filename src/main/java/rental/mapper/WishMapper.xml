@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rental.mapper.WishMapper">
+
+    <select id="checkWish" parameterType="map" resultType="int">
+        select COUNT(*) from wish where uuid = #{uuid} and category = #{category} and ref_id = #{ref_id}
+    </select>
+    
+    <insert id="insertWish" parameterType="rental.dto.WishDTO">
+        insert into wish values (wish_seq.nextval, #{uuid}, #{category}, #{ref_id})
+    </insert>
+
+    <delete id = "deleteWish" parameterType="map">
+        delete from wish where uuid = #{uuid} and category = #{category} and ref_id = #{ref_id}
+    </delete>
+
+    <select id="getWishRefIdList" parameterType="int" resultType="int">
+        select ref_id from wish where uuid = #{uuid}
+    </select>
+
+    <select id="getWishList" parameterType="int" resultType="rental.dto.WishDTO">
+        select category, ref_id from wish where uuid = #{uuid}
+    </select>
+</mapper>

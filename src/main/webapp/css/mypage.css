@@ -426,7 +426,7 @@
     display: flex;
 }
 
-.review_rating {
+.review_content .review_rating {
     width: 20%;
     display: flex;
     justify-content: center;

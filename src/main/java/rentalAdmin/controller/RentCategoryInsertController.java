@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import rental.dto.CategoryDTO;
 import rental.dto.RentCategoryDTO;
 import rentalAdmin.dao.RentCategoryDao;
 import users.dto.UsersDto;
@@ -32,7 +33,7 @@ public class RentCategoryInsertController extends HttpServlet {
 		String itemType=req.getParameter("item_type");
 		int price=Integer.parseInt(req.getParameter("price_per_hour"));
 		
-		RentCategoryDTO rcdto=new RentCategoryDTO(0,itemType,price);
+		CategoryDTO rcdto=new CategoryDTO(0,itemType,price);
 		
 		//DB에서 중복여부체크(item_type과 price_per_hour 같은게 있는지)
         int exists = rcdao.getCategoryExists(rcdto);

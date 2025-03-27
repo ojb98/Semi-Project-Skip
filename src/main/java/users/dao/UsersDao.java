@@ -14,15 +14,15 @@ public class UsersDao {
 	private static UsersDao instance = new UsersDao();
 	private SqlSessionFactory sqlSessionFactory = SqlSessionFactoryService.getSqlSessionFactory();
 	private final String NAMESPACE = "users.mapper.UsersMapper";
-	
+
 	private UsersDao() {
-		
+
 	}
-	
+
 	public static UsersDao getInstance() {
 		return instance;
 	}
-	
+
 	public boolean exists(String user_id) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			if (sqlSession.selectOne(NAMESPACE + ".exists", user_id) == null) {
@@ -31,7 +31,7 @@ public class UsersDao {
 			return true;
 		}
 	}
-	
+
 	public UsersDto selectUser(String user_id, String password) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			HashMap<String, String> map = new HashMap<>();
@@ -40,13 +40,13 @@ public class UsersDao {
 			return sqlSession.selectOne(NAMESPACE + ".selectUser", map);
 		}
 	}
-	
+
 	public List<UsersDto> selectUserByEmail(String email) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			return sqlSession.selectList(NAMESPACE + ".selectUserByEmail", email);
 		}
 	}
-	
+
 	public UsersDto selectUserByEmailAndUser_id(String email, String user_id) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			HashMap<String, String> map = new HashMap<>();
@@ -55,7 +55,7 @@ public class UsersDao {
 			return sqlSession.selectOne(NAMESPACE + ".selectUserByEmailAndUser_id", map);
 		}
 	}
-	
+
 	public int insert(UsersDto user) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			int n = sqlSession.insert(NAMESPACE + ".insert", user);
@@ -63,7 +63,7 @@ public class UsersDao {
 			return n;
 		}
 	}
-	
+
 	public int updatePassword(UsersDto user) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			int n = sqlSession.update(NAMESPACE + ".updatePassword", user);
@@ -71,7 +71,7 @@ public class UsersDao {
 			return n;
 		}
 	}
-	
+
 	public int updateUser(HashMap<String, Object> map) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 			int n = sqlSession.update(NAMESPACE + ".updateUser", map);
@@ -79,7 +79,6 @@ public class UsersDao {
 			return n;
 		}
 	}
-	
 
 	public int deleteUser(int uuid) {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
@@ -88,5 +87,11 @@ public class UsersDao {
 			return n;
 		}
 	}
-	
+
+	public Integer getUUID(String user_id) {
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			return session.selectOne(NAMESPACE + ".getUUID", user_id);
+		}
+	}
+
 }

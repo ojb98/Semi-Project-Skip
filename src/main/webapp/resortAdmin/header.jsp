@@ -35,9 +35,9 @@
         <li><a href="${pageContext.request.contextPath}/adminResort/list">리조트 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/adminFacility/insert">시설 등록</a></li>
         <li><a href="${pageContext.request.contextPath}/adminFacility/list">시설 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/adminResort/reservList">예약 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/resortAdmin/reservationList">예약 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/resortAdmin/testservlet4">문의 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/resortAdmin/testservlet5">리뷰 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortAdminReview">리뷰 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/resortAdmin/testservlet6">통계</a></li>
     </ul>
 </aside> 

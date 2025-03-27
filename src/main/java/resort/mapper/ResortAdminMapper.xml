@@ -61,11 +61,12 @@
   -->
   
   <!-- 모든 리조트 조회 : user_id버전 -->
-  <select id="reList" resultType="resort.dto.ResortListDTO">
+  <select id="reList" parameterType="int" resultType="resort.dto.ResortListDTO">
   	select r.resort_id,u.user_id,r.name,r.resort_type,r.location,
   	r.resort_phone,r.check_time,r.remain_img
     from RESORT r JOIN USERS u 
     on r.uuid=u.uuid
+    where u.uuid=#{uuid}
     order by r.resort_id desc
   </select>
   

@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import rental.dto.RentalShopDTO;
+import ski.dto.SkiAdminDTO;
 import ski.dto.SkiDTO;
 import skiAdmin.dao.SkiDao;
 import users.dto.UsersDto;
@@ -39,7 +40,7 @@ public class SkiInsertController extends HttpServlet{
 		//현재 로그인 유저정보를 얻어와서 uuid 값을 가져온다
 		HttpSession session=req.getSession();
 		UsersDto user=(UsersDto)session.getAttribute("user");
-		int uuid=user.getUuid();
+		int uuid=user.getUuid();		
 		
 		String name=req.getParameter("name");
 		String phone=req.getParameter("ski_phone");
@@ -70,7 +71,7 @@ public class SkiInsertController extends HttpServlet{
 			String subImg3=saveFile(req.getPart("sksub_img3"),path,false);
 							
 							
-			SkiDTO skdto=new SkiDTO(0,uuid,name,phone,location,webcamUrl,mainImg,subImg1,subImg2,subImg3,description,null);
+			SkiAdminDTO skdto=new SkiAdminDTO(0,uuid,name,phone,location,webcamUrl,mainImg,subImg1,subImg2,subImg3,description,null);
 			System.out.println("SKiDTO데이터 :"+ skdto);
 			dao.skiInsert(skdto);
 				        	
