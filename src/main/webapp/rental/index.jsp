@@ -34,6 +34,7 @@
         out.println("User ID not found in cookies.");
     }
 %>
+
 <a href = "<%=request.getContextPath()%>/users/login">로그인테스트으으으으ㅡ</a>
 <br>
 <br>
@@ -50,11 +51,7 @@
 <%-- TODO: ROOM_RESERVATION 테이블 추가 PAYMENTS 추가 RESORT_REVIEWS 추가 후 resortDetail수정--%>
 <a href="<%=request.getContextPath()%>/rental/resort?resort_id=41">resort</a>
 <br>
-<br>
-<a href = "<%=request.getContextPath()%>/wishSelect?uuid=<%=uuid%>">찜목록</a>
-<br>
-<br>
-<a href = "<%=request.getContextPath()%>/cartSelect?uuid=<%=uuid%>">장바구니</a>
+
 
 
 </body>

@@ -1,4 +1,5 @@
 <%@page import="users.dao.UsersDao"%>
+<%@page import="users.dto.UsersDto"%>
 <%@ page import="resort.dto.ResortDTO"%>
 <%@ page import="java.util.List"%>
 <%@ page import="resort.dto.RoomDTO"%>
@@ -227,9 +228,9 @@ header {
 }
 
 .main-image img {
+	position: absolute;
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
 	border-radius: 15px 0 0 15px;
 }
 
@@ -754,6 +755,16 @@ header {
 	calendar.add(Calendar.DATE, 1);
 	String tomorrow = sdf.format(calendar.getTime());
 
+	
+	 HttpSession userSession = request.getSession(false);
+     int uuid = -1;
+     if (session != null && userSession.getAttribute("user") != null) {
+         UsersDto user = (UsersDto) session.getAttribute("user");
+         uuid = user.getUuid();
+     }
+	%>
+	
+	<%--
 	Cookie[] cookies = request.getCookies();
 	String userId = null;
 	int uuid = -1;
@@ -771,7 +782,7 @@ header {
 		UsersDao usersDao = UsersDao.getInstance();
 		uuid = usersDao.getUUID(userId);
 	}
-	%>
+	--%>
 
 	<div id="photoModal" class="modal">
 		<div class="modal-content">
@@ -808,15 +819,15 @@ header {
 					<div class="image-container">
 						<div class="image-grid">
 							<div class="main-image">
-								<img src="${requestScope.resortDTO.remain_img}" alt="mainImage">
+								<img src="${pageContext.request.contextPath }/resortImg/${requestScope.resortDTO.remain_img}" alt="mainImage">
 							</div>
 							<div class="sub-images">
 								<div class="sub-image-top">
-									<img src="${requestScope.resortDTO.resub_img1}" alt="subImage">
-									<img src="${requestScope.resortDTO.resub_img2}" alt="subImage">
+									<img src="${pageContext.request.contextPath }/resortImg/${requestScope.resortDTO.resub_img1}" alt="subImage1">
+									<img src="${pageContext.request.contextPath }/resortImg/${requestScope.resortDTO.resub_img2}" alt="subImage2">
 								</div>
 								<div class="sub-image-bottom">
-									<img src="${requestScope.resortDTO.resub_img3}" alt="subImage">
+									<img src="${pageContext.request.contextPath }/resortImg/${requestScope.resortDTO.resub_img3}" alt="subImage3">
 								</div>
 							</div>
 							<div class="more-photos"
@@ -864,7 +875,7 @@ header {
 									<c:forEach var="item" items="${requestScope.roomList}">
 										<div class="room-item">
 											<div class="room-image">
-												<img src="/test${item.rmain_img}" alt="${item.room_name}">
+												<img src="${pageContext.request.contextPath }/roomImg/${item.rmain_img}" alt="${item.room_name}">
 											</div>
 											<div class="room-info">
 												<div>

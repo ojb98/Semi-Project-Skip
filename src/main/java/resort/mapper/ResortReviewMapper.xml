@@ -10,7 +10,7 @@
     </select>
 
     <select id="selectAvgRatingByResortId" parameterType="int" resultType="float">
-        select avg(rating)
+        select NVL(avg(rating),0)
         from resort_reviews
         where resort_id = #{resort_id}
     </select>

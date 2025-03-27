@@ -1,4 +1,5 @@
 <%@page import="users.dao.UsersDao"%>
+<%@page import="users.dto.UsersDto"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="rental.dto.RentItemDTO" %>
@@ -436,6 +437,19 @@
         final String isRentalOrSki = (String) request.getAttribute("isRentalOrSki");
         System.out.println(isRentalOrSki + "88888888888888");
 
+        
+        
+        HttpSession userSession = request.getSession(false);
+        int uuid = -1;
+        if (session != null && userSession.getAttribute("user") != null) {
+            UsersDto user = (UsersDto) session.getAttribute("user");
+            uuid = user.getUuid();
+        }
+    %>
+
+      
+
+    <%--
         Cookie[] cookies = request.getCookies();
         String userId = null;
         int uuid = -1;
@@ -453,7 +467,7 @@
             UsersDao usersDao = UsersDao.getInstance();
             uuid = usersDao.getUUID(userId);
         }
-    %>
+    --%>
 
     <div class="body-container">
         <div class="main-image">
@@ -563,7 +577,15 @@
                 <c:when test="${not empty list}">
                     <c:forEach var="item" items="${list}" varStatus="status">
                         <div class="item-card" data-number="${status.index + 1}">
-                            <img src="<%=request.getContextPath()%>/rentItemImg/${item.item_img}" alt="장비 이미지"/>
+                        <!-- 스키장/렌탈샵에 따라 장비이미지 보여주기 -->
+                        	<c:choose>
+                        		<c:when test="${isRentalOrSki eq 'RENTAL' }">
+                          			<img src="<%=request.getContextPath()%>/rentItemImg/${item.item_img}" alt="장비 이미지"/>
+                          		</c:when>                         		
+                        		<c:when test="${isRentalOrSki eq 'SKI' }">
+                          			<img src="<%=request.getContextPath()%>/skiItemImg/${item.item_img}" alt="장비 이미지"/>
+                          		</c:when>   
+                          	</c:choose>  
                             <div class="heart-container">
                                 <button class="heart-button" data-item-id="${item.item_id}">
                                     <i class="far fa-heart heart-icon"></i>
@@ -630,7 +652,7 @@
             validateAndSubmit('cart');
         });
 
-        document.querySelector('.purchase-right button').addEventListener('click', function (e) {
+        document.querySelector('.purchase-right button').addEventListener('click', function  추(e) {
             e.preventDefault();
             validateAndSubmit('payment');
         });
