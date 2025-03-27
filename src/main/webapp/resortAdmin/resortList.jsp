@@ -11,8 +11,7 @@
 <body>
 <!-- header -->
 <jsp:include page="/resortAdmin/header.jsp" />
-<!-- aside -->
-<jsp:include page="/resortAdmin/aside.jsp" />
+ide.jsp" />
 
 <!-- 메인 컨텐츠 영역 -->
 <main class="main-content">
@@ -25,7 +24,7 @@
 		<c:forEach var="dto" items="${relist }">
 			<tr>
 				<td>${dto.resort_id }</td>
-				<td>${dto.uuid }</td>
+				<td>${dto.user_id }</td>
 				<td>${dto.name }</td>
 				<td>${dto.resort_type }</td>
 				<td>${dto.location }</td>
@@ -48,10 +47,6 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
-	<div class="center">
-    	<button class="list-btn" onclick="window.location.href='${pageContext.request.contextPath}/resortAdmin/resortAdminMain.jsp'">메인으로 가기</button>
-	</div>
 	
 	<script>
     function goToDetail(resortId) {

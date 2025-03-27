@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInsertUpdate.css">
-
+<script>
+    var contextPath = "${pageContext.request.contextPath}";
+</script>
 <script src="${pageContext.request.contextPath}/js/adminInsert.js"></script>
 
 <!-- 카카오(다음) 주소 API 스크립트 추가 -->
@@ -17,13 +19,50 @@
 	function execDaumPostcode(){
 		new daum.Postcode({
 			oncomplete: function(data){
-				document.getElementById("location").value = data.address;
+				//사용자가 도로명 주소를 선택한 경우
+				if(data.userSelectedType === 'R' && data.roadAddress){
+					document.getElementById("location").value = data.address;	
+				}else{
+					//도로명 주소가 아닐 경우 사용자에게 알림
+					alert("도로명 주소만 선택해 주세요")
+				}
+				
 			}
 		}).open();
 	}
+	
+	// 전화번호 중복검사 AJAX 함수
+	function checkPhoneCheck() {
+	    let phone = document.getElementById("phone").value.trim();
+	    if (phone === "") {
+	        alert("전화번호를 입력해주세요.");
+	        return;
+	    }
+	    let xhr = new XMLHttpRequest();
+	    xhr.open("GET", "${pageContext.request.contextPath}/adminRental/phoneCheck?rental_phone=" + encodeURIComponent(phone), true);
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState === 4 && xhr.status === 200) {
+	            let response = JSON.parse(xhr.responseText);
+	            let resultSpan = document.getElementById("phoneCheckResult");
+	            if (response.isCheck) {
+	                resultSpan.innerHTML = "<span style='color:red;'>이미 사용중인 전화번호입니다.</span>";
+	                isPhoneValid = false;
+	            } else {
+	                resultSpan.innerHTML = "<span style='color:green;'>사용 가능한 전화번호입니다.</span>";
+	                isPhoneValid = true;
+	            }
+	        }
+	    };
+	    xhr.send();
+	}
 </script>
 </head>
-<body>	
+<body>
+<!-- header -->
+<jsp:include page="/rentalAdmin/header.jsp" />
+
+<!-- 메인 컨텐츠 영역 -->
+<main class="main-content">
 <h1>렌탈샵 등록</h1>
 <div class="form-container">
 <form id="insertForm" action="${pageContext.request.contextPath }/adminRental/insert" 
@@ -33,11 +72,16 @@
 	<input type="text" name="name" id="name"><br>
 	
 	<label for="phone">렌탈샵 전화번호</label>
-	<input type="text" name="rental_phone" id="phone" placeholder="070-1111-2222"
+	<div class="button-row">
+		<input type="text" name="rental_phone" id="phone" placeholder="070-1111-2222"
 		maxlength="13" oninput="formatPhoneNumber(this)"><br>
+		<button type="button" onclick="phoneCheck()">중복검사</button>
+	</div>
+	<span id="phoneCheckResult"></span><br>	
 		
-	<label for="location">주소</label>
-	<div class="address-row">
+		
+	<label for="location">도로명 주소</label>
+	<div class="button-row">
 	    <input type="text" name="location" id="location" readonly>
 	    <button type="button" onclick="execDaumPostcode()">주소 검색</button>
 	</div>	
@@ -63,5 +107,7 @@
 </form>
 </div>
 
+
+</main>
 </body>
 </html>

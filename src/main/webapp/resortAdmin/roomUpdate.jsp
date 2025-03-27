@@ -14,8 +14,7 @@
 <body>
 <!-- header -->
 <jsp:include page="/resortAdmin/header.jsp" />
-<!-- aside -->
-<jsp:include page="/resortAdmin/aside.jsp" />
+
 
 
 <!-- 메인 컨텐츠 영역 -->
@@ -69,7 +68,6 @@
 </form>
 </div>
 
-<button class="back-btn" onclick="window.location.href='${pageContext.request.contextPath}/adminResort/detail?resort_id=${dto.resort_id}'">돌아가기</button>
 </main>
 </body>
 </html>

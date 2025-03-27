@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ski.mapper.SkiAdminMapper">
+
+  <!-- 스키장 등록 -->
+  <insert id="skInsert" parameterType="ski.dto.SkiAdminDTO">
+	 insert into SKI(ski_id,uuid,name,ski_phone,location,webcam_url,
+	 skmain_img,sksub_img1,sksub_img2,sksub_img3,description,created_at)
+	 values(SKI_SEQ.NEXTVAL,#{uuid},#{name},#{ski_phone},#{location},#{webcam_url},
+	 #{skmain_img},
+	 #{sksub_img1, jdbcType=VARCHAR},
+	 #{sksub_img2, jdbcType=VARCHAR},
+	 #{sksub_img3, jdbcType=VARCHAR},
+	 #{description},sysdate)
+  </insert>
+    
+  <!-- 스키장 전체조회(여러건) : uuid버전  
+  <select id="skList" resultType="ski.dto.SkiDTO">
+    select ski_id,uuid,name,ski_phone,location,skmain_img
+    from SKI order by ski_id desc
+  </select>
+  -->
+
+  <!-- 렌탈샵 전체조회(여러건) : user_id버전 -->  
+  <select id="skList" resultType="ski.dto.SkiListDTO">
+    select s.ski_id,u.user_id,s.name,s.ski_phone,s.location,s.skmain_img
+    from SKI s JOIN USERS u
+    on s.uuid=u.uuid order by ski_id desc
+  </select>
+  
+  <!-- 렌탈샵 고유아이디로 조회(한건) : user_id 버전 -->
+  <select id="getSkiIdByUserId" parameterType="int" resultType="ski.dto.SkiListDTO">
+  	select s.ski_id,u.user_id,s.name,s.ski_phone,s.location,s.webcam_url,
+  	s.skmain_img,s.sksub_img1,s.sksub_img2,s.sksub_img3,s.description,s.created_at
+  	from SKI s JOIN USERS u
+  	on s.uuid=u.uuid where ski_id=#{skiId}
+  </select>
+  
+  <!-- 스키장 고유아이디로 조회(한건): 스키장 상세정보 -->
+  <select id="getSkiId" parameterType="int" resultType="ski.dto.SkiAdminDTO">
+  	select ski_id,uuid,name,ski_phone,location,webcam_url,skmain_img,
+  	sksub_img1,sksub_img2,sksub_img3,description,created_at
+  	from SKI where ski_id=#{skiId}
+  </select>
+  
+  <!-- 스키장 고유아이디로 삭제 -->
+  <delete id="skDelete" parameterType="int">
+    delete from SKI where ski_id=#{ski_id}
+  </delete>
+  
+  <!-- 스키장 수정 -->
+  <update id="skUpdate" parameterType="ski.dto.SkiAdminDTO">
+    update SKI set
+    name=#{name},ski_phone=#{ski_phone},
+    location=#{location},webcam_url=#{webcam_url},
+    skmain_img=#{skmain_img, jdbcType=VARCHAR},
+  	sksub_img1=#{sksub_img1, jdbcType=VARCHAR},
+  	sksub_img2=#{sksub_img2, jdbcType=VARCHAR},
+  	sksub_img3=#{sksub_img3, jdbcType=VARCHAR},
+  	description=#{description} where ski_id=#{ski_id}
+  </update>
+  
+
+    
+</mapper>

@@ -6,6 +6,7 @@
 	<select id="exists" resultType="users.dto.UsersDto" parameterType="String">
 		select *
 		from users
+		
 		where user_id = #{user_id}
 	</select>
 
@@ -71,5 +72,9 @@
 		select log_date, log_count, unique_log_count
 		from user_log_count
 		where log_date >= trunc(sysdate, 'dd') - interval '30' day
+	</select>
+	
+	<select id="getUUID" parameterType="String" resultType="Integer">
+	     select uuid from users where user_id = #{user_id}
 	</select>
 </mapper>

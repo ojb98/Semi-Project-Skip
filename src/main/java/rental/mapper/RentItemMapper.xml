@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rental.mapper.RentItemMapper">
+    <select id="selectRentItem" parameterType="map"  resultType="rental.dto.RentItemDTO">
+        select * from rent_item where category_id = #{category_id} and rentalshop_id = #{rental}
+    </select>
+
+    <select id="getList"  parameterType="map" resultType="rental.dto.RentItemDTO" >
+        select * from rent_item where category_id = #{category_id} and rentalshop_id = #{rental}
+    </select>
+
+    <select id = "getRentItemByItemId" parameterType="int" resultType="rental.dto.RentCategoryDTO" >
+        select r.item_id, r.category_id, r.rentalshop_id, r.item_name, r.total_quantity, r.item_detail, r.item_img, i.item_type, i.price_per_hour
+        from rent_item r left join item_category i
+        on r.category_id = i.category_id
+        where item_id = #{item_id}
+    </select>
+</mapper>

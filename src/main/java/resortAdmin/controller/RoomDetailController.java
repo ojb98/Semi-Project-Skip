@@ -8,31 +8,48 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import rental.dto.ItemCategoryListDTO;
 import resort.dto.RoomDTO;
 import resortAdmin.dao.RoomDao;
 
 @WebServlet("/adminRoom/detail")
 public class RoomDetailController extends HttpServlet {
-	private static final int PAGE_SIZE = 3; // 페이지당 3개씩 표시
 	private RoomDao rmdao=RoomDao.getInstance();
+	private static final int PAGE_SIZE = 3; // 페이지당 3개씩 표시
+	private static final int BLOCK_SIZE = 3;  //한 블록에 3페이지씩  
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int resortId = Integer.parseInt(req.getParameter("resort_id"));
-        int page = req.getParameter("page") == null ? 1 : Integer.parseInt(req.getParameter("page"));
+        int currentPage = req.getParameter("page") == null ? 1 : Integer.parseInt(req.getParameter("page"));
 
-        //객실 전체 리스트 가져오기
-        List<RoomDTO> allRooms = rmdao.getInfo(resortId);
-
-        //페이징 처리
-        int start = (page - 1) * PAGE_SIZE;
-        int end = Math.min(start + PAGE_SIZE, allRooms.size());
-        List<RoomDTO> pagedRooms = allRooms.subList(start, end);
-
-        req.setAttribute("rmdto", pagedRooms);
-        req.setAttribute("currentPage", page);
-        req.setAttribute("totalPages", (int) Math.ceil((double) allRooms.size() / PAGE_SIZE));
-
+        //전체 행 수 조회
+        int totalRowCount = rmdao.getRoomCount(resortId);
+        
+        //총 페이지 수 계산
+        int totalPages = (int) Math.ceil((double) totalRowCount / PAGE_SIZE);
+        
+        //시작행, 종료행 계산
+        int startRow = (currentPage - 1) * PAGE_SIZE + 1;
+        int endRow = currentPage * PAGE_SIZE;
+        
+        //블록 단위 페이징 계산
+        int startPage = ((currentPage - 1) / BLOCK_SIZE) * BLOCK_SIZE + 1;
+        int endPage = startPage + BLOCK_SIZE - 1;
+        if(endPage > totalPages) {
+            endPage = totalPages;
+        }
+        
+        List<RoomDTO> roomList = rmdao.getRoomList(resortId, startRow, endRow);
+        
+        // JSP에 전달할 속성 설정
+        req.setAttribute("list", roomList);
+        req.setAttribute("currentPage", currentPage);
+        req.setAttribute("totalPages", totalPages);
+        req.setAttribute("startPage", startPage);
+        req.setAttribute("endPage", endPage);
+        req.setAttribute("resortId", resortId);
+        
         req.getRequestDispatcher("/resortAdmin/roomInfo.jsp").forward(req, resp);
 	}
 }

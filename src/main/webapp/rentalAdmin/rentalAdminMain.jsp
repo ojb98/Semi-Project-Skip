@@ -16,7 +16,7 @@
 <!-- 상단 헤더 -->
 <header>
     <div class="header-left">
-        <a href="${pageContext.request.contextPath}/admin/dashboard">
+        <a href="${pageContext.request.contextPath}/rentalAdmin/rentalAdminMain.jsp">
             <h1>SKI:P</h1>
         </a>
     </div>
@@ -31,13 +31,13 @@
     </div>
     <ul>
         <li><a href="${pageContext.request.contextPath}/adminRental/insert">렌탈샵 등록</a></li>
-        <li><a href="${pageContext.request.contextPath}/adminRentCategory/insert">장비카테고리 등록</a></li>
         <li><a href="${pageContext.request.contextPath}/adminRental/list">렌탈샵 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/adminRentCategory/insert">장비카테고리 등록</a></li>
+        <li><a href="${pageContext.request.contextPath}/adminRentCategory/list">장비카테고리 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalReservation">예약 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet4">문의 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet5">리뷰 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet6">통계</a></li>
-
     </ul>
 </aside>
 

@@ -3,33 +3,69 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<settings>
+		<!-- 캐시 활성화 -->
+		<setting name="cacheEnabled" value="true"/>
+	</settings>
+
 	<environments default="development">
-	  <environment id="development">
-	    <transactionManager type="JDBC"/>
-	    <dataSource type="POOLED">
-	      <property name="driver" value="oracle.jdbc.OracleDriver"/>
-	      <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-	      <property name="username" value="c##scott"/>
-	      <property name="password" value="tiger"/>
-	    </dataSource>
-	  </environment>
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver" />
+				<property name="url"
+					value="jdbc:oracle:thin:@localhost:1521:xe" />
+				<property name="username" value="c##scott" />
+				<property name="password" value="tiger" />
+			</dataSource>
+		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="users/mapper/UsersMapper.xml"/>
-		<mapper resource="ski/mapper/SkiReservationMapper.xml"/>
-		<mapper resource="resort/mapper/ResortReservationMapper.xml"/>
-		<mapper resource="rental/mapper/RentalReservationMapper.xml"/>
-		<mapper resource="review/mapper/ReviewsMapper.xml"/>
+		<mapper resource="users/mapper/UsersMapper.xml" />
+		<mapper resource="ski/mapper/SkiReservationMapper.xml" />
+		<mapper resource="review/mapper/ReviewsMapper.xml" />
 		<mapper resource="qna/mapper/QnaMapper.xml"/>
-	    <mapper resource="mybatis/mapper/RootAdminMapper.xml"/>
-	    <mapper resource="mybatis/mapper/SkiAdminMapper.xml" />
-	    <mapper resource="resort/mapper/FacilitiesAdminMapper.xml" />
-	    <mapper resource="resort/mapper/ResortAdminMapper.xml" />
-	    <mapper resource="resort/mapper/RoomAdminMapper.xml" />
-	    <mapper resource="rental/mapper/RentalShopAdminMapper.xml" />
-	    <mapper resource="rental/mapper/RentalShopAdminMapper.xml" />
-	    <mapper resource="rental/mapper/RentItemAdminMapper.xml" />
-	    <mapper resource="rental/mapper/RentCategoryAdminMapper.xml" />
-	    <mapper resource="adminPageMapper/AdminApprovalRequestMapper.xml"/>
+		
+		<mapper resource="adminPageMapper/AdminApprovalRequestMapper.xml" />	
+		<mapper resource="adminPageMapper/RootAdminMapper.xml" />
+		
+		<mapper resource="mybatis/mapper/AdminCustomersMapper.xml" />
+		<mapper resource="mybatis/mapper/AdminDashboardMapper.xml" />
+		<mapper resource="mybatis/mapper/SkiAdminMapper.xml" />
+	
+	    <!-- resort -->
+		<mapper resource="resort/mapper/FacilitiesAdminMapper.xml" />
+		<mapper resource="resort/mapper/ResortAdminMapper.xml" />
+		<mapper resource="resort/mapper/RoomAdminMapper.xml" />
+		<mapper resource="resort/mapper/ResortReservationMapper.xml" />
+		
+		<mapper resource="resort/mapper/ResortMapper.xml"/>
+		<mapper resource="resort/mapper/ResortReviewMapper.xml"/>
+		<mapper resource="resort/mapper/RoomMapper.xml"/>
+		<mapper resource="resort/mapper/FacilityMapper.xml"/>
+		<mapper resource="resort/mapper/ResortFacilityMapper.xml"/>
+	    
+	    <!-- rental -->
+		<mapper resource="rental/mapper/RentalShopAdminMapper.xml" />
+		<mapper resource="rental/mapper/RentItemAdminMapper.xml" />
+		<mapper resource="rental/mapper/RentCategoryAdminMapper.xml" />
+		<mapper resource="rental/mapper/RentalReservationMapper.xml" />
+		
+		<mapper resource="rental/mapper/ItemCategoryMapper.xml" />
+		<mapper resource="rental/mapper/RentItemMapper.xml" />
+		<mapper resource="rental/mapper/RentalShopMapper.xml" />
+		<mapper resource="rental/mapper/RentalShopReviewMapper.xml" />
+		<mapper resource="rental/mapper/CartItemMapper.xml" />
+		<mapper resource="rental/mapper/WishMapper.xml" />
+
+	    <!-- ski -->
+	    <mapper resource="ski/mapper/SkiAdminMapper.xml" />
+	    <mapper resource="ski/mapper/SkiItemAdminMapper.xml" />
+	    
+		<mapper resource="ski/mapper/SkiMapper.xml" />
+		<mapper resource="ski/mapper/SkiItemMapper.xml" />
+		<mapper resource="ski/mapper/SkiReviewMapper.xml" />
+	    <mapper resource="ski/mapper/SkiSalesManageMapper.xml"/>
+
 	</mappers>
 </configuration>

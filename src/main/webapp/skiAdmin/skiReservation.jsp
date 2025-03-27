@@ -16,6 +16,65 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<style type="text/css">
+.reservation-detail-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin: 0 20px 20px 20px;
+    padding: 20px;
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.detail-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.detail-row {
+    display: flex;
+    gap: 20px;
+}
+
+.detail-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-col.full {
+    flex: 2;
+}
+
+.detail-col label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.detail-col span {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}</style>
+
+
 <script type="text/javascript">
 // 기존 함수들...
 
@@ -77,10 +136,8 @@ function reservationDetailList(reservId) {
   function searchList() {
       var keyword = document.getElementById("searchInput").value;
       var filter = document.getElementById("filterSelect").value;
-      var reservDate1Start = document.getElementById("reservDate1Start").value || "";
-      var reservDate1End = document.getElementById("reservDate1End").value || "";
-      var reservDate2Start = document.getElementById("reservDate2Start").value || "";
-      var reservDate2End = document.getElementById("reservDate2End").value || "";
+      var reservDateStart = document.getElementById("reservDateStart").value || "";
+      var reservDateEnd = document.getElementById("reservDateEnd").value || "";
       var createdAtStart = document.getElementById("createdAtStart").value || "";
       var createdAtEnd = document.getElementById("createdAtEnd").value || "";
       var skiID = '<%= session.getAttribute("skiID") %>';
@@ -96,6 +153,7 @@ function reservationDetailList(reservId) {
       };
       // usersList.jsp 파일에 검색어와 필터 값 전달 (백엔드에서 해당 파라미터에 따른 결과 반환 필요)
       xhr.open("GET", contextPath + "/skiAdmin/reservationList?keyword=" + encodeURIComponent(keyword) + "&filter=" + encodeURIComponent(filter) + "&skiID="+encodeURIComponent(skiID) +
+
     		  "&reservDate1Start=" + encodeURIComponent(reservDate1Start) + "&reservDate1End=" + encodeURIComponent(reservDate1End) +
     		  "&reservDate2Start=" + encodeURIComponent(reservDate2Start) + "&reservDate2End=" + encodeURIComponent(reservDate2End) +
     		  "&createdAtStart=" + encodeURIComponent(createdAtStart)+ "&createdAtEnd=" + encodeURIComponent(createdAtEnd), true);
@@ -203,7 +261,6 @@ function reservationDetailList(reservId) {
                         </button>
                     </div>
                 </div>
-
                 </div>
             </div>
         </div>
@@ -216,7 +273,7 @@ function reservationDetailList(reservId) {
                         <th>이메일</th>
                         <th>전화번호</th>
                         <th>이용시작일</th>
-                        <th>이용종료일</th>                         
+                        <th>이용종료일</th> 
                         <th>예약생성일</th>
                         <th>예약상태</th>
                         <th>상세보기</th>
