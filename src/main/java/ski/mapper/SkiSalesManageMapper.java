@@ -11,7 +11,9 @@ public interface SkiSalesManageMapper {
     Integer getTotalSale(Map<String, Object> params);
     Integer getConfirmReserv(Map<String, Object> params);
     Integer getCancleReserv(Map<String, Object> params);
+    Integer totalRecords();
     List<SkiSalesListDto> getSalesListBySkiId(Map<String, Object> params);
     List<Map<String,Object>>getSalesChartData(Map<String, Object> params);
-    List<Map<String,Object>>selectCategorySales();
+    List<Map<String,Object>>selectCategorySales(Map<String, Object> params);
+	int getConfirmedTotalCount(Map<String, Object> params);
 }

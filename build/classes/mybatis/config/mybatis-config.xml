@@ -22,7 +22,6 @@
 		<mapper resource="rental/mapper/RentalReservationMapper.xml"/>
 		<mapper resource="review/mapper/ReviewsMapper.xml"/>
 		<mapper resource="qna/mapper/QnaMapper.xml"/>
-	    
 	    <mapper resource="mybatis/mapper/SkiAdminMapper.xml" />
 	    <mapper resource="adminPageMapper/RootAdminMapper.xml"/>
 	    <mapper resource="resort/mapper/FacilitiesAdminMapper.xml" />
