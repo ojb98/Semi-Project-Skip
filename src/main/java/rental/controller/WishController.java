@@ -22,6 +22,7 @@ public class WishController extends HttpServlet {
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             try {
                 int uuid = Integer.parseInt(req.getParameter("uuid"));
+                System.out.println("찜get uuid :"+uuid);
 
                 List<Integer> wishList = wishDao.getWishRefIdList(uuid);
 
@@ -40,6 +41,7 @@ public class WishController extends HttpServlet {
             try {
                 boolean isWish = Boolean.parseBoolean(req.getParameter("isWish"));
                 int uuid = Integer.parseInt(req.getParameter("uuid"));
+                System.out.println("찜post uuid :"+uuid);
                 int refId = Integer.parseInt(req.getParameter("ref_id"));
                 String category = req.getParameter("category");
 

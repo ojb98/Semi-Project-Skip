@@ -105,6 +105,13 @@ main {
 }
 
 .login_container h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.login_info .input_text,
+.login_info .input_pwd {
   font-size: 18px;
   font-weight: 500;
   margin-top: 20px;
@@ -129,11 +136,13 @@ main {
   box-sizing: border-box;
 }
 
-.login_info .input_text:focus {
+.login_info .input_text:focus,
+.login_info .input_pwd:focus {
   border-color: #5399f5;
 	box-shadow: 0 0 8px rgba(83, 153, 245, 0.6);
 	transition: box-shadow 0.2s ease-in-out;
 }
+
 
 .login_info .input_email {
   position: relative;
@@ -170,6 +179,7 @@ main {
   margin-top: 20px;
     border: 15px;
     width: 100%;
+    padding: 15px;
     height: 44px;
     border-radius: 10px;
     font-weight: 700;
@@ -217,8 +227,9 @@ main {
   position: relative;
 }
 
+
 .account_area ul li a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
   text-underline-position: under;
 }
 

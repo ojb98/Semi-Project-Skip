@@ -34,27 +34,44 @@
         out.println("User ID not found in cookies.");
     }
 %>
+
 <a href = "<%=request.getContextPath()%>/users/login">로그인테스트으으으으ㅡ</a>
+<a href = "<%=request.getContextPath()%>/login">로그인테스트으으으으ㅡ</a>
+
 <br>
 <br>
-<a href = "<%=request.getContextPath()%>/users/logout">로그아아ㅏ앙아아ㅜㅅ</a>
+<a href = "<%=request.getContextPath()%>/logout">로그아아ㅏ앙아아ㅜㅅ</a>
 <br>
 <br>
 <%-- TODO: 스키,렌탈샵 리뷰추가 --%>
-<a href="<%=request.getContextPath()%>/rental/rentalShop?rentalshop_id=42&isRentalOrSki=RENTAL">rental</a>
+
+<a href="<%=request.getContextPath()%>/rental/rentalShop?rentalshop_id=101&isRentalOrSki=RENTAL">rental</a>
 <br>
 <br>
-<a href="<%=request.getContextPath()%>/rental/rentalShop?ski_id=1&isRentalOrSki=SKI">ski</a>
+<a href="<%=request.getContextPath()%>/rental/rentalShop?ski_id=41&isRentalOrSki=SKI">ski</a>
 <br>
 <br>
 <%-- TODO: ROOM_RESERVATION 테이블 추가 PAYMENTS 추가 RESORT_REVIEWS 추가 후 resortDetail수정--%>
-<a href="<%=request.getContextPath()%>/rental/resort?resort_id=41">resort</a>
+<a href="<%=request.getContextPath()%>/rental/resort?resort_id=121">resort</a>
+<br>
+<hr>
+
+
+<a href="<%=request.getContextPath()%>/rental/rentalShop?rentalshop_id=1&isRentalOrSki=RENTAL">rental</a>
+<a href="<%=request.getContextPath()%>/rental/rentalShop?rentalshop_id=2&isRentalOrSki=RENTAL">renta2</a>
+<a href="<%=request.getContextPath()%>/rental/rentalShop?rentalshop_id=3&isRentalOrSki=RENTAL">renta3</a>
 <br>
 <br>
-<a href = "<%=request.getContextPath()%>/wishSelect?uuid=<%=uuid%>">찜목록</a>
+<a href="<%=request.getContextPath()%>/rental/rentalShop?ski_id=1&isRentalOrSki=SKI">ski1</a>
+<a href="<%=request.getContextPath()%>/rental/rentalShop?ski_id=2&isRentalOrSki=SKI">ski2</a>
+<a href="<%=request.getContextPath()%>/rental/rentalShop?ski_id=3&isRentalOrSki=SKI">ski3</a>
 <br>
 <br>
-<a href = "<%=request.getContextPath()%>/cartSelect?uuid=<%=uuid%>">장바구니</a>
+<%-- TODO: ROOM_RESERVATION 테이블 추가 PAYMENTS 추가 RESORT_REVIEWS 추가 후 resortDetail수정--%>
+<a href="<%=request.getContextPath()%>/rental/resort?resort_id=1">resort1</a>
+<a href="<%=request.getContextPath()%>/rental/resort?resort_id=2">resort2</a>
+<a href="<%=request.getContextPath()%>/rental/resort?resort_id=3">resort3</a>
+
 
 
 </body>

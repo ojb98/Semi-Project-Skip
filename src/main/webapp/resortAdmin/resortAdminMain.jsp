@@ -37,7 +37,7 @@
         <li><a href="${pageContext.request.contextPath}/adminFacility/list">시설 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/resortAdmin/resortReservation.jsp">예약 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/resortAdmin/resortQnA.jsp">문의 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortReview.jsp">리뷰 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/resortAdmin/resortAdminReview">리뷰 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/resortAdmin/resortSaleManage.sjp">통계</a></li>
     </ul>
 </aside>

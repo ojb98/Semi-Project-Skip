@@ -1,4 +1,5 @@
 <%@page import="users.dao.UsersDao"%>
+<%@page import="users.dto.UsersDto"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
@@ -121,7 +122,7 @@
 <body>
 	<main>
 		<%-- 사용자 UUID 가져오기 --%>
-		<%
+		<%--
 		Cookie[] cookies = request.getCookies();
 		String userId = null;
 		int uuid = -1;
@@ -139,6 +140,14 @@
 			UsersDao usersDao = UsersDao.getInstance();
 			uuid = usersDao.getUUID(userId);
 		}
+		--%>
+		<%
+        HttpSession userSession = request.getSession(false);
+        int uuid = -1;
+        if (session != null && userSession.getAttribute("user") != null) {
+            UsersDto user = (UsersDto) session.getAttribute("user");
+            uuid = user.getUuid();
+        }
 		%>
 
 		<jsp:include page="/header.jsp" />
@@ -155,8 +164,18 @@
 								class="save_item" data-item-id="${wish.ref_id}"
 								data-category="${wish.category}">
 								<div class="item-box">
-									<div class="main-image">
-										<img src="/test${wish.mainImg}" />
+									<div class="main-image">		
+										<!-- 조건절 추가해서 각각의 이미지 가져오기 -->
+							   			<c:if test="${wish.category eq '스키장'}">
+									        <img src="${pageContext.request.contextPath}/skiItemImg/${wish.mainImg}" alt="Ski Image" />
+									    </c:if>
+									    <c:if test="${wish.category eq '렌탈샵'}">
+									        <img src="${pageContext.request.contextPath}/rentItemImg/${wish.mainImg}" alt="Rent Image" />
+									    </c:if>
+									    <c:if test="${wish.category eq '리조트'}">
+									        <img src="${pageContext.request.contextPath}/roomImg/${wish.mainImg}" alt="Room Image" />
+									    </c:if>
+		
 									</div>
 									<div class="item_text">
 										<h4>${wish.category}</h4>

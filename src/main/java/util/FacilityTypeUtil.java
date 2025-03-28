@@ -8,7 +8,12 @@ public enum FacilityTypeUtil {
     FOOD_AND_BEVERAGE(5, "식음료 시설", "fas fa-utensils"),
     SPA_AND_SAUNA(6, "스파&사우나", "fas fa-spa"),
     ACCOMMODATION(7, "숙박 편의시설", "fas fa-bed"),
-    TRANSPORT_AND_PARKING(8, "교통&주차", "fas fa-parking");
+    TRANSPORT_AND_PARKING(8, "교통&주차", "fas fa-parking"),
+    
+	GENERAL_FACILITY(9, "일반 시설", "fas fa-bed"),
+    SAFETY(10, "안전", "fas fa-parking"),
+	CABIN(11, "객실시설", "fas fa-bed"),
+    popularity(12, "인기", "fas fa-parking");
 
     private final int id;
     private final String name;

@@ -21,11 +21,13 @@ public class CartController extends HttpServlet {
         String rentDate = req.getParameter("rentDate");
         String isRentalOrSki = req.getParameter("isRentalOrSki");
         int uuid = Integer.parseInt(req.getParameter("uuid"));
-
-//        System.out.println(itemsList);
-//        System.out.println(totalPrice);
-//        System.out.println(rentDate);
-//        System.out.println(isRentalOrSki);
+       
+        System.out.println("controller-> cart(장바구니)post방식");
+        System.out.println(itemsList);
+        System.out.println(totalPrice);
+        System.out.println(rentDate);
+        System.out.println(isRentalOrSki);
+        System.out.println(uuid);
         CartItemDao cartItemDao = new CartItemDao();
 
         if (itemsList != null) {
@@ -41,6 +43,8 @@ public class CartController extends HttpServlet {
                 System.out.println(n);
             }
         }
+        
+        resp.sendRedirect(req.getContextPath()+"/cartSelect?uuid=" + uuid);
 
     }
 }

@@ -123,4 +123,6 @@ public class ReviewsDto {
 	public void setReviewReDto(ReviewReDto reviewReDto) {
 		this.reviewReDto = reviewReDto;
 	}
+
+	
 }
