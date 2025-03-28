@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.json.JSONObject;
 
 import adminPageMapper.RootAdminMapper;
 import jakarta.servlet.ServletException;
@@ -38,13 +39,13 @@ public class AdminDashboardController extends HttpServlet {
         	List<PieDto> list = salesDao.getRecentPie();
         	for (PieDto pie: list) {
         		req.setAttribute(pie.getCategory() + "_PIE", pie.getPie());
-        		req.setAttribute(pie.getCategory() + "_PIE", pie.getPie());
-        		req.setAttribute(pie.getCategory() + "_PIE", pie.getPie());
         	}
         	
         	UserLogDao userLogDao = UserLogDao.getInstance();
         	// 한 달 동안의 하루 방문자 수를 받아옴
-        	req.setAttribute("monthlyVisitorCounts", userLogDao.selectMonthlyLogCounts());
+        	JSONObject json = new JSONObject();
+        	json.put("list", userLogDao.selectLogCountsForMonth());
+        	req.setAttribute("visitor_json", json);
         	req.setAttribute("todayVisitorCount", userLogDao.selectLogCount());
         	req.setAttribute("todayPureVisitorCount", userLogDao.selectUniqueLogCount());
         	
