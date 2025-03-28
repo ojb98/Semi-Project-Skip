@@ -10,5 +10,22 @@
     <select id="getList" resultType="arraylist">
         select * from ski
     </select>
-
+    
+    <sql id="nameFilter">
+    	where name like '%' || #{name} || '%'
+    </sql>
+    
+    <select id="getUnionListByName" resultType="ski.dto.SkiUnionDto" parameterType="hashmap">
+    	select 'SKI' category, ski_id ref_id, name, DESCRIPTION, location
+		from ski
+		<include refid="nameFilter"/>
+		union
+		select 'RESORT' category, resort_id ref_id, name, DESCRIPTION, location
+		from resort
+		<include refid="nameFilter"/>
+		union
+		select 'RENTAL' category, rentalshop_id ref_id, name, DESCRIPTION, location
+		from rentalshop
+		<include refid="nameFilter"/>
+    </select>
 </mapper>

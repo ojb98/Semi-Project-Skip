@@ -1,4 +1,5 @@
 <%@page import="users.dao.UsersDao"%>
+<%@page import="users.dto.UsersDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -128,7 +129,7 @@
 	<!-- header -->
 	<jsp:include page="/header.jsp" />
 
-	<%
+	<%--
 	// 모든 쿠키를 가져옴
 	Cookie[] cookies = request.getCookies();
 	String userId = null;
@@ -147,6 +148,16 @@
 		UsersDao usersDao = UsersDao.getInstance();
 		uuid = usersDao.getUUID(userId);
 	}
+	--%>
+	
+	<%
+    HttpSession userSession = request.getSession(false);
+    int uuid = -1;
+    if (session != null && userSession.getAttribute("user") != null) {
+        UsersDto user = (UsersDto) session.getAttribute("user");
+        uuid = user.getUuid();
+    }
+	
 	%>
 
 	<!-- main -->
@@ -162,7 +173,16 @@
 							<div class="cart_item">
 								<input type="checkbox" class="cart_checkbox" name="" id="">
 								<div class="item_img img1">
-									<img src="/test${cart.mainImg}">
+									<!-- 조건절 추가해서 각각의 이미지 가져오기 -->
+							   		<c:if test="${cart.category eq '스키장'}">
+										<img src="${pageContext.request.contextPath}/skiItemImg/${cart.mainImg}" alt="Ski Image" />
+									</c:if>
+									<c:if test="${cart.category eq '렌탈샵'}">
+										<img src="${pageContext.request.contextPath}/rentItemImg/${cart.mainImg}" alt="Rent Image" />
+									</c:if>
+									<c:if test="${cart.category eq '리조트'}">
+										<img src="${pageContext.request.contextPath}/roomImg/${cart.mainImg}" alt="Room Image" />
+									</c:if>
 								</div>
 								<div class="item_info">
 									<span class="item_badge">${cart.category }</span>

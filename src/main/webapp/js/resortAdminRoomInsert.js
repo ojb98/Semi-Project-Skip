@@ -7,7 +7,10 @@ function checkData(event) {
 		{ id: "roomQuantity", message: "객실 수를 입력해주세요.", isNumber: true },
 		{ id: "maxGuests", message: "최대 숙박 인원을 입력해주세요.", isNumber: true },
 		{ id: "price", message: "1박당 가격을 입력해주세요.", isNumber: true },
-		{ id: "mainImg", message: "메인 이미지를 선택해주세요.", isFile: true }
+		{ id: "mainImg", message: "메인 이미지를 선택해주세요.", isFile: true },
+		{ id: "subImg1", message: "이미지 추가1를 선택해주세요.", isFile: true },
+		{ id: "subImg2", message: "이미지 추가2를 선택해주세요.", isFile: true },
+		{ id: "subImg3", message: "이미지 추가3를 선택해주세요.", isFile: true },
 	];
 
 	//유효성 검사

@@ -50,10 +50,10 @@
 								<a href="${pageContext.request.contextPath}/mypage/info">마이페이지</a>
 							</li>
 							<li>
-								<a href="${pageContext.request.contextPath}/wishlist/">찜</a>
+								<a href="${pageContext.request.contextPath}/wishSelect?uuid=${user.uuid}">찜</a>
 							</li>
 							<li>
-								<a href="cart.html">장바구니</a>
+								<a href="${pageContext.request.contextPath}/cartSelect?uuid=${user.uuid}">장바구니</a>
 							</li>
 							
 							

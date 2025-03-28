@@ -105,7 +105,12 @@ main {
 	position: relative;
 }
 
-.menu_btn,
+.main_menu form {
+	display: flex;
+}
+
+.main_menu 
+
 .calendar,
 .personnel_btn,
 .room_btn,
@@ -114,8 +119,8 @@ main {
 }
 
 /* 스키장 어디로 가시나요 버튼 */
-.menu_btn {
-	width: calc(100% - 151px);
+.menu_box {
+	width: calc(100% - 150px);
 	height: 64px;
 	font-size: 16px;
 	margin-right: 5px;
@@ -124,12 +129,21 @@ main {
 	background-color: #f3f6f6;
 	border: none;
 	border-radius: 12px;
+	display: flex;
+	align-items: center;
 }
 
 /* location icon */
-.menu_btn .fa-map-marker {
+.menu_box .fa-map-marker {
 	color: #7cc966;
 	margin-right: 10px;
+}
+
+.search_text {
+	background-color: #f3f6f6;
+	height: 60%;
+	width: 80%;
+	font-size: 16px;
 }
 
 /* 위치 선택 박스 기본 스타일 */
@@ -162,7 +176,12 @@ main {
 	outline: none;
 }
 
-.search_bar .close_btn {
+.close_btn_wrapper {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.close_btn {
 	background: none;
 	border: none;
 	font-size: 20px;

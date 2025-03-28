@@ -2,84 +2,117 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ski.mapper.SkiSalesManageMapper">	
+<mapper namespace="ski.mapper.SkiSalesManageMapper">
+
+    <!-- 결과 매핑 (상품별 매출 기여도) -->
+	<resultMap id="categorySalesMap" type="map">
+	  <result property="category" column="category" />
+	  <result property="total_sales" column="total_sales" />
+	</resultMap>	
+    <!-- (1) 결제/예약 내역 리스트 -->
     <select id="getSalesListBySkiId" resultType="ski.dto.SkiSalesListDto" parameterType="map">
-        SELECT 
-            sp.payment_id,
-            sr.ski_reserv_id,
-            u.user_id,
-            sp.payment_method,
-            sp.total_price,
-            sp.status,
-            sp.created_at
-        FROM
-        	SKI_PAYMENTS sp
-        	LEFT JOIN USERS u ON sp.uuid = u.uuid
-        	LEFT JOIN SKI_RESERVATION sr ON sp.uuid = sr.uuid        	
-        <where>
-		    <if test="skiID != null">
-		        sr.ski_id = #{skiID}
-		    </if>
-		    <if test="atStart != null and atEnd != null">
-		        AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
-		    </if>
-		</where>
-    </select>
+	    SELECT 
+	        sp.payment_id,
+	        u.user_id,
+	        sp.payment_method,
+	        SUM(sp.total_price) AS total_price, 
+	        sp.status,
+	        sp.created_at
+	    FROM
+	        SKI_PAYMENTS sp
+	        LEFT JOIN USERS u ON sp.uuid = u.uuid
+	        LEFT JOIN SKI_RESERVATION sr ON sp.ski_reserv_id = sr.ski_reserv_id
+    <where>
+        <if test="skiID != null">
+            sr.ski_id = #{skiID}
+        </if>
+        <if test="atStart != null and atEnd != null">
+            AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
+        </if>        
+    </where>
+    AND sp.status != '결제취소'
+    GROUP BY sp.payment_id, u.user_id, sp.payment_method, sp.status, sp.created_at
     
+</select>
+    
+    <!-- (2) 총 매출 -->
     <select id="getTotalSale" resultType="int" parameterType="map">
     	SELECT NVL(SUM(sp.total_price),0)
-    	FROM ski_payments sp LEFT JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
+    	FROM ski_payments sp 
+        LEFT JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
     	WHERE sr.ski_id = #{skiID} AND sr.status != '취소'
     	<if test="atStart != null and atEnd != null">
-		        AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
+		    AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
 		</if> 
     </select>
     
-    <select id="selectCategorySales" resultType="map">
-        SELECT 
-            si.category_id AS category,
-            SUM(sri.subtotal_price) AS total_sales
-        FROM ski_reservation_item sri
-        JOIN ski_item si 
-            ON sri.item_id = si.item_id
-        JOIN ski_reservation sr
-            ON sri.ski_reserv_id = sr.ski_reserv_id
-        <!-- 필요 시 상태 필터 -->
-        WHERE sr.status = '예약완료'
-        GROUP BY si.category_id
-        ORDER BY total_sales DESC
-    </select>
+    <!-- (3) 상품(카테고리)별 매출 (매출 기여도) -->
+    <select id="selectCategorySales" resultMap="categorySalesMap" parameterType="map">
+	  SELECT 	
+	    ic.item_type AS category,
+	    SUM(NVL(sri.subtotal_price, 0)) AS total_sales
+	  FROM ski_reservation_item sri
+	  JOIN ski_item si ON sri.item_id = si.item_id
+	  JOIN ski_reservation sr ON sri.ski_reserv_id = sr.ski_reserv_id
+	  JOIN ski_payments sp ON sp.ski_reserv_id = sr.ski_reserv_id
+	  JOIN item_category ic ON si.category_id = ic.category_id
+	  WHERE 1=1
+	    <if test="skiID != null">
+	      AND si.ski_id = #{skiID}
+	    </if>
+	    <if test="atStart != null and atEnd != null">
+	      AND sp.created_at BETWEEN TO_DATE(#{atStart}, 'YYYY-MM-DD') 
+	                            AND TO_DATE(#{atEnd}, 'YYYY-MM-DD') + 1
+	    </if>
+	  GROUP BY ic.item_type
+	  ORDER BY total_sales DESC
+	</select>
     
+    <!-- (4) 예약 완료 건수 -->
     <select id="getConfirmReserv" resultType="int" parameterType="map">
     	SELECT NVL(count(*),0)
-    	FROM ski_payments sp LEFT JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
-    	WHERE 
-    		sr.ski_id = #{skiID} AND
-    		sr.status = '예약완료'    
+    	FROM ski_payments sp 
+        LEFT JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
+    	WHERE sr.ski_id = #{skiID} AND sr.status = '예약완료'    
    		<if test="atStart != null and atEnd != null">
 	        AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
 		</if> 	 	
     </select>
     
+    <!-- (5) 예약 취소 건수 -->
     <select id="getCancleReserv" resultType="int" parameterType="map">
     	SELECT NVL(count(*),0)
-    	FROM ski_payments sp LEFT JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
-    	WHERE 
-    		sr.ski_id = #{skiID} AND
-    		sr.status = '취소' 
+    	FROM ski_payments sp 
+        LEFT JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
+    	WHERE sr.ski_id = #{skiID} AND sr.status = '취소' 
    		<if test="atStart != null and atEnd != null">
 	        AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
 		</if> 
     </select>
     
-    <select id="getSalesChartData" resultType="map">
+    <!-- (6) 날짜별 매출 (꺾은선 그래프용: 결제 건수와 결제 금액) -->
+    <select id="getSalesChartData" resultType="map" parameterType="map">
 	  SELECT 
 	    TO_CHAR(sp.created_at, 'MM/DD') AS salesDate,
 	    COUNT(*) AS count,
 	    SUM(sp.total_price) AS amount
 	  FROM ski_payments sp
-	  WHERE sp.created_at BETWEEN TO_DATE(#{atStart}, 'YYYY-MM-DD') AND TO_DATE(#{atEnd}, 'YYYY-MM-DD')
+	  JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
+	  WHERE sr.ski_id = #{skiID}
+	    AND sp.created_at BETWEEN TO_DATE(#{atStart}, 'YYYY-MM-DD') 
+                                      AND TO_DATE(#{atEnd}, 'YYYY-MM-DD')
 	  GROUP BY TO_CHAR(sp.created_at, 'MM/DD')
 	  ORDER BY salesDate
 	</select>
+	
+	<!-- (7) 테이블 리스트 출력조건 => 결제취소가 아닌 사람만 -->
+	<select id="getConfirmedTotalCount" resultType="int" parameterType="map">
+	  SELECT NVL(count(*), 0)
+	  FROM ski_payments sp
+	  LEFT JOIN ski_reservation sr ON sp.ski_reserv_id = sr.ski_reserv_id
+	  WHERE sr.ski_id = #{skiID} AND sp.status != '결제취소'
+	  <if test="atStart != null and atEnd != null">
+	      AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
+	  </if>
+</select>
 </mapper>

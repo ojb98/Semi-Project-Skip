@@ -35,13 +35,28 @@
     }
 %>
 
+<a href = "<%=request.getContextPath()%>/users/login">로그인테스트으으으으ㅡ</a>
 <a href = "<%=request.getContextPath()%>/login">로그인테스트으으으으ㅡ</a>
+
 <br>
 <br>
 <a href = "<%=request.getContextPath()%>/logout">로그아아ㅏ앙아아ㅜㅅ</a>
 <br>
 <br>
 <%-- TODO: 스키,렌탈샵 리뷰추가 --%>
+
+<a href="<%=request.getContextPath()%>/rental/rentalShop?rentalshop_id=101&isRentalOrSki=RENTAL">rental</a>
+<br>
+<br>
+<a href="<%=request.getContextPath()%>/rental/rentalShop?ski_id=41&isRentalOrSki=SKI">ski</a>
+<br>
+<br>
+<%-- TODO: ROOM_RESERVATION 테이블 추가 PAYMENTS 추가 RESORT_REVIEWS 추가 후 resortDetail수정--%>
+<a href="<%=request.getContextPath()%>/rental/resort?resort_id=121">resort</a>
+<br>
+<hr>
+
+
 <a href="<%=request.getContextPath()%>/rental/rentalShop?rentalshop_id=1&isRentalOrSki=RENTAL">rental</a>
 <a href="<%=request.getContextPath()%>/rental/rentalShop?rentalshop_id=2&isRentalOrSki=RENTAL">renta2</a>
 <a href="<%=request.getContextPath()%>/rental/rentalShop?rentalshop_id=3&isRentalOrSki=RENTAL">renta3</a>
@@ -57,11 +72,7 @@
 <a href="<%=request.getContextPath()%>/rental/resort?resort_id=2">resort2</a>
 <a href="<%=request.getContextPath()%>/rental/resort?resort_id=3">resort3</a>
 
-<br>
-<a href = "<%=request.getContextPath()%>/wishSelect?uuid=<%=uuid%>">찜목록</a>
-<br>
-<br>
-<a href = "<%=request.getContextPath()%>/cartSelect?uuid=<%=uuid%>">장바구니</a>
+
 
 </body>
 </html>

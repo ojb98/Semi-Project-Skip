@@ -36,6 +36,31 @@ function checkData(event) {
         mainImg.focus();
         return false;
     }
+    
+    //추가 이미지 1 필수 선택 여부 확인
+    let subImg1 = document.getElementById("subImg1");
+    if (subImg1.files.length === 0) {
+        alert("추가 이미지1을 선택해주세요.");
+        subImg1.focus();
+        return false;
+    }
+
+    //추가 이미지 2 필수 선택 여부 확인
+    let subImg2 = document.getElementById("subImg2");
+    if (subImg2.files.length === 0) {
+        alert("추가 이미지2를 선택해주세요.");
+        subImg2.focus();
+        return false;
+    }
+
+    //추가 이미지 3 필수 선택 여부 확인
+    let subImg3 = document.getElementById("subImg3");
+    if (subImg3.files.length === 0) {
+        alert("추가 이미지3을 선택해주세요.");
+        subImg3.focus();
+        return false;
+    }
+
 
     // 모든 검사를 통과하면 폼 제출
     document.getElementById("insertForm").submit();

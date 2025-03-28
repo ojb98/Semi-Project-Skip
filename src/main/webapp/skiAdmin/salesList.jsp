@@ -8,7 +8,6 @@
      for (SkiSalesListDto sales : salesList) { %>
 <tr>
     <td><%= sales.getPayment_id() %></td>
-    <td><%= sales.getSki_reserv_id() %></td>
     <td><%= sales.getUser_id() %></td>
     <td><%= sales.getPayment_method() %></td>
     <td><%= sales.getTotal_price() %></td>
@@ -18,6 +17,6 @@
 <%  }
    } else { %>
 <tr>
-    <td colspan="7">매출 내역이 존재하지 않습니다.</td>
+    <td colspan="6">매출 내역이 존재하지 않습니다.</td>
 </tr>
 <% } %>

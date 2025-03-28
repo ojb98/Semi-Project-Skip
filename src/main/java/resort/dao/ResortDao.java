@@ -3,6 +3,8 @@ package resort.dao;
 import resort.dto.ResortDTO;
 import util.SqlSessionFactoryService;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -15,6 +17,4 @@ public class ResortDao {
             return sqlSession.selectOne(NAMESPACE + ".selectResortById", resort_id);
         }
     }
-
-
 }

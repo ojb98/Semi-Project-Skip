@@ -22,48 +22,12 @@
 		</div>
 	</div>
 	<div class="main_menu">
-		<button type="button" class="menu_btn"><i class="fa fa-map-marker"></i>스키장 어디로 가시나요?</button>
-		<button type="button" class="search_btn">리조트 검색</button>
-		<!-- 지역 선택 박스 -->
-		<div class="location_box">
-			<div class="location_inner">
-				<div class="search_bar">
-					<input type="text" placeholder="지역명, 명소명, 호텔명 검색">
-					<button type="button" class="close_btn" id="closeBtn">&times;</button>
-				</div>
-				
-				<div class="location_list">
-					<h3><i class="fa fa-map-marker"></i>주요도시</h3>
-					
-					<h4>강원도</h4>
-					<div class="button_group">
-						<button>평창 휘닉스파크</button>
-						<button>평창 모나용평</button>
-						<button>평창 알펜시아</button>
-						<button>춘천 엘리시안 강촌</button>
-						<button>정선 하이원 리조트</button>
-						<button>홍천 비발디파크</button>
-						<button>원주 오크밸리</button>
-						<button>횡성 웰리힐리파크</button>
-						<button>태백 오투리조트</button>
-					</div>
-					
-					<h4>경기도</h4>
-					<div class="button_group">
-						<button>광주 곤지암 리조트</button>
-						<button>이천 지산 포레스트</button>
-					</div>
-					<h4>전라북도</h4>
-					<div class="button_group">
-						<button>무주 리조트</button>
-					</div>
-					<h4>경상남도</h4>
-					<div class="button_group">
-						<button>양산 에덴밸리 리조트</button>
-					</div>
-				</div>
+		<form action="${pageContext.request.contextPath}/search">
+			<div class="menu_box">
+				<i class="fa fa-map-marker"></i><input class="search_text" type="text" name="keyword" placeholder="스키장 어디로 가시나요?">
 			</div>
-		</div>
+			<input type="submit" class="search_btn" value="검색">
+		</form>
 	</div>
 	
 	<!-- main -->
@@ -140,7 +104,7 @@
 <script>
 	const days = ['일', '월', '화', '수', '목', '금', '토'];
 
-	const select = document.getElementsByTagName("select")[0];
+	const select = document.getElementsByClassName("forecast_select")[0];
 
 	// 상세 예보
 	const forecast_wrapper = document.getElementsByClassName("forecast_wrapper")[0];
