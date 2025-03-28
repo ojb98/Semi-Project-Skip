@@ -56,17 +56,8 @@ public class SkiSaleManageContorller extends HttpServlet {
                 int cancleReserv    = mapper.getCancleReserv(params);
 
                 // 2) 카테고리별 매출
-                List<Map<String, Object>> categorySales = mapper.selectCategorySales(); 
-                // 만약 날짜/스키장ID 필터가 필요하면, XML에도 <if> 문을 추가하고, 여기서도 params를 넘깁니다.
-
-                // JSON 형태로 응답
-                // 예: {
-                //   "summary": { "totalSale": 123, "confirmReserv": 5, "cancleReserv": 2 },
-                //   "categorySales": [
-                //     { "category": "스키장비", "total_sales": 9999 },
-                //     ...
-                //   ]
-                // }
+                List<Map<String, Object>> categorySales = mapper.selectCategorySales(params); 
+                
                 StringBuilder sb = new StringBuilder();
                 sb.append("{");
                 

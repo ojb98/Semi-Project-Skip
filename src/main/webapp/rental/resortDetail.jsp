@@ -831,7 +831,7 @@ header {
 								</div>
 							</div>
 							<div class="more-photos"
-								onclick="openModal('${requestScope.resortDTO.remain_img},${requestScope.resortDTO.resub_img1},${requestScope.resortDTO.resub_img2},${requestScope.resortDTO.resub_img3}')">
+								onclick="openModal('${pageContext.request.contextPath }/resortImg/${requestScope.resortDTO.remain_img},${pageContext.request.contextPath }/resortImg/${requestScope.resortDTO.resub_img1},${pageContext.request.contextPath }/resortImg/${requestScope.resortDTO.resub_img2},${pageContext.request.contextPath }/resortImg/${requestScope.resortDTO.resub_img3}')">
 								<i class="fas fa-images"></i>사진 더보기
 							</div>
 						</div>
@@ -889,7 +889,7 @@ header {
 															</button>
 														</div>
 														<a class="room-detail-link"
-															onclick="openModal('/test${item.rmain_img},/test${item.rsub_img1},/test${item.rsub_img2},/test${item.rsub_img3}')">상세
+															onclick="openModal('${pageContext.request.contextPath }/roomImg/${item.rmain_img},${pageContext.request.contextPath }/roomImg/${item.rsub_img1},${pageContext.request.contextPath }/roomImg/${item.rsub_img2},${pageContext.request.contextPath }/roomImg/${item.rsub_img3}')">상세
 															정보 ></a>
 													</div>
 													<div class="room-time">
@@ -942,28 +942,41 @@ header {
 
 						<div id="review-section" class="tab-content">
 							<div class="review-list">
-								<div class="review_amount">
-									<h3>리뷰 ${requestScope.reviewCount} 건</h3>
-								</div>
-								<c:forEach var="review" items="${requestScope.reviewList}">
-									<div class="review-item">
-										<div class="review-header">
-											<span class="review-user">${review.name}</span> <span
-												class="review-rating"> <i class="fas fa-star"
-												style="color: #FFA500;"></i> <fmt:formatNumber
-													value="${review.rating}" type="number"
-													maxFractionDigits="1" />
-											</span> <span class="review-date">${review.created_at}</span>
+								<div class="review_tab">
+									<div class="review_title">
+										<div class="title_left">
+											<div class="review_rating">
+												<h3>리뷰 평점</h3>
+												<span class="rating"><i class="fa fa-star"></i></span>
+												<div class="rating_number">
+													<span>${avgRating}</span><span>/</span><span>5</span>
+												</div>
+											</div>
+											<div class="review_number">
+												<h3>전체 리뷰 수</h3>
+												<i class="fa fa-commenting"></i>
+												<p>${reviewCount}</p>
+											</div>
 										</div>
-										<div class="review-content">
-											<p>${review.resort_comment}</p>
+										<div class="title_right">
+											<div class="review_filter">
+												<a class="filter_btn active"
+													href="javascript:reviewSort(null,'${resort_id}')"><i
+													class="fa fa-check"></i>최신순</a> <a class="filter_btn"
+													href="javascript:reviewSort('ratingDesc','${resort_id}')"><i
+													class="fa fa-check"></i>평점 높은순</a> <a class="filter_btn"
+													href="javascript:reviewSort('ratingAsc','${resort_id}')"><i
+													class="fa fa-check"></i>평점 낮은순</a>
+											</div>
 										</div>
-										<c:if test="${not empty review.review_img}">
-											<img src="${review.review_img}" alt="Review Image"
-												class="review-image" />
-										</c:if>
 									</div>
-								</c:forEach>
+									<div class="review_contents">
+										<ul class="review_list">
+										</ul>
+									</div>
+									<!-- 페이징 -->
+									<div class="page_btn"></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -988,9 +1001,11 @@ header {
 		</c:otherwise>
 		</c:choose>
 
+		<jsp:include page="/footer.jsp" />
 	</div>
 
-	<jsp:include page="/footer.jsp" />
+
+	<script src="<%=request.getContextPath()%>/script/resort_review.js"></script>
 	<script>
     let startDate = null;
     let endDate = null;

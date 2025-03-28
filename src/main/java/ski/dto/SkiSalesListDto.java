@@ -6,7 +6,6 @@ import java.util.List;
 
 public class SkiSalesListDto {
 	private int payment_id;
-	private int ski_reserv_id;
 	private String user_id;
 	private String payment_method;
 	private int total_price;
@@ -19,7 +18,6 @@ public class SkiSalesListDto {
 			Date created_at) {
 		super();
 		this.payment_id = payments_id;
-		this.ski_reserv_id = ski_reserv_id;
 		this.user_id = user_id;
 		this.payment_method = payment_method;
 		this.total_price = total_price;
@@ -35,13 +33,6 @@ public class SkiSalesListDto {
 		this.payment_id = payment_id;
 	}
 
-	public int getSki_reserv_id() {
-		return ski_reserv_id;
-	}
-
-	public void setSki_reserv_id(int ski_reserv_id) {
-		this.ski_reserv_id = ski_reserv_id;
-	}
 
 	
 	public String getUser_id() {

@@ -115,7 +115,7 @@ main {
 
 /* 스키장 어디로 가시나요 버튼 */
 .menu_btn {
-	width: calc(100% - 150px);
+	width: calc(100% - 151px);
 	height: 64px;
 	font-size: 16px;
 	margin-right: 5px;

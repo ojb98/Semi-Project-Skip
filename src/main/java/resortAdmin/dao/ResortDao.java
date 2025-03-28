@@ -9,6 +9,7 @@ import mybatis.service.SqlSessionFactoryService;
 import resort.dto.FacilityListDTO;
 import resort.dto.ResortDTO;
 import resort.dto.ResortListDTO;
+import resort.dto.ResortReviewDTO;
 
 
 public class ResortDao {
@@ -88,6 +89,4 @@ public class ResortDao {
 			return n;
 		}
 	}
-	
-	
 }

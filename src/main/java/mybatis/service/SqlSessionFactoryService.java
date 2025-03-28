@@ -9,13 +9,14 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class SqlSessionFactoryService {
 	private static SqlSessionFactory sqlSessionFactory;
-	static { 
+
+	static { //스태틱멤버는 스태틱으로 초기화를 해줘야 한다.
 		String resource = "mybatis/config/mybatis-config.xml";
 		try {
 			InputStream inputStream = Resources.getResourceAsStream(resource);
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		}catch(IOException i) {
-			System.out.println(i.getMessage());
+		}catch(IOException ie) {
+			System.out.println(ie.getMessage());
 		}
 	}
 	public static SqlSessionFactory getSqlSessionFactory() {
