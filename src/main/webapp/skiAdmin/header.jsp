@@ -36,7 +36,7 @@
         <li><a href="${pageContext.request.contextPath}/adminRentCategory/list">장비카테고리 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReservation.jsp">예약 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/skiAdmin/skiQnA.jsp">문의 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReview.jsp">리뷰 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/skiAdmin/kiAdminReview">리뷰 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/skiAdmin/skiSaleManager.jsp">통계</a></li>
     </ul>
 </aside>

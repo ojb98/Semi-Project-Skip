@@ -10,13 +10,13 @@
     </select>
 
     <select id="selectAvgRatingByResortId" parameterType="int" resultType="float">
-        select avg(rating)
+        select NVL(round(avg(rating),2),0)
         from resort_reviews
         where resort_id = #{resort_id}
     </select>
 
     <select id="selectReviewByResortId" parameterType="int" resultType="resort.dto.ResortReviewDTO">
-        select u.name, r.rating, r.resort_comment, r.review_img, created_at
+        select u.name, r.rating, r.review_comment, r.review_img, created_at
         from resort_reviews r left join users u
         on r.uuid = u.uuid
         where r.resort_id = #{resort_id}
@@ -40,7 +40,7 @@
   	on r.uuid = u.uuid
   	where resort_id = #{resort_id}
   	order by review_id desc
-  </select>   
+  </select>
   
   <!-- 리조트 별 리뷰 리스트 (정렬 및 페이징) -->
   <select id="reviewArray" parameterType="map" resultType="resort.dto.ResortReviewDTO">

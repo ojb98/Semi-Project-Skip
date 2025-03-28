@@ -10,13 +10,13 @@
     </select>
 
     <select id="selectAvgRatingBySkiId" parameterType="int" resultType="float">
-        select avg(rating)
+        select NVL(round(avg(rating),2),0)
         from ski_reviews
         where ski_id = #{ski_id}
     </select>
 
     <select id="selectReviewBySkiId" parameterType="int" resultType="ski.dto.SkiReviewDTO">
-        select u.name, s.rating, s.comments, s.review_img, s.created_at
+        select u.name, s.rating, s.review_comment, s.review_img, s.created_at
         from ski_reviews s left join users u
         on s.uuid = u.uuid
         where s.ski_id = #{ski_id}
@@ -78,4 +78,10 @@
   <delete id="delete" parameterType="int">
   	delete from ski_reviews where review_id=#{review_id}
   </delete>
+  
+  <!-- 스키장 아이디 값 받아오기 -->
+  <select id="getSkiIdByReview" parameterType="int" resultType="ski.dto.SkiReviewDTO">
+  	select ski_id from ski where uuid = #{uuid}
+  </select>
+  
 </mapper>

@@ -1,4 +1,5 @@
 <%@page import="users.dao.UsersDao"%>
+<%@page import="users.dto.UsersDto"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="rental.dto.RentItemDTO" %>
@@ -436,6 +437,22 @@
         final String isRentalOrSki = (String) request.getAttribute("isRentalOrSki");
         System.out.println(isRentalOrSki + "88888888888888");
 
+       
+        
+        HttpSession userSession = request.getSession(false);
+        int uuid = -1;
+        if (session != null && userSession.getAttribute("user") != null) {
+            UsersDto user = (UsersDto) session.getAttribute("user");
+            uuid = user.getUuid();
+        }
+    %>
+
+      
+
+    <%--
+    	String skiIdParam=(String)request.getParameter("ski_id");
+        int skiId=(skiIdParam != null)? Integer.parseInt(skiIdParam):0;
+    	
         Cookie[] cookies = request.getCookies();
         String userId = null;
         int uuid = -1;
@@ -453,7 +470,7 @@
             UsersDao usersDao = UsersDao.getInstance();
             uuid = usersDao.getUUID(userId);
         }
-    %>
+    --%>
 
     <div class="body-container">
         <div class="main-image">
@@ -563,7 +580,15 @@
                 <c:when test="${not empty list}">
                     <c:forEach var="item" items="${list}" varStatus="status">
                         <div class="item-card" data-number="${status.index + 1}">
-                            <img src="<%=request.getContextPath()%>/rentItemImg/${item.item_img}" alt="장비 이미지"/>
+                        <!-- 스키장/렌탈샵에 따라 장비이미지 보여주기 -->
+                        	<c:choose>
+                        		<c:when test="${isRentalOrSki eq 'RENTAL' }">
+                          			<img src="<%=request.getContextPath()%>/rentItemImg/${item.item_img}" alt="장비 이미지"/>
+                          		</c:when>                         		
+                        		<c:when test="${isRentalOrSki eq 'SKI' }">
+                          			<img src="<%=request.getContextPath()%>/skiItemImg/${item.item_img}" alt="장비 이미지"/>
+                          		</c:when>   
+                          	</c:choose>  
                             <div class="heart-container">
                                 <button class="heart-button" data-item-id="${item.item_id}">
                                     <i class="far fa-heart heart-icon"></i>
@@ -630,9 +655,9 @@
             validateAndSubmit('cart');
         });
 
-        document.querySelector('.purchase-right button').addEventListener('click', function (e) {
+        document.querySelector('.purchase-right button').addEventListener('click', function  추(e) {
             e.preventDefault();
-            validateAndSubmit('payment');
+            validateAndSubmit('reserv');
         });
 
         const selectButton = document.createElement('button');
@@ -864,6 +889,8 @@
         }
 
         let items = [];
+        //let overallStartTime = 24; //최대값 초기화(최소값을 찾기위함)
+        //let overallEndTime = 0;	 //최소값 초기화(최대값을 찾기위함)
         selectedItems.forEach((data, id) => {
             items.push({
                 itemId: parseInt(id),
@@ -873,23 +900,35 @@
                 hours: data.hours,
                 price: data.basePrice * data.quantity,
             });
+            
+			// 전체 예약시간 계산 (여러 아이템 중 가장 빠른 시작, 가장 늦은 종료)
+            //if (data.startTime < overallStartTime) overallStartTime = data.startTime;
+            //if (data.endTime > overallEndTime) overallEndTime = data.endTime;
         });
+        
+        //선택한 날짜와 각 아이템의 시간을 조합하여 예약 시작/종료 datetime 생성
+        //예: "2025-04-15" + " " + "09:00:00"
+        //const reservStart = dateInput.value + " " + overallStartTime.toString().padStart(2, '0') + ":00:00";
+        //const reservEnd = dateInput.value + " " + overallEndTime.toString().padStart(2, '0') + ":00:00";
+
 
         let url = '';
         if (type === 'cart') {
             url = '${pageContext.request.contextPath}/cart';
             alert('장바구니에 추가되었습니다.');
         } else {
-            url = '${pageContext.request.contextPath}/payments';
-            alert('결제 페이지로 이동합니다.');
+            url = '${pageContext.request.contextPath}/reserv';
+            alert('예약페이지로 이동합니다.');
         }
 
+        //const skiId= %{skiId};
         const fields = [
             {name: 'items', value: JSON.stringify(items)},
             {name: 'totalPrice', value: totalPrice},
             {name: 'rentDate', value: dateInput.value},
             {name: 'isRentalOrSki', value: isRentalOrSki},
             {name: 'uuid', value: uuid}
+            //{name: 'skiId', value: skiId}
         ];
 
         createAndSubmitForm(url, fields);

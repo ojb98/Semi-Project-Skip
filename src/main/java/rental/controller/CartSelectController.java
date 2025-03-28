@@ -36,9 +36,8 @@ public class CartSelectController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		int uuid = Integer.parseInt(req.getParameter("uuid"));
-
+		
 		SkiItemDao skiItemDao = new SkiItemDao();
 		RentItemDao rentItemDao = new RentItemDao();
 		RoomDao roomDao = new RoomDao();

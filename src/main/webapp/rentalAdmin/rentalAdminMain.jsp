@@ -36,7 +36,7 @@
         <li><a href="${pageContext.request.contextPath}/adminRentCategory/list">장비카테고리 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalReservation">예약 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet4">문의 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet5">리뷰 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/rentalshopAdmin/rentalshopAdminReview">리뷰 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/rentalAdmin/testservlet6">통계</a></li>
     </ul>
 </aside>

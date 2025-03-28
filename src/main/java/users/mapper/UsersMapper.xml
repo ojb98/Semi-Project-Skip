@@ -46,14 +46,36 @@
 		where uuid = #{uuid}
 	</update>
 	
-	<update id="deleteUser">
+	<update id="deleteUser" parameterType="int">
 		update users
 		set status = 'N'
 		where uuid = #{uuid}
 	</update>
 
-   <select id="getUUID" parameterType="String" resultType="Integer">
-        select uuid from users where user_id = #{user_id}
-    </select>
-
+	<insert id="insertLog" parameterType="String">
+		insert
+		into user_log
+		values(#{ip}, systimestamp)
+	</insert>
+	
+	<select id="selectLogCount" resultType="int">
+		select count(*)
+		from user_log
+	</select>
+	
+	<select id="selectUniqueLogCount" resultType="int">
+		select count(distinct ip)
+		from user_log
+	</select>
+	
+	<select id="selectLogCountsForMonth" resultType="users.dto.UserLogCountDto">
+		select log_date, log_count, unique_log_count
+		from user_log_count
+		where log_date >= trunc(sysdate, 'dd') - interval '30' day
+		order by log_date
+	</select>
+	
+	<select id="getUUID" parameterType="String" resultType="Integer">
+	     select uuid from users where user_id = #{user_id}
+	</select>
 </mapper>

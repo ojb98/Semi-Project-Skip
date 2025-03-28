@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ski.mapper.SkiReservItemMapper">
+	
+	<!-- 스키장 장비 예약 등록 -->
+	<insert id="skiReservItemInsert" parameterType="ski.dto.SkiReservItemDTO">
+		insert into SKI_RESERVATION_ITEM(ski_item_id,ski_reserv_id,item_id,quantity,subtotal_price) 
+		values(SKI_RESERVATION_ITEM_SEQ.NEXTVAL,#{ski_reserv_id},#{item_id},#{quantity},#{subtotal_price})
+	</insert>
+</mapper>
