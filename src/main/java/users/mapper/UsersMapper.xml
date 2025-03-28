@@ -68,10 +68,11 @@
 		from user_log
 	</select>
 	
-	<select id="selectMonthlyLogCounts" resultType="users.dto.UserLogCountDto">
+	<select id="selectLogCountsForMonth" resultType="users.dto.UserLogCountDto">
 		select log_date, log_count, unique_log_count
 		from user_log_count
 		where log_date >= trunc(sysdate, 'dd') - interval '30' day
+		order by log_date
 	</select>
 	
 	<select id="getUUID" parameterType="String" resultType="Integer">

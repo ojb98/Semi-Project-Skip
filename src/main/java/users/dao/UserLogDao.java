@@ -42,9 +42,9 @@ public class UserLogDao {
 		}
 	}
 	
-	public List<UserLogCountDto> selectMonthlyLogCounts() {
+	public List<UserLogCountDto> selectLogCountsForMonth() {
 		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-			return sqlSession.selectList(NAMESPACE + ".selectMonthlyLogCounts");
+			return sqlSession.selectList(NAMESPACE + ".selectLogCountsForMonth");
 		} 
 	}
 }
