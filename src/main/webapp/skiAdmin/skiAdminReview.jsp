@@ -17,11 +17,10 @@
 </head>
 <body>
 	<!-- header -->
-	<jsp:include page="/resortAdmin/header.jsp" />
+	<jsp:include page="/skiAdmin/header.jsp" />
 
 	<!-- 메인 컨텐츠 영역 -->
 	<main class="main-content">
-
 		<div class="review_tab">
 			<div class="review_title">
 				<div class="title_left">
@@ -42,45 +41,45 @@
 					<div class="review_filter">
 						<a
 							class="filter_btn ${empty param.sort or param.sort eq 'latest' ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/resortAdmin/resortAdminReview?sort=latest&pageNum=1"></i>최신순</a>
+							href="${pageContext.request.contextPath}/skiAdmin/skiAdminReview?sort=latest&pageNum=1"></i>최신순</a>
 						<a
 							class="filter_btn ${param.sort eq 'ratingDesc' ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/resortAdmin/resortAdminReview?sort=ratingDesc&pageNum=1"></i>평점
+							href="${pageContext.request.contextPath}/skiAdmin/skiAdminReview?sort=ratingDesc&pageNum=1"></i>평점
 							높은순</a> <a
 							class="filter_btn ${param.sort eq 'ratingAsc' ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/resortAdmin/resortAdminReview?sort=ratingAsc&pageNum=1"></i>평점
+							href="${pageContext.request.contextPath}/skiAdmin/skiAdminReview?sort=ratingAsc&pageNum=1"></i>평점
 							낮은순</a>
 					</div>
 				</div>
 			</div>
 			<div class="review_contents">
 				<ul class="review_list" id="reviewList">
-					<c:forEach var="rrDto" items="${resortReviewList }">
+					<c:forEach var="srDto" items="${skiReviewList }">
 						<li class="review_item">
 							<div class="user_review">
 								<div class="item_content">
 									<div class="rating_box">
 										<div class="star_box">
-											<c:forEach var="i" begin="1" end="${rrDto.rating}">
+											<c:forEach var="i" begin="1" end="${srDto.rating}">
 												<i class="fa fa-star"></i>
 											</c:forEach>
 										</div>
-										<span class="rating_number">${rrDto.rating.intValue()}
+										<span class="rating_number">${srDto.rating.intValue()}
 											점</span>
 									</div>
 									<div class="user_box">
-										<p class="user_id">${rrDto.user_id }</p>
-										<p class="created_at">${rrDto.created_at }</p>
+										<p class="user_id">${srDto.user_id }</p>
+										<p class="created_at">${srDto.created_at }</p>
 										<div class="content">
-											<p>${rrDto.review_comment }</p>
+											<p>${srDto.review_comment }</p>
 										</div>
 									</div>
 								</div>
 								<div class="item_img">
 									<c:choose>
-										<c:when test="${not empty rrDto.review_img }">
+										<c:when test="${not empty srDto.review_img }">
 											<img
-												src="<%=request.getContextPath() %>/reviewImgs/${rrDto.review_img} ">
+												src="<%=request.getContextPath() %>/reviewImgs/${srDto.review_img} ">
 										</c:when>
 										<c:otherwise>
 											<!-- 이미지가 없으면 빈값 -->
@@ -96,7 +95,7 @@
 			<div class="page_btn">
 				<c:if test="${startPage > 10 }">
 					<a class="before_btn"
-						href="${pageContext.request.contextPath }/resortAdmin/resortAdminReview=${startPage-1}&sort=${param.sort}"><i
+						href="${pageContext.request.contextPath }/skiAdmin/skiAdminReview=${startPage-1}&sort=${param.sort}"><i
 						class="fa fa-angle-left">이전</a>
 				</c:if>
 
@@ -104,13 +103,13 @@
 					<c:choose>
 						<c:when test="${i==pageNum }">
 							<a class="active"
-								href="${pageContext.request.contextPath }/resortAdmin/resortAdminReview?pageNum=${i}&sort=${param.sort}">
+								href="${pageContext.request.contextPath }/skiAdmin/skiAdminReview?pageNum=${i}&sort=${param.sort}">
 								<span>${i }</span>
 							</a>
 						</c:when>
 						<c:otherwise>
 							<a
-								href="${pageContext.request.contextPath }/resortAdmin/resortAdminReview?pageNum=${i}&sort=${param.sort}">
+								href="${pageContext.request.contextPath }/skiAdmin/skiAdminReview?pageNum=${i}&sort=${param.sort}">
 								<span>${i }</span>
 							</a>
 						</c:otherwise>
@@ -119,7 +118,7 @@
 
 				<c:if test="${endPage < pageCount }">
 					<a class="after_btn"
-						href="${pageContext.request.contextPath }/resortAdmin/resortAdminReview=${endPage+1}&sort=${param.sort}">다음<i
+						href="${pageContext.request.contextPath }/skiAdmin/skiAdminReview=${endPage+1}&sort=${param.sort}">다음<i
 						class="fa fa-angle-right"></i></a>
 				</c:if>
 			</div>

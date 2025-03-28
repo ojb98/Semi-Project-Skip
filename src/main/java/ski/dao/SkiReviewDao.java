@@ -151,4 +151,16 @@ public class SkiReviewDao {
    			if(sqlSession!=null) sqlSession.close();
    		}
    	}
+   	
+   	/* 스키아이디 값 받아오기 */
+   	public SkiReviewDTO getSkiIdByReview(int uuid) {
+   		SqlSession sqlSession = null;
+   		
+   		try {
+   			sqlSession = sqlSessionFactory.openSession();
+   			return sqlSession.selectOne(NAMESPACE + ".getSkiIdByReview", uuid);
+   		}finally {
+   			if(sqlSession!=null) sqlSession.close();
+   		}
+   	}
 }

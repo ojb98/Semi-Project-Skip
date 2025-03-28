@@ -94,7 +94,7 @@
 	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiItemRegist.jsp">상품등록/관리</a></li>
 	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReservation.jsp">예약 관리</a></li>
 	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiQnA.jsp">문의 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReview.jsp">리뷰 관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiAdminReview">리뷰 관리</a></li>
 	        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiSaleManage.jsp">매출관리/통계</a></li>
         </ul>
     </aside>

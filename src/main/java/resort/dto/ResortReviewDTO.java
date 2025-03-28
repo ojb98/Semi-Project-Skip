@@ -103,6 +103,10 @@ public class ResortReviewDTO {
 		this.user_id = user_id;
 	}
 
-	
-
+	@Override
+	public String toString() {
+		return "ResortReviewDTO [review_id=" + review_id + ", payment_id=" + payment_id + ", uuid=" + uuid
+				+ ", resort_id=" + resort_id + ", rating=" + rating + ", review_comment=" + review_comment
+				+ ", review_img=" + review_img + ", created_at=" + created_at + ", user_id=" + user_id + "]";
+	}
 }

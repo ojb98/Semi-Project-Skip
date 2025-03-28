@@ -17,11 +17,10 @@
 </head>
 <body>
 	<!-- header -->
-	<jsp:include page="/resortAdmin/header.jsp" />
+	<jsp:include page="/rentalAdmin/header.jsp" />
 
 	<!-- 메인 컨텐츠 영역 -->
 	<main class="main-content">
-
 		<div class="review_tab">
 			<div class="review_title">
 				<div class="title_left">
@@ -42,20 +41,20 @@
 					<div class="review_filter">
 						<a
 							class="filter_btn ${empty param.sort or param.sort eq 'latest' ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/resortAdmin/resortAdminReview?sort=latest&pageNum=1"></i>최신순</a>
+							href="${pageContext.request.contextPath}/rentalshopAdmin/rentalshopAdminReview?sort=latest&pageNum=1"></i>최신순</a>
 						<a
 							class="filter_btn ${param.sort eq 'ratingDesc' ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/resortAdmin/resortAdminReview?sort=ratingDesc&pageNum=1"></i>평점
+							href="${pageContext.request.contextPath}/rentalshopAdmin/rentalshopAdminReview?sort=ratingDesc&pageNum=1"></i>평점
 							높은순</a> <a
 							class="filter_btn ${param.sort eq 'ratingAsc' ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/resortAdmin/resortAdminReview?sort=ratingAsc&pageNum=1"></i>평점
+							href="${pageContext.request.contextPath}/rentalshopAdmin/rentalshopAdminReview?sort=ratingAsc&pageNum=1"></i>평점
 							낮은순</a>
 					</div>
 				</div>
 			</div>
 			<div class="review_contents">
 				<ul class="review_list" id="reviewList">
-					<c:forEach var="rrDto" items="${resortReviewList }">
+					<c:forEach var="rrDto" items="${rentalshopReviewList }">
 						<li class="review_item">
 							<div class="user_review">
 								<div class="item_content">
@@ -96,7 +95,7 @@
 			<div class="page_btn">
 				<c:if test="${startPage > 10 }">
 					<a class="before_btn"
-						href="${pageContext.request.contextPath }/resortAdmin/resortAdminReview=${startPage-1}&sort=${param.sort}"><i
+						href="${pageContext.request.contextPath }/rentalshopAdmin/rentalshopAdminReview=${startPage-1}&sort=${param.sort}"><i
 						class="fa fa-angle-left">이전</a>
 				</c:if>
 
@@ -104,13 +103,13 @@
 					<c:choose>
 						<c:when test="${i==pageNum }">
 							<a class="active"
-								href="${pageContext.request.contextPath }/resortAdmin/resortAdminReview?pageNum=${i}&sort=${param.sort}">
+								href="${pageContext.request.contextPath }/rentalshopAdmin/rentalshopAdminReview?pageNum=${i}&sort=${param.sort}">
 								<span>${i }</span>
 							</a>
 						</c:when>
 						<c:otherwise>
 							<a
-								href="${pageContext.request.contextPath }/resortAdmin/resortAdminReview?pageNum=${i}&sort=${param.sort}">
+								href="${pageContext.request.contextPath }/rentalshopAdmin/rentalshopAdminReview?pageNum=${i}&sort=${param.sort}">
 								<span>${i }</span>
 							</a>
 						</c:otherwise>
@@ -119,10 +118,11 @@
 
 				<c:if test="${endPage < pageCount }">
 					<a class="after_btn"
-						href="${pageContext.request.contextPath }/resortAdmin/resortAdminReview=${endPage+1}&sort=${param.sort}">다음<i
+						href="${pageContext.request.contextPath }/rentalshopAdmin/rentalshopAdminReview=${endPage+1}&sort=${param.sort}">다음<i
 						class="fa fa-angle-right"></i></a>
 				</c:if>
 			</div>
+
 		</div>
 	</main>
 </body>

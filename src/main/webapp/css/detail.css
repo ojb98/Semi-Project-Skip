@@ -386,6 +386,7 @@
 
 .title_right .review_filter a {
 	margin-left: 10px;
+	font-weight: 700;
 }
 
 .title_right .review_filter a:hover,
@@ -444,16 +445,11 @@
 }
 
 .rating_box .star_box {
-	width: 80px;
+	width: 100px;
 }
 
 .fa-star {
 	color: #ffc83b;
-}
-
-.rating .fa-star {
-	color: #000;
-	line-height: 20px;
 }
 
 .rating_box .rating_number {
@@ -499,8 +495,8 @@
 	gap: 30px;
 }
 
-.page_btn a:first-child, 
-.page_btn a:last-child {
+.page_btn .before_btn, 
+.page_btn .after_btn {
 	width: 45px;
 }
 
