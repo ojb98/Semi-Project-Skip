@@ -24,16 +24,18 @@
 				<c:forEach var="dto" items="${list}">
 					<div class="search_item">
 						<div>
-							<a href="">${dto.name}</a>
 							<span class="category">
 								<c:choose>
 									<c:when test="${dto.category == 'SKI'}">
+									<a href="${pageContext.request.contextPath }/rental/rentalShop?ski_id=${dto.ref_id }&isRentalOrSki=${dto.category}">${dto.name}</a>
 										스키장
 									</c:when>
 									<c:when test="${dto.category == 'RESORT'}">
+									<a href="${pageContext.request.contextPath }/rental/resort?resort_id=${dto.ref_id }">${dto.name}</a>
 										리조트
 									</c:when>
 									<c:when test="${dto.category == 'RENTAL'}">
+									<a href="${pageContext.request.contextPath }/rental/rentalShop?rentalshop_id=${dto.ref_id }&isRentalOrSki=${dto.category}">${dto.name}</a>
 										렌탈샵
 									</c:when>
 								</c:choose>
