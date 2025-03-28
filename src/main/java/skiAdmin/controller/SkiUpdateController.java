@@ -56,33 +56,16 @@ public class SkiUpdateController extends HttpServlet{
 		
 		//스키장 정보가져오기
 		SkiAdminDTO dto=skdao.getSkiId(skiId);
-		
-		String orgMainImg=dto.getSkmain_img();
-		String orgSubImg1=dto.getSksub_img1();
-		String orgSubImg2=dto.getSksub_img2();
-		String orgSubImg3=dto.getSksub_img3();
+	
 		
 		//이미지 저장 위치 
 		String path=req.getServletContext().getRealPath("/skiImg");
-			
+		
 		//각 파트별로 새로운 파일이 업로드되었는지 확인
-        if (mainPart != null && mainPart.getSubmittedFileName() != null && !mainPart.getSubmittedFileName().isEmpty()) {
-            //기존 파일삭제 후 새로운 파일저장
-            deleteFile(path, orgMainImg);
-            orgMainImg = saveFile(mainPart, path, true);
-        }
-        if (subPart1 != null && subPart1.getSubmittedFileName() != null && !subPart1.getSubmittedFileName().isEmpty()) {
-            deleteFile(path, orgSubImg1);
-            orgSubImg1 = saveFile(subPart1, path, false);
-        }
-        if (subPart2 != null && subPart2.getSubmittedFileName() != null && !subPart2.getSubmittedFileName().isEmpty()) {
-            deleteFile(path, orgSubImg2);
-            orgSubImg2 = saveFile(subPart2, path, false);
-        }
-        if (subPart3 != null && subPart3.getSubmittedFileName() != null && !subPart3.getSubmittedFileName().isEmpty()) {
-            deleteFile(path, orgSubImg3);
-            orgSubImg3 = saveFile(subPart3, path, false);
-        }	
+		String orgMainImg=processFile(mainPart,path,dto.getSkmain_img(),true);
+		String orgSubImg1=processFile(subPart1,path,dto.getSksub_img1(),false);
+		String orgSubImg2=processFile(subPart2,path,dto.getSksub_img2(),false);
+		String orgSubImg3=processFile(subPart3,path,dto.getSksub_img3(),false);
 
         //DB 작업
         SkiAdminDTO skidto=new SkiAdminDTO(skiId,uuid,name,phone,location,webcam_url,
@@ -91,6 +74,19 @@ public class SkiUpdateController extends HttpServlet{
 		
 
 		resp.sendRedirect(req.getContextPath()+"/adminSki/detail?ski_id="+skiId);
+	}
+	
+	//파일처리 메소드(기존파일 삭제 및 새로운 파일 업로드처리)
+	private String processFile(Part part,String path,String existFile,boolean isMain) throws IOException, ServletException {
+		if(part != null && part.getSubmittedFileName() != null && !part.getSubmittedFileName().isEmpty()) {
+			//기존파일 삭제
+			deleteFile(path, existFile);
+			
+			//새로운 파일 저장 후 파일명 반환
+			return saveFile(part, path, isMain);
+		}
+		
+		return existFile;     
 	}
 	
 	//파일업로드처리 메소드

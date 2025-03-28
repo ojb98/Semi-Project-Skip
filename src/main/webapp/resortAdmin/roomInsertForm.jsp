@@ -50,13 +50,13 @@
 	<label for="mainImg">메인이미지</label>
 		<input type="file" name="rmain_img" id="mainImg"><br>
 
-	<label for="subImg1">이미지추가1</label>
+	<label for="subImg1">이미지 추가1</label>
 		<input type="file" name="rsub_img1" id="subImg1"><br>
 	
-	<label for="subImg2">이미지추가2</label>
+	<label for="subImg2">이미지 추가2</label>
 		<input type="file" name="rsub_img2" id="subImg2"><br>
 	
-	<label for="subImg3">이미지추가3</label>
+	<label for="subImg3">이미지 추가3</label>
 		<input type="file" name="rsub_img3" id="subImg3"><br>
 	
 	<label for="description">객실 추가설명</label><br>
