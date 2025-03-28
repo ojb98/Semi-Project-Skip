@@ -22,19 +22,22 @@
 	        SKI_PAYMENTS sp
 	        LEFT JOIN USERS u ON sp.uuid = u.uuid
 	        LEFT JOIN SKI_RESERVATION sr ON sp.ski_reserv_id = sr.ski_reserv_id
-    <where>
-        <if test="skiID != null">
-            sr.ski_id = #{skiID}
-        </if>
-        <if test="atStart != null and atEnd != null">
-            AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
-        </if>        
-    </where>
-    AND sp.status != '결제취소'
-    GROUP BY sp.payment_id, u.user_id, sp.payment_method, sp.status, sp.created_at
-    
-</select>
-    
+	    <where>
+	        <if test="skiID != null">
+	            sr.ski_id = #{skiID}
+	        </if>
+	        <if test="keyword != null and keyword != ''">
+			    AND u.user_id LIKE '%' || #{keyword} || '%'
+			</if>
+	        <if test="atStart != null and atEnd != null">
+	            AND sp.created_at BETWEEN #{atStart} AND #{atEnd}
+	        </if>        
+	    </where>
+	    AND sp.status != '결제취소'
+	    GROUP BY sp.payment_id, u.user_id, sp.payment_method, sp.status, sp.created_at
+	    
+	</select>
+	    
     <!-- (2) 총 매출 -->
     <select id="getTotalSale" resultType="int" parameterType="map">
     	SELECT NVL(SUM(sp.total_price),0)

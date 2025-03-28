@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rental.mapper.RentalSalesManageMapper">
+
+    <!-- 결과 매핑 (상품별 매출 기여도) -->
+	<resultMap id="categorySalesMap" type="map">
+	  <result property="category" column="category" />
+	  <result property="total_sales" column="total_sales" />
+	</resultMap>	
+    <!-- (1) 결제/예약 내역 리스트 -->
+    <select id="getSalesListByRentalId" resultType="rental.dto.RentalSalesListDto" parameterType="map">
+	    SELECT * FROM (
+	        SELECT t.*, ROWNUM rnum FROM (
+	            SELECT 
+	                rp.payment_id,
+	                u.user_id,
+	                rp.payment_method,
+	                SUM(rp.total_price) AS total_price, 
+	                rp.status,
+	                rp.created_at
+	            FROM
+	                rent_payments rp
+	                LEFT JOIN USERS u ON rp.uuid = u.uuid
+	                LEFT JOIN RENTAL_RESERVATION rr ON rp.rent_reserv_id = rr.rent_reserv_id
+	            <where>
+	                1=1
+	                <if test="rentalID != null">
+	                    AND rr.rentalshop_id = #{rentalID}
+	                </if>
+	                <if test="keyword != null and keyword != ''">
+	                    AND u.user_id LIKE '%' || #{keyword} || '%'
+	                </if>
+	                <if test="atStart != null and atEnd != null">
+	                    AND rp.created_at BETWEEN #{atStart} AND #{atEnd}
+	                </if>   
+	                AND rp.status != '결제취소'
+	            </where>
+	            GROUP BY rp.payment_id, u.user_id, rp.payment_method, rp.status, rp.created_at
+	            ORDER BY rp.payment_id desc
+	        ) t
+	        WHERE ROWNUM &lt;= #{endRow}
+	    )
+	    WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	</select>
+	    
+    <!-- (2) 총 매출 -->
+    <select id="getTotalSale" resultType="int" parameterType="map">
+    	SELECT NVL(SUM(rp.total_price),0)
+    	FROM rent_payments rp 
+        LEFT JOIN rental_reservation rr ON rp.rent_reserv_id = rr.rent_reserv_id
+    	WHERE rr.rentalshop_id = #{rentalID} AND rr.status != '취소'
+    	<if test="atStart != null and atEnd != null">
+		    AND rp.created_at BETWEEN #{atStart} AND #{atEnd}
+		</if> 
+    </select>
+    
+    <!-- (3) 상품(카테고리)별 매출 (매출 기여도) -->
+    <select id="selectCategorySales" resultMap="categorySalesMap" parameterType="map">
+	  SELECT 	
+	    ic.item_type AS category,
+	    SUM(NVL(rri.subtotal_price, 0)) AS total_sales
+	  FROM rent_reservation_item rri
+	  JOIN rent_item ri ON rri.item_id = ri.item_id
+	  JOIN rental_reservation rr ON rri.rent_reserv_id = rr.rent_reserv_id
+	  JOIN rent_payments rp ON rp.rent_reserv_id = rr.rent_reserv_id
+	  JOIN item_category ic ON ri.category_id = ic.category_id
+	  WHERE 1=1
+	    <if test="rentalID != null">
+	      AND ri.rentalshop_id = #{rentalID}
+	    </if>
+	    <if test="atStart != null and atEnd != null">
+	      AND rp.created_at BETWEEN TO_DATE(#{atStart}, 'YYYY-MM-DD') 
+	                            AND TO_DATE(#{atEnd}, 'YYYY-MM-DD') + 1
+	    </if>
+	  GROUP BY ic.item_type
+	  ORDER BY total_sales DESC
+	</select>
+    
+    <!-- (4) 예약 완료 건수 -->
+    <select id="getConfirmReserv" resultType="int" parameterType="map">
+    	SELECT NVL(count(*),0)
+    	FROM rent_payments rp 
+        LEFT JOIN rental_reservation rr ON rp.rent_reserv_id = rr.rent_reserv_id
+    	WHERE rr.rentalshop_id = #{rentalID} AND rr.status = '예약완료'    
+   		<if test="atStart != null and atEnd != null">
+	        AND rp.created_at BETWEEN #{atStart} AND #{atEnd}
+		</if> 	 	
+    </select>
+    
+    <!-- (5) 예약 취소 건수 -->
+    <select id="getCancleReserv" resultType="int" parameterType="map">
+    	SELECT NVL(count(*),0)
+    	FROM rent_payments rp 
+        LEFT JOIN rental_reservation rr ON rp.rent_reserv_id = rr.rent_reserv_id
+    	WHERE rr.rentalshop_id = #{rentalID} AND rr.status = '취소' 
+   		<if test="atStart != null and atEnd != null">
+	        AND rp.created_at BETWEEN #{atStart} AND #{atEnd}
+		</if> 
+    </select>
+    
+    <!-- (6) 날짜별 매출 (꺾은선 그래프용: 결제 건수와 결제 금액) -->
+    <select id="getSalesChartData" resultType="map" parameterType="map">
+	  SELECT 
+	    TO_CHAR(rp.created_at, 'MM/DD') AS salesDate,
+	    COUNT(*) AS count,
+	    SUM(rp.total_price) AS amount
+	  FROM rent_payments rp
+	  JOIN rental_reservation rr ON rp.rent_reserv_id = rr.rent_reserv_id
+	  WHERE rr.rentalshop_id = #{rentalID}
+	    AND rp.created_at BETWEEN TO_DATE(#{atStart}, 'YYYY-MM-DD') 
+                                      AND TO_DATE(#{atEnd}, 'YYYY-MM-DD')
+	  GROUP BY TO_CHAR(rp.created_at, 'MM/DD')
+	  ORDER BY salesDate
+	</select>
+	
+	<!-- (7) 테이블 리스트 출력조건 => 결제취소가 아닌 사람만 -->
+	<select id="getConfirmedTotalCount" resultType="int" parameterType="map">
+	  SELECT NVL(count(*), 0)
+	  FROM rent_payments rp
+	  LEFT JOIN rental_reservation rr ON rp.rent_reserv_id = rr.rent_reserv_id
+	  WHERE rr.rentalshop_id = #{rentalID} AND rp.status != '결제취소'
+	  <if test="atStart != null and atEnd != null">
+	      AND rp.created_at BETWEEN #{atStart} AND #{atEnd}
+	  </if>
+</select>
+</mapper>

@@ -1,7 +1,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="adminUtil.FilterMapping"%>
 <%@page import="java.util.Map"%>
-<%@page import="ski.dto.SkiSalesListDto"%>
+<%@page import="resort.dto.ResortSalesListDto"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="adminDto.UsersDTO"%>
 <%@page import="java.util.List"%>
@@ -17,8 +17,8 @@
     String defaultDate1 = defaultDay1.toString(); 
     String defaultDate2 = defaultDay2.toString();
 	
-    // (임시) 세션에 skiID = 1 강제 설정
-    session.setAttribute("skiID", 1);
+    // (임시) 세션에 resortID = 1 강제 설정
+    session.setAttribute("resortID", 1);
 %>
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@
     </script>
     
     <!-- 외부 JavaScript 파일 -->
-    <script src="${pageContext.request.contextPath}/js/skiSaleManage.js"></script>
+    <script src="${pageContext.request.contextPath}/js/resortSaleManage.js"></script>
 </head>
 <body>
     <!-- 상단 헤더 -->
@@ -61,12 +61,12 @@
             <div class="admin-name">관리자님</div>
         </div>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiRegist.jsp">사업장등록신청</a></li>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiItemRegist.jsp">상품등록/관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReservation.jsp">예약 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiQnA.jsp">문의 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReview.jsp">리뷰 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiSaleManage.jsp">매출관리/통계</a></li>
+            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortRegist.jsp">사업장등록신청</a></li>
+            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortItemRegist.jsp">상품등록/관리</a></li>
+            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortReservation.jsp">예약 관리</a></li>
+            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortQnA.jsp">문의 관리</a></li>
+            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortReview.jsp">리뷰 관리</a></li>
+            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortSaleManage.jsp">매출관리/통계</a></li>
         </ul>
     </aside>
     
@@ -152,7 +152,7 @@
 	                </select>
 			    <div class="search-box">
 			        <input type="text" id="searchInputPending" placeholder="검색어 입력" />			       
-			        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList('skiPurchased')"/>
+			        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList('resortPurchased')"/>
 			    </div>
 			</div>
             <table>

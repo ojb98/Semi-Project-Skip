@@ -1,9 +1,9 @@
-<%@page import="ski.dto.SkiSalesListDto"%>
+<%@page import="resort.dto.ResortSalesListDto"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%
-    List<SkiSalesListDto> purchasedList = (List<SkiSalesListDto>) request.getAttribute("salesList");
+    List<ResortSalesListDto> purchasedList = (List<ResortSalesListDto>) request.getAttribute("salesList");
     int currentPage = (Integer) request.getAttribute("currentPage");
     int totalPages = (Integer) request.getAttribute("totalPages");
     String listType = (String) request.getAttribute("listType");
@@ -11,7 +11,7 @@
 %>	
 	<%
 		if(purchasedList != null && !purchasedList.isEmpty()){
-			for(SkiSalesListDto sales : purchasedList){		    
+			for(ResortSalesListDto sales : purchasedList){		    
 	%>
 		<tr>
 			<td><%= sales.getPayment_id() %></td>

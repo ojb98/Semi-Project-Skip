@@ -33,19 +33,41 @@
 
 	// listType: 'pending' 또는 'denied', page: 현재 페이지 번호
 	function loadList(listType, page) {
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			if(xhr.readyState === 4) {
-				if(xhr.status === 200) {
-					document.getElementById("SalesTableBody").innerHTML = xhr.responseText;
-				} else {
-					alert("리스트 로딩 중 오류가 발생했습니다.");
-				}
-			}
-		};
-		var url = contextPath + "/admin/list?type=" + listType + "&page=" + page + "&atStart=" + atStart + "&atEnd=" + atEnd;
-		xhr.open("GET", url, true);
-		xhr.send();
+	    atStart = document.getElementById('searchAtStart').value;
+	    atEnd = document.getElementById('searchAtEnd').value;
+	
+	    var url = contextPath + "/admin/list?type=" + listType + "&page=" + page + "&atStart=" + atStart + "&atEnd=" + atEnd;
+	
+	    var xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function() {
+	        if(xhr.readyState === 4) {
+	            if(xhr.status === 200) {
+	                var temp = document.createElement('div');
+	                temp.innerHTML = xhr.responseText;
+	
+	                // 리스트만 넣기
+	                var rows = temp.querySelectorAll('tr');
+	                var tbodyHTML = '';
+	                var paginationHTML = '';
+	
+	                rows.forEach(row => {
+	                    if (row.querySelector('#SalesPagination')) {
+	                        paginationHTML = row.outerHTML;
+	                    } else {
+	                        tbodyHTML += row.outerHTML;
+	                    }
+	                });
+	
+	                document.getElementById("SalesTableBody").innerHTML = tbodyHTML;
+	                document.getElementById("SalesPagination").innerHTML = paginationHTML ? paginationHTML.match(/<div.*<\/div>/s)[0] : '';
+	
+	            } else {
+	                alert("리스트 로딩 중 오류");
+	            }
+	        }
+	    };
+	    xhr.open("GET", url, true);
+	    xhr.send();
 	}
 	window.searchList = function(listType) {
 			var keyword, filter;
@@ -72,13 +94,13 @@
 		    		  
 		      xhr.send();
 		  }
+
 	window.changePage = function(listType, page) {
 	    // 페이지 전환 시점에 항상 input에서 값 읽어오기
 	    atStart = document.getElementById('searchAtStart').value;
 	    atEnd = document.getElementById('searchAtEnd').value;
 	    loadList(listType, page);
 	}
-
   /*
    * 전체 매출 데이터를 서버에서 가져와 UI(오도미터, 도넛 차트, 결제 내역 테이블)와
    * 전역 변수(window.dailySalesData)를 업데이트하는 함수
@@ -86,7 +108,7 @@
   function fetchSalesDataAndUpdateUI() {
     const start = document.getElementById('searchAtStart').value;
     const end   = document.getElementById('searchAtEnd').value;
-    const url   = `${contextPath}/skiAdmin/salesChartData?atStart=${start}&atEnd=${end}`;
+    const url   = `${contextPath}/rentalAdmin/salesChartData?atStart=${start}&atEnd=${end}`;
 
     fetch(url)
       .then(response => response.json())
@@ -245,44 +267,7 @@
     if (el) { el.innerHTML = value; }
   }
 
-  /**
-   * 결제 내역 테이블 업데이트 함수  
-   * salesList: 결제 내역 객체 배열 (getter 없이 속성명으로 접근)
-   *
-  function updateSalesTable(salesList) {
-    const tbody = document.getElementById('SalesTableBody');
-    tbody.innerHTML = ''; // 초기화
-
-    if (!salesList || salesList.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="7">데이터가 없습니다.</td></tr>';
-      return;
-    }
-	
-	
-    salesList.forEach(item => {
-      const tr = document.createElement('tr');
-      let payment_method = item.payment_method; // 기본값은 원래 값
-
-	  if(item.payment_method === "NAVERPAY") {
-	    payment_method = '네이버페이';
-	  }else if(item.payment_method === "KAKAOPAY"){
-		payment_method = '카카오페이';
-	  }else{
-		payment_method = '카드/현장결제';
-	  }
-      
-      tr.innerHTML = `
-        <td>${item.payment_id}</td>
-        <td>${item.user_id}</td>
-        <td>${payment_method}</td>
-        <td>${item.total_price}원</td>
-        <td>${item.status}</td>
-        <td>${item.created_at}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
-*/
+  
   /**
    * 토글 버튼 활성화 상태 설정  
    * type: 'count' 또는 'amount'
@@ -309,7 +294,12 @@
 
   // 필요시 전역에서 updateChart 함수를 사용할 수 있도록 노출
   window.updateChart = updateChart;
-  window.onload = function(){
-	loadList('skiPurchased',1);
-	};
+  window.onload = function() {
+	    // 초기 검색어, 필터 강제 설정
+	    document.getElementById("searchInputPending").value = "";
+	    document.getElementById("filterSelectPending").value = document.getElementById("filterSelectPending").options[0].value;
+	
+	    // searchList 로 통일
+	    searchList('rentalPurchased');
+	}
 })();

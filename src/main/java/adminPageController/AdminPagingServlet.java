@@ -16,6 +16,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import mybatis.service.SqlSessionFactoryService;
+import rental.dto.RentalSalesListDto;
+import rental.mapper.RentalSalesManageMapper;
+import resort.dto.ResortSalesListDto;
+import resort.mapper.ResortSalesManageMapper;
 import ski.dto.SkiSalesListDto;
 import ski.mapper.SkiSalesManageMapper;
 
@@ -33,6 +37,8 @@ public class AdminPagingServlet extends HttpServlet {
         String atStart = req.getParameter("atStart");
         String atEnd = req.getParameter("atEnd");
         Integer skiID = (Integer) req.getSession().getAttribute("skiID");
+        Integer rentalID = (Integer) req.getSession().getAttribute("rentalID");
+        Integer resortID = (Integer) req.getSession().getAttribute("resortID");
         if (skiID == null) {
             skiID = 1; // 기본값 설정
         }
@@ -54,7 +60,7 @@ public class AdminPagingServlet extends HttpServlet {
                 currentPage = 1;
             }
         }
-        int startRow = (currentPage - 1) * PAGE_SIZE;
+        int startRow = (currentPage - 1) * PAGE_SIZE + 1;
         int endRow = currentPage * PAGE_SIZE; // endRow 계산
         	
         Map<String, Object> params = new HashMap<>();
@@ -64,13 +70,18 @@ public class AdminPagingServlet extends HttpServlet {
         params.put("atStart", atStart);
         params.put("atEnd", atEnd);
         params.put("skiID", skiID);
+        params.put("rentalID", rentalID);
+        params.put("resortID", resortID);
         if (keyword != null && !keyword.trim().isEmpty()) {
-            params.put(filter, keyword); // 변환된 필터 컬럼 적용
+            params.put("keyword", keyword);   // 검색어는 "keyword"라는 키로
+            params.put("filter", filter);       // 필터 컬럼은 "filter"라는 키로
         }
         
         try(SqlSession sqlSession = SqlSessionFactoryService.getSqlSessionFactory().openSession()){
             AdminApprovalRequestMapper adminApprovalRequestMapper = sqlSession.getMapper(AdminApprovalRequestMapper.class);
             SkiSalesManageMapper skiSalesManageMapper = sqlSession.getMapper(SkiSalesManageMapper.class);
+            RentalSalesManageMapper rentalSalesManageMapper = sqlSession.getMapper(RentalSalesManageMapper.class);
+            ResortSalesManageMapper resortSalesManageMapper = sqlSession.getMapper(ResortSalesManageMapper.class);
             if("pending".equals(type)){
                 int totalRecords = adminApprovalRequestMapper.getPendingTotalCount(); // DB에서 status = 'P'인 사용자 수
                 int totalPages = (int)Math.ceil((double) totalRecords / PAGE_SIZE);
@@ -100,6 +111,28 @@ public class AdminPagingServlet extends HttpServlet {
                 req.setAttribute("atEnd", atEnd);
                 req.setAttribute("listType", "skiPurchased");
                 req.getRequestDispatcher("/skiAdmin/purchasedList.jsp").forward(req, resp);
+            } else if("rentalPurchased".equals(type)){
+                int totalRecords = rentalSalesManageMapper.getConfirmedTotalCount(params); // DB에서 status != '취소'인 사용자 수
+                int totalPages = (int)Math.ceil((double) totalRecords / PAGE_SIZE);
+                List<RentalSalesListDto> salesList = rentalSalesManageMapper.getSalesListByRentalId(params);
+                req.setAttribute("salesList", salesList);
+                req.setAttribute("currentPage", currentPage);
+                req.setAttribute("totalPages", totalPages);
+                req.setAttribute("atStart", atStart);
+                req.setAttribute("atEnd", atEnd);
+                req.setAttribute("listType", "rentalPurchased");
+                req.getRequestDispatcher("/rentalAdmin/purchasedList.jsp").forward(req, resp);
+            } else if("resortPurchased".equals(type)){
+                int totalRecords = resortSalesManageMapper.getConfirmedTotalCount(params); // DB에서 status != '취소'인 사용자 수
+                int totalPages = (int)Math.ceil((double) totalRecords / PAGE_SIZE);
+                List<ResortSalesListDto> salesList = resortSalesManageMapper.getSalesListByResortId(params);
+                req.setAttribute("salesList", salesList);
+                req.setAttribute("currentPage", currentPage);
+                req.setAttribute("totalPages", totalPages);
+                req.setAttribute("atStart", atStart);
+                req.setAttribute("atEnd", atEnd);
+                req.setAttribute("listType", "resortPurchased");
+                req.getRequestDispatcher("/resortAdmin/purchasedList.jsp").forward(req, resp);
             }
         }
     }
