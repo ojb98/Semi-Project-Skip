@@ -604,25 +604,26 @@ tr {
 	display: flex;
     flex-direction: row;
 	justify-content: space-evenly;
+    padding-top: 100px;
 }
 
-.sales-section {
+.sales-section, .user-section, .popular-section {
     display: flex;
     flex-direction: column;
 	width: 30%;
 }
 
-.user-section {
-    display: flex;
-    flex-direction: column;
-	width: 30%;
+.section-item {
+    width: 100%;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 0px;
+    border-radius: 10px;
+    margin-bottom: 30px;
 }
 
-.popular-section {
-    display: flex;
-    flex-direction: column;
-	width: 30%;
-}	
+.sales-section .section-item {
+    height: 160px;
+}
 
 .pagination {
 	display: flex;

@@ -107,26 +107,59 @@
     </div> -->
 
 	<section class="sales-section">
-		<div>일매출: ${daily.TODAY}</div>
+		<div class="section-item">일매출: ${daily.TODAY}</div>
 		
-		<div>주매출: ${weekly.THISWEEK}</div>
+		<div class="section-item">주매출: ${weekly.THISWEEK}</div>
 		
-		<div>월매출: ${monthly.THISMONTH}</div>
+		<div class="section-item">월매출: ${monthly.THISMONTH}</div>
 		
-		<div>연매출: ${yearly.THISYEAR}</div>
+		<div class="section-item">연매출: ${yearly.THISYEAR}</div>
 	</section>
 	
 	<section class="user-section">
-        <div>방문자 수:${todayVisitorCount} 그래프 with 순 방문자 수:${todayPureVisitorCount}, 전체 이용자 수${totalUsers}, 현재 접속자 수${currentUsers}</div>
+        <div class="section-item">방문자 수:${todayVisitorCount} 그래프 with 순 방문자 수:${todayPureVisitorCount}, 전체 이용자 수${totalUsers}, 현재 접속자 수${currentUsers}</div>
         
-        <div>승인 대기 리스트</div>
+        <div class="section-item">승인 대기 리스트</div>
         
-        <div>최근 가입자 리스트</div>
+        <div class="section-item">
+            <h3>최근 신규 가입자</h3>
+            <table >
+                <thead>
+                    <tr>
+                        <th>아이디</th>
+                        <th>이름</th>
+                        <th>역할</th>
+                        <th>가입일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        List<UsersDTO> newUsers = (List<UsersDTO>) request.getAttribute("newUserList");
+                        if(newUsers != null) {
+                            int count = 0;
+                            for(UsersDTO user : newUsers) {
+                                if(count++ >= 9) break;
+                    %>
+                    <tr>
+                        <td><%= user.getUser_id() %></td>
+                        <td><%= user.getName() %></td>
+                        <td><%= user.getRole() %>   
+						<td><%= sdf.format(user.getRegdate()) %></td>
+                    </tr>
+                    <%
+                            }
+                        }
+                    %>
+                </tbody>
+            </table>
+        </div>
 	</section>
 	
 	<section class="popular-section">
-		<div>최근 스키${SKI_PIE} 렌탈${RENTAL_PIE} 리조트${RESORT_PIE} 중 매출 파이</div>
-		<canvas id="pie"></canvas>
+		<div class="section-item">
+            최근 스키${SKI_PIE} 렌탈${RENTAL_PIE} 리조트${RESORT_PIE} 중 매출 파이
+            <canvas id="pie"></canvas>
+        </div>
 	</section>
 </main>
 
@@ -157,10 +190,10 @@
 
     let roleCtx = document.getElementById("pie").getContext("2d");
     new Chart(roleCtx, {
-        type: "doughnut",
+        type: "pie",
         data: roleData,
         options: {
-            responsive: true,
+            responsive: false,
             maintainAspectRatio: false,
             plugins: {
                 legend: {
