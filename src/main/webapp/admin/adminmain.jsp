@@ -126,67 +126,27 @@
 	
 	<section class="popular-section">
 		<div>최근 스키${SKI_PIE} 렌탈${RENTAL_PIE} 리조트${RESORT_PIE} 중 매출 파이</div>
-		
-		<div>최근 인기 있는 시설</div>
+		<canvas id="pie"></canvas>
 	</section>
 </main>
 
 <!-- (예시) 차트 스크립트 -->
 <script>
-    // 매출 차트
-    let revenueData = {
-        labels: ["09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00", "23:00", "1:00", "3:00"],
-        datasets: [
-            {
-                label: "총매출 (₩)",
-                data: [120000, 150000, 180000, 410000, 750000, 1000000, 1500000],
-                backgroundColor: "rgba(0, 123, 255, 0.5)",
-                borderColor: "#007bff",
-                borderWidth: 2
-            },
-            {
-                label: "입장권 매출 (₩)",
-                data: [40000, 80000, 120000, 200000, 400000, 800000, 880000],
-                backgroundColor: "rgba(255, 0, 0, 0.5)",
-                borderColor: "#252525",
-                borderWidth: 2
-            }
-        ]
-    };
-
-    let revenueCtx = document.getElementById("revenueChart").getContext("2d");
-    new Chart(revenueCtx, {
-        type: "line",
-        data: revenueData,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    // 회원 역할 분포 차트
+    // 매출 파이 차트
     let roleData = {
-        labels: ["일반 사용자", "스키장 운영자", "렌탈샵 운영자", "리조트 운영자"],
+        labels: ["스키장", "렌탈샵", "리조트"],
         datasets: [{
             data: [
-                <%= request.getAttribute("userCount") %>,
-                <%= request.getAttribute("skiOwners") %>,
-                <%= request.getAttribute("rentalOwners") %>,
-                <%= request.getAttribute("resortOwners") %>
+                <%= request.getAttribute("SKI_PIE") %>,
+                <%= request.getAttribute("RENTAL_PIE") %>,
+                <%= request.getAttribute("RESORT_PIE") %>
             ],
             backgroundColor: [
-                "rgba(255, 99, 132, 0.5)",
                 "rgba(54, 162, 235, 0.5)",
                 "rgba(255, 206, 86, 0.5)",
                 "rgba(75, 192, 192, 0.5)"
             ],
             borderColor: [
-                "rgba(255, 99, 132, 1)",
                 "rgba(54, 162, 235, 1)",
                 "rgba(255, 206, 86, 1)",
                 "rgba(75, 192, 192, 1)"
@@ -195,7 +155,7 @@
         }]
     };
 
-    let roleCtx = document.getElementById("roleChart").getContext("2d");
+    let roleCtx = document.getElementById("pie").getContext("2d");
     new Chart(roleCtx, {
         type: "doughnut",
         data: roleData,
