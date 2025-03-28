@@ -1,7 +1,10 @@
 package ski.dao;
 
 import ski.dto.SkiDTO;
+import ski.dto.SkiUnionDto;
 import util.SqlSessionFactoryService;
+
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -15,7 +18,10 @@ public class SkiDao {
             return sqlSession.selectOne(NAMESPACE + ".getInfo", ski_id);
         }
     }
-
-
-
+    
+    public List<SkiUnionDto> getUnionListByName(String name) {
+    	try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            return sqlSession.selectList(NAMESPACE + ".getUnionListByName", name);
+        }
+    }
 }

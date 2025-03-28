@@ -599,6 +599,31 @@ tr {
     color: #333;
     font-weight: 500;
 }
+
+.adminmain {
+	display: flex;
+    flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.sales-section {
+    display: flex;
+    flex-direction: column;
+	width: 30%;
+}
+
+.user-section {
+    display: flex;
+    flex-direction: column;
+	width: 30%;
+}
+
+.popular-section {
+    display: flex;
+    flex-direction: column;
+	width: 30%;
+}	
+
 .pagination {
 	display: flex;
 	justify-content: center;
