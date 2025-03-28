@@ -313,21 +313,6 @@
 	color: #ccc;
 }
 
-.rating,
-.personnel {
-	font-size: 12px;
-}
-
-.rating {
-	display: inline-block;
-	border-radius: 7px;
-	width: 40px;
-	height: 20px;
-	line-height: 20px;
-	text-align: center;
-	background-color: #ffc83b;
-}
-
 .card_price {
 	text-align: right;
 	margin-top: 10px;
