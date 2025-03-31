@@ -36,6 +36,12 @@ public class SalesChartDataController extends HttpServlet {
 
         // 매퍼에 넘길 파라미터 설정
         Map<String, Object> params = new HashMap<>();
+        int currentPage = 1; // 혹은 원하는 페이지
+        int PAGE_SIZE = 10;
+        int startRow = (currentPage - 1) * PAGE_SIZE + 1;
+        int endRow = currentPage * PAGE_SIZE;
+        params.put("startRow", startRow);
+        params.put("endRow", endRow);
         params.put("atStart", atStart);
         params.put("atEnd", atEnd);
         params.put("resortID", resortID);

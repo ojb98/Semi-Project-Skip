@@ -7,13 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="/rentalAdmin/header.jsp" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/resortAdminInsertUpdate.css">
 <script src="${pageContext.request.contextPath}/js/itemAdminInsert.js"></script>
 
 </head>
 <body>
 <!-- header -->
-<jsp:include page="/rentalAdmin/header.jsp" />
 
 <!-- 메인 컨텐츠 영역 -->
 <main class="main-content">
