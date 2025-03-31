@@ -5,7 +5,7 @@
 <mapper namespace="resort.mapper.ResortReservationMapper">
 	<select id="getCount" resultType="int" parameterType="hashmap">
 		select count(*)
-		from resort_reservation
+		from room_reservation
 		where uuid = #{uuid}
 		<if test="year != null and year != ''">
 			and to_char(created_at, 'yyyy') = #{year}
@@ -46,7 +46,7 @@
 			from (
 				select rs.resort_reserv_id, rs.uuid, rs.checkin_date, rs.checkout_date, rs.quantity, rs.total_price, rs.status, rs.created_at,
 					rr.room_id, rr.room_name, rr.room_type, (select name from resort where resort_id = rr.resort_id) name, (select payment_id from resort_payments where resort_reserv_id = rs.resort_reserv_id) payment_id
-				from resort_reservation rs join resort_rooms rr on rs.room_id = rr.room_id
+				from room_reservation rs join room rr on rs.room_id = rr.room_id
 				where uuid = #{uuid}
 				<if test="year != null and year != ''">
 					and to_char(rs.created_at, 'yyyy') = #{year}
@@ -78,8 +78,8 @@
             rrs.room_type AS resort_room_type, 
             rrs.price_per_night
         FROM resort r
-        LEFT JOIN resort_rooms rrs ON rrs.resort_id = r.resort_id
-        LEFT JOIN resort_reservation rr ON rr.room_id = rrs.room_id
+        LEFT JOIN room rrs ON rrs.resort_id = r.resort_id
+        LEFT JOIN room_reservation rr ON rr.room_id = rrs.room_id
         LEFT JOIN resort_payments rp ON rr.resort_reserv_id = rp.resort_reserv_id
         LEFT JOIN users u ON r.uuid = u.uuid
         <where>
@@ -115,7 +115,7 @@
     </select>
     
     <update id="updateReservationStatusToCompleted" parameterType="map">
-		UPDATE resort_reservation
+		UPDATE room_reservation
 		SET status = 'COMPLETED'
 		WHERE resort_id = #{resortID}
 		AND status = 'CONFIRMED'
@@ -123,11 +123,11 @@
 	</update>
     <!-- 스키장 예약 고유번호를 받아 예약 상태 업데이트 -->
     <update id="reservationCancel">
-        UPDATE RESORT_RESERVATION SET STATUS='CANCELLED' WHERE RESORT_RESERV_ID=#{resort_reserv_id}
+        UPDATE room_RESERVATION SET STATUS='CANCELLED' WHERE RESORT_RESERV_ID=#{resort_reserv_id}
     </update>
 
     <update id="reservationComplete">
-        UPDATE RESORT_RESERVATION SET STATUS='COMPLETED' WHERE RESORT_RESERV_ID=#{resort_reserv_id}
+        UPDATE room_RESERVATION SET STATUS='COMPLETED' WHERE RESORT_RESERV_ID=#{resort_reserv_id}
     </update>
     
 </mapper>

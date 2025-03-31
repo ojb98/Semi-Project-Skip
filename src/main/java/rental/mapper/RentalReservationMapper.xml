@@ -111,8 +111,8 @@
             rri.subtotal_price
         FROM rental_reservation rr
         LEFT JOIN rentalshop r ON rr.rentalshop_id = r.rentalshop_id
-        LEFT JOIN rental_payments rp ON rr.rent_reserv_id = rp.rent_reserv_id
-        LEFT JOIN rental_reservation_item rri ON rr.rent_reserv_id = rri.rent_reserv_id
+        LEFT JOIN rent_payments rp ON rr.rent_reserv_id = rp.rent_reserv_id
+        LEFT JOIN rent_reservation_item rri ON rr.rent_reserv_id = rri.rent_reserv_id
         LEFT JOIN rent_item ri ON rri.item_id = ri.item_id
         LEFT JOIN users u ON rr.uuid = u.uuid
         <where>

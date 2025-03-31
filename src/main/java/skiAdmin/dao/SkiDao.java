@@ -33,9 +33,9 @@ public class SkiDao {
 	}
 	
 	//스키장 리스트 조회(여러건)
-	public List<SkiListDTO> skiList(){
+	public List<SkiListDTO> skiList(int uuid){
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
-			return sqlSession.selectList(NAMESPACE+".skList");
+			return sqlSession.selectList(NAMESPACE+".skList",uuid);
 		}
 	}
 	

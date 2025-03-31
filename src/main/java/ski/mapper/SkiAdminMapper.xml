@@ -23,14 +23,16 @@
   </select>
   -->
 
-  <!-- 렌탈샵 전체조회(여러건) : user_id버전 -->  
-  <select id="skList" resultType="ski.dto.SkiListDTO">
+  <!-- 스키장 전체조회(여러건) : user_id버전 -->  
+  <select id="skList" resultType="ski.dto.SkiListDTO" parameterType="int">
     select s.ski_id,u.user_id,s.name,s.ski_phone,s.location,s.skmain_img
     from SKI s JOIN USERS u
-    on s.uuid=u.uuid order by ski_id desc
+    on s.uuid=u.uuid 
+    where u.uuid=#{uuid}
+    order by ski_id desc
   </select>
   
-  <!-- 렌탈샵 고유아이디로 조회(한건) : user_id 버전 -->
+  <!-- 스키장 고유아이디로 조회(한건) : user_id 버전 -->
   <select id="getSkiIdByUserId" parameterType="int" resultType="ski.dto.SkiListDTO">
   	select s.ski_id,u.user_id,s.name,s.ski_phone,s.location,s.webcam_url,
   	s.skmain_img,s.sksub_img1,s.sksub_img2,s.sksub_img3,s.description,s.created_at

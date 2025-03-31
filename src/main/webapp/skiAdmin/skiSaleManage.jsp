@@ -8,7 +8,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    // 기본 날짜 범위 설정 (오늘 기준 -30일, +14일)
+    // 기본 날짜 범위 설정 (오늘 기준 -14일, +14일)
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     LocalDate defaultDay = LocalDate.now();
     LocalDate defaultDay1 = defaultDay.minusDays(14);
@@ -16,7 +16,7 @@
 
     String defaultDate1 = defaultDay1.toString(); 
     String defaultDate2 = defaultDay2.toString();
-
+	
     // (임시) 세션에 skiID = 1 강제 설정
     session.setAttribute("skiID", 1);
 %>
@@ -26,7 +26,7 @@
     <meta charset="UTF-8">
     <title>관리자 페이지 - 매출관리/통계</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
-    
+    <jsp:include page="/skiAdmin/header.jsp" />
     <!-- Odometer CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.css" />
     <!-- Odometer & Chart.js 라이브러리 -->
@@ -39,37 +39,12 @@
       var defaultDate1 = "<%=defaultDate1%>";
       var defaultDate2 = "<%=defaultDate2%>";
       var contextPath  = "${pageContext.request.contextPath}";
+      
     </script>
     
-    <!-- 외부 JavaScript 파일 -->
-    <script src="${pageContext.request.contextPath}/js/skiSaleManage.js"></script>
+    
 </head>
 <body>
-    <!-- 상단 헤더 -->
-    <header>
-        <div class="header-left">
-            <a href="${pageContext.request.contextPath}/admin/dashboard">
-                <h1>SKI:P</h1>
-            </a>
-        </div>
-    </header>
-    
-    <!-- 왼쪽 사이드바 -->
-    <aside class="sidebar">
-        <div class="sidebar-profile">
-            <img src="" alt="사진프로필" class="profile-icon">
-            <div class="admin-name">관리자님</div>
-        </div>
-        <ul>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiRegist.jsp">사업장등록신청</a></li>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiItemRegist.jsp">상품등록/관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReservation.jsp">예약 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiQnA.jsp">문의 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiAdminReview">리뷰 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/skiAdmin/skiSaleManage.jsp">매출관리/통계</a></li>
-        </ul>
-    </aside>
-    
     <!-- 메인 컨텐츠 영역 -->
     <main class="main-content">
         <h2>📊 매출 관리 / 통계</h2>
@@ -85,6 +60,7 @@
                     <input type="date" id="searchAtEnd" value="<%=defaultDate2%>">
                 </div>
             </div>
+            
             <!-- 총 매출 -->
             <div class="card">
     		    <h3>💰 총 매출</h3>
@@ -154,20 +130,9 @@
 			        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList('skiPurchased')"/>
 			    </div>
 			</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>결제번호</th>
-                        <th>아이디</th>
-                        <th>결제방식</th>
-                        <th>결제총액</th>
-                        <th>결제상태</th>
-                        <th>결제일시</th>
-                    </tr>
-                </thead>
-                <tbody id="SalesTableBody"></tbody>
-            </table>
+            <div id=purchasedList></div>
         </div>
     </main>
+    <script src="${pageContext.request.contextPath}/js/skiSaleManage.js"></script>
 </body>
 </html>

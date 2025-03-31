@@ -27,6 +27,10 @@ public class RentalItemController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String ski = "SKI";
         final String rental = "RENTAL";
+        
+//        String ski_id=req.getParameter("ski_id");
+//        String rentalshop_id=req.getParameter("rentalshop_id");
+        
         try {
             String item_type = req.getParameter("item_type");
             String img_num_str = req.getParameter("img_num");
@@ -84,7 +88,7 @@ public class RentalItemController extends HttpServlet {
                 }
             }
 
-
+            req.setAttribute("id_str", id_str);
             req.setAttribute("isRentalOrSki", req.getParameter("isRentalOrSki").toUpperCase());
             req.setAttribute("img_num", img_num);
             req.setAttribute("price_per_hour", itemCategoryDTO.getPrice_per_hour());

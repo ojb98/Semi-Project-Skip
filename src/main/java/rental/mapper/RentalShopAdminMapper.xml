@@ -32,10 +32,12 @@
   
   
   <!-- 렌탈샵 전체조회(여러건) -->  
-  <select id="rsList" resultType="rental.dto.RentalShopListDTO">
+  <select id="rsList" resultType="rental.dto.RentalShopListDTO" parameterType="int">
     select r.rentalshop_id,u.user_id,r.name,r.rental_phone,r.location,r.remain_img
     from RENTALSHOP r JOIN USERS u
-    on r.uuid=u.uuid order by rentalshop_id desc
+    on r.uuid=u.uuid 
+    where u.uuid=#{uuid}
+    order by rentalshop_id desc
   </select>
   
   <!-- 렌탈샵 고유아이디로 조회(한건) : user_id 버전 -->

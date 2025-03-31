@@ -48,8 +48,8 @@
 	
 	<label for="resortType">리조트 유형</label>
 	<select name="resort_type" id="resortType">
-			<option value="condo">콘도</option>
-			<option value="hostel">호텔</option>
+			<option value="CONDO">콘도</option>
+			<option value="HOSTEL">호텔</option>
 	</select><br>
 	
 	<label for="checkTime">입실/퇴실(운영) 시간</label>

@@ -3,8 +3,6 @@ package ski.mapper;
 import java.util.List;
 import java.util.Map;
 
-import ski.dto.SkiReservationDetailDTO;
-import ski.dto.SkiReservationPrintDto;
 import ski.dto.SkiSalesListDto;
 
 public interface SkiSalesManageMapper {

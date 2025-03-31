@@ -1,6 +1,10 @@
 package rental.dto;
 
-public class CategoryDTO {
+import java.io.Serializable;
+
+public class CategoryDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private int category_id;
 	private String item_type;
 	private int price_per_hour;   //시간당 대여 가격

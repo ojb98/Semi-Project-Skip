@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<settings>
+    	<setting name="logImpl" value="STDOUT_LOGGING" />
 		<!-- 캐시 활성화 -->
 		<setting name="cacheEnabled" value="true"/>
 	</settings>
@@ -45,7 +46,7 @@
 		<mapper resource="resort/mapper/RoomMapper.xml"/>
 		<mapper resource="resort/mapper/FacilityMapper.xml"/>
 		<mapper resource="resort/mapper/ResortFacilityMapper.xml"/>
-	    
+	    <mapper resource="resort/mapper/ResortSalesManageMapper.xml"/>
 	    <!-- rental -->
 		<mapper resource="rental/mapper/RentalShopAdminMapper.xml" />
 		<mapper resource="rental/mapper/RentItemAdminMapper.xml" />
@@ -59,6 +60,11 @@
 		<mapper resource="rental/mapper/CartItemMapper.xml" />
 		<mapper resource="rental/mapper/WishMapper.xml" />
 
+		<mapper resource="rental/mapper/RentReservMapper.xml" />
+	    <mapper resource="rental/mapper/RentReservItemMapper.xml" />
+		<mapper resource="rental/mapper/RentalSalesManageMapper.xml"/>
+
+
 	    <!-- ski -->
 
 	    <mapper resource="ski/mapper/SkiAdminMapper.xml" />
@@ -68,7 +74,8 @@
 		<mapper resource="ski/mapper/SkiItemMapper.xml" />
 		<mapper resource="ski/mapper/SkiReviewMapper.xml" />
 	    <mapper resource="ski/mapper/SkiSalesManageMapper.xml"/>
-	    
+	    <mapper resource="ski/mapper/SkiReservMapper.xml" />
+	    <mapper resource="ski/mapper/SkiReservItemMapper.xml" />
 
 	</mappers>
 </configuration>

@@ -20,7 +20,7 @@ public class SkiReservItemDao {
 	//스키장 항목 예약 등록
 	public int skiReservItemInsert(SkiReservItemDTO sridto) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
-			int n=sqlSession.insert(NAMESPACE+".skiReservInsert", sridto);
+			int n=sqlSession.insert(NAMESPACE+".skiReservItemInsert", sridto);
 			sqlSession.commit();
 			return n;
 		}
