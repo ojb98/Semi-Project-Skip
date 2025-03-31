@@ -5,40 +5,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/popupForm.css">
 </head>
-<style>
-	.comment_msg {
-		font-size: 12px;
-		color: red;
-		display: none;
-	}
-</style>
 <body>
-	<form id="reviewForm" action="<%=request.getContextPath() %>/review/skiReviewUpdate" method="post" enctype="multipart/form-data">
+	<form id="reviewForm" class="update_form" action="<%=request.getContextPath() %>/review/skiReviewUpdate" method="post" enctype="multipart/form-data">
 		<h2>리뷰 수정</h2>
 			<div class="">
-				<lable>리뷰 아이디</lable>
-				<input type="text" name="review_id" value="${skiReviewDto.getReview_id() }" readonly>
+				<input type="hidden" name="review_id" value="${skiReviewDto.getReview_id() }" readonly>
 			</div>
 			<div class="">
-				<lable>리조트 결제 아이디</lable>
-				<input type="text" name="payment_id" value="${skiReviewDto.getPayment_id() }" readonly>			
+				<input type="hidden" name="payment_id" value="${skiReviewDto.getPayment_id() }" readonly>			
 			</div>
 			<div class="">
-				<lable>uuid</lable>
-				<input type="text" name="uuid" value="${skiReviewDto.getUuid() }" readonly>
+				<input type="hidden" name="uuid" value="${skiReviewDto.getUuid() }" readonly>
 			</div>
 			<div class="">
-				<lable>회원 아이디</lable>
-				<input type="text" name="user_id" value="${skiReviewDto.getUser_id() }" readonly>
+				<input type="hidden" name="user_id" value="${skiReviewDto.getUser_id() }" readonly>
 			</div>
 			<div class="">
-				<lable>스키장 아이디</lable>
-				<input type="text" name="ski_id" value="${skiReviewDto.getSki_id() }" readonly>
+				<input type="hidden" name="ski_id" value="${skiReviewDto.getSki_id() }" readonly>
 			</div>
-			<div>
+			<div class="update_col">
 			<label>리뷰 평점</label>
-				<select name="rating">
+				<select name="rating" class="select_box">
 					<option value="${skiReviewDto.getRating() }">${skiReviewDto.getRating() }</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -47,14 +36,16 @@
 					<option value="5">5</option>
 				</select>
 			</div>
-			<div class="">
+			<div class="update_col">
 				<label>리뷰내용</label>
-				<textarea id="review_comment" rows="5" cols="50" name="review_comment" placeholder="5자 이상입력하세요.">${skiReviewDto.getReview_comment() }</textarea>
+				<textarea id="review_comment" class="text_area" rows="5" cols="50" name="review_comment" placeholder="5자 이상입력하세요.">${skiReviewDto.getReview_comment() }</textarea>
 				<p class="comment_msg">리뷰를 5자 이상 작성해주세요.</p>			
 			</div>
-			<label>첨부파일</label>
-			<input type="file" name="review_img" value="${resortReviewDto.getReview_img() }">
-			<input type="submit" value="수정">
+			<div class="update_col">
+				<label>첨부파일</label>
+				<input type="file" name="review_img" value="${resortReviewDto.getReview_img() }">
+			</div>
+			<input class="update_btn" type="submit" value="수정">
 	</form>
 	
 	<script>

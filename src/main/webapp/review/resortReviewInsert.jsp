@@ -5,33 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/popupForm.css">
 </head>
-<style>
-	.rating_msg,
-	.comment_msg {
-		font-size: 12px;
-		color: red;
-		display: none;
-	}
-</style>
 <body>
-	<form id="reviewForm" method="post" action="${pageContext.request.contextPath}/review/resortReviewInsert" enctype="multipart/form-data" onsubmit="setTimeout(closePopup, 500)">
+	<form id="reviewForm" class="insert_form" method="post" action="${pageContext.request.contextPath}/review/resortReviewInsert" enctype="multipart/form-data" onsubmit="setTimeout(closePopup, 500)">
 		<h2>리뷰작성</h2>
 		<div class = "">
-			<lable>리조트 결제 아이디</lable>
-			<input type="text" name="payment_id" value="${payment_id }" readonly>	
+			<input type="hidden" name="payment_id" value="${payment_id }" readonly>	
 		</div>
 		<div class="">
-			<lable>회원 아이디</lable>
-			<input type="text" name="uuid" value="${uuid }" readonly>
+			<input type="hidden" name="uuid" value="${uuid }" readonly>
 		</div>
 		<div class="">
-			<lable>룸 아이디</lable>
-			<input type="text" name="room_id" value="${room_id }" readonly>
+			<input type="hidden" name="room_id" value="${room_id }" readonly>
 		</div>
-		<div class="">
+		<div class="insert_col">
 			<label>리뷰 평점</label>
-			<select name="rating" id=rating>
+			<select name="rating" id=rating class="select_box">
 				<option value="" selected disabled>선택</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -41,16 +31,16 @@
 			</select>
 			<p class="rating_msg">평점을 선택해주세요.</p>
 		</div>
-		<div class="">
+		<div class="insert_col">
 			<label>리뷰내용</label>
-			<textarea id="review_comment" rows="5" cols="50" name="review_comment" placeholder="5자 이상입력하세요."></textarea>
+			<textarea id="review_comment" class="text_area" rows="5" cols="50" name="review_comment" placeholder="5자 이상입력하세요."></textarea>
 			<p class="comment_msg">리뷰를 5자 이상 작성해주세요.</p>
 		</div>
-		<div class="">
+		<div class="insert_col">
 			<label>첨부파일</label>
 			<input type="file" name="review_img">
-			<input type="submit" value="등록">
 		</div>
+			<input class="insert_btn" type="submit" value="등록">
 	</form>
 	
 	<script>	

@@ -584,10 +584,6 @@ header {
 	color: #5399F5;
 }
 
-.review-list, .qna-list {
-	height: 500px;
-}
-
 .review-item, .qna-item {
 	padding: 1.5rem 0;
 	border-bottom: 1px solid #eee;
@@ -1006,6 +1002,9 @@ header {
 
 
 	<script src="<%=request.getContextPath()%>/script/resort_review.js"></script>
+	<script type="text/javascript">
+		reviewSort("latest", '${resort_id}', 1);
+	</script>
 	<script>
     let startDate = null;
     let endDate = null;

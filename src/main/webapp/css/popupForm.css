@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+.insert_form,
+.update_form {
+	padding: 10px;
+}
+
+.insert_form h2,
+.update_form h2 {
+	text-align: center;
+}
+
+.insert_form .insert_col,
+.update_form .update_col {
+	margin-top: 10px;
+}
+
+.insert_col label,
+.update_col label {
+	width: 100px;
+}
+
+.insert_col .select_box,
+.update_col .select_box {
+	width: 80px;
+	padding: 3px;
+}
+
+.insert_col .text_area,
+.update_col .text_area {
+	width: calc(100% - 7px);
+	height: 200px;
+	resize: none;
+}
+
+.rating_msg,
+.comment_msg {
+	font-size: 12px;
+	color: red;
+	display: none;
+}
+
+.insert_btn,
+.update_btn {
+	display: inline-block;
+	width: 100%;
+	padding: 10px;
+	margin-top: 10px;
+}

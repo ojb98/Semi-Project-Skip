@@ -440,6 +440,19 @@
 	gap: 10px;
 }
 
+.user_review .item_img {
+	display: flex;
+	align-items: center;
+}
+
+.user_review .item_img .delete_btn {
+	border: 1px solid #343A40;
+	border-radius: 3px;
+	padding: 7px;
+	background-color: #343a40;
+	color: #fff;
+}
+
 .rating_box {
 	display: flex;
 }
@@ -459,6 +472,10 @@
 /* 리뷰이미지 영역 */
 .user_review .item_img img {
 	width: 150px;
+}
+
+.user_review .item_img img:hover {
+	width: 350px;
 }
 
 /* 리뷰 내용 영역 */

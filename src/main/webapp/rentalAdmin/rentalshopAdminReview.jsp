@@ -85,6 +85,7 @@
 											<!-- 이미지가 없으면 빈값 -->
 										</c:otherwise>
 									</c:choose>
+									<a class="delete_btn" href="<%=request.getContextPath() %>/rentalshopAdmin/reviewDelete?review_id=${rrDto.review_id}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
 								</div>
 							</div>
 						</li>

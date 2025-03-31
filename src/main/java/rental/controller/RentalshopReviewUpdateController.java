@@ -84,9 +84,11 @@ public class RentalshopReviewUpdateController extends HttpServlet {
 		int n = rentalshopReviewDao.update(rentalshopReviewDtO);
 		
 		req.setAttribute("content", "reviews");
-		req.getRequestDispatcher(req.getContextPath() + "/mypage/layout.jsp");
+//		req.getRequestDispatcher(req.getContextPath() + "/mypage/layout.jsp");
 		
 //		resp.sendRedirect(req.getContextPath() + "/jsp/reviewList");
+		resp.sendRedirect(req.getContextPath() + "/mypage/layout.jsp");
+		
 		
 	}
 }
