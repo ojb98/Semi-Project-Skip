@@ -17,7 +17,7 @@
 <!-- 상단 헤더 -->
 <header>
     <div class="header-left">
-        <a href="${pageContext.request.contextPath}/resortAdmin/resortSaleManage.jsp">
+        <a href="${pageContext.request.contextPath}">
             <h1>SKI:P</h1>
         </a>
     </div>
@@ -27,7 +27,7 @@
 <!-- 왼쪽 사이드바 -->
 <aside class="sidebar">
     <div class="sidebar-profile">
-        <div class="admin-name">OOO<br>관리자님 <br>환영합니다.</div>
+        <div class="admin-name"><%=session.getAttribute("name") %><br>관리자님 <br>환영합니다.</div>
     </div>
     <ul>
         <li><a href="${pageContext.request.contextPath}/adminResort/insert">리조트 등록</a></li>
@@ -35,7 +35,6 @@
         <li><a href="${pageContext.request.contextPath}/adminFacility/insert">시설 등록</a></li>
         <li><a href="${pageContext.request.contextPath}/adminFacility/list">시설 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/resortAdmin/resortReservation.jsp">예약 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/resortAdmin/testservlet4">문의 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/resortAdmin/resortAdminReview">리뷰 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/resortAdmin/resortSaleManage.jsp">통계</a></li>
     </ul>

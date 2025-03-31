@@ -129,4 +129,12 @@
 			    GROUP BY sp.payment_id
 			)
 	</select>
+	
+	<!-- (8) SKI ID 얻어오기 -->
+	<select id="getSkiID" resultType="int" parameterType="int">
+		  select ski_id
+		  from ski s
+		  left join users u on u.uuid = s.uuid
+		  where u.uuid = #{uuid}
+	</select>
 </mapper>

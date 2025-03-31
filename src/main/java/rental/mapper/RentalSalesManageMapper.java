@@ -14,4 +14,5 @@ public interface RentalSalesManageMapper {
     List<Map<String,Object>>getSalesChartData(Map<String, Object> params);
     List<Map<String,Object>>selectCategorySales(Map<String, Object> params);
 	int getConfirmedTotalCount(Map<String, Object> params);
+	Integer getRentalID(int uuid);
 }
