@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<settings>
+    	<setting name="logImpl" value="STDOUT_LOGGING" />
 		<!-- 캐시 활성화 -->
 		<setting name="cacheEnabled" value="true"/>
 	</settings>

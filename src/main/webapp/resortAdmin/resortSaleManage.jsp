@@ -8,7 +8,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    // 기본 날짜 범위 설정 (오늘 기준 -30일, +14일)
+    // 기본 날짜 범위 설정 (오늘 기준 -14일, +14일)
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     LocalDate defaultDay = LocalDate.now();
     LocalDate defaultDay1 = defaultDay.minusDays(14);
@@ -39,36 +39,14 @@
       var defaultDate1 = "<%=defaultDate1%>";
       var defaultDate2 = "<%=defaultDate2%>";
       var contextPath  = "${pageContext.request.contextPath}";
+      
     </script>
     
-    <!-- 외부 JavaScript 파일 -->
-    <script src="${pageContext.request.contextPath}/js/resortSaleManage.js"></script>
+    
 </head>
 <body>
-    <!-- 상단 헤더 -->
-    <header>
-        <div class="header-left">
-            <a href="${pageContext.request.contextPath}/admin/dashboard">
-                <h1>SKI:P</h1>
-            </a>
-        </div>
-    </header>
+    <jsp:include page="/resortAdmin/header.jsp" />
     
-    <!-- 왼쪽 사이드바 -->
-    <aside class="sidebar">
-        <div class="sidebar-profile">
-            <img src="" alt="사진프로필" class="profile-icon">
-            <div class="admin-name">관리자님</div>
-        </div>
-        <ul>
-            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortRegist.jsp">사업장등록신청</a></li>
-            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortItemRegist.jsp">상품등록/관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortReservation.jsp">예약 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortQnA.jsp">문의 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortReview.jsp">리뷰 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/resortAdmin/resortSaleManage.jsp">매출관리/통계</a></li>
-        </ul>
-    </aside>
     
     <!-- 메인 컨텐츠 영역 -->
     <main class="main-content">
@@ -155,20 +133,9 @@
 			        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList('resortPurchased')"/>
 			    </div>
 			</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>결제번호</th>
-                        <th>아이디</th>
-                        <th>결제방식</th>
-                        <th>결제총액</th>
-                        <th>결제상태</th>
-                        <th>결제일시</th>
-                    </tr>
-                </thead>
-                <tbody id="SalesTableBody"></tbody>
-            </table>
+            <div id=purchasedList></div>
         </div>
     </main>
+    <script src="${pageContext.request.contextPath}/js/resortSaleManage.js"></script>
 </body>
 </html>

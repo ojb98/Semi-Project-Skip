@@ -33,53 +33,68 @@
 
 	// listType: 'pending' 또는 'denied', page: 현재 페이지 번호
 	function loadList(listType, page) {
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			if(xhr.readyState === 4) {
-				if(xhr.status === 200) {
-					document.getElementById("SalesTableBody").innerHTML = xhr.responseText;
-				} else {
-					alert("리스트 로딩 중 오류가 발생했습니다.");
-				}
-			}
-		};
-		var url = contextPath + "/admin/list?type=" + listType + "&page=" + page + "&atStart=" + atStart + "&atEnd=" + atEnd;
-		xhr.open("GET", url, true);
-		xhr.send();
+	    atStart = document.getElementById('searchAtStart').value;
+	    atEnd = document.getElementById('searchAtEnd').value;
+	    var keyword = document.getElementById("searchInputPending").value;
+	    var filter = document.getElementById("filterSelectPending").value;
+	
+	    var url = contextPath + "/admin/list?type=" + listType 
+	            + "&page=" + page 
+	            + "&keyword=" + encodeURIComponent(keyword) 
+	            + "&filter=" + encodeURIComponent(filter) 
+	            + "&atStart=" + atStart 
+	            + "&atEnd=" + atEnd;
+	
+	    var xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function() {
+	        if(xhr.readyState === 4) {
+	            if(xhr.status === 200) {
+	                if(listType === 'resortPurchased') {
+						document.getElementById("purchasedList").innerHTML = xhr.responseText;
+					}else{
+						alert("요청 출력 리스트명이 올바르지 않습니다.")
+					}	
+	            } else {
+	                alert("리스트 로딩 중 오류");
+	            }
+	        }
+	    };
+	    xhr.open("GET", url, true);
+	    xhr.send();
 	}
 	window.searchList = function(listType) {
-	var keyword, filter;
-	keyword = document.getElementById("searchInputPending").value;
-    filter = document.getElementById("filterSelectPending").value;
-    atStart = document.getElementById('searchAtStart').value;
-	atEnd = document.getElementById('searchAtEnd').value;
-	var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
-        if(xhr.readyState === 4){
-            if(xhr.status === 200){		                
-                    document.getElementById("SalesTableBody").innerHTML = xhr.responseText;		                
-            } else {
-                alert("검색 중 오류");
-            }
-        }
-    };
-      // 기본 검색 시 페이지 1로 처리합니다.
-      xhr.open("GET", contextPath + "/admin/list?type=" + listType + "&page=1" 
-    		  + "&keyword=" + encodeURIComponent(keyword) 
-    		  + "&filter=" + encodeURIComponent(filter) 
-    		  + "&atStart=" + atStart + "&atEnd=" + atEnd , true);
-    		  
-    		  
-      xhr.send();
-   }
+			var keyword, filter;
+			keyword = document.getElementById("searchInputPending").value;
+		    filter = document.getElementById("filterSelectPending").value;
+		    atStart = document.getElementById('searchAtStart').value;
+			atEnd = document.getElementById('searchAtEnd').value;
+			var xhr = new XMLHttpRequest();
+		    xhr.onreadystatechange = function(){
+			    if(xhr.readyState === 4){
+			        if(xhr.status === 200){
+			            if(listType === 'resortPurchased') {
+						document.getElementById("purchasedList").innerHTML = xhr.responseText;
+						}else{
+							alert("요청 출력 리스트명이 올바르지 않습니다.");
+						}
+					}
+			    }
+			};
+		      // 기본 검색 시 페이지 1로 처리합니다.
+		      xhr.open("GET", contextPath + "/admin/list?type=" + listType + "&page=1" 
+		    		  + "&keyword=" + encodeURIComponent(keyword) 
+		    		  + "&filter=" + encodeURIComponent(filter) 
+		    		  + "&atStart=" + atStart + "&atEnd=" + atEnd , true);
+		    		  
+		      xhr.send();
+		  }
+
 	window.changePage = function(listType, page) {
 	    // 페이지 전환 시점에 항상 input에서 값 읽어오기
 	    atStart = document.getElementById('searchAtStart').value;
 	    atEnd = document.getElementById('searchAtEnd').value;
 	    loadList(listType, page);
 	}
-	
-
   /*
    * 전체 매출 데이터를 서버에서 가져와 UI(오도미터, 도넛 차트, 결제 내역 테이블)와
    * 전역 변수(window.dailySalesData)를 업데이트하는 함수
@@ -273,7 +288,13 @@
 
   // 필요시 전역에서 updateChart 함수를 사용할 수 있도록 노출
   window.updateChart = updateChart;
-  window.onload = function(){
-	loadList('resortPurchased',1);
-	};
+  window.onload = function() {
+		loadList('resortPurchased', 1);
+	    // 초기 검색어, 필터 강제 설정
+	    document.getElementById("searchInputPending").value = "";
+	    document.getElementById("filterSelectPending").value = document.getElementById("filterSelectPending").options[0].value;
+	
+	    // searchList 로 통일
+	    searchList('resortPurchased');
+	}
 })();

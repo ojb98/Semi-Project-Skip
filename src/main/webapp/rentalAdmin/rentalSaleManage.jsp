@@ -26,7 +26,7 @@
     <meta charset="UTF-8">
     <title>관리자 페이지 - 매출관리/통계</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
-    
+    <jsp:include page="/rentalAdmin/header.jsp" />
     <!-- Odometer CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.css" />
     <!-- Odometer & Chart.js 라이브러리 -->
@@ -39,35 +39,12 @@
       var defaultDate1 = "<%=defaultDate1%>";
       var defaultDate2 = "<%=defaultDate2%>";
       var contextPath  = "${pageContext.request.contextPath}";
+      
     </script>
     
     
 </head>
 <body>
-    <!-- 상단 헤더 -->
-    <header>
-        <div class="header-left">
-            <a href="${pageContext.request.contextPath}/admin/dashboard">
-                <h1>SKI:P</h1>
-            </a>
-        </div>
-    </header>
-    
-    <!-- 왼쪽 사이드바 -->
-    <aside class="sidebar">
-        <div class="sidebar-profile">
-            <img src="" alt="사진프로필" class="profile-icon">
-            <div class="admin-name">관리자님</div>
-        </div>
-        <ul>
-            <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalRegist.jsp">사업장등록신청</a></li>
-            <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalItemRegist.jsp">상품등록/관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalReservation.jsp">예약 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalQnA.jsp">문의 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalReview.jsp">리뷰 관리</a></li>
-            <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalSaleManage.jsp">매출관리/통계</a></li>
-        </ul>
-    </aside>
     
     <!-- 메인 컨텐츠 영역 -->
     <main class="main-content">
@@ -154,30 +131,7 @@
 			        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="검색 아이콘" class="search-icon" onclick="searchList('rentalPurchased')"/>
 			    </div>
 			</div>
-            <table>
-			    <thead>
-			        <tr>
-			            <th>결제번호</th>
-			            <th>아이디</th>
-			            <th>결제방식</th>
-			            <th>결제총액</th>
-			            <th>결제상태</th>
-			            <th>결제일시</th>
-			        </tr>
-			    </thead>
-			
-			    <tbody id="SalesTableBody">
-			        <!-- Ajax로 받아온 <tr> 리스트가 들어올 자리 -->
-			    </tbody>
-			
-			    <tfoot>
-			        <tr>
-			            <td colspan="6" id="SalesPagination">
-			                <!-- Ajax로 받아온 pagination 버튼이 들어올 자리 -->
-			            </td>
-			        </tr>
-			    </tfoot>
-			</table>
+            <div id=purchasedList></div>
         </div>
     </main>
     <script src="${pageContext.request.contextPath}/js/rentalSaleManage.js"></script>

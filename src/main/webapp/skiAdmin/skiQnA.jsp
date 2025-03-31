@@ -13,6 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <title>관리자 페이지</title>
+    <jsp:include page="/skiAdmin/header.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style type="text/css">
@@ -127,28 +128,6 @@
 </script>
 </head>
 <body>
-
-<!-- 상단 헤더 -->
-<header>
-    <div class="header-left">
-        <a href="${pageContext.request.contextPath}/admin/dashboard">
-            <h1>SKI:P</h1>
-        </a>
-    </div>
-</header>
-
-<!-- 왼쪽 사이드바 -->
-<aside class="sidebar">
-    <ul>
-        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiRegist.jsp">사업장등록신청</a></li>
-        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiItemRegist.jsp">상품등록/관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiReservation.jsp">예약 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiQnA.jsp">문의 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiAdminReview">리뷰 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/skiAdmin/skiSaleManage.jsp">매출관리/통계</a></li>
-    </ul>
-</aside>
-
 <!-- 메인 컨텐츠 영역 -->
 <main class="main-content">
     <div class="table-container">

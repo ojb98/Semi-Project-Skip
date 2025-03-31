@@ -25,7 +25,6 @@
 	                LEFT JOIN USERS u ON rp.uuid = u.uuid
 	                LEFT JOIN RENTAL_RESERVATION rr ON rp.rent_reserv_id = rr.rent_reserv_id
 	            <where>
-	                1=1
 	                <if test="rentalID != null">
 	                    AND rr.rentalshop_id = #{rentalID}
 	                </if>
@@ -117,12 +116,17 @@
 	
 	<!-- (7) 테이블 리스트 출력조건 => 결제취소가 아닌 사람만 -->
 	<select id="getConfirmedTotalCount" resultType="int" parameterType="map">
-	  SELECT NVL(count(*), 0)
-	  FROM rent_payments rp
-	  LEFT JOIN rental_reservation rr ON rp.rent_reserv_id = rr.rent_reserv_id
-	  WHERE rr.rentalshop_id = #{rentalID} AND rp.status != '결제취소'
-	  <if test="atStart != null and atEnd != null">
-	      AND rp.created_at BETWEEN #{atStart} AND #{atEnd}
-	  </if>
-</select>
+		  SELECT NVL(count(*), 0)
+			FROM (
+			    SELECT rp.payment_id
+			    FROM rent_payments rp
+			    LEFT JOIN rental_reservation rr ON rp.rent_reserv_id = rr.rent_reserv_id
+			    WHERE rr.rentalshop_id = #{rentalID}
+			      AND rp.status != '결제취소'
+			      <if test="atStart != null and atEnd != null">
+			          AND rp.created_at BETWEEN #{atStart} AND #{atEnd}
+			      </if>
+			    GROUP BY rp.payment_id
+			)
+	</select>
 </mapper>

@@ -49,24 +49,11 @@
 	    xhr.onreadystatechange = function() {
 	        if(xhr.readyState === 4) {
 	            if(xhr.status === 200) {
-	                var temp = document.createElement('div');
-	                temp.innerHTML = xhr.responseText;
-	
-	                var rows = temp.querySelectorAll('tr');
-	                var tbodyHTML = '';
-	                var paginationHTML = '';
-	
-	                rows.forEach(row => {
-	                    if (row.querySelector('#SalesPagination')) {
-	                        paginationHTML = row.outerHTML;
-	                    } else {
-	                        tbodyHTML += row.outerHTML;
-	                    }
-	                });
-	
-	                document.getElementById("SalesTableBody").innerHTML = tbodyHTML;
-	                document.getElementById("SalesPagination").innerHTML = paginationHTML;
-	
+	                if(listType === 'rentalPurchased') {
+						document.getElementById("purchasedList").innerHTML = xhr.responseText;
+					}else{
+						alert("요청 출력 리스트명이 올바르지 않습니다.")
+					}	
 	            } else {
 	                alert("리스트 로딩 중 오류");
 	            }
@@ -85,24 +72,12 @@
 		    xhr.onreadystatechange = function(){
 			    if(xhr.readyState === 4){
 			        if(xhr.status === 200){
-			            var temp = document.createElement('div');
-			            temp.innerHTML = xhr.responseText;
-			
-			            var rows = temp.querySelectorAll('tr');
-			            var tbodyHTML = '';
-			            var paginationHTML = '';
-			
-			            rows.forEach(row => {
-			                if (row.querySelector('#SalesPagination')) {
-			                    paginationHTML = row.outerHTML;
-			                } else {
-			                    tbodyHTML += row.outerHTML;
-			                }
-			            });
-			
-			            document.getElementById("SalesTableBody").innerHTML = tbodyHTML;
-			            document.getElementById("SalesPagination").innerHTML = paginationHTML;
-			        }
+			            if(listType === 'rentalPurchased') {
+						document.getElementById("purchasedList").innerHTML = xhr.responseText;
+						}else{
+							alert("요청 출력 리스트명이 올바르지 않습니다.");
+						}
+					}
 			    }
 			};
 		      // 기본 검색 시 페이지 1로 처리합니다.
@@ -110,7 +85,6 @@
 		    		  + "&keyword=" + encodeURIComponent(keyword) 
 		    		  + "&filter=" + encodeURIComponent(filter) 
 		    		  + "&atStart=" + atStart + "&atEnd=" + atEnd , true);
-		    		  
 		    		  
 		      xhr.send();
 		  }
@@ -315,6 +289,7 @@
   // 필요시 전역에서 updateChart 함수를 사용할 수 있도록 노출
   window.updateChart = updateChart;
   window.onload = function() {
+		loadList('rentalPurchased', 1);
 	    // 초기 검색어, 필터 강제 설정
 	    document.getElementById("searchInputPending").value = "";
 	    document.getElementById("filterSelectPending").value = document.getElementById("filterSelectPending").options[0].value;
