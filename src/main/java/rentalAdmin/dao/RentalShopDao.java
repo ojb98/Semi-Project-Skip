@@ -38,9 +38,9 @@ public class RentalShopDao {
 //	}
 	
 	//렌탈샵 리스트 조회(여러건)
-		public List<RentalShopListDTO> rentalList(){
+		public List<RentalShopListDTO> rentalList(int uuid){
 			try(SqlSession sqlSession=sqlSessionFactory.openSession()){
-				return sqlSession.selectList(NAMESPACE+".rsList");
+				return sqlSession.selectList(NAMESPACE+".rsList",uuid);
 			}
 		}
 	

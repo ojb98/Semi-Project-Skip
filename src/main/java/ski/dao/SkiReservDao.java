@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import mybatis.service.SqlSessionFactoryService;
+import resort.dto.ResortDTO;
 import ski.dto.SkiAdminDTO;
 import ski.dto.SkiReservDTO;
 import skiAdmin.dao.SkiDao;
@@ -23,8 +24,12 @@ public class SkiReservDao {
 	public int skiReservInsert(SkiReservDTO srdto) {
 		try(SqlSession sqlSession=sqlSessionFactory.openSession()){
 			int n=sqlSession.insert(NAMESPACE+".skiReservInsert", srdto);
+			if (n > 0) {
+				int reservId=sqlSession.selectOne(NAMESPACE + ".getReservId");
+				srdto.setSki_reserv_id(reservId);
+			}
 			sqlSession.commit();
-			return n;
+			return srdto.getSki_reserv_id();
 		}
 	}
 	

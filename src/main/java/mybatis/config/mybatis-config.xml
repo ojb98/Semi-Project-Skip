@@ -58,6 +58,9 @@
 		<mapper resource="rental/mapper/RentalShopReviewMapper.xml" />
 		<mapper resource="rental/mapper/CartItemMapper.xml" />
 		<mapper resource="rental/mapper/WishMapper.xml" />
+		
+		<mapper resource="rental/mapper/RentReservMapper.xml" />
+	    <mapper resource="rental/mapper/RentReservItemMapper.xml" />
 
 	    <!-- ski -->
 
@@ -68,7 +71,8 @@
 		<mapper resource="ski/mapper/SkiItemMapper.xml" />
 		<mapper resource="ski/mapper/SkiReviewMapper.xml" />
 	    <mapper resource="ski/mapper/SkiSalesManageMapper.xml"/>
-	    
+	    <mapper resource="ski/mapper/SkiReservMapper.xml" />
+	    <mapper resource="ski/mapper/SkiReservItemMapper.xml" />
 
 	</mappers>
 </configuration>

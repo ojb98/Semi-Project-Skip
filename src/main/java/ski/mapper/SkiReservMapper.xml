@@ -7,6 +7,12 @@
 	<!-- 스키장 예약 등록 -->
 	<insert id="skiReservInsert" parameterType="ski.dto.SkiReservDTO">
 		insert into SKI_RESERVATION(ski_reserv_id,ski_id,uuid,reserv_start,reserv_end,total_price,status,created_at) 
-		values(SKI_REVERVATION_SEQ.NEXTVAL,#{ski_id},#{uuid},#{reserv_start},#{reserv_end},#{total_price},#{status},#{create_at})
+		values(SKI_REVERVATION_SEQ.NEXTVAL,#{ski_id},#{uuid},#{reserv_start},#{reserv_end},#{total_price},'예약완료',sysdate)
 	</insert>
+	
+	<!-- 현재 예약고유아이디 조회 -->
+	<select id="getReservId" resultType="int">
+	    select SKI_REVERVATION_SEQ.currval from dual
+	</select>
+	
 </mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rental.mapper.RentReservItemMapper">
+	
+	<!-- 스키장 장비 예약 등록 -->
+	<insert id="rentReservItemInsert" parameterType="rental.dto.RentReservItemDTO">
+		insert into RENT_RESERVATION_ITEM(rent_item_id,rent_reserv_id,item_id,quantity,subtotal_price) 
+		values(RENT_RESERVATION_ITEM_SEQ.NEXTVAL,#{rent_reserv_id},#{item_id},#{quantity},#{subtotal_price})
+	</insert>
+</mapper>
