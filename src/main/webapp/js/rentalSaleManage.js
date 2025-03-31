@@ -35,8 +35,15 @@
 	function loadList(listType, page) {
 	    atStart = document.getElementById('searchAtStart').value;
 	    atEnd = document.getElementById('searchAtEnd').value;
+	    var keyword = document.getElementById("searchInputPending").value;
+	    var filter = document.getElementById("filterSelectPending").value;
 	
-	    var url = contextPath + "/admin/list?type=" + listType + "&page=" + page + "&atStart=" + atStart + "&atEnd=" + atEnd;
+	    var url = contextPath + "/admin/list?type=" + listType 
+	            + "&page=" + page 
+	            + "&keyword=" + encodeURIComponent(keyword) 
+	            + "&filter=" + encodeURIComponent(filter) 
+	            + "&atStart=" + atStart 
+	            + "&atEnd=" + atEnd;
 	
 	    var xhr = new XMLHttpRequest();
 	    xhr.onreadystatechange = function() {
@@ -45,7 +52,6 @@
 	                var temp = document.createElement('div');
 	                temp.innerHTML = xhr.responseText;
 	
-	                // 리스트만 넣기
 	                var rows = temp.querySelectorAll('tr');
 	                var tbodyHTML = '';
 	                var paginationHTML = '';
@@ -59,7 +65,7 @@
 	                });
 	
 	                document.getElementById("SalesTableBody").innerHTML = tbodyHTML;
-	                document.getElementById("SalesPagination").innerHTML = paginationHTML ? paginationHTML.match(/<div.*<\/div>/s)[0] : '';
+	                document.getElementById("SalesPagination").innerHTML = paginationHTML;
 	
 	            } else {
 	                alert("리스트 로딩 중 오류");
@@ -77,14 +83,28 @@
 			atEnd = document.getElementById('searchAtEnd').value;
 			var xhr = new XMLHttpRequest();
 		    xhr.onreadystatechange = function(){
-		        if(xhr.readyState === 4){
-		            if(xhr.status === 200){		                
-		                    document.getElementById("SalesTableBody").innerHTML = xhr.responseText;		                
-		            } else {
-		                alert("검색 중 오류");
-		            }
-		        }
-		    };
+			    if(xhr.readyState === 4){
+			        if(xhr.status === 200){
+			            var temp = document.createElement('div');
+			            temp.innerHTML = xhr.responseText;
+			
+			            var rows = temp.querySelectorAll('tr');
+			            var tbodyHTML = '';
+			            var paginationHTML = '';
+			
+			            rows.forEach(row => {
+			                if (row.querySelector('#SalesPagination')) {
+			                    paginationHTML = row.outerHTML;
+			                } else {
+			                    tbodyHTML += row.outerHTML;
+			                }
+			            });
+			
+			            document.getElementById("SalesTableBody").innerHTML = tbodyHTML;
+			            document.getElementById("SalesPagination").innerHTML = paginationHTML;
+			        }
+			    }
+			};
 		      // 기본 검색 시 페이지 1로 처리합니다.
 		      xhr.open("GET", contextPath + "/admin/list?type=" + listType + "&page=1" 
 		    		  + "&keyword=" + encodeURIComponent(keyword) 
