@@ -16,6 +16,8 @@ body {
 }
 
 a {
+	margin:0;
+	padding: 0;
 	text-decoration: none;
 }
       /* 상단 헤더 */
@@ -61,6 +63,7 @@ header {
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
+    line-height: 1.3;
 }
 .profile-icon {
     width: 60px;
@@ -76,6 +79,7 @@ header {
 .sidebar ul {
     list-style: none;
     padding: 0;
+    margin: 15px 0;
 }
 .sidebar ul li {
     border-bottom: 1px solid #343a40;

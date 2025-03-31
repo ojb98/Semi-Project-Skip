@@ -27,8 +27,8 @@ public class ResortSessionController extends HttpServlet{
 		String name = dto.getName();
 		try (SqlSession sqlSession = SqlSessionFactoryService.getSqlSessionFactory().openSession()) {
             ResortSalesManageMapper mapper = sqlSession.getMapper(ResortSalesManageMapper.class);
-            Integer RentID = mapper.getResortID(uuid);
-            session.setAttribute("RentalshopID", RentID);
+            Integer ResortID = mapper.getResortID(uuid);
+            session.setAttribute("ResortID", ResortID);
             session.setAttribute("name", name);
         }		
 		req.getRequestDispatcher("/resortAdmin/resortSaleManage.jsp").forward(req, resp);
