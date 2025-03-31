@@ -78,4 +78,10 @@
   <delete id="delete" parameterType="int">
   	delete from rentalshop_reviews where review_id=#{review_id}
   </delete>
+  
+  <!-- 렌탈샵 아이디 값 받아오기 -->
+  <select id="getRentalshopIdByReview" parameterType="int" resultType="rental.dto.RentalShopReviewDTO">
+  	select rentalshop_id from rentalshop where uuid = #{uuid}
+  </select>
+  
 </mapper>

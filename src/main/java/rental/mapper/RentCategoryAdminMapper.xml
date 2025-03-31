@@ -11,6 +11,7 @@
   </insert>
   
   <!-- 카테고리 전체조회(여러건) -->
+  <cache/>
   <select id="rcList" resultType="rental.dto.CategoryDTO">
   	select category_id,item_type,price_per_hour from 
   	ITEM_CATEGORY order by category_id desc

@@ -10,7 +10,7 @@
     </select>
 
     <select id="selectAvgRatingByResortId" parameterType="int" resultType="float">
-        select NVL(avg(rating),0)
+        select NVL(round(avg(rating),2),0)
         from resort_reviews
         where resort_id = #{resort_id}
     </select>
@@ -40,7 +40,7 @@
   	on r.uuid = u.uuid
   	where resort_id = #{resort_id}
   	order by review_id desc
-  </select>   
+  </select>
   
   <!-- 리조트 별 리뷰 리스트 (정렬 및 페이징) -->
   <select id="reviewArray" parameterType="map" resultType="resort.dto.ResortReviewDTO">

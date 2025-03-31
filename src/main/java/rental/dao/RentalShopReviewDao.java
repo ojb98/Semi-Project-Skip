@@ -151,4 +151,17 @@ public class RentalShopReviewDao {
 			if(sqlSession!=null) sqlSession.close();
 		}
 	}
+	
+	/* 렌탈샵아이디 값 받아오기 */
+	public RentalShopReviewDTO getRentalshopIdByReview(int uuid) {
+		SqlSession sqlSession = null;
+		
+		try {
+			sqlSession = sqlSessionFactory.openSession();
+			return sqlSession.selectOne(NAMESPACE + ".getRentalshopIdByReview", uuid);
+		}finally {
+			if(sqlSession!=null) sqlSession.close();
+		}
+	}
+	
 }

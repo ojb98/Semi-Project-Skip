@@ -13,6 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <title>관리자 페이지</title>
+    <jsp:include page="/rentalAdmin/header.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -109,31 +110,6 @@ function reservationDetailList(reservId) {
 </script>
 </head>
 <body>
-    <!-- 상단 헤더 -->
-    <header>
-        <div class="header-left">
-            <a href="${pageContext.request.contextPath}/admin/dashboard">
-                <h1>SKI:P</h1>
-            </a>
-        </div>
-    </header>
-    
-    <!-- 왼쪽 사이드바 -->
-    <aside class="sidebar">
-        <div class="sidebar-profile">
-            <img src="" alt="사진프로필" class="profile-icon">
-            <div class="admin-name">관리자님</div>
-        </div>
-        <ul>
-            <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalRegist.jsp">사업장등록신청</a></li>
-	        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalItemRegist.jsp">상품등록/관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalReservation.jsp">예약 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalQnA.jsp">문의 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalReview.jsp">리뷰 관리</a></li>
-	        <li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalSaleManage.jsp">매출관리/통계</a></li>
-        </ul>
-    </aside>
-    
     <!-- 메인 컨텐츠 영역 -->
     <main class="main-content">
     <!-- 상세정보 카드 영역 추가 -->

@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<settings>
+    	<setting name="logImpl" value="STDOUT_LOGGING" />
 		<!-- 캐시 활성화 -->
 		<setting name="cacheEnabled" value="true"/>
 	</settings>
@@ -13,7 +14,7 @@
 	    <transactionManager type="JDBC"/>
 	    <dataSource type="POOLED">
 	      <property name="driver" value="oracle.jdbc.OracleDriver"/>
-	      <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+	      <property name="url" value="jdbc:oracle:thin:@192.168.80.55:1521:xe"/>
 	      <property name="username" value="c##scott"/>
 	      <property name="password" value="tiger"/>
 	    </dataSource>
@@ -45,7 +46,7 @@
 		<mapper resource="resort/mapper/RoomMapper.xml"/>
 		<mapper resource="resort/mapper/FacilityMapper.xml"/>
 		<mapper resource="resort/mapper/ResortFacilityMapper.xml"/>
-	    
+	    <mapper resource="resort/mapper/ResortSalesManageMapper.xml"/>
 	    <!-- rental -->
 		<mapper resource="rental/mapper/RentalShopAdminMapper.xml" />
 		<mapper resource="rental/mapper/RentItemAdminMapper.xml" />
@@ -58,9 +59,11 @@
 		<mapper resource="rental/mapper/RentalShopReviewMapper.xml" />
 		<mapper resource="rental/mapper/CartItemMapper.xml" />
 		<mapper resource="rental/mapper/WishMapper.xml" />
-		
+
 		<mapper resource="rental/mapper/RentReservMapper.xml" />
 	    <mapper resource="rental/mapper/RentReservItemMapper.xml" />
+		<mapper resource="rental/mapper/RentalSalesManageMapper.xml"/>
+
 
 	    <!-- ski -->
 
