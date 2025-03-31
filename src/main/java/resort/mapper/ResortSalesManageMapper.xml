@@ -122,5 +122,11 @@
 	      AND p.created_at BETWEEN #{atStart} AND #{atEnd}
 	  </if>
     </select>
-    
+    <!-- (8) RESORT ID 얻어오기 -->
+    <select id="getRentalID" resultType="int" parameterType="int">
+		  select resort_id
+		  from resort r
+		  left join users u on u.uuid = r.uuid
+		  where u.uuid = #{uuid}
+	</select>
 </mapper>

@@ -129,4 +129,11 @@
 			    GROUP BY rp.payment_id
 			)
 	</select>
+	<!-- (8) RENTAL ID 얻어오기 -->
+	<select id="getRentalID" resultType="int" parameterType="int">
+		  select rentalshop_id
+		  from rentalshop r
+		  left join users u on u.uuid = r.uuid
+		  where u.uuid = #{uuid}
+	</select>
 </mapper>

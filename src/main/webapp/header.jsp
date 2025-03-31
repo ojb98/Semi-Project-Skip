@@ -27,13 +27,13 @@
 							<!-- 로그인한 역할을 보고 나오게 함 (choose) 사용'USER', 'SKI', 'RENTAL', 'RESORT', 'ADMIN' -->
 							<c:choose>
 								<c:when test="${user.role == 'SKI' }">
-									<li><a href="${pageContext.request.contextPath}/skiAdmin/skiAdminMain.jsp">관리자사이트</a></li>
+									<li><a href="${pageContext.request.contextPath}/skiAdmin/skiSaleManage1">관리자사이트</a></li>
 								</c:when>
 								<c:when test="${user.role == 'RENTAL' }">
-									<li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalAdminMain.jsp">관리자사이트</a></li>
+									<li><a href="${pageContext.request.contextPath}/rentalAdmin/rentalSaleManage1">관리자사이트</a></li>
 								</c:when>
 								<c:when test="${user.role == 'RESORT' }">
-									<li><a href="${pageContext.request.contextPath}/resortAdmin/resortAdminMain.jsp">관리자사이트</a></li>
+									<li><a href="${pageContext.request.contextPath}/resortAdmin/resortSaleManage1">관리자사이트</a></li>
 								</c:when>
 								<c:when test="${user.role == 'ADMIN' }">
 									<li><a href="${pageContext.request.contextPath}/admin/resortAdminMain.jsp">관리자사이트</a></li>

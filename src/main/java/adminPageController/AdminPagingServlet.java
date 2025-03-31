@@ -39,9 +39,7 @@ public class AdminPagingServlet extends HttpServlet {
         Integer skiID = (Integer) req.getSession().getAttribute("skiID");
         Integer rentalID = (Integer) req.getSession().getAttribute("rentalID");
         Integer resortID = (Integer) req.getSession().getAttribute("resortID");
-        if (skiID == null) {
-            skiID = 1; // 기본값 설정
-        }
+       
         
         if (filter == null || filter.trim().isEmpty()) {
             filter = "name"; // 기본 필터 설정
