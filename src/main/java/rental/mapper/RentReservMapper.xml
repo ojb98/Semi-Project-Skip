@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rental.mapper.RentReservMapper">
+	
+	<!-- 스키장 예약 등록 -->
+	<insert id="rentReservInsert" parameterType="rental.dto.RentReservDTO">
+		insert into RENTAL_RESERVATION(rent_reserv_id,rentalshop_id,uuid,rental_start,rental_end,total_price,status,created_at) 
+		values(RENTAL_RESERVATION_SEQ.NEXTVAL,#{rentalshop_id},#{uuid},#{rental_start},#{rental_end},#{total_price},'예약완료',sysdate)
+	</insert>
+	
+	<!-- 현재 예약고유아이디 조회 -->
+	<select id="getRentReservId" resultType="int">
+	    select RENTAL_RESERVATION_SEQ.currval from dual
+	</select>
+	
+</mapper>

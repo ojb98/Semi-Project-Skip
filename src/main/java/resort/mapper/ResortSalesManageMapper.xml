@@ -20,7 +20,7 @@
 	        p.status,
 	        p.created_at
 	    FROM
-	        PAYMENTS p
+	        RESORT_PAYMENTS p
 	        LEFT JOIN USERS u ON p.uuid = u.uuid
 	        LEFT JOIN ROOM_RESERVATION rr ON p.resort_reserv_id = rr.resort_reserv_id
 	        LEFT JOIN ROOM R ON r.room_id = rr.room_id 
@@ -42,7 +42,7 @@
     <!-- (2) 총 매출 -->
     <select id="getTotalSale" resultType="int" parameterType="map">
     	SELECT NVL(SUM(p.total_price),0)
-    	FROM PAYMENTS p 
+    	FROM resort_payments p 
         LEFT JOIN ROOM_RESERVATION rr ON p.resort_reserv_id = rr.resort_reserv_id
         LEFT JOIN ROOM R ON r.room_id = rr.room_id 
     	WHERE r.resort_id = #{resortID} AND rr.status != '예약취소'
@@ -58,8 +58,7 @@
 	    SUM(NVL(p.total_price, 0)) AS total_sales
 	  FROM ROOM_RESERVATION rr
 	  JOIN ROOM r ON rr.room_id = r.room_id
-	  JOIN PAYMENTS p ON p.resort_reserv_id = rr.resort_reserv_id
-	  
+	  JOIN RESORT_PAYMENTS p ON p.resort_reserv_id = rr.resort_reserv_id
 	    <if test="resortID != null">
 	      AND r.resort_id = #{resortID}
 	    </if>
@@ -74,10 +73,10 @@
     <!-- (4) 예약 완료 건수 -->
     <select id="getConfirmReserv" resultType="int" parameterType="map">
     	SELECT NVL(count(*),0)
-    	FROM PAYMENTS p 
+    	FROM resort_payments p 
         LEFT JOIN ROOM_RESERVATION rr ON p.resort_reserv_id = rr.resort_reserv_id
         LEFT JOIN ROOM R ON r.room_id = rr.room_id 
-    	WHERE r.resort_id = #{resortID} AND rr.status = '예약완료'    
+    	WHERE r.resort_id = #{resortID} AND rr.status = '예약완료'  
    		<if test="atStart != null and atEnd != null">
 	        AND p.created_at BETWEEN #{atStart} AND #{atEnd}
 		</if> 	 	
@@ -86,7 +85,7 @@
     <!-- (5) 예약 취소 건수 -->
     <select id="getCancleReserv" resultType="int" parameterType="map">
     	SELECT NVL(count(*),0)
-    	FROM PAYMENTS p 
+    	FROM resort_payments p 
         LEFT JOIN ROOM_RESERVATION rr ON p.resort_reserv_id = rr.resort_reserv_id
         LEFT JOIN ROOM R ON r.room_id = rr.room_id 
     	WHERE r.resort_id = #{resortID} AND rr.status = '예약취소'
@@ -101,7 +100,7 @@
 	    TO_CHAR(p.created_at, 'MM/DD') AS salesDate,
 	    COUNT(*) AS count,
 	    SUM(p.total_price) AS amount
-	  FROM PAYMENTS p
+	  FROM resort_payments p
 	  JOIN ROOM_RESERVATION rr ON p.resort_reserv_id = rr.resort_reserv_id
 	  LEFT JOIN ROOM R ON r.room_id = rr.room_id 
 	  WHERE r.resort_id = #{resortID}
@@ -114,7 +113,7 @@
 	<!-- (7) 테이블 리스트 출력조건 (결제취소가 아닌 건수) -->
 	<select id="getConfirmedTotalCount" resultType="int" parameterType="map">
 	  SELECT NVL(count(*), 0)
-	  FROM PAYMENTS p
+	  FROM resort_payments p
 	  LEFT JOIN ROOM_RESERVATION rr ON p.resort_reserv_id = rr.resort_reserv_id
 	  LEFT JOIN ROOM r ON r.room_id = rr.room_id
 	  WHERE r.resort_id = #{resortID} AND p.status != '결제취소'
