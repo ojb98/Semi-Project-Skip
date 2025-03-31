@@ -21,7 +21,7 @@
 	    FROM
 	        RESORT_PAYMENTS rp
 	        LEFT JOIN USERS u ON rp.uuid = u.uuid
-	        LEFT JOIN RESORT_RESERVATION rr ON rp.resort_reserv_id = rr.resort_reserv_id
+	        LEFT JOIN room_RESERVATION rr ON rp.resort_reserv_id = rr.resort_reserv_id
 	    <where>
 	        <if test="resortID != null">
 	            rr.resort_id = #{resortID}
@@ -42,7 +42,7 @@
     <select id="getTotalSale" resultType="int" parameterType="map">
     	SELECT NVL(SUM(rp.total_price),0)
     	FROM resort_payments rp 
-        LEFT JOIN resort_reservation rr ON rp.resort_reserv_id = rr.resort_reserv_id
+        LEFT JOIN room_reservation rr ON rp.resort_reserv_id = rr.resort_reserv_id
     	WHERE rr.resort_id = #{resortID} AND rr.status != '취소'
     	<if test="atStart != null and atEnd != null">
 		    AND rp.created_at BETWEEN #{atStart} AND #{atEnd}
@@ -54,9 +54,9 @@
 	  SELECT 	
 	    ic.item_type AS category,
 	    SUM(NVL(rri.subtotal_price, 0)) AS total_sales
-	  FROM resort_reservation_item rri
+	  FROM room_reservation_item rri
 	  JOIN resort_item ri ON rri.item_id = ri.item_id
-	  JOIN resort_reservation rr ON rri.resort_reserv_id = rr.resort_reserv_id
+	  JOIN room_reservation rr ON rri.resort_reserv_id = rr.resort_reserv_id
 	  JOIN resort_payments rp ON rp.resort_reserv_id = rr.resort_reserv_id
 	  JOIN item_category ic ON ri.category_id = ic.category_id
 	  WHERE 1=1
@@ -75,7 +75,7 @@
     <select id="getConfirmReserv" resultType="int" parameterType="map">
     	SELECT NVL(count(*),0)
     	FROM resort_payments rp 
-        LEFT JOIN resort_reservation rr ON rp.resort_reserv_id = rr.resort_reserv_id
+        LEFT JOIN room_reservation rr ON rp.resort_reserv_id = rr.resort_reserv_id
     	WHERE rr.resort_id = #{resortID} AND rr.status = '예약완료'    
    		<if test="atStart != null and atEnd != null">
 	        AND rp.created_at BETWEEN #{atStart} AND #{atEnd}
@@ -86,7 +86,7 @@
     <select id="getCancleReserv" resultType="int" parameterType="map">
     	SELECT NVL(count(*),0)
     	FROM resort_payments rp 
-        LEFT JOIN resort_reservation rr ON rp.resort_reserv_id = rr.resort_reserv_id
+        LEFT JOIN room_reservation rr ON rp.resort_reserv_id = rr.resort_reserv_id
     	WHERE rr.resort_id = #{resortID} AND rr.status = '취소' 
    		<if test="atStart != null and atEnd != null">
 	        AND rp.created_at BETWEEN #{atStart} AND #{atEnd}
@@ -100,7 +100,7 @@
 	    COUNT(*) AS count,
 	    SUM(rp.total_price) AS amount
 	  FROM resort_payments rp
-	  JOIN resort_reservation rr ON rp.resort_reserv_id = rr.resort_reserv_id
+	  JOIN room_reservation rr ON rp.resort_reserv_id = rr.resort_reserv_id
 	  WHERE rr.resort_id = #{resortID}
 	    AND rp.created_at BETWEEN TO_DATE(#{atStart}, 'YYYY-MM-DD') 
                                       AND TO_DATE(#{atEnd}, 'YYYY-MM-DD')
@@ -112,7 +112,7 @@
 	<select id="getConfirmedTotalCount" resultType="int" parameterType="map">
 	  SELECT NVL(count(*), 0)
 	  FROM resort_payments rp
-	  LEFT JOIN resort_reservation rr ON rp.resort_reserv_id = rr.resort_reserv_id
+	  LEFT JOIN room_reservation rr ON rp.resort_reserv_id = rr.resort_reserv_id
 	  WHERE rr.resort_id = #{resortID} AND rp.status != '결제취소'
 	  <if test="atStart != null and atEnd != null">
 	      AND rp.created_at BETWEEN #{atStart} AND #{atEnd}
