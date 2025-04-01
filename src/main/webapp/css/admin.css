@@ -80,6 +80,7 @@ header {
     list-style: none;
     padding: 0;
     margin: 15px 0;
+    line-height: 1;
 }
 .sidebar ul li {
     border-bottom: 1px solid #343a40;
