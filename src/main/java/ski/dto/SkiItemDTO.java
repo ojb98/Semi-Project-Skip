@@ -1,8 +1,10 @@
 package ski.dto;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class SkiItemDTO {
+public class SkiItemDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
     private int item_id;
     private int category_id;
     private int ski_id;

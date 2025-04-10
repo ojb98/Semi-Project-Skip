@@ -19,13 +19,13 @@
 <!-- 메인 컨텐츠 영역 -->
 <main class="main-content">
 
-<h1>렌탈샵 장비등록</h1>
+<h1>스키장 장비등록</h1>
 <div class="form-container">
 <form id="itemInsertForm" action="${pageContext.request.contextPath }/adminSkiItem/insert"
 	method="post" enctype="multipart/form-data" onsubmit="return checkData(event)">
 	<input type="hidden" name="ski_id" value="${param.ski_id }">
 	
-	<label for="name">렌탈샵명</label>
+	<label for="name">스키장명</label>
 	<input type="text" name="name" id="name" value="${param.name }" readonly="readonly"><br>
 	
 	<label for="itemName">장비이름</label>

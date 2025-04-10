@@ -34,6 +34,7 @@
   </resultMap>
   
   <!-- 렌탈샵 기준 장비유형 + 카테고리 조인(상세정보) : 페이징 처리를 위한 쿼리 -->
+  <cache/>
   <select id="itemCategoryList" parameterType="map" resultMap="itemlistAll">
   select * from(
   	select t.*, ROWNUM rnum from(

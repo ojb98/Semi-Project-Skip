@@ -1,8 +1,10 @@
 package ski.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SkiItemCategoryListDTO {
+public class SkiItemCategoryListDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int category_id;
 	private String item_type;
 	private int price_per_hour;   //시간당 대여 가격	

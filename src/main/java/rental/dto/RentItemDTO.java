@@ -1,8 +1,10 @@
 package rental.dto;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class RentItemDTO {
+public class RentItemDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int item_id;
 	private int category_id;
 	private int rentalshop_id;
